@@ -7,7 +7,6 @@
 #define LEDStripsS 8
 #define SeriesS 128
 #define SeriesidS SeriesS
-#define SeriesAmbiLightS SeriesS
 #define BaudRate 1000000
 
 void setup() 
