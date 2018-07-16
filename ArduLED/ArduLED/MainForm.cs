@@ -62,11 +62,18 @@ namespace ArduLEDNameSpace
 
             InitializeBass();
 
-            SetLoadingLabelTo("Instructions");
+            SetLoadingLabelTo("Instructions folder");
 
             if (!Directory.Exists(Directory.GetCurrentDirectory() + "\\Instructions"))
             {
                 Directory.CreateDirectory(Directory.GetCurrentDirectory() + "\\Instructions");
+            }
+
+            SetLoadingLabelTo("Setup folder");
+
+            if (!Directory.Exists(Directory.GetCurrentDirectory() + "\\Setup"))
+            {
+                Directory.CreateDirectory(Directory.GetCurrentDirectory() + "\\Setup");
             }
 
             SetLoadingLabelTo("Language Packs");
@@ -1527,7 +1534,12 @@ namespace ArduLEDNameSpace
 
         double TransformToPoint(string _InputEquation, int _XValue)
         {
-            string[] Split = _InputEquation.ToLower().Replace("x", _XValue.ToString()).Replace(".", ",").Split(' ');
+            string TransformedInputString = _InputEquation.ToLower().Replace("x", _XValue.ToString()).Replace(".", ",");
+            if (TransformedInputString.Contains(" "))
+            {
+                TransformedInputString.Replace(" ","");
+            }
+            string[] Split = System.Text.RegularExpressions.Regex.Split(TransformedInputString, string.Empty);
             List<string> EquationParts = new List<string>();
             foreach (string Part in Split)
             {
@@ -1542,7 +1554,7 @@ namespace ArduLEDNameSpace
                     int EndIndex = EquationParts.FindIndex(s => s.Equals(")"));
                     string ComputeString = "";
                     for (int i = StartIndex + 1; i < EndIndex; i++)
-                        ComputeString += EquationParts[i] + " ";
+                        ComputeString += EquationParts[i];
                     EquationParts[StartIndex] = TransformToPoint(ComputeString, _XValue).ToString();
                     EquationParts.RemoveRange(StartIndex + 1, EndIndex - StartIndex);
                 }
@@ -1821,7 +1833,7 @@ namespace ArduLEDNameSpace
                 EndG = (int)WaveChart.Series[1].Points[EndValue].YValues[0];
                 EndB = (int)WaveChart.Series[2].Points[EndValue].YValues[0];
 
-                AutoTrigger(EndR, EndG, EndB);
+                AutoTrigger(((float)Hit / ((float)BeatZoneToTrackBar.Value - (float)BeatZoneFromTrackBar.Value)) * 255, ((float)Hit / ((float)BeatZoneToTrackBar.Value - (float)BeatZoneFromTrackBar.Value)) * 255, ((float)Hit / ((float)BeatZoneToTrackBar.Value - (float)BeatZoneFromTrackBar.Value)) * 255);
 
                 if (EndR > 255)
                     EndR = 0;
