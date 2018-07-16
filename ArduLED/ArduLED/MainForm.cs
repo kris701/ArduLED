@@ -1534,16 +1534,68 @@ namespace ArduLEDNameSpace
 
         double TransformToPoint(string _InputEquation, int _XValue)
         {
-            string TransformedInputString = _InputEquation.ToLower().Replace("x", _XValue.ToString()).Replace(".", ",");
-            if (TransformedInputString.Contains(" "))
-            {
-                TransformedInputString.Replace(" ","");
-            }
-            string[] Split = System.Text.RegularExpressions.Regex.Split(TransformedInputString, string.Empty);
+            string TransformedInputString = _InputEquation.ToLower().Replace("x", _XValue.ToString()).Replace(".", ",").Replace(" ", "");
+            string[] Split = System.Text.RegularExpressions.Regex.Split(TransformedInputString, @"(?<=[()^*/+-])");
             List<string> EquationParts = new List<string>();
-            foreach (string Part in Split)
+            foreach(string s in Split)
             {
-                EquationParts.Add(Part);
+                EquationParts.Add(s);
+            }
+
+            if (EquationParts[0] == "-")
+            {
+                EquationParts[0] = "-" + EquationParts[1];
+                EquationParts.RemoveAt(1);
+            }
+            if (EquationParts[0] == "+")
+            {
+                EquationParts.RemoveAt(0);
+            }
+
+            for (int i = 0; i < EquationParts.Count; i++)
+            {
+                if (EquationParts[i].Contains("(") && EquationParts[i].Length > 1)
+                {
+                    EquationParts.Insert(i + 1, EquationParts[i].Replace(EquationParts[i].Replace("(", ""), ""));
+                    EquationParts[i] = EquationParts[i].Replace("(", "");
+                    i = 0;
+                }
+                if (EquationParts[i].Contains(")") && EquationParts[i].Length > 1)
+                {
+                    EquationParts.Insert(i + 1, EquationParts[i].Replace(EquationParts[i].Replace(")", ""), ""));
+                    EquationParts[i] = EquationParts[i].Replace(")", "");
+                    i = 0;
+                }
+                if (EquationParts[i].Contains("^") && EquationParts[i].Length > 1)
+                {
+                    EquationParts.Insert(i + 1, EquationParts[i].Replace(EquationParts[i].Replace("^", ""), ""));
+                    EquationParts[i] = EquationParts[i].Replace("^", "");
+                    i = 0;
+                }
+                if (EquationParts[i].Contains("*") && EquationParts[i].Length > 1)
+                {
+                    EquationParts.Insert(i + 1, EquationParts[i].Replace(EquationParts[i].Replace("*", ""), ""));
+                    EquationParts[i] = EquationParts[i].Replace("*", "");
+                    i = 0;
+                }
+                if (EquationParts[i].Contains("/") && EquationParts[i].Length > 1)
+                {
+                    EquationParts.Insert(i + 1, EquationParts[i].Replace(EquationParts[i].Replace("/", ""), ""));
+                    EquationParts[i] = EquationParts[i].Replace("/", "");
+                    i = 0;
+                }
+                if (EquationParts[i].Contains("+") && EquationParts[i].Length > 1)
+                {
+                    EquationParts.Insert(i + 1, EquationParts[i].Replace(EquationParts[i].Replace("+", ""), ""));
+                    EquationParts[i] = EquationParts[i].Replace("+", "");
+                    i = 0;
+                }
+                if (EquationParts[i].Contains("-") && EquationParts[i].Length > 1 && i != 0)
+                {
+                    EquationParts.Insert(i + 1, EquationParts[i].Replace(EquationParts[i].Replace("-", ""), ""));
+                    EquationParts[i] = EquationParts[i].Replace("-", "");
+                    i = 0;
+                }
             }
 
             try
