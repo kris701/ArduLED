@@ -1,0 +1,178 @@
+MenuModeLabel;Lucida Console;11;Mode
+MenuSelectComDeviceLabel;Lucida Console;11;Select COM device
+MenuExitButton;Lucida Console;8;X
+MenuConnectButton;Lucida Console;8;Connect
+MenuButton;Lucida Console;8;ArduLED
+LanguageComboBox;Lucida Console;8;
+
+ModeSelectrionComboBox;Lucida Console;8;
+INDEXNAMES;ModeSelectrionComboBox;Fade Colors;Visualizer;Individual Colors;Indstructions Mode;Configure Setup
+
+FadeColorsRedTopLabel;Lucida Console;11;Red
+FadeColorsGreenTopLabel;Lucida Console;11;Green
+FadeColorsBlueTopLabel;Lucida Console;11;Blue
+
+FadeColorsRedLabel;Lucida Console;11;255
+FadeColorsGreenLabel;Lucida Console;11;255
+FadeColorsBlueLabel;Lucida Console;11;255
+
+FadeColorsFadeSpeedLabel;Lucida Console;11;Fade Speed (ms)
+FadeColorsFadeFactorLabel;Lucida Console;11;Fade Factor
+FadeColorsBrightnessLabel;Lucida Console;11;Brightness: XXXX
+
+FadeColorsFadeSpeedNumericUpDown;Lucida Console;8;10
+FadeColorsFadeFactorNumericUpDown;Lucida Console;8;0,10
+
+
+ConfigureSetupAutoSendCheckBox;Lucida Console;8;Auto send current setup next time
+ConfigureSetupTopLabel;Lucida Console;16;Configure Setup
+POSSIBLE;MakeLEDPanelDeleteButton;Lucida Console;5;x
+POSSIBLE;MakeLEDPanelStripIDLabel;Lucida Console;7;
+POSSIBLE;MakeLEDPanelStripLEDIDLabel;Lucida Console;7;
+POSSIBLE;MakeLEDPanelStripLEDIDButton;Lucida Console;5;
+
+SaveSetupButton;Lucida Console;8;Save Setup
+LoadSetupButton;Lucida Console;8;Load A Setup
+SendSetupButton;Lucida Console;8;Send Setup
+
+ConfigureSetupAddStripXDirLabel;Lucida Console;11;X
+ConfigureSetupAddStripXDir;Lucida Console;8;0
+ConfigureSetupAddStripYDirLabel;Lucida Console;11;Y
+ConfigureSetupAddStripYDir;Lucida Console;8;0
+ConfigureSetupAddStripFromLEDIDLabel;Lucida Console;11;From ID
+ConfigureSetupAddStripFromLEDID;Lucida Console;8;0
+ConfigureSetupAddStripPinIDLabel;Lucida Console;11;Pin
+ConfigureSetupAddStripPinID;Lucida Console;8;0
+
+PixelTypeComboBoxLabel;Lucida Console;11;Pixel Type
+PixelTypeComboBox;Lucida Console;8;
+INDEXNAMES;PixelTypeComboBox;NEO_GRB;NEO_RGB
+PixelBitstreamComboBoxLabel;Lucida Console;11;Bitstream
+PixelBitstreamComboBox;Lucida Console;8;
+INDEXNAMES;PixelBitstreamComboBox;NEO_KHZ800;NEO_KHZ400
+
+AddLEDStripButton;Lucida Console;8;Add Strip
+ConfigureSetupAddStripInvertX;Lucida Console;8;Invert x
+ConfigureSetupAddStripInvertY;Lucida Console;8;Invert y
+
+
+POSSIBLE;InstructionsInstructionPanelRemoveButton;Lucida Console;8;X
+POSSIBLE;InstructionsInstructionPanelMoveUpButton;Lucida Console;8;^
+POSSIBLE;InstructionsInstructionPanelMoveDownButton;Lucida Console;8;v
+POSSIBLE;InstructionsInstructionPanelInfoTextBox;Lucida Console;8;
+
+InstructionsModeTopLabel;Lucida Console;16;Instructions Mode
+InstructionsModeAddItemsLabel;Lucida Console;16;Add Items
+InstructionsAddDelayButton;Lucida Console;8;Delay
+InstructionsAddFadeColorsButton;Lucida Console;8;Fade Colors
+InstructionsLoopCheckBox;Lucida Console;8;Loop
+InstructionStartLoopButton;Lucida Console;8;Start
+InstructionStopLoopButton;Lucida Console;8;Stop
+InstructionsModeSaveButton;Lucida Console;8;Save Instructions
+InstructionsModeLoadButton;Lucida Console;8;Load Instructions
+
+InstructionsAddFadeColorsTopLabel;Lucida Console;16;Fade Colors
+InstructionsAddFadeColorsAddButton;Lucida Console;8;Add
+InstructionsAddFadeColorsRedNameLabel;Lucida Console;11;Red
+InstructionsAddFadeColorsGreenNameLabel;Lucida Console;11;Green
+InstructionsAddFadeColorsBlueNameLabel;Lucida Console;11;Blue
+InstructionsAddFadeColorsRedLabel;Lucida Console;11;255
+InstructionsAddFadeColorsGreenLabel;Lucida Console;11;255
+InstructionsAddFadeColorsBlueLabel;Lucida Console;11;255
+InstructionsAddFadeColorsFadeSpeedLabel;Lucida Console;11;Fade Speed (ms)
+InstructionsAddFadeColorsFadeSpeedNumericUpDown;Lucida Console;8;10
+InstructionsAddFadeColorsFadeFactorLabel;Lucida Console;11;Fade Factor
+InstructionsAddFadeColorsFadeFactorNumericUpDown;Lucida Console;8;0,10
+
+InstructionsAddDelayTopLabel;Lucida Console;16;Delay
+InstructionsAddDelayLabel;Lucida Console;11;Select delay (ms)
+InstructionsAddDelayNoteLabel;Lucida Console;11;(delay should be no less than 10 ms)
+InstructionsAddDelayNumericUpDown;Lucida Console;8;0
+InstructionsAddDelayAddButton;Lucida Console;8;Add
+
+
+IndividualLEDTopLabel;Lucida Console;16;Individual LED Control
+
+IndividualLEDRedNameLabel;Lucida Console;11;Red
+IndividalLEDRedLabel;Lucida Console;11;255
+IndividualLEDGreenNameLabel;Lucida Console;11;Green
+IndividalLEDGreenLabel;Lucida Console;11;255
+IndividualLEDBlueNameLabel;Lucida Console;11;Blue
+IndividalLEDBlueLabel;Lucida Console;11;255
+
+ColorEntireLEDStripCheckBox;Lucida Console;8;Color Entire Strip
+
+
+VisualizerTopLabel;Lucida Console;16;Visualizer Settings
+AudioSourceLabel;Lucida Console;12;Select Audio Source
+AudioSourceComboBox;Lucida Console;8;
+INDEXNAMES;VisualizationTypeComboBox;Beat;Spectrum Beat;Spectrum Wave;Beat Wave;Full Spectrum
+
+VisualizationTypeLabel;Lucida Console;12;Visualization type (def: Beat)
+VisualizationTypeComboBox;Lucida Console;8;
+
+VisualSamplesLabel;Lucida Console;12;Visual Samples (def: 128)
+VisualSamplesNumericUpDown;Lucida Console;8;
+
+AudioSampleRateLabel;Lucida Console;12;Audio Samples (def: 16384)
+AudioSampleRateComboBox;Lucida Console;8;
+
+SensitivityTopLabel;Lucida Console;12;Sensitivity (def: 3)
+SensitivityLabel;Lucida Console;12;3
+
+SmoothnessTopLabel;Lucida Console;12;Smoothness (def: 1)
+SmoothnessLabel;Lucida Console;12;1
+
+SampleTimeTopLabel;Lucida Console;12;Sample Time (def: 25)
+SampleTimeLabel;Lucida Console;12;25
+
+BeatZoneTriggerHeightLabel;Lucida Console;12;Trigger at:  75
+BeatZoneTopLabel;Lucida Console;12;Beat Zone
+
+AutoTriggerMaxNumericUpDown;Lucida Console;8;
+AutoTriggerMaxLabel;Lucida Console;7;Max:
+
+AutoTriggerMinNumericUpDown;Lucida Console;8;
+AutoTriggerMinLabel;Lucida Console;7;Min:
+
+AutoTriggerCheckBox;Lucida Console;8;Auto Trigger
+
+BeatZoneFromLabel;Lucida Console;12;From: XXX
+
+BeatZoneToLabel;Lucida Console;12;To: XXX
+
+AutoTriggerDecreseAtNumericUpDown;Lucida Console;8;
+AutoTriggerDecreseAtLabel;Lucida Console;8;Decrease trigger level at <
+AutoTriggerIncreseAtNumericUpDown;Lucida Console;8;
+AutoTriggerIncreseAtLabel;Lucida Console;8;Increase trigger level at >
+VisualizerCurrentValueLabel;Lucida Console;8;0
+
+SpectrumTopLabel;Lucida Console;12;Spectrum Beat/Wave Settings
+
+SpectrumRedLabel;Lucida Console;8;Red formular:
+SpectrumRedTextBox;Lucida Console;8;
+
+SpectrumGreenLabel;Lucida Console;8;Green formular:
+SpectrumGreenTextBox;Lucida Console;8;
+
+SpectrumBlueLabel;Lucida Console;8;Blue formular:
+SpectrumBlueTextBox;Lucida Console;8;
+
+UpdateSpectrumButton;Lucida Console;8;Update
+
+WaveTopLabel;Lucida Console;12;Wave Beat Settings
+
+WaveRedLabel;Lucida Console;8;Red formular:
+WaveRedTextBox;Lucida Console;8;
+
+WaveGreenLabel;Lucida Console;8;Green formular:
+WaveGreenTextBox;Lucida Console;8;
+
+WaveBlueLabel;Lucida Console;8;Blue formular:
+WaveBlueTextBox;Lucida Console;8;
+
+UpdateWaveButton;Lucida Console;8;Update
+
+FullSpectrumTopLabel;Lucida Console;12;Full Spectrum Settings
+FullSpectrumLabel;Lucida Console;8;Sample Spacing
+FullSpectrumNumericUpDown;Lucida Console;8;

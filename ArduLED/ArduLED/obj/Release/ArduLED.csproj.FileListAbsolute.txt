@@ -1,0 +1,10 @@
+C:\Users\kris7\OneDrive\Programming stuff\C#\Finished Projects\ArduLED\ArduLED\bin\Release 64x\ArduLED.exe.config
+C:\Users\kris7\OneDrive\Programming stuff\C#\Finished Projects\ArduLED\ArduLED\bin\Release 64x\ArduLED.exe
+C:\Users\kris7\OneDrive\Programming stuff\C#\Finished Projects\ArduLED\ArduLED\bin\Release 64x\Bass.Net.dll
+C:\Users\kris7\OneDrive\Programming stuff\C#\Finished Projects\ArduLED\ArduLED\obj\Release\ArduLEDNameSpace.MainForm.resources
+C:\Users\kris7\OneDrive\Programming stuff\C#\Finished Projects\ArduLED\ArduLED\obj\Release\ArduLEDNameSpace.Loading.resources
+C:\Users\kris7\OneDrive\Programming stuff\C#\Finished Projects\ArduLED\ArduLED\obj\Release\ArduLEDNameSpace.Properties.Resources.resources
+C:\Users\kris7\OneDrive\Programming stuff\C#\Finished Projects\ArduLED\ArduLED\obj\Release\ArduLED.csproj.GenerateResource.cache
+C:\Users\kris7\OneDrive\Programming stuff\C#\Finished Projects\ArduLED\ArduLED\obj\Release\ArduLED.csproj.CoreCompileInputs.cache
+C:\Users\kris7\OneDrive\Programming stuff\C#\Finished Projects\ArduLED\ArduLED\obj\Release\ArduLED.csproj.CopyComplete
+C:\Users\kris7\OneDrive\Programming stuff\C#\Finished Projects\ArduLED\ArduLED\obj\Release\ArduLED.exe
