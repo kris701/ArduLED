@@ -204,6 +204,8 @@
             this.ConfigureSetupWorkingPanel = new System.Windows.Forms.Panel();
             this.ConfigureSetupAutoSendCheckBox = new System.Windows.Forms.CheckBox();
             this.ConfigureSetupHiddenProgressBar = new System.Windows.Forms.ProgressBar();
+            this.WaveAutoScaleValuesCheckBox = new System.Windows.Forms.CheckBox();
+            this.SpectrumAutoScaleValuesCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.SampleTimeTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SmoothnessTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SensitivityTrackBar)).BeginInit();
@@ -840,6 +842,7 @@
             // 
             this.WavePanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.WavePanel.Controls.Add(this.BeatWaveProgressBar);
+            this.WavePanel.Controls.Add(this.WaveAutoScaleValuesCheckBox);
             this.WavePanel.Controls.Add(this.WaveTopLabel);
             this.WavePanel.Controls.Add(this.UpdateWaveButton);
             this.WavePanel.Controls.Add(this.WaveChart);
@@ -857,11 +860,11 @@
             // BeatWaveProgressBar
             // 
             this.BeatWaveProgressBar.ForeColor = System.Drawing.Color.Red;
-            this.BeatWaveProgressBar.Location = new System.Drawing.Point(50, 169);
+            this.BeatWaveProgressBar.Location = new System.Drawing.Point(50, 166);
             this.BeatWaveProgressBar.MarqueeAnimationSpeed = 99999;
             this.BeatWaveProgressBar.Maximum = 765;
             this.BeatWaveProgressBar.Name = "BeatWaveProgressBar";
-            this.BeatWaveProgressBar.Size = new System.Drawing.Size(285, 23);
+            this.BeatWaveProgressBar.Size = new System.Drawing.Size(285, 14);
             this.BeatWaveProgressBar.Step = 1;
             this.BeatWaveProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.BeatWaveProgressBar.TabIndex = 55;
@@ -929,7 +932,7 @@
             this.WaveRedTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.WaveRedTextBox.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.WaveRedTextBox.ForeColor = System.Drawing.Color.White;
-            this.WaveRedTextBox.Location = new System.Drawing.Point(134, 199);
+            this.WaveRedTextBox.Location = new System.Drawing.Point(134, 211);
             this.WaveRedTextBox.Name = "WaveRedTextBox";
             this.WaveRedTextBox.Size = new System.Drawing.Size(209, 11);
             this.WaveRedTextBox.TabIndex = 21;
@@ -952,7 +955,7 @@
             // WaveRedLabel
             // 
             this.WaveRedLabel.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.WaveRedLabel.Location = new System.Drawing.Point(0, 201);
+            this.WaveRedLabel.Location = new System.Drawing.Point(0, 213);
             this.WaveRedLabel.Name = "WaveRedLabel";
             this.WaveRedLabel.Size = new System.Drawing.Size(128, 13);
             this.WaveRedLabel.TabIndex = 49;
@@ -962,7 +965,7 @@
             // WaveGreenLabel
             // 
             this.WaveGreenLabel.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.WaveGreenLabel.Location = new System.Drawing.Point(0, 227);
+            this.WaveGreenLabel.Location = new System.Drawing.Point(0, 233);
             this.WaveGreenLabel.Name = "WaveGreenLabel";
             this.WaveGreenLabel.Size = new System.Drawing.Size(128, 13);
             this.WaveGreenLabel.TabIndex = 51;
@@ -975,7 +978,7 @@
             this.WaveGreenTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.WaveGreenTextBox.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.WaveGreenTextBox.ForeColor = System.Drawing.Color.White;
-            this.WaveGreenTextBox.Location = new System.Drawing.Point(134, 225);
+            this.WaveGreenTextBox.Location = new System.Drawing.Point(134, 231);
             this.WaveGreenTextBox.Name = "WaveGreenTextBox";
             this.WaveGreenTextBox.Size = new System.Drawing.Size(209, 11);
             this.WaveGreenTextBox.TabIndex = 22;
@@ -985,6 +988,7 @@
             // SpectrumPanel
             // 
             this.SpectrumPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.SpectrumPanel.Controls.Add(this.SpectrumAutoScaleValuesCheckBox);
             this.SpectrumPanel.Controls.Add(this.SpectrumTopLabel);
             this.SpectrumPanel.Controls.Add(this.UpdateSpectrumButton);
             this.SpectrumPanel.Controls.Add(this.SpectrumChart);
@@ -1002,7 +1006,7 @@
             // SpectrumTopLabel
             // 
             this.SpectrumTopLabel.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SpectrumTopLabel.Location = new System.Drawing.Point(4, 7);
+            this.SpectrumTopLabel.Location = new System.Drawing.Point(4, 1);
             this.SpectrumTopLabel.Name = "SpectrumTopLabel";
             this.SpectrumTopLabel.Size = new System.Drawing.Size(353, 16);
             this.SpectrumTopLabel.TabIndex = 47;
@@ -1035,7 +1039,7 @@
             chartArea3.BackColor = System.Drawing.Color.Silver;
             chartArea3.Name = "ChartArea1";
             this.SpectrumChart.ChartAreas.Add(chartArea3);
-            this.SpectrumChart.Location = new System.Drawing.Point(0, 21);
+            this.SpectrumChart.Location = new System.Drawing.Point(0, 15);
             this.SpectrumChart.Name = "SpectrumChart";
             series3.ChartArea = "ChartArea1";
             series3.Color = System.Drawing.Color.White;
@@ -1062,7 +1066,7 @@
             this.SpectrumRedTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.SpectrumRedTextBox.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SpectrumRedTextBox.ForeColor = System.Drawing.Color.White;
-            this.SpectrumRedTextBox.Location = new System.Drawing.Point(134, 175);
+            this.SpectrumRedTextBox.Location = new System.Drawing.Point(134, 187);
             this.SpectrumRedTextBox.Name = "SpectrumRedTextBox";
             this.SpectrumRedTextBox.Size = new System.Drawing.Size(209, 11);
             this.SpectrumRedTextBox.TabIndex = 21;
@@ -1085,7 +1089,7 @@
             // SpectrumRedLabel
             // 
             this.SpectrumRedLabel.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SpectrumRedLabel.Location = new System.Drawing.Point(0, 177);
+            this.SpectrumRedLabel.Location = new System.Drawing.Point(0, 189);
             this.SpectrumRedLabel.Name = "SpectrumRedLabel";
             this.SpectrumRedLabel.Size = new System.Drawing.Size(128, 13);
             this.SpectrumRedLabel.TabIndex = 49;
@@ -1095,7 +1099,7 @@
             // SpectrumGreenLabel
             // 
             this.SpectrumGreenLabel.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SpectrumGreenLabel.Location = new System.Drawing.Point(0, 203);
+            this.SpectrumGreenLabel.Location = new System.Drawing.Point(0, 209);
             this.SpectrumGreenLabel.Name = "SpectrumGreenLabel";
             this.SpectrumGreenLabel.Size = new System.Drawing.Size(128, 13);
             this.SpectrumGreenLabel.TabIndex = 51;
@@ -1108,7 +1112,7 @@
             this.SpectrumGreenTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.SpectrumGreenTextBox.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SpectrumGreenTextBox.ForeColor = System.Drawing.Color.White;
-            this.SpectrumGreenTextBox.Location = new System.Drawing.Point(134, 201);
+            this.SpectrumGreenTextBox.Location = new System.Drawing.Point(134, 207);
             this.SpectrumGreenTextBox.Name = "SpectrumGreenTextBox";
             this.SpectrumGreenTextBox.Size = new System.Drawing.Size(209, 11);
             this.SpectrumGreenTextBox.TabIndex = 22;
@@ -2467,16 +2471,46 @@
             this.ConfigureSetupHiddenProgressBar.Visible = false;
             this.ConfigureSetupHiddenProgressBar.Click += new System.EventHandler(this.MenuButton_Click);
             // 
+            // WaveAutoScaleValuesCheckBox
+            // 
+            this.WaveAutoScaleValuesCheckBox.AutoSize = true;
+            this.WaveAutoScaleValuesCheckBox.BackColor = System.Drawing.Color.Gray;
+            this.WaveAutoScaleValuesCheckBox.Checked = true;
+            this.WaveAutoScaleValuesCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.WaveAutoScaleValuesCheckBox.ForeColor = System.Drawing.Color.White;
+            this.WaveAutoScaleValuesCheckBox.Location = new System.Drawing.Point(5, 187);
+            this.WaveAutoScaleValuesCheckBox.Name = "WaveAutoScaleValuesCheckBox";
+            this.WaveAutoScaleValuesCheckBox.Size = new System.Drawing.Size(113, 17);
+            this.WaveAutoScaleValuesCheckBox.TabIndex = 56;
+            this.WaveAutoScaleValuesCheckBox.Tag = "Setting";
+            this.WaveAutoScaleValuesCheckBox.Text = "Auto Scale Values";
+            this.WaveAutoScaleValuesCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // SpectrumAutoScaleValuesCheckBox
+            // 
+            this.SpectrumAutoScaleValuesCheckBox.AutoSize = true;
+            this.SpectrumAutoScaleValuesCheckBox.BackColor = System.Drawing.Color.Gray;
+            this.SpectrumAutoScaleValuesCheckBox.Checked = true;
+            this.SpectrumAutoScaleValuesCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.SpectrumAutoScaleValuesCheckBox.ForeColor = System.Drawing.Color.White;
+            this.SpectrumAutoScaleValuesCheckBox.Location = new System.Drawing.Point(5, 165);
+            this.SpectrumAutoScaleValuesCheckBox.Name = "SpectrumAutoScaleValuesCheckBox";
+            this.SpectrumAutoScaleValuesCheckBox.Size = new System.Drawing.Size(113, 17);
+            this.SpectrumAutoScaleValuesCheckBox.TabIndex = 57;
+            this.SpectrumAutoScaleValuesCheckBox.Tag = "Setting";
+            this.SpectrumAutoScaleValuesCheckBox.Text = "Auto Scale Values";
+            this.SpectrumAutoScaleValuesCheckBox.UseVisualStyleBackColor = false;
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(1411, 750);
+            this.Controls.Add(this.VisualizerPanel);
             this.Controls.Add(this.MenuPanel);
             this.Controls.Add(this.ConfigureSetupPanel);
             this.Controls.Add(this.ConfigureSetupHiddenProgressBar);
             this.Controls.Add(this.MenuButton);
-            this.Controls.Add(this.VisualizerPanel);
             this.Controls.Add(this.InstructionsPanel);
             this.Controls.Add(this.IndividualLEDPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -2728,6 +2762,8 @@
         private System.Windows.Forms.Label FullSpectrumTopLabel;
         private System.Windows.Forms.Label FullSpectrumLabel;
         private System.Windows.Forms.NumericUpDown FullSpectrumNumericUpDown;
+        private System.Windows.Forms.CheckBox WaveAutoScaleValuesCheckBox;
+        private System.Windows.Forms.CheckBox SpectrumAutoScaleValuesCheckBox;
     }
 }
 

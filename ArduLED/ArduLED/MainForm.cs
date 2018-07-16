@@ -147,8 +147,8 @@ namespace ArduLEDNameSpace
 
             SetLoadingLabelTo("Updating Charts");
 
-            UpdateSpectrumChart(SpectrumChart, SpectrumRedTextBox.Text, SpectrumGreenTextBox.Text, SpectrumBlueTextBox.Text, (int)VisualSamplesNumericUpDown.Value);
-            UpdateSpectrumChart(WaveChart, WaveRedTextBox.Text, WaveGreenTextBox.Text, WaveBlueTextBox.Text, 255 * 3);
+            UpdateSpectrumChart(SpectrumChart, SpectrumRedTextBox.Text, SpectrumGreenTextBox.Text, SpectrumBlueTextBox.Text, (int)VisualSamplesNumericUpDown.Value, SpectrumAutoScaleValuesCheckBox.Checked);
+            UpdateSpectrumChart(WaveChart, WaveRedTextBox.Text, WaveGreenTextBox.Text, WaveBlueTextBox.Text, 255 * 3, WaveAutoScaleValuesCheckBox.Checked);
 
             SetLoadingLabelTo("Formating label values");
 
@@ -1426,8 +1426,8 @@ namespace ArduLEDNameSpace
         {
             BeatZoneFromTrackBar.Maximum = (int)VisualSamplesNumericUpDown.Value;
             BeatZoneToTrackBar.Maximum = (int)VisualSamplesNumericUpDown.Value;
-            UpdateSpectrumChart(SpectrumChart, SpectrumRedTextBox.Text, SpectrumGreenTextBox.Text, SpectrumBlueTextBox.Text, (int)VisualSamplesNumericUpDown.Value);
-            UpdateSpectrumChart(WaveChart, WaveRedTextBox.Text, WaveGreenTextBox.Text, WaveBlueTextBox.Text, 255 * 3);
+            UpdateSpectrumChart(SpectrumChart, SpectrumRedTextBox.Text, SpectrumGreenTextBox.Text, SpectrumBlueTextBox.Text, (int)VisualSamplesNumericUpDown.Value, SpectrumAutoScaleValuesCheckBox.Checked);
+            UpdateSpectrumChart(WaveChart, WaveRedTextBox.Text, WaveGreenTextBox.Text, WaveBlueTextBox.Text, 255 * 3, WaveAutoScaleValuesCheckBox.Checked);
         }
 
         private void VisualizationTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -1454,7 +1454,7 @@ namespace ArduLEDNameSpace
         {
             if (SpectrumPanel.Enabled)
             {
-                UpdateSpectrumChart(SpectrumChart, SpectrumRedTextBox.Text, SpectrumGreenTextBox.Text, SpectrumBlueTextBox.Text, (int)VisualSamplesNumericUpDown.Value);
+                UpdateSpectrumChart(SpectrumChart, SpectrumRedTextBox.Text, SpectrumGreenTextBox.Text, SpectrumBlueTextBox.Text, (int)VisualSamplesNumericUpDown.Value, SpectrumAutoScaleValuesCheckBox.Checked);
             }
         }
 
@@ -1462,11 +1462,11 @@ namespace ArduLEDNameSpace
         {
             if (WavePanel.Enabled)
             {
-                UpdateSpectrumChart(WaveChart, WaveRedTextBox.Text, WaveGreenTextBox.Text, WaveBlueTextBox.Text, 255 * 3);
+                UpdateSpectrumChart(WaveChart, WaveRedTextBox.Text, WaveGreenTextBox.Text, WaveBlueTextBox.Text, 255 * 3, WaveAutoScaleValuesCheckBox.Checked);
             }
         }
 
-        void UpdateSpectrumChart(Chart _Chart, string _Red, string _Green, string _Blue, int _XValues)
+        void UpdateSpectrumChart(Chart _Chart, string _Red, string _Green, string _Blue, int _XValues, bool _AutoScale)
         {
             _Chart.Series.Clear();
             Series SeriesRed = new Series { IsVisibleInLegend = false, IsXValueIndexed = false, ChartType = SeriesChartType.FastLine, Color = Color.Red };
@@ -1475,40 +1475,48 @@ namespace ArduLEDNameSpace
 
             for (int i = 0; i < _XValues; i++)
             {
-                if (TransformToPoint(_Red, i) > 255)
+                if (_AutoScale)
                 {
-                    SeriesRed.Points.Add(255);
-                }
-                else
-                {
-                    if (TransformToPoint(_Red, i) < 0)
-                        SeriesRed.Points.Add(0);
+                    if (TransformToPoint(_Red, i) > 255)
+                    {
+                        SeriesRed.Points.Add(255);
+                    }
                     else
-                        SeriesRed.Points.Add(TransformToPoint(_Red, i));
-                }
+                    {
+                        if (TransformToPoint(_Red, i) < 0)
+                            SeriesRed.Points.Add(0);
+                        else
+                            SeriesRed.Points.Add(TransformToPoint(_Red, i));
+                    }
+                    if (TransformToPoint(_Green, i) > 255)
+                    {
+                        SeriesGreen.Points.Add(255);
+                    }
+                    else
+                    {
+                        if (TransformToPoint(_Green, i) < 0)
+                            SeriesGreen.Points.Add(0);
+                        else
+                            SeriesGreen.Points.Add(TransformToPoint(_Green, i));
+                    }
 
-                if (TransformToPoint(_Green, i) > 255)
-                {
-                    SeriesGreen.Points.Add(255);
+                    if (TransformToPoint(_Blue, i) > 255)
+                    {
+                        SeriesBlue.Points.Add(255);
+                    }
+                    else
+                    {
+                        if (TransformToPoint(_Blue, i) < 0)
+                            SeriesBlue.Points.Add(0);
+                        else
+                            SeriesBlue.Points.Add(TransformToPoint(_Blue, i));
+                    }
                 }
                 else
                 {
-                    if (TransformToPoint(_Green, i) < 0)
-                        SeriesGreen.Points.Add(0);
-                    else
-                        SeriesGreen.Points.Add(TransformToPoint(_Green, i));
-                }
-
-                if (TransformToPoint(_Blue, i) > 255)
-                {
-                    SeriesBlue.Points.Add(255);
-                }
-                else
-                {
-                    if (TransformToPoint(_Blue, i) < 0)
-                        SeriesBlue.Points.Add(0);
-                    else
-                        SeriesBlue.Points.Add(TransformToPoint(_Blue, i));
+                    SeriesRed.Points.Add(TransformToPoint(_Red, i));
+                    SeriesGreen.Points.Add(TransformToPoint(_Green, i));
+                    SeriesBlue.Points.Add(TransformToPoint(_Blue, i));
                 }
             }
 
@@ -1803,14 +1811,16 @@ namespace ArduLEDNameSpace
                 EndG = (int)WaveChart.Series[1].Points[EndValue].YValues[0];
                 EndB = (int)WaveChart.Series[2].Points[EndValue].YValues[0];
 
+                AutoTrigger(EndR, EndG, EndB);
+
                 if (EndR > 255)
-                    EndR = 255;
+                    EndR = 0;
 
                 if (EndG > 255)
-                    EndG = 255;
+                    EndG = 0;
 
                 if (EndB > 255)
-                    EndB = 255;
+                    EndB = 0;
 
                 if (EndR < 0)
                     EndR = 0;
@@ -1821,7 +1831,6 @@ namespace ArduLEDNameSpace
                 if (EndB < 0)
                     EndB = 0;
 
-                AutoTrigger(EndR, EndG, EndB);
                 string SerialOut = "W;" + EndR + ";" + EndG + ";" + EndB + ";E";
                 SendDataBySerial(SerialOut);
             }
