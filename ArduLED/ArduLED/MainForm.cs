@@ -1536,6 +1536,16 @@ namespace ArduLEDNameSpace
 
             try
             {
+                while (EquationParts.Contains("("))
+                {
+                    int StartIndex = EquationParts.FindIndex(s => s.Equals("("));
+                    int EndIndex = EquationParts.FindIndex(s => s.Equals(")"));
+                    string ComputeString = "";
+                    for (int i = StartIndex + 1; i < EndIndex; i++)
+                        ComputeString += EquationParts[i] + " ";
+                    EquationParts[StartIndex] = TransformToPoint(ComputeString, _XValue).ToString();
+                    EquationParts.RemoveRange(StartIndex + 1, EndIndex - StartIndex);
+                }
                 while (EquationParts.Contains("^"))
                 {
                     int Index = EquationParts.FindIndex(s => s.Equals("^"));
@@ -1572,7 +1582,7 @@ namespace ArduLEDNameSpace
                     EquationParts.RemoveAt(Index - 1);
                 }
 
-                return Convert.ToDouble(EquationParts[0].Replace(",", "."));
+                return Convert.ToDouble(EquationParts[0]);
 
             }
             catch
