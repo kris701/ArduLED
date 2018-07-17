@@ -1488,66 +1488,93 @@ namespace ArduLEDNameSpace
         void UpdateSpectrumChart(Chart _Chart, string _Red, string _Green, string _Blue, int _XValues, bool _AutoScale)
         {
             _Chart.Series.Clear();
-            Series SeriesRed = new Series { IsVisibleInLegend = false, IsXValueIndexed = false, ChartType = SeriesChartType.FastLine, Color = Color.Red };
-            Series SeriesGreen = new Series { IsVisibleInLegend = false, IsXValueIndexed = false, ChartType = SeriesChartType.FastLine, Color = Color.Green };
-            Series SeriesBlue = new Series { IsVisibleInLegend = false, IsXValueIndexed = false, ChartType = SeriesChartType.FastLine, Color = Color.Blue };
-
+            Series SeriesRed = new Series { IsVisibleInLegend = false, IsXValueIndexed = false, ChartType = SeriesChartType.FastLine, Color = Color.Red, Tag = _Red };
+            Series SeriesGreen = new Series { IsVisibleInLegend = false, IsXValueIndexed = false, ChartType = SeriesChartType.FastLine, Color = Color.Green, Tag = _Green };
+            Series SeriesBlue = new Series { IsVisibleInLegend = false, IsXValueIndexed = false, ChartType = SeriesChartType.FastLine, Color = Color.Blue, Tag = _Blue };
+            Series[] AllSeries = { SeriesRed, SeriesGreen, SeriesBlue };
             for (int i = 0; i < _XValues; i++)
             {
-                if (_AutoScale)
+                foreach (Series InnerSeries in AllSeries)
                 {
-                    if (TransformToPoint(_Red, i) > 255)
-                    {
-                        SeriesRed.Points.Add(255);
-                    }
-                    else
-                    {
-                        if (TransformToPoint(_Red, i) < 0)
-                            SeriesRed.Points.Add(0);
-                        else
-                            SeriesRed.Points.Add(TransformToPoint(_Red, i));
-                    }
-                    if (TransformToPoint(_Green, i) > 255)
-                    {
-                        SeriesGreen.Points.Add(255);
-                    }
-                    else
-                    {
-                        if (TransformToPoint(_Green, i) < 0)
-                            SeriesGreen.Points.Add(0);
-                        else
-                            SeriesGreen.Points.Add(TransformToPoint(_Green, i));
-                    }
-
-                    if (TransformToPoint(_Blue, i) > 255)
-                    {
-                        SeriesBlue.Points.Add(255);
-                    }
-                    else
-                    {
-                        if (TransformToPoint(_Blue, i) < 0)
-                            SeriesBlue.Points.Add(0);
-                        else
-                            SeriesBlue.Points.Add(TransformToPoint(_Blue, i));
-                    }
-                }
-                else
-                {
-                    SeriesRed.Points.Add(TransformToPoint(_Red, i));
-                    SeriesGreen.Points.Add(TransformToPoint(_Green, i));
-                    SeriesBlue.Points.Add(TransformToPoint(_Blue, i));
+                    InnerSeries.Points.Add(0);
                 }
             }
 
-            _Chart.Series.Add(SeriesRed);
-            _Chart.Series.Add(SeriesGreen);
-            _Chart.Series.Add(SeriesBlue);
+            for (int i = 0; i < _XValues; i++)
+            {
+                foreach(Series InnerSeries in AllSeries)
+                {
+                    if (((string)InnerSeries.Tag).Contains("PW["))
+                    {
+                        string CurColor = (string)InnerSeries.Tag;
+                        List<string> RedInternals = new List<string>();
+                        while (CurColor.Contains("PW["))
+                        {
+                            int StartIndex = CurColor.IndexOf('[');
+                            int EndIndex = CurColor.IndexOf(']');
+                            RedInternals.Add(CurColor.Substring(StartIndex + 1, EndIndex - StartIndex - 1));
+                            CurColor = CurColor.Remove(EndIndex, 1);
+                            CurColor = CurColor.Remove(StartIndex - 2, 3);
+                        }
+                        foreach (string s in RedInternals)
+                        {
+                            string[] InternalSplit = s.Split(':');
+                            if (Int32.Parse(InternalSplit[1]) <= i && Int32.Parse(InternalSplit[2]) >= i)
+                            {
+                                double ColorValue = TransformToPoint(InternalSplit[0], i);
+                                if (_AutoScale)
+                                {
+                                    if (ColorValue > 255)
+                                    {
+                                        InnerSeries.Points[i].YValues[0] = 255;
+                                    }
+                                    else
+                                    {
+                                        if (ColorValue < 0)
+                                            InnerSeries.Points[i].YValues[0] = 0;
+                                        else
+                                            InnerSeries.Points[i].YValues[0] = ColorValue;
+                                    }
+                                }
+                                else
+                                    InnerSeries.Points[i].YValues[0] = ColorValue;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        double ColorValue = TransformToPoint((string)InnerSeries.Tag, i);
+                        if (_AutoScale)
+                        {
+                            if (ColorValue > 255)
+                            {
+                                InnerSeries.Points[i].YValues[0] = 255;
+                            }
+                            else
+                            {
+                                if (ColorValue < 0)
+                                    InnerSeries.Points[i].YValues[0] = 0;
+                                else
+                                    InnerSeries.Points[i].YValues[0] = ColorValue;
+                            }
+                        }
+                        else
+                            InnerSeries.Points[i].YValues[0] = ColorValue;
+                    }
+                }
+            }
+
+            foreach (Series InnerSeries in AllSeries)
+            {
+                _Chart.Series.Add(InnerSeries);
+            }
         }
 
         double TransformToPoint(string _InputEquation, int _XValue)
         {
             string TransformedInputString = _InputEquation.ToLower().Replace("x", _XValue.ToString()).Replace(".", ",").Replace(" ", "");
             string[] Split = System.Text.RegularExpressions.Regex.Split(TransformedInputString, @"(?<=[()^*/+-])");
+
             List<string> EquationParts = new List<string>();
             foreach(string s in Split)
             {
@@ -1602,7 +1629,7 @@ namespace ArduLEDNameSpace
                     EquationParts[i] = EquationParts[i].Replace("+", "");
                     i = 0;
                 }
-                if (EquationParts[i].Contains("-") && EquationParts[i].Length > 1 && i != 0)
+                if (EquationParts[i].Contains("-") && EquationParts[i].Length > 1 && EquationParts[i].IndexOf('-') != 0)
                 {
                     EquationParts.Insert(i + 1, EquationParts[i].Replace(EquationParts[i].Replace("-", ""), ""));
                     EquationParts[i] = EquationParts[i].Replace("-", "");
