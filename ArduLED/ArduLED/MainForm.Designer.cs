@@ -80,6 +80,7 @@
             this.FullSpectrumTopLabel = new System.Windows.Forms.Label();
             this.WavePanel = new System.Windows.Forms.Panel();
             this.BeatWaveProgressBar = new System.Windows.Forms.ProgressBar();
+            this.WaveAutoScaleValuesCheckBox = new System.Windows.Forms.CheckBox();
             this.WaveTopLabel = new System.Windows.Forms.Label();
             this.UpdateWaveButton = new System.Windows.Forms.Button();
             this.WaveChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -90,6 +91,7 @@
             this.WaveGreenLabel = new System.Windows.Forms.Label();
             this.WaveGreenTextBox = new System.Windows.Forms.TextBox();
             this.SpectrumPanel = new System.Windows.Forms.Panel();
+            this.SpectrumAutoScaleValuesCheckBox = new System.Windows.Forms.CheckBox();
             this.SpectrumTopLabel = new System.Windows.Forms.Label();
             this.UpdateSpectrumButton = new System.Windows.Forms.Button();
             this.SpectrumChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -204,8 +206,10 @@
             this.ConfigureSetupWorkingPanel = new System.Windows.Forms.Panel();
             this.ConfigureSetupAutoSendCheckBox = new System.Windows.Forms.CheckBox();
             this.ConfigureSetupHiddenProgressBar = new System.Windows.Forms.ProgressBar();
-            this.WaveAutoScaleValuesCheckBox = new System.Windows.Forms.CheckBox();
-            this.SpectrumAutoScaleValuesCheckBox = new System.Windows.Forms.CheckBox();
+            this.ConfigureSetupClickToSetupSeriesCheckBox = new System.Windows.Forms.CheckBox();
+            this.ConfigureSetupClickToSetupSeriesFromIDLabel = new System.Windows.Forms.Label();
+            this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.SampleTimeTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SmoothnessTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SensitivityTrackBar)).BeginInit();
@@ -259,6 +263,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupAddStripFromLEDID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupAddStripXDir)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupAddStripYDir)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // AudioSourceComboBox
@@ -869,6 +875,21 @@
             this.BeatWaveProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.BeatWaveProgressBar.TabIndex = 55;
             // 
+            // WaveAutoScaleValuesCheckBox
+            // 
+            this.WaveAutoScaleValuesCheckBox.AutoSize = true;
+            this.WaveAutoScaleValuesCheckBox.BackColor = System.Drawing.Color.Gray;
+            this.WaveAutoScaleValuesCheckBox.Checked = true;
+            this.WaveAutoScaleValuesCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.WaveAutoScaleValuesCheckBox.ForeColor = System.Drawing.Color.White;
+            this.WaveAutoScaleValuesCheckBox.Location = new System.Drawing.Point(5, 187);
+            this.WaveAutoScaleValuesCheckBox.Name = "WaveAutoScaleValuesCheckBox";
+            this.WaveAutoScaleValuesCheckBox.Size = new System.Drawing.Size(113, 17);
+            this.WaveAutoScaleValuesCheckBox.TabIndex = 56;
+            this.WaveAutoScaleValuesCheckBox.Tag = "Setting";
+            this.WaveAutoScaleValuesCheckBox.Text = "Auto Scale Values";
+            this.WaveAutoScaleValuesCheckBox.UseVisualStyleBackColor = false;
+            // 
             // WaveTopLabel
             // 
             this.WaveTopLabel.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1002,6 +1023,21 @@
             this.SpectrumPanel.Name = "SpectrumPanel";
             this.SpectrumPanel.Size = new System.Drawing.Size(353, 277);
             this.SpectrumPanel.TabIndex = 55;
+            // 
+            // SpectrumAutoScaleValuesCheckBox
+            // 
+            this.SpectrumAutoScaleValuesCheckBox.AutoSize = true;
+            this.SpectrumAutoScaleValuesCheckBox.BackColor = System.Drawing.Color.Gray;
+            this.SpectrumAutoScaleValuesCheckBox.Checked = true;
+            this.SpectrumAutoScaleValuesCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.SpectrumAutoScaleValuesCheckBox.ForeColor = System.Drawing.Color.White;
+            this.SpectrumAutoScaleValuesCheckBox.Location = new System.Drawing.Point(5, 165);
+            this.SpectrumAutoScaleValuesCheckBox.Name = "SpectrumAutoScaleValuesCheckBox";
+            this.SpectrumAutoScaleValuesCheckBox.Size = new System.Drawing.Size(113, 17);
+            this.SpectrumAutoScaleValuesCheckBox.TabIndex = 57;
+            this.SpectrumAutoScaleValuesCheckBox.Tag = "Setting";
+            this.SpectrumAutoScaleValuesCheckBox.Text = "Auto Scale Values";
+            this.SpectrumAutoScaleValuesCheckBox.UseVisualStyleBackColor = false;
             // 
             // SpectrumTopLabel
             // 
@@ -2164,6 +2200,7 @@
             // 
             this.ConfigureSetupPanel.BackColor = System.Drawing.Color.DimGray;
             this.ConfigureSetupPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ConfigureSetupPanel.Controls.Add(this.panel1);
             this.ConfigureSetupPanel.Controls.Add(this.panel20);
             this.ConfigureSetupPanel.Controls.Add(this.SendSetupProgressBar);
             this.ConfigureSetupPanel.Controls.Add(this.SendSetupButton);
@@ -2174,7 +2211,7 @@
             this.ConfigureSetupPanel.Controls.Add(this.ConfigureSetupAutoSendCheckBox);
             this.ConfigureSetupPanel.Location = new System.Drawing.Point(79, 21);
             this.ConfigureSetupPanel.Name = "ConfigureSetupPanel";
-            this.ConfigureSetupPanel.Size = new System.Drawing.Size(871, 661);
+            this.ConfigureSetupPanel.Size = new System.Drawing.Size(871, 687);
             this.ConfigureSetupPanel.TabIndex = 49;
             this.ConfigureSetupPanel.Visible = false;
             // 
@@ -2454,7 +2491,7 @@
             // 
             this.ConfigureSetupAutoSendCheckBox.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ConfigureSetupAutoSendCheckBox.ForeColor = System.Drawing.Color.White;
-            this.ConfigureSetupAutoSendCheckBox.Location = new System.Drawing.Point(33, 634);
+            this.ConfigureSetupAutoSendCheckBox.Location = new System.Drawing.Point(24, 665);
             this.ConfigureSetupAutoSendCheckBox.Name = "ConfigureSetupAutoSendCheckBox";
             this.ConfigureSetupAutoSendCheckBox.Size = new System.Drawing.Size(567, 15);
             this.ConfigureSetupAutoSendCheckBox.TabIndex = 17;
@@ -2471,48 +2508,63 @@
             this.ConfigureSetupHiddenProgressBar.Visible = false;
             this.ConfigureSetupHiddenProgressBar.Click += new System.EventHandler(this.MenuButton_Click);
             // 
-            // WaveAutoScaleValuesCheckBox
+            // ConfigureSetupClickToSetupSeriesCheckBox
             // 
-            this.WaveAutoScaleValuesCheckBox.AutoSize = true;
-            this.WaveAutoScaleValuesCheckBox.BackColor = System.Drawing.Color.Gray;
-            this.WaveAutoScaleValuesCheckBox.Checked = true;
-            this.WaveAutoScaleValuesCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.WaveAutoScaleValuesCheckBox.ForeColor = System.Drawing.Color.White;
-            this.WaveAutoScaleValuesCheckBox.Location = new System.Drawing.Point(5, 187);
-            this.WaveAutoScaleValuesCheckBox.Name = "WaveAutoScaleValuesCheckBox";
-            this.WaveAutoScaleValuesCheckBox.Size = new System.Drawing.Size(113, 17);
-            this.WaveAutoScaleValuesCheckBox.TabIndex = 56;
-            this.WaveAutoScaleValuesCheckBox.Tag = "Setting";
-            this.WaveAutoScaleValuesCheckBox.Text = "Auto Scale Values";
-            this.WaveAutoScaleValuesCheckBox.UseVisualStyleBackColor = false;
+            this.ConfigureSetupClickToSetupSeriesCheckBox.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ConfigureSetupClickToSetupSeriesCheckBox.ForeColor = System.Drawing.Color.White;
+            this.ConfigureSetupClickToSetupSeriesCheckBox.Location = new System.Drawing.Point(3, 10);
+            this.ConfigureSetupClickToSetupSeriesCheckBox.Name = "ConfigureSetupClickToSetupSeriesCheckBox";
+            this.ConfigureSetupClickToSetupSeriesCheckBox.Size = new System.Drawing.Size(363, 15);
+            this.ConfigureSetupClickToSetupSeriesCheckBox.TabIndex = 69;
+            this.ConfigureSetupClickToSetupSeriesCheckBox.Tag = "Setting";
+            this.ConfigureSetupClickToSetupSeriesCheckBox.Text = "Click to setup series ID";
+            this.ConfigureSetupClickToSetupSeriesCheckBox.UseVisualStyleBackColor = true;
             // 
-            // SpectrumAutoScaleValuesCheckBox
+            // ConfigureSetupClickToSetupSeriesFromIDLabel
             // 
-            this.SpectrumAutoScaleValuesCheckBox.AutoSize = true;
-            this.SpectrumAutoScaleValuesCheckBox.BackColor = System.Drawing.Color.Gray;
-            this.SpectrumAutoScaleValuesCheckBox.Checked = true;
-            this.SpectrumAutoScaleValuesCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.SpectrumAutoScaleValuesCheckBox.ForeColor = System.Drawing.Color.White;
-            this.SpectrumAutoScaleValuesCheckBox.Location = new System.Drawing.Point(5, 165);
-            this.SpectrumAutoScaleValuesCheckBox.Name = "SpectrumAutoScaleValuesCheckBox";
-            this.SpectrumAutoScaleValuesCheckBox.Size = new System.Drawing.Size(113, 17);
-            this.SpectrumAutoScaleValuesCheckBox.TabIndex = 57;
-            this.SpectrumAutoScaleValuesCheckBox.Tag = "Setting";
-            this.SpectrumAutoScaleValuesCheckBox.Text = "Auto Scale Values";
-            this.SpectrumAutoScaleValuesCheckBox.UseVisualStyleBackColor = false;
+            this.ConfigureSetupClickToSetupSeriesFromIDLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ConfigureSetupClickToSetupSeriesFromIDLabel.ForeColor = System.Drawing.Color.White;
+            this.ConfigureSetupClickToSetupSeriesFromIDLabel.Location = new System.Drawing.Point(372, 10);
+            this.ConfigureSetupClickToSetupSeriesFromIDLabel.Name = "ConfigureSetupClickToSetupSeriesFromIDLabel";
+            this.ConfigureSetupClickToSetupSeriesFromIDLabel.Size = new System.Drawing.Size(70, 15);
+            this.ConfigureSetupClickToSetupSeriesFromIDLabel.TabIndex = 71;
+            this.ConfigureSetupClickToSetupSeriesFromIDLabel.Text = "From ID";
+            // 
+            // ConfigureSetupClickToSetupSeriesFromIDNumericUpDown
+            // 
+            this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
+            this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.ForeColor = System.Drawing.Color.White;
+            this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.Location = new System.Drawing.Point(446, 10);
+            this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.Name = "ConfigureSetupClickToSetupSeriesFromIDNumericUpDown";
+            this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.Size = new System.Drawing.Size(120, 14);
+            this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.TabIndex = 70;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.Gray;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.ConfigureSetupClickToSetupSeriesFromIDLabel);
+            this.panel1.Controls.Add(this.ConfigureSetupClickToSetupSeriesCheckBox);
+            this.panel1.Controls.Add(this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown);
+            this.panel1.Location = new System.Drawing.Point(20, 624);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(580, 36);
+            this.panel1.TabIndex = 54;
             // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(1411, 750);
-            this.Controls.Add(this.VisualizerPanel);
             this.Controls.Add(this.MenuPanel);
             this.Controls.Add(this.ConfigureSetupPanel);
             this.Controls.Add(this.ConfigureSetupHiddenProgressBar);
             this.Controls.Add(this.MenuButton);
             this.Controls.Add(this.InstructionsPanel);
             this.Controls.Add(this.IndividualLEDPanel);
+            this.Controls.Add(this.VisualizerPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -2589,6 +2641,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupAddStripFromLEDID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupAddStripXDir)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupAddStripYDir)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2764,6 +2818,10 @@
         private System.Windows.Forms.NumericUpDown FullSpectrumNumericUpDown;
         private System.Windows.Forms.CheckBox WaveAutoScaleValuesCheckBox;
         private System.Windows.Forms.CheckBox SpectrumAutoScaleValuesCheckBox;
+        private System.Windows.Forms.Label ConfigureSetupClickToSetupSeriesFromIDLabel;
+        private System.Windows.Forms.NumericUpDown ConfigureSetupClickToSetupSeriesFromIDNumericUpDown;
+        private System.Windows.Forms.CheckBox ConfigureSetupClickToSetupSeriesCheckBox;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 

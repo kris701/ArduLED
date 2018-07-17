@@ -55,6 +55,10 @@ AddLEDStripButton;Lucida Console;8;Add Strip
 ConfigureSetupAddStripInvertX;Lucida Console;8;Invert x
 ConfigureSetupAddStripInvertY;Lucida Console;8;Invert y
 
+ConfigureSetupClickToSetupSeriesCheckBox;Lucida Console;8;Click to setup series ID
+ConfigureSetupClickToSetupSeriesFromIDLabel;Lucida Console;11;From ID
+ConfigureSetupClickToSetupSeriesFromIDNumericUpDown;Lucida Console;8;
+
 
 POSSIBLE;InstructionsInstructionPanelRemoveButton;Lucida Console;8;X
 POSSIBLE;InstructionsInstructionPanelMoveUpButton;Lucida Console;8;^

@@ -55,6 +55,10 @@ AddLEDStripButton;Lucida Console;8;Tilføj LEDer
 ConfigureSetupAddStripInvertX;Lucida Console;8;Inverter x
 ConfigureSetupAddStripInvertY;Lucida Console;8;Inverter y
 
+ConfigureSetupClickToSetupSeriesCheckBox;Lucida Console;8;Klik for at opsætte serie IDer
+ConfigureSetupClickToSetupSeriesFromIDLabel;Lucida Console;11;Fra ID
+ConfigureSetupClickToSetupSeriesFromIDNumericUpDown;Lucida Console;8;
+
 
 InstructionsInstructionPanelRemoveButton;Lucida Console;8;X
 InstructionsInstructionPanelMoveUpButton;Lucida Console;8;^
@@ -148,6 +152,7 @@ AutoTriggerIncreseAtNumericUpDown;Lucida Console;8;
 AutoTriggerIncreseAtLabel;Lucida Console;7;       Øg Udløser niveau ved >
 
 SpectrumTopLabel;Lucida Console;12;Spektrum Beat/Bølge Indstillinger
+SpectrumAutoScaleValuesCheckBox;Lucida Console;8;Auto skaler værdier
 
 SpectrumRedLabel;Lucida Console;8;Rød formel:
 SpectrumRedTextBox;Lucida Console;8;
@@ -161,6 +166,7 @@ SpectrumBlueTextBox;Lucida Console;8;
 UpdateSpectrumButton;Lucida Console;8;Opdater
 
 WaveTopLabel;Lucida Console;12;Bølge Beat Indstillinger
+WaveAutoScaleValuesCheckBox;Lucida Console;8;Auto skaler værdier
 
 WaveRedLabel;Lucida Console;8;Rød formel
 WaveRedTextBox;Lucida Console;8;

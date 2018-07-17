@@ -55,6 +55,10 @@ AddLEDStripButton;Lucida Console;8;Add Strip
 ConfigureSetupAddStripInvertX;Lucida Console;8;Invert x
 ConfigureSetupAddStripInvertY;Lucida Console;8;Invert y
 
+ConfigureSetupClickToSetupSeriesCheckBox;Lucida Console;8;Click to setup series ID
+ConfigureSetupClickToSetupSeriesFromIDLabel;Lucida Console;11;From ID
+ConfigureSetupClickToSetupSeriesFromIDNumericUpDown;Lucida Console;8;
+
 
 POSSIBLE;InstructionsInstructionPanelRemoveButton;Lucida Console;8;X
 POSSIBLE;InstructionsInstructionPanelMoveUpButton;Lucida Console;8;^
@@ -148,6 +152,7 @@ AutoTriggerIncreseAtLabel;Lucida Console;8;Increase trigger level at >
 VisualizerCurrentValueLabel;Lucida Console;8;0
 
 SpectrumTopLabel;Lucida Console;12;Spectrum Beat/Wave Settings
+SpectrumAutoScaleValuesCheckBox;Lucida Console;8;Auto scale values
 
 SpectrumRedLabel;Lucida Console;8;Red formular:
 SpectrumRedTextBox;Lucida Console;8;
@@ -161,6 +166,7 @@ SpectrumBlueTextBox;Lucida Console;8;
 UpdateSpectrumButton;Lucida Console;8;Update
 
 WaveTopLabel;Lucida Console;12;Wave Beat Settings
+WaveAutoScaleValuesCheckBox;Lucida Console;8;Auto scale values
 
 WaveRedLabel;Lucida Console;8;Red formular:
 WaveRedTextBox;Lucida Console;8;

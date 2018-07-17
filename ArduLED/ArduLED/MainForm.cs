@@ -727,6 +727,7 @@ namespace ArduLEDNameSpace
                         TextBox NewTextBox = new TextBox();
                         NewTextBox.Width = ButtonWidth;
                         NewTextBox.Height = ButtonHeight;
+                        NewTextBox.Click += ClickToSetSeries;
                         if (UseDefaultText)
                         {
                             NewTextBox.Text = "0";
@@ -816,6 +817,16 @@ namespace ArduLEDNameSpace
             return true;
         }
 
+        private void ClickToSetSeries(object sender, EventArgs e)
+        {
+            if (ConfigureSetupClickToSetupSeriesCheckBox.Checked)
+            {
+                TextBox SenderTextBox = sender as TextBox;
+                SenderTextBox.Text = ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.Value.ToString();
+                ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.Value++;
+            }
+        }
+
         private void MoveLEDStrip(object sender, MouseEventArgs e)
         {
             Panel SenderPanel = sender as Panel;
@@ -859,6 +870,7 @@ namespace ArduLEDNameSpace
             Button SenderButton = sender as Button;
             SenderButton.Parent.Dispose();
         }
+
         private void SaveSetup(object sender, EventArgs e)
         {
             SaveFileDialog.InitialDirectory = Directory.GetCurrentDirectory() + "\\Setups";
