@@ -71,9 +71,9 @@ namespace ArduLEDNameSpace
 
             SetLoadingLabelTo("Setup folder");
 
-            if (!Directory.Exists(Directory.GetCurrentDirectory() + "\\Setup"))
+            if (!Directory.Exists(Directory.GetCurrentDirectory() + "\\Setups"))
             {
-                Directory.CreateDirectory(Directory.GetCurrentDirectory() + "\\Setup");
+                Directory.CreateDirectory(Directory.GetCurrentDirectory() + "\\Setups");
             }
 
             SetLoadingLabelTo("Language Packs");
