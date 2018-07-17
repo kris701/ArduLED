@@ -1839,14 +1839,14 @@ namespace ArduLEDNameSpace
 
             if (VisualizationTypeComboBox.SelectedIndex == 0)
             {
-                double TotalValue = 0;
+                double Hit = 0;
                 for (int i = BeatZoneFromTrackBar.Value; i < BeatZoneToTrackBar.Value; i++)
                 {
                     if (BeatZoneSeries.Points[i].YValues[0] >= BeatZoneTriggerHeight.Value)
-                        TotalValue += 255;
+                        Hit++;
                 }
-                double OutValue = Math.Round(Math.Round(((TotalValue / ((BeatZoneToTrackBar.Value - BeatZoneFromTrackBar.Value) * 255))), 2) * 100, 0);
-                AutoTrigger((OutValue / 100) * (255 * 3), 0, 0);
+                double OutValue = Math.Round(Math.Round((Hit / ((double)BeatZoneToTrackBar.Value - (double)BeatZoneFromTrackBar.Value)), 2) * 100, 0);
+                AutoTrigger((OutValue / 100) * (255 * 3));
                 string SerialOut = "B;" + OutValue.ToString().Replace(',', '.') + ";E";
                 SendDataBySerial(SerialOut);
             }
@@ -1858,40 +1858,40 @@ namespace ArduLEDNameSpace
                 int CountR = 0;
                 int CountG = 0;
                 int CountB = 0;
-                int Count = 0;
+                int Hit = 0;
                 for (int i = BeatZoneFromTrackBar.Value; i < BeatZoneToTrackBar.Value; i++)
                 {
                     if (BeatZoneSeries.Points[i].YValues[0] >= BeatZoneTriggerHeight.Value)
                     {
-                        if (SpectrumChart.Series[0].Points[i].YValues[0] < 255)
+                        if (SpectrumChart.Series[0].Points[i].YValues[0] <= 255)
                         {
-                            if (SpectrumChart.Series[0].Points[i].YValues[0] > 0)
+                            if (SpectrumChart.Series[0].Points[i].YValues[0] >= 0)
                             {
                                 EndR += SpectrumChart.Series[0].Points[i].YValues[0];
                                 CountR++;
                             }
                         }
-                        if (SpectrumChart.Series[1].Points[i].YValues[0] < 255)
+                        if (SpectrumChart.Series[1].Points[i].YValues[0] <= 255)
                         {
-                            if (SpectrumChart.Series[1].Points[i].YValues[0] > 0)
+                            if (SpectrumChart.Series[1].Points[i].YValues[0] >= 0)
                             {
                                 EndG += SpectrumChart.Series[1].Points[i].YValues[0];
                                 CountG++;
                             }
                         }
-                        if (SpectrumChart.Series[2].Points[i].YValues[0] < 255)
+                        if (SpectrumChart.Series[2].Points[i].YValues[0] <= 255)
                         {
-                            if (SpectrumChart.Series[2].Points[i].YValues[0] > 0)
+                            if (SpectrumChart.Series[2].Points[i].YValues[0] >= 0)
                             {
                                 EndB += SpectrumChart.Series[2].Points[i].YValues[0];
                                 CountB++;
                             }
                         }
-                        Count++;
+                        Hit++;
                     }
                 }
 
-                AutoTrigger(((float)Count / ((float)BeatZoneToTrackBar.Value - (float)BeatZoneFromTrackBar.Value)) * 255, ((float)Count / ((float)BeatZoneToTrackBar.Value - (float)BeatZoneFromTrackBar.Value)) * 255, ((float)Count / ((float)BeatZoneToTrackBar.Value - (float)BeatZoneFromTrackBar.Value)) * 255);
+                AutoTrigger(((float)Hit / ((float)BeatZoneToTrackBar.Value - (float)BeatZoneFromTrackBar.Value)) * (255 * 3));
 
                 if (CountR > 0)
                 {
@@ -1940,7 +1940,7 @@ namespace ArduLEDNameSpace
                 EndG = (int)WaveChart.Series[1].Points[EndValue].YValues[0];
                 EndB = (int)WaveChart.Series[2].Points[EndValue].YValues[0];
 
-                AutoTrigger(((float)Hit / ((float)BeatZoneToTrackBar.Value - (float)BeatZoneFromTrackBar.Value)) * 255, ((float)Hit / ((float)BeatZoneToTrackBar.Value - (float)BeatZoneFromTrackBar.Value)) * 255, ((float)Hit / ((float)BeatZoneToTrackBar.Value - (float)BeatZoneFromTrackBar.Value)) * 255);
+                AutoTrigger(((float)Hit / ((float)BeatZoneToTrackBar.Value - (float)BeatZoneFromTrackBar.Value)) * (255 * 3));
 
                 if (EndR > 255)
                     EndR = 0;
@@ -1978,24 +1978,24 @@ namespace ArduLEDNameSpace
                         SerialOut += "0;";
                 }
 
-                AutoTrigger(((float)Hit / ((float)BeatZoneToTrackBar.Value - (float)BeatZoneFromTrackBar.Value)) * 255, ((float)Hit / ((float)BeatZoneToTrackBar.Value - (float)BeatZoneFromTrackBar.Value)) * 255, ((float)Hit / ((float)BeatZoneToTrackBar.Value - (float)BeatZoneFromTrackBar.Value)) * 255);
+                AutoTrigger(((float)Hit / ((float)BeatZoneToTrackBar.Value - (float)BeatZoneFromTrackBar.Value)) * (255 * 3));
 
                 SerialOut += "E";
                 SendDataBySerial(SerialOut);
             }
         }
 
-        void AutoTrigger(double R, double G, double B)
+        void AutoTrigger(double _TriggerValue)
         {
             if (AutoTriggerCheckBox.Checked)
             {
-                VisualizerCurrentValueLabel.Text = ((int)(R + G + B)).ToString();
-                if (R + G + B >= (double)AutoTriggerDecreseAtNumericUpDown.Value)
+                VisualizerCurrentValueLabel.Text = ((int)(_TriggerValue)).ToString();
+                if (_TriggerValue >= (double)AutoTriggerDecreseAtNumericUpDown.Value)
                 {
                     if (BeatZoneTriggerHeight.Value < AutoTriggerMaxNumericUpDown.Value)
                         BeatZoneTriggerHeight.Value = BeatZoneTriggerHeight.Value + 1;
                 }
-                if (R + G + B <= (double)AutoTriggerIncreseAtNumericUpDown.Value)
+                if (_TriggerValue <= (double)AutoTriggerIncreseAtNumericUpDown.Value)
                 {
                     if (BeatZoneTriggerHeight.Value > AutoTriggerMinNumericUpDown.Value)
                         BeatZoneTriggerHeight.Value = BeatZoneTriggerHeight.Value - 1;
