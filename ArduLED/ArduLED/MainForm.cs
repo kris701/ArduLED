@@ -1768,6 +1768,13 @@ namespace ArduLEDNameSpace
             {
                 BeatZoneSeries.Points.Clear();
                 BassFirst = true;
+                AudioDataPointStore.Clear();
+                for (int i = 0; i < VisualSamplesNumericUpDown.Value; i++)
+                    AudioDataPointStore.Add(new List<int>(new int[SmoothnessTrackBar.Value]));
+            }
+            if (AudioDataPointStore.Count != VisualSamplesNumericUpDown.Value | AudioDataPointStore[0].Count != SmoothnessTrackBar.Value)
+            {
+                AudioDataPointStore.Clear();
                 for (int i = 0; i < VisualSamplesNumericUpDown.Value; i++)
                     AudioDataPointStore.Add(new List<int>(new int[SmoothnessTrackBar.Value]));
             }
@@ -1790,8 +1797,13 @@ namespace ArduLEDNameSpace
                 if (Y > 255) Y = 255;
                 if (Y < 1) Y = 1;
 
+                if (AudioDataPointStore[0].Count != SmoothnessTrackBar.Value)
+                    break;
+                if (AudioDataPointStore.Count != VisualSamplesNumericUpDown.Value)
+                    break;
+
                 AudioDataPointStore[X].Add((byte)Y);
-                if (AudioDataPointStore[X].Count > SmoothnessTrackBar.Value)
+                while (AudioDataPointStore[X].Count > SmoothnessTrackBar.Value)
                     AudioDataPointStore[X].RemoveAt(0);
 
                 int AverageValue = 0;
@@ -1800,6 +1812,10 @@ namespace ArduLEDNameSpace
                     AverageValue += AudioDataPointStore[X][s];
                 }
                 AverageValue = AverageValue / SmoothnessTrackBar.Value;
+                if (AverageValue > 255)
+                    AverageValue = 255;
+                if (AverageValue < 0)
+                    AverageValue = 0;
                 if (BassFirst)
                 {
                     BeatZoneSeries.Points.AddXY(X, AverageValue);
@@ -1955,7 +1971,7 @@ namespace ArduLEDNameSpace
                 {
                     if (BeatZoneSeries.Points[i].YValues[0] >= BeatZoneTriggerHeight.Value)
                     {
-                        SerialOut += Math.Round((BeatZoneSeries.Points[i].YValues[0] / 255) * (double)FullSpectrumNumericUpDown.Value,0) + ";";
+                        SerialOut += Math.Round((BeatZoneSeries.Points[i].YValues[0] / 255) * (double)FullSpectrumNumericUpDown.Value, 0) + ";";
                         Hit++;
                     }
                     else
