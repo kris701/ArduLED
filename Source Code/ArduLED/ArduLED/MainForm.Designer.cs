@@ -2680,6 +2680,9 @@
             this.ConfigureSetupWorkingPanel.Name = "ConfigureSetupWorkingPanel";
             this.ConfigureSetupWorkingPanel.Size = new System.Drawing.Size(832, 459);
             this.ConfigureSetupWorkingPanel.TabIndex = 18;
+            this.ConfigureSetupWorkingPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ConfigureSetupWorkingPanel_MouseDown);
+            this.ConfigureSetupWorkingPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ConfigureSetupWorkingPanel_MouseMove);
+            this.ConfigureSetupWorkingPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ConfigureSetupWorkingPanel_MouseUp);
             // 
             // ConfigureSetupAutoSendCheckBox
             // 
@@ -2710,10 +2713,10 @@
             this.Controls.Add(this.MenuPanel);
             this.Controls.Add(this.ConfigureSetupHiddenProgressBar);
             this.Controls.Add(this.MenuButton);
+            this.Controls.Add(this.ConfigureSetupPanel);
             this.Controls.Add(this.InstructionsPanel);
             this.Controls.Add(this.IndividualLEDPanel);
             this.Controls.Add(this.VisualizerPanel);
-            this.Controls.Add(this.ConfigureSetupPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;

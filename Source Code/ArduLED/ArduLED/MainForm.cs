@@ -40,6 +40,7 @@ namespace ArduLEDNameSpace
         bool BassFirst;
         List<Control> ControlList = new List<Control>();
         Loading LoadingForm;
+        Point DragStart = new Point(0,0);
 
         #endregion
 
@@ -836,35 +837,38 @@ namespace ArduLEDNameSpace
             Point3D[] MomentaryDataTag = (Point3D[])SenderPanel.Tag;
             if (MomentaryDataTag[0].Z == 1)
             {
-                SenderPanel.Location = new Point(SenderPanel.Location.X + (MousePosition.X - (int)MomentaryDataTag[0].X), SenderPanel.Location.Y + (MousePosition.Y - (int)MomentaryDataTag[0].Y));
-                MomentaryDataTag[0] = new Point3D(MousePosition.X, MousePosition.Y, 1);
-                SenderPanel.Tag = MomentaryDataTag;
+                SenderPanel.Location = new Point((int)MomentaryDataTag[0].X + (MousePosition.X - DragStart.X), (int)MomentaryDataTag[0].Y + (MousePosition.Y - DragStart.Y));
             }
-
-            if (SenderPanel.Location.X < 0)
-                SenderPanel.Location = new Point(0, SenderPanel.Location.Y);
-            if (SenderPanel.Location.X > ConfigureSetupWorkingPanel.Width - SenderPanel.Width)
-                SenderPanel.Location = new Point(ConfigureSetupWorkingPanel.Width - SenderPanel.Width, SenderPanel.Location.Y);
-
-            if (SenderPanel.Location.Y < 0)
-                SenderPanel.Location = new Point(SenderPanel.Location.X, 0);
-            if (SenderPanel.Location.Y > ConfigureSetupWorkingPanel.Height - SenderPanel.Height)
-                SenderPanel.Location = new Point(SenderPanel.Location.X, ConfigureSetupWorkingPanel.Height - SenderPanel.Height);
         }
 
         private void MoveLEDStripDown(object sender, MouseEventArgs e)
         {
+            DragStart = MousePosition;
             Panel SenderPanel = sender as Panel;
+            foreach (Control InnerControl in SenderPanel.Parent.Controls)
+            {
+                foreach (Control InnerInnerControl in InnerControl.Controls)
+                {
+                    InnerInnerControl.Visible = false;
+                }
+            }
             Point3D[] MomentaryDataTag = (Point3D[])SenderPanel.Tag;
-            MomentaryDataTag[0] = new Point3D(MousePosition.X, MousePosition.Y, 1);
+            MomentaryDataTag[0] = new Point3D(SenderPanel.Location.X, SenderPanel.Location.Y, 1);
             SenderPanel.Tag = MomentaryDataTag;
         }
 
         private void MoveLEDStripUp(object sender, MouseEventArgs e)
         {
             Panel SenderPanel = sender as Panel;
+            foreach (Control InnerControl in SenderPanel.Parent.Controls)
+            {
+                foreach (Control InnerInnerControl in InnerControl.Controls)
+                {
+                    InnerInnerControl.Visible = true;
+                }
+            }
             Point3D[] MomentaryDataTag = (Point3D[])SenderPanel.Tag;
-            MomentaryDataTag[0] = new Point3D(MousePosition.X, MousePosition.Y, 0);
+            MomentaryDataTag[0] = new Point3D(SenderPanel.Location.X, SenderPanel.Location.Y, 0);
             SenderPanel.Tag = MomentaryDataTag;
         }
 
@@ -2047,5 +2051,49 @@ namespace ArduLEDNameSpace
         }
 
         #endregion
+
+        private void ConfigureSetupWorkingPanel_MouseDown(object sender, MouseEventArgs e)
+        {
+            DragStart = MousePosition;
+            Panel SenderPanel = sender as Panel;
+            foreach (Control InnerControl in SenderPanel.Controls)
+            {
+                foreach (Control InnerInnerControl in InnerControl.Controls)
+                {
+                    InnerInnerControl.Visible = false;
+                }
+                Point3D[] MomentaryDataTag = (Point3D[])InnerControl.Tag;
+                MomentaryDataTag[0] = new Point3D(InnerControl.Location.X, InnerControl.Location.Y, 1);
+                InnerControl.Tag = MomentaryDataTag;
+            }
+        }
+
+        private void ConfigureSetupWorkingPanel_MouseUp(object sender, MouseEventArgs e)
+        {
+            Panel SenderPanel = sender as Panel;
+            foreach (Control InnerControl in SenderPanel.Controls)
+            {
+                foreach (Control InnerInnerControl in InnerControl.Controls)
+                {
+                    InnerInnerControl.Visible = true;
+                }
+                Point3D[] MomentaryDataTag = (Point3D[])InnerControl.Tag;
+                MomentaryDataTag[0] = new Point3D(InnerControl.Location.X, InnerControl.Location.Y, 0);
+                InnerControl.Tag = MomentaryDataTag;
+            }
+        }
+
+        private void ConfigureSetupWorkingPanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            Panel SenderPanel = sender as Panel;
+            foreach (Control InnerControl in SenderPanel.Controls)
+            {
+                Point3D[] MomentaryDataTag = (Point3D[])InnerControl.Tag;
+                if (MomentaryDataTag[0].Z == 1)
+                {
+                    InnerControl.Location = new Point((int)MomentaryDataTag[0].X + (MousePosition.X - DragStart.X), (int)MomentaryDataTag[0].Y + (MousePosition.Y - DragStart.Y));
+                }
+            }
+        }
     }
 }
