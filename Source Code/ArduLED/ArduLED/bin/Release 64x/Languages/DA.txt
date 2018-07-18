@@ -1,0 +1,184 @@
+﻿MenuModeLabel;Lucida Console;11;Tilstand
+MenuSelectComDeviceLabel;Lucida Console;11;Vælg COM Enhed
+MenuExitButton;Lucida Console;8;X
+MenuConnectButton;Lucida Console;8;Forbind
+MenuButton;Lucida Console;8;ArduLED
+LanguageComboBox;Lucida Console;8;
+
+ModeSelectrionComboBox;Lucida Console;8;
+INDEXNAMES;ModeSelectrionComboBox;Falme Farver;Visualizer;Individuelle Farver;Instruktioner;Opsætning
+
+FadeColorsRedTopLabel;Lucida Console;11;Rød
+FadeColorsGreenTopLabel;Lucida Console;11;Grøn
+FadeColorsBlueTopLabel;Lucida Console;11;Blå
+
+FadeColorsRedLabel;Lucida Console;11;255
+FadeColorsGreenLabel;Lucida Console;11;255
+FadeColorsBlueLabel;Lucida Console;11;255
+
+FadeColorsFadeSpeedLabel;Lucida Console;10;Falme Hastighed (ms)
+FadeColorsFadeFactorLabel;Lucida Console;11;Falme Faktor
+FadeColorsBrightnessLabel;Lucida Console;11;Lysstyrke: XXXX
+
+FadeColorsFadeSpeedNumericUpDown;Lucida Console;8;10
+FadeColorsFadeFactorNumericUpDown;Lucida Console;8;0,10
+
+
+ConfigureSetupAutoSendCheckBox;Lucida Console;8;Automatisk overfør denne opsætning næste gang
+ConfigureSetupTopLabel;Lucida Console;16;Opsætning
+POSSIBLE;MakeLEDPanelDeleteButton;Lucida Console;5;x
+POSSIBLE;MakeLEDPanelStripIDLabel;Lucida Console;7;
+POSSIBLE;MakeLEDPanelStripLEDIDLabel;Lucida Console;7;
+POSSIBLE;MakeLEDPanelStripLEDIDButton;Lucida Console;5;
+
+SaveSetupButton;Lucida Console;8;Gem Opsætning
+LoadSetupButton;Lucida Console;8;Indlæs en Opsætning
+SendSetupButton;Lucida Console;8;Send Opsætning
+
+ConfigureSetupAddStripXDirLabel;Lucida Console;11;X
+ConfigureSetupAddStripXDir;Lucida Console;8;0
+ConfigureSetupAddStripYDirLabel;Lucida Console;11;Y
+ConfigureSetupAddStripYDir;Lucida Console;8;0
+ConfigureSetupAddStripFromLEDIDLabel;Lucida Console;11;Fra ID
+ConfigureSetupAddStripFromLEDID;Lucida Console;8;0
+ConfigureSetupAddStripPinIDLabel;Lucida Console;11;Pin
+ConfigureSetupAddStripPinID;Lucida Console;8;0
+
+PixelTypeComboBoxLabel;Lucida Console;11;Pixel Type
+PixelTypeComboBox;Lucida Console;8;
+INDEXNAMES;PixelTypeComboBox;NEO_GRB;NEO_RGB
+PixelBitstreamComboBoxLabel;Lucida Console;11;Bitstream
+PixelBitstreamComboBox;Lucida Console;8;
+INDEXNAMES;PixelBitstreamComboBox;NEO_KHZ800;NEO_KHZ400
+
+AddLEDStripButton;Lucida Console;8;Tilføj LEDer
+ConfigureSetupAddStripInvertX;Lucida Console;8;Inverter x
+ConfigureSetupAddStripInvertY;Lucida Console;8;Inverter y
+
+ConfigureSetupClickToSetupSeriesCheckBox;Lucida Console;8;Klik for at opsætte serie IDer
+ConfigureSetupClickToSetupSeriesFromIDLabel;Lucida Console;11;Fra ID
+ConfigureSetupClickToSetupSeriesFromIDNumericUpDown;Lucida Console;8;
+
+
+InstructionsInstructionPanelRemoveButton;Lucida Console;8;X
+InstructionsInstructionPanelMoveUpButton;Lucida Console;8;^
+InstructionsInstructionPanelMoveDownButton;Lucida Console;8;v
+InstructionsInstructionPanelInfoTextBox;Lucida Console;8;
+
+InstructionsModeTopLabel;Lucida Console;16;Instructioner
+InstructionsModeAddItemsLabel;Lucida Console;10;Tilføj instruction
+InstructionsAddDelayButton;Lucida Console;8;Pause
+InstructionsAddFadeColorsButton;Lucida Console;8;Falme Farver
+InstructionsLoopCheckBox;Lucida Console;8;Løkke
+InstructionStartLoopButton;Lucida Console;8;Start
+InstructionStopLoopButton;Lucida Console;8;Stop
+InstructionsModeSaveButton;Lucida Console;8;Gem Instruktioner
+InstructionsModeLoadButton;Lucida Console;8;Indlæs Instruktioner
+
+InstructionsAddFadeColorsTopLabel;Lucida Console;16;Falme Farver
+InstructionsAddFadeColorsAddButton;Lucida Console;8;Tilføj
+InstructionsAddFadeColorsRedNameLabel;Lucida Console;11;Rød
+InstructionsAddFadeColorsGreenNameLabel;Lucida Console;11;Grøn
+InstructionsAddFadeColorsBlueNameLabel;Lucida Console;11;Blå
+InstructionsAddFadeColorsRedLabel;Lucida Console;11;255
+InstructionsAddFadeColorsGreenLabel;Lucida Console;11;255
+InstructionsAddFadeColorsBlueLabel;Lucida Console;11;255
+InstructionsAddFadeColorsFadeSpeedLabel;Lucida Console;10;Falme Hastighed (ms)
+InstructionsAddFadeColorsFadeSpeedNumericUpDown;Lucida Console;8;10
+InstructionsAddFadeColorsFadeFactorLabel;Lucida Console;11;Falme Faktor
+InstructionsAddFadeColorsFadeFactorNumericUpDown;Lucida Console;8;0,10
+
+InstructionsAddDelayTopLabel;Lucida Console;16;Pause
+InstructionsAddDelayLabel;Lucida Console;11;Vælg Pausetid (ms)
+InstructionsAddDelayNoteLabel;Lucida Console;11;(Pausen må ikke være mindre end 10 ms)
+InstructionsAddDelayNumericUpDown;Lucida Console;8;0
+InstructionsAddDelayAddButton;Lucida Console;8;Tilføj
+
+
+IndividualLEDTopLabel;Lucida Console;16;Individuelle Farver
+
+IndividualLEDRedNameLabel;Lucida Console;11;Rød
+IndividalLEDRedLabel;Lucida Console;11;255
+IndividualLEDGreenNameLabel;Lucida Console;11;Grøn
+IndividalLEDGreenLabel;Lucida Console;11;255
+IndividualLEDBlueNameLabel;Lucida Console;11;Blå
+IndividalLEDBlueLabel;Lucida Console;11;255
+
+ColorEntireLEDStripCheckBox;Lucida Console;8;Farv hele striben
+
+
+VisualizerTopLabel;Lucida Console;16;Visualizer Indstillinger
+AudioSourceLabel;Lucida Console;12;Vælg Lyd Kilde
+AudioSourceComboBox;Lucida Console;8;
+INDEXNAMES;VisualizationTypeComboBox;Beat;Spektrum Beat;Spektrum Bølge;Beat Bølge;Fuld Spectrum
+
+VisualizationTypeLabel;Lucida Console;12;Visualiserings Type (def: Beat)
+VisualizationTypeComboBox;Lucida Console;8;
+
+VisualSamplesLabel;Lucida Console;12;Visualiserings Prøver (def: 128)
+VisualSamplesNumericUpDown;Lucida Console;8;
+
+AudioSampleRateLabel;Lucida Console;12;Lyd Prøver (def: 16384)
+AudioSampleRateComboBox;Lucida Console;8;
+
+SensitivityTopLabel;Lucida Console;12;Følsomhed (def: 3)
+SensitivityLabel;Lucida Console;12;3
+
+SmoothnessTopLabel;Lucida Console;12;Glathed (def: 1)
+SmoothnessLabel;Lucida Console;12;1
+
+SampleTimeTopLabel;Lucida Console;12;Prøve Tid (def: 25)
+SampleTimeLabel;Lucida Console;12;25
+
+BeatZoneTriggerHeightLabel;Lucida Console;12;Udløs ved:  75
+BeatZoneTopLabel;Lucida Console;12;Beat Zone
+
+AutoTriggerMaxNumericUpDown;Lucida Console;8;
+AutoTriggerMaxLabel;Lucida Console;7;Max:
+AutoTriggerMinNumericUpDown;Lucida Console;8;
+AutoTriggerMinLabel;Lucida Console;7;Min:
+VisualizerCurrentValueLabel;Lucida Console;8;0
+
+AutoTriggerCheckBox;Lucida Console;8;Auto Udløs
+
+BeatZoneFromLabel;Lucida Console;12;Fra: XXX
+
+BeatZoneToLabel;Lucida Console;12;Til: XXX
+
+AutoTriggerDecreseAtNumericUpDown;Lucida Console;8;
+AutoTriggerDecreseAtLabel;Lucida Console;7;Formindsk Udløser niveau ved <
+
+AutoTriggerIncreseAtNumericUpDown;Lucida Console;8;
+AutoTriggerIncreseAtLabel;Lucida Console;7;       Øg Udløser niveau ved >
+
+SpectrumTopLabel;Lucida Console;12;Spektrum Beat/Bølge Indstillinger
+SpectrumAutoScaleValuesCheckBox;Lucida Console;8;Auto skaler værdier
+
+SpectrumRedLabel;Lucida Console;8;Rød formel:
+SpectrumRedTextBox;Lucida Console;8;
+
+SpectrumGreenLabel;Lucida Console;8;Grøn formel:
+SpectrumGreenTextBox;Lucida Console;8;
+
+SpectrumBlueLabel;Lucida Console;8;Blå formel:
+SpectrumBlueTextBox;Lucida Console;8;
+
+UpdateSpectrumButton;Lucida Console;8;Opdater
+
+WaveTopLabel;Lucida Console;12;Bølge Beat Indstillinger
+WaveAutoScaleValuesCheckBox;Lucida Console;8;Auto skaler værdier
+
+WaveRedLabel;Lucida Console;8;Rød formel
+WaveRedTextBox;Lucida Console;8;
+
+WaveGreenLabel;Lucida Console;8;Grøn formel
+WaveGreenTextBox;Lucida Console;8;
+
+WaveBlueLabel;Lucida Console;8;Blå formel
+WaveBlueTextBox;Lucida Console;8;
+
+UpdateWaveButton;Lucida Console;8;Opdater
+
+FullSpectrumTopLabel;Lucida Console;12;Fuld Spektrum Instillinger
+FullSpectrumLabel;Lucida Console;8;Prøve mellemrum
+FullSpectrumNumericUpDown;Lucida Console;8;
