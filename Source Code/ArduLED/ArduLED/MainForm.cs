@@ -519,6 +519,7 @@ namespace ArduLEDNameSpace
                 }
                 if (NoError)
                 {
+                    ModeSelectrionComboBox.Enabled = true;
                     if (!ConfigureSetupAutoSendCheckBox.Checked)
                         ModeSelectrionComboBox.SelectedIndex = 4;
                     else
@@ -1044,7 +1045,6 @@ namespace ArduLEDNameSpace
 
                 SendDataBySerial("D;9999;E");
 
-                ModeSelectrionComboBox.Invoke((MethodInvoker)delegate { ModeSelectrionComboBox.Enabled = true; });
                 if (!ConfigureSetupAutoSendCheckBox.Checked)
                     ModeSelectrionComboBox.Invoke((MethodInvoker)delegate { ModeSelectrionComboBox.SelectedIndex = 0; });
             });

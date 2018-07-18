@@ -62,6 +62,10 @@
             this.BeatZoneToLabel = new System.Windows.Forms.Label();
             this.BeatZoneTopLabel = new System.Windows.Forms.Label();
             this.VisualizerPanel = new System.Windows.Forms.Panel();
+            this.VisualizerToSeriesIDLabel = new System.Windows.Forms.Label();
+            this.VisualizerToSeriesIDNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.VisualizerFromSeriesIDLabel = new System.Windows.Forms.Label();
+            this.VisualizerFromSeriesIDNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.VisualizerCurrentValueLabel = new System.Windows.Forms.Label();
             this.panel19 = new System.Windows.Forms.Panel();
             this.AutoTriggerMinNumericUpDown = new System.Windows.Forms.NumericUpDown();
@@ -157,15 +161,13 @@
             this.InstructionsAddFadeColorsButton = new System.Windows.Forms.Button();
             this.InstructionsAddDelayButton = new System.Windows.Forms.Button();
             this.InstructionsModeAddItemsLabel = new System.Windows.Forms.Label();
-            this.InstructionsAddDelayPanel = new System.Windows.Forms.Panel();
-            this.InstructionsAddDelayAddButton = new System.Windows.Forms.Button();
-            this.InstructionsAddDelayNoteLabel = new System.Windows.Forms.Label();
-            this.InstructionsAddDelayLabel = new System.Windows.Forms.Label();
-            this.InstructionsAddDelayNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.InstructionsAddDelayTopLabel = new System.Windows.Forms.Label();
             this.InstructionsAddFadeColorsPanel = new System.Windows.Forms.Panel();
+            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.InstructionsAddFadeColorsToSeriesIDLabel = new System.Windows.Forms.Label();
             this.InstructionsAddFadeColorsFadeFactorLabel = new System.Windows.Forms.Label();
             this.InstructionsAddFadeColorsFadeFactorNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.InstructionsAddFadeColorsFromSeriesIDLabel = new System.Windows.Forms.Label();
             this.InstructionsAddFadeColorsFadeSpeedLabel = new System.Windows.Forms.Label();
             this.InstructionsAddFadeColorsFadeSpeedNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.InstructionsAddFadeColorsAddButton = new System.Windows.Forms.Button();
@@ -179,6 +181,12 @@
             this.InstructionsAddFadeColorsGreenTrackBar = new System.Windows.Forms.TrackBar();
             this.InstructionsAddFadeColorsBlueLabel = new System.Windows.Forms.Label();
             this.InstructionsAddFadeColorsTopLabel = new System.Windows.Forms.Label();
+            this.InstructionsAddDelayPanel = new System.Windows.Forms.Panel();
+            this.InstructionsAddDelayAddButton = new System.Windows.Forms.Button();
+            this.InstructionsAddDelayNoteLabel = new System.Windows.Forms.Label();
+            this.InstructionsAddDelayLabel = new System.Windows.Forms.Label();
+            this.InstructionsAddDelayNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.InstructionsAddDelayTopLabel = new System.Windows.Forms.Label();
             this.InstructionsWorkingPanel = new System.Windows.Forms.Panel();
             this.ConfigureSetupPanel = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -210,14 +218,6 @@
             this.ConfigureSetupWorkingPanel = new System.Windows.Forms.Panel();
             this.ConfigureSetupAutoSendCheckBox = new System.Windows.Forms.CheckBox();
             this.ConfigureSetupHiddenProgressBar = new System.Windows.Forms.ProgressBar();
-            this.VisualizerToSeriesIDLabel = new System.Windows.Forms.Label();
-            this.VisualizerToSeriesIDNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.VisualizerFromSeriesIDLabel = new System.Windows.Forms.Label();
-            this.VisualizerFromSeriesIDNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.InstructionsAddFadeColorsToSeriesIDLabel = new System.Windows.Forms.Label();
-            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.InstructionsAddFadeColorsFromSeriesIDLabel = new System.Windows.Forms.Label();
-            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.SampleTimeTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SmoothnessTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SensitivityTrackBar)).BeginInit();
@@ -226,6 +226,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.BeatZoneFromTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BeatZoneToTrackBar)).BeginInit();
             this.VisualizerPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.VisualizerToSeriesIDNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VisualizerFromSeriesIDNumericUpDown)).BeginInit();
             this.panel19.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AutoTriggerMinNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AutoTriggerMaxNumericUpDown)).BeginInit();
@@ -256,14 +258,16 @@
             this.panel21.SuspendLayout();
             this.panel10.SuspendLayout();
             this.panel11.SuspendLayout();
-            this.InstructionsAddDelayPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddDelayNumericUpDown)).BeginInit();
             this.InstructionsAddFadeColorsPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsToSeriesIDNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsFadeFactorNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsFadeSpeedNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsRedTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsBlueTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsGreenTrackBar)).BeginInit();
+            this.InstructionsAddDelayPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddDelayNumericUpDown)).BeginInit();
             this.ConfigureSetupPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown)).BeginInit();
@@ -273,10 +277,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupAddStripFromLEDID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupAddStripXDir)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupAddStripYDir)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VisualizerToSeriesIDNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VisualizerFromSeriesIDNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsToSeriesIDNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // AudioSourceComboBox
@@ -636,6 +636,68 @@
             this.VisualizerPanel.Size = new System.Drawing.Size(947, 748);
             this.VisualizerPanel.TabIndex = 44;
             this.VisualizerPanel.Visible = false;
+            // 
+            // VisualizerToSeriesIDLabel
+            // 
+            this.VisualizerToSeriesIDLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VisualizerToSeriesIDLabel.Location = new System.Drawing.Point(251, 726);
+            this.VisualizerToSeriesIDLabel.Name = "VisualizerToSeriesIDLabel";
+            this.VisualizerToSeriesIDLabel.Size = new System.Drawing.Size(202, 11);
+            this.VisualizerToSeriesIDLabel.TabIndex = 62;
+            this.VisualizerToSeriesIDLabel.Text = "To Series ID";
+            this.VisualizerToSeriesIDLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // VisualizerToSeriesIDNumericUpDown
+            // 
+            this.VisualizerToSeriesIDNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
+            this.VisualizerToSeriesIDNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.VisualizerToSeriesIDNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VisualizerToSeriesIDNumericUpDown.Location = new System.Drawing.Point(459, 726);
+            this.VisualizerToSeriesIDNumericUpDown.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.VisualizerToSeriesIDNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.VisualizerToSeriesIDNumericUpDown.Name = "VisualizerToSeriesIDNumericUpDown";
+            this.VisualizerToSeriesIDNumericUpDown.Size = new System.Drawing.Size(49, 14);
+            this.VisualizerToSeriesIDNumericUpDown.TabIndex = 60;
+            this.VisualizerToSeriesIDNumericUpDown.Tag = "Setting";
+            this.VisualizerToSeriesIDNumericUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            // 
+            // VisualizerFromSeriesIDLabel
+            // 
+            this.VisualizerFromSeriesIDLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VisualizerFromSeriesIDLabel.Location = new System.Drawing.Point(3, 726);
+            this.VisualizerFromSeriesIDLabel.Name = "VisualizerFromSeriesIDLabel";
+            this.VisualizerFromSeriesIDLabel.Size = new System.Drawing.Size(194, 11);
+            this.VisualizerFromSeriesIDLabel.TabIndex = 61;
+            this.VisualizerFromSeriesIDLabel.Text = "From series ID";
+            this.VisualizerFromSeriesIDLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // VisualizerFromSeriesIDNumericUpDown
+            // 
+            this.VisualizerFromSeriesIDNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
+            this.VisualizerFromSeriesIDNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.VisualizerFromSeriesIDNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VisualizerFromSeriesIDNumericUpDown.Location = new System.Drawing.Point(200, 725);
+            this.VisualizerFromSeriesIDNumericUpDown.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.VisualizerFromSeriesIDNumericUpDown.Name = "VisualizerFromSeriesIDNumericUpDown";
+            this.VisualizerFromSeriesIDNumericUpDown.Size = new System.Drawing.Size(49, 14);
+            this.VisualizerFromSeriesIDNumericUpDown.TabIndex = 59;
+            this.VisualizerFromSeriesIDNumericUpDown.Tag = "Setting";
             // 
             // VisualizerCurrentValueLabel
             // 
@@ -1874,9 +1936,9 @@
             this.InstructionsAddFadeColorsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.InstructionsAddFadeColorsButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.InstructionsAddFadeColorsButton.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddFadeColorsButton.Location = new System.Drawing.Point(5, 51);
+            this.InstructionsAddFadeColorsButton.Location = new System.Drawing.Point(3, 51);
             this.InstructionsAddFadeColorsButton.Name = "InstructionsAddFadeColorsButton";
-            this.InstructionsAddFadeColorsButton.Size = new System.Drawing.Size(191, 23);
+            this.InstructionsAddFadeColorsButton.Size = new System.Drawing.Size(192, 23);
             this.InstructionsAddFadeColorsButton.TabIndex = 11;
             this.InstructionsAddFadeColorsButton.Text = "Fade Colors";
             this.InstructionsAddFadeColorsButton.UseVisualStyleBackColor = false;
@@ -1889,9 +1951,9 @@
             this.InstructionsAddDelayButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.InstructionsAddDelayButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.InstructionsAddDelayButton.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddDelayButton.Location = new System.Drawing.Point(5, 26);
+            this.InstructionsAddDelayButton.Location = new System.Drawing.Point(3, 26);
             this.InstructionsAddDelayButton.Name = "InstructionsAddDelayButton";
-            this.InstructionsAddDelayButton.Size = new System.Drawing.Size(191, 23);
+            this.InstructionsAddDelayButton.Size = new System.Drawing.Size(192, 23);
             this.InstructionsAddDelayButton.TabIndex = 10;
             this.InstructionsAddDelayButton.Text = "Delay";
             this.InstructionsAddDelayButton.UseVisualStyleBackColor = false;
@@ -1907,83 +1969,6 @@
             this.InstructionsModeAddItemsLabel.TabIndex = 13;
             this.InstructionsModeAddItemsLabel.Text = "Add items";
             this.InstructionsModeAddItemsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // InstructionsAddDelayPanel
-            // 
-            this.InstructionsAddDelayPanel.BackColor = System.Drawing.Color.Gray;
-            this.InstructionsAddDelayPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.InstructionsAddDelayPanel.Controls.Add(this.InstructionsAddDelayAddButton);
-            this.InstructionsAddDelayPanel.Controls.Add(this.InstructionsAddDelayNoteLabel);
-            this.InstructionsAddDelayPanel.Controls.Add(this.InstructionsAddDelayLabel);
-            this.InstructionsAddDelayPanel.Controls.Add(this.InstructionsAddDelayNumericUpDown);
-            this.InstructionsAddDelayPanel.Controls.Add(this.InstructionsAddDelayTopLabel);
-            this.InstructionsAddDelayPanel.Location = new System.Drawing.Point(210, 3);
-            this.InstructionsAddDelayPanel.Name = "InstructionsAddDelayPanel";
-            this.InstructionsAddDelayPanel.Size = new System.Drawing.Size(554, 169);
-            this.InstructionsAddDelayPanel.TabIndex = 13;
-            // 
-            // InstructionsAddDelayAddButton
-            // 
-            this.InstructionsAddDelayAddButton.BackColor = System.Drawing.Color.DarkGray;
-            this.InstructionsAddDelayAddButton.FlatAppearance.BorderSize = 0;
-            this.InstructionsAddDelayAddButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.InstructionsAddDelayAddButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddDelayAddButton.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddDelayAddButton.Location = new System.Drawing.Point(15, 135);
-            this.InstructionsAddDelayAddButton.Name = "InstructionsAddDelayAddButton";
-            this.InstructionsAddDelayAddButton.Size = new System.Drawing.Size(75, 23);
-            this.InstructionsAddDelayAddButton.TabIndex = 13;
-            this.InstructionsAddDelayAddButton.Text = "Add";
-            this.InstructionsAddDelayAddButton.UseVisualStyleBackColor = false;
-            this.InstructionsAddDelayAddButton.Click += new System.EventHandler(this.InstructionsAddDelayAddButton_Click);
-            // 
-            // InstructionsAddDelayNoteLabel
-            // 
-            this.InstructionsAddDelayNoteLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddDelayNoteLabel.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddDelayNoteLabel.Location = new System.Drawing.Point(12, 62);
-            this.InstructionsAddDelayNoteLabel.Name = "InstructionsAddDelayNoteLabel";
-            this.InstructionsAddDelayNoteLabel.Size = new System.Drawing.Size(531, 15);
-            this.InstructionsAddDelayNoteLabel.TabIndex = 52;
-            this.InstructionsAddDelayNoteLabel.Text = "(delay should be no less than 10 ms)";
-            this.InstructionsAddDelayNoteLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // InstructionsAddDelayLabel
-            // 
-            this.InstructionsAddDelayLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddDelayLabel.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddDelayLabel.Location = new System.Drawing.Point(12, 35);
-            this.InstructionsAddDelayLabel.Name = "InstructionsAddDelayLabel";
-            this.InstructionsAddDelayLabel.Size = new System.Drawing.Size(246, 15);
-            this.InstructionsAddDelayLabel.TabIndex = 51;
-            this.InstructionsAddDelayLabel.Text = "Select delay (ms)";
-            this.InstructionsAddDelayLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // InstructionsAddDelayNumericUpDown
-            // 
-            this.InstructionsAddDelayNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
-            this.InstructionsAddDelayNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddDelayNumericUpDown.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddDelayNumericUpDown.Location = new System.Drawing.Point(264, 33);
-            this.InstructionsAddDelayNumericUpDown.Maximum = new decimal(new int[] {
-            1000000,
-            0,
-            0,
-            0});
-            this.InstructionsAddDelayNumericUpDown.Name = "InstructionsAddDelayNumericUpDown";
-            this.InstructionsAddDelayNumericUpDown.Size = new System.Drawing.Size(120, 18);
-            this.InstructionsAddDelayNumericUpDown.TabIndex = 12;
-            // 
-            // InstructionsAddDelayTopLabel
-            // 
-            this.InstructionsAddDelayTopLabel.Font = new System.Drawing.Font("Lucida Console", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddDelayTopLabel.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddDelayTopLabel.Location = new System.Drawing.Point(-1, 4);
-            this.InstructionsAddDelayTopLabel.Name = "InstructionsAddDelayTopLabel";
-            this.InstructionsAddDelayTopLabel.Size = new System.Drawing.Size(554, 21);
-            this.InstructionsAddDelayTopLabel.TabIndex = 12;
-            this.InstructionsAddDelayTopLabel.Text = "Delay";
-            this.InstructionsAddDelayTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // InstructionsAddFadeColorsPanel
             // 
@@ -2013,6 +1998,44 @@
             this.InstructionsAddFadeColorsPanel.Size = new System.Drawing.Size(554, 169);
             this.InstructionsAddFadeColorsPanel.TabIndex = 1;
             this.InstructionsAddFadeColorsPanel.Visible = false;
+            // 
+            // InstructionsAddFadeColorsToSeriesIDNumericUpDown
+            // 
+            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
+            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.Location = new System.Drawing.Point(398, 148);
+            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.Name = "InstructionsAddFadeColorsToSeriesIDNumericUpDown";
+            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.Size = new System.Drawing.Size(49, 14);
+            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.TabIndex = 64;
+            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.Tag = "Setting";
+            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            // 
+            // InstructionsAddFadeColorsToSeriesIDLabel
+            // 
+            this.InstructionsAddFadeColorsToSeriesIDLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddFadeColorsToSeriesIDLabel.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddFadeColorsToSeriesIDLabel.Location = new System.Drawing.Point(396, 135);
+            this.InstructionsAddFadeColorsToSeriesIDLabel.Name = "InstructionsAddFadeColorsToSeriesIDLabel";
+            this.InstructionsAddFadeColorsToSeriesIDLabel.Size = new System.Drawing.Size(141, 11);
+            this.InstructionsAddFadeColorsToSeriesIDLabel.TabIndex = 66;
+            this.InstructionsAddFadeColorsToSeriesIDLabel.Text = "To Series ID";
+            this.InstructionsAddFadeColorsToSeriesIDLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // InstructionsAddFadeColorsFadeFactorLabel
             // 
@@ -2046,6 +2069,34 @@
             0,
             0,
             65536});
+            // 
+            // InstructionsAddFadeColorsFromSeriesIDNumericUpDown
+            // 
+            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
+            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.Location = new System.Drawing.Point(398, 112);
+            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.Name = "InstructionsAddFadeColorsFromSeriesIDNumericUpDown";
+            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.Size = new System.Drawing.Size(49, 14);
+            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.TabIndex = 63;
+            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.Tag = "Setting";
+            // 
+            // InstructionsAddFadeColorsFromSeriesIDLabel
+            // 
+            this.InstructionsAddFadeColorsFromSeriesIDLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddFadeColorsFromSeriesIDLabel.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddFadeColorsFromSeriesIDLabel.Location = new System.Drawing.Point(396, 98);
+            this.InstructionsAddFadeColorsFromSeriesIDLabel.Name = "InstructionsAddFadeColorsFromSeriesIDLabel";
+            this.InstructionsAddFadeColorsFromSeriesIDLabel.Size = new System.Drawing.Size(141, 11);
+            this.InstructionsAddFadeColorsFromSeriesIDLabel.TabIndex = 65;
+            this.InstructionsAddFadeColorsFromSeriesIDLabel.Text = "From series ID";
+            this.InstructionsAddFadeColorsFromSeriesIDLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // InstructionsAddFadeColorsFadeSpeedLabel
             // 
@@ -2206,6 +2257,83 @@
             this.InstructionsAddFadeColorsTopLabel.TabIndex = 12;
             this.InstructionsAddFadeColorsTopLabel.Text = "Fade Colors";
             this.InstructionsAddFadeColorsTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // InstructionsAddDelayPanel
+            // 
+            this.InstructionsAddDelayPanel.BackColor = System.Drawing.Color.Gray;
+            this.InstructionsAddDelayPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.InstructionsAddDelayPanel.Controls.Add(this.InstructionsAddDelayAddButton);
+            this.InstructionsAddDelayPanel.Controls.Add(this.InstructionsAddDelayNoteLabel);
+            this.InstructionsAddDelayPanel.Controls.Add(this.InstructionsAddDelayLabel);
+            this.InstructionsAddDelayPanel.Controls.Add(this.InstructionsAddDelayNumericUpDown);
+            this.InstructionsAddDelayPanel.Controls.Add(this.InstructionsAddDelayTopLabel);
+            this.InstructionsAddDelayPanel.Location = new System.Drawing.Point(210, 3);
+            this.InstructionsAddDelayPanel.Name = "InstructionsAddDelayPanel";
+            this.InstructionsAddDelayPanel.Size = new System.Drawing.Size(554, 169);
+            this.InstructionsAddDelayPanel.TabIndex = 13;
+            // 
+            // InstructionsAddDelayAddButton
+            // 
+            this.InstructionsAddDelayAddButton.BackColor = System.Drawing.Color.DarkGray;
+            this.InstructionsAddDelayAddButton.FlatAppearance.BorderSize = 0;
+            this.InstructionsAddDelayAddButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.InstructionsAddDelayAddButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddDelayAddButton.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddDelayAddButton.Location = new System.Drawing.Point(15, 135);
+            this.InstructionsAddDelayAddButton.Name = "InstructionsAddDelayAddButton";
+            this.InstructionsAddDelayAddButton.Size = new System.Drawing.Size(75, 23);
+            this.InstructionsAddDelayAddButton.TabIndex = 13;
+            this.InstructionsAddDelayAddButton.Text = "Add";
+            this.InstructionsAddDelayAddButton.UseVisualStyleBackColor = false;
+            this.InstructionsAddDelayAddButton.Click += new System.EventHandler(this.InstructionsAddDelayAddButton_Click);
+            // 
+            // InstructionsAddDelayNoteLabel
+            // 
+            this.InstructionsAddDelayNoteLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddDelayNoteLabel.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddDelayNoteLabel.Location = new System.Drawing.Point(12, 62);
+            this.InstructionsAddDelayNoteLabel.Name = "InstructionsAddDelayNoteLabel";
+            this.InstructionsAddDelayNoteLabel.Size = new System.Drawing.Size(531, 15);
+            this.InstructionsAddDelayNoteLabel.TabIndex = 52;
+            this.InstructionsAddDelayNoteLabel.Text = "(delay should be no less than 10 ms)";
+            this.InstructionsAddDelayNoteLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // InstructionsAddDelayLabel
+            // 
+            this.InstructionsAddDelayLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddDelayLabel.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddDelayLabel.Location = new System.Drawing.Point(12, 35);
+            this.InstructionsAddDelayLabel.Name = "InstructionsAddDelayLabel";
+            this.InstructionsAddDelayLabel.Size = new System.Drawing.Size(246, 15);
+            this.InstructionsAddDelayLabel.TabIndex = 51;
+            this.InstructionsAddDelayLabel.Text = "Select delay (ms)";
+            this.InstructionsAddDelayLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // InstructionsAddDelayNumericUpDown
+            // 
+            this.InstructionsAddDelayNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
+            this.InstructionsAddDelayNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddDelayNumericUpDown.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddDelayNumericUpDown.Location = new System.Drawing.Point(264, 33);
+            this.InstructionsAddDelayNumericUpDown.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.InstructionsAddDelayNumericUpDown.Name = "InstructionsAddDelayNumericUpDown";
+            this.InstructionsAddDelayNumericUpDown.Size = new System.Drawing.Size(120, 18);
+            this.InstructionsAddDelayNumericUpDown.TabIndex = 12;
+            // 
+            // InstructionsAddDelayTopLabel
+            // 
+            this.InstructionsAddDelayTopLabel.Font = new System.Drawing.Font("Lucida Console", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddDelayTopLabel.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddDelayTopLabel.Location = new System.Drawing.Point(-1, 4);
+            this.InstructionsAddDelayTopLabel.Name = "InstructionsAddDelayTopLabel";
+            this.InstructionsAddDelayTopLabel.Size = new System.Drawing.Size(554, 21);
+            this.InstructionsAddDelayTopLabel.TabIndex = 12;
+            this.InstructionsAddDelayTopLabel.Text = "Delay";
+            this.InstructionsAddDelayTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // InstructionsWorkingPanel
             // 
@@ -2574,134 +2702,6 @@
             this.ConfigureSetupHiddenProgressBar.Visible = false;
             this.ConfigureSetupHiddenProgressBar.Click += new System.EventHandler(this.MenuButton_Click);
             // 
-            // VisualizerToSeriesIDLabel
-            // 
-            this.VisualizerToSeriesIDLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VisualizerToSeriesIDLabel.Location = new System.Drawing.Point(251, 726);
-            this.VisualizerToSeriesIDLabel.Name = "VisualizerToSeriesIDLabel";
-            this.VisualizerToSeriesIDLabel.Size = new System.Drawing.Size(202, 11);
-            this.VisualizerToSeriesIDLabel.TabIndex = 62;
-            this.VisualizerToSeriesIDLabel.Text = "To Series ID";
-            this.VisualizerToSeriesIDLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // VisualizerToSeriesIDNumericUpDown
-            // 
-            this.VisualizerToSeriesIDNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
-            this.VisualizerToSeriesIDNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.VisualizerToSeriesIDNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VisualizerToSeriesIDNumericUpDown.Location = new System.Drawing.Point(459, 726);
-            this.VisualizerToSeriesIDNumericUpDown.Maximum = new decimal(new int[] {
-            99999,
-            0,
-            0,
-            0});
-            this.VisualizerToSeriesIDNumericUpDown.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            this.VisualizerToSeriesIDNumericUpDown.Name = "VisualizerToSeriesIDNumericUpDown";
-            this.VisualizerToSeriesIDNumericUpDown.Size = new System.Drawing.Size(49, 14);
-            this.VisualizerToSeriesIDNumericUpDown.TabIndex = 60;
-            this.VisualizerToSeriesIDNumericUpDown.Tag = "Setting";
-            this.VisualizerToSeriesIDNumericUpDown.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            // 
-            // VisualizerFromSeriesIDLabel
-            // 
-            this.VisualizerFromSeriesIDLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VisualizerFromSeriesIDLabel.Location = new System.Drawing.Point(3, 726);
-            this.VisualizerFromSeriesIDLabel.Name = "VisualizerFromSeriesIDLabel";
-            this.VisualizerFromSeriesIDLabel.Size = new System.Drawing.Size(194, 11);
-            this.VisualizerFromSeriesIDLabel.TabIndex = 61;
-            this.VisualizerFromSeriesIDLabel.Text = "From series ID";
-            this.VisualizerFromSeriesIDLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // VisualizerFromSeriesIDNumericUpDown
-            // 
-            this.VisualizerFromSeriesIDNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
-            this.VisualizerFromSeriesIDNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.VisualizerFromSeriesIDNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VisualizerFromSeriesIDNumericUpDown.Location = new System.Drawing.Point(200, 725);
-            this.VisualizerFromSeriesIDNumericUpDown.Maximum = new decimal(new int[] {
-            99999,
-            0,
-            0,
-            0});
-            this.VisualizerFromSeriesIDNumericUpDown.Name = "VisualizerFromSeriesIDNumericUpDown";
-            this.VisualizerFromSeriesIDNumericUpDown.Size = new System.Drawing.Size(49, 14);
-            this.VisualizerFromSeriesIDNumericUpDown.TabIndex = 59;
-            this.VisualizerFromSeriesIDNumericUpDown.Tag = "Setting";
-            // 
-            // InstructionsAddFadeColorsToSeriesIDLabel
-            // 
-            this.InstructionsAddFadeColorsToSeriesIDLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddFadeColorsToSeriesIDLabel.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddFadeColorsToSeriesIDLabel.Location = new System.Drawing.Point(396, 135);
-            this.InstructionsAddFadeColorsToSeriesIDLabel.Name = "InstructionsAddFadeColorsToSeriesIDLabel";
-            this.InstructionsAddFadeColorsToSeriesIDLabel.Size = new System.Drawing.Size(141, 11);
-            this.InstructionsAddFadeColorsToSeriesIDLabel.TabIndex = 66;
-            this.InstructionsAddFadeColorsToSeriesIDLabel.Text = "To Series ID";
-            this.InstructionsAddFadeColorsToSeriesIDLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // InstructionsAddFadeColorsToSeriesIDNumericUpDown
-            // 
-            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
-            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.Location = new System.Drawing.Point(398, 148);
-            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.Maximum = new decimal(new int[] {
-            99999,
-            0,
-            0,
-            0});
-            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.Name = "InstructionsAddFadeColorsToSeriesIDNumericUpDown";
-            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.Size = new System.Drawing.Size(49, 14);
-            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.TabIndex = 64;
-            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.Tag = "Setting";
-            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            // 
-            // InstructionsAddFadeColorsFromSeriesIDLabel
-            // 
-            this.InstructionsAddFadeColorsFromSeriesIDLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddFadeColorsFromSeriesIDLabel.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddFadeColorsFromSeriesIDLabel.Location = new System.Drawing.Point(396, 98);
-            this.InstructionsAddFadeColorsFromSeriesIDLabel.Name = "InstructionsAddFadeColorsFromSeriesIDLabel";
-            this.InstructionsAddFadeColorsFromSeriesIDLabel.Size = new System.Drawing.Size(141, 11);
-            this.InstructionsAddFadeColorsFromSeriesIDLabel.TabIndex = 65;
-            this.InstructionsAddFadeColorsFromSeriesIDLabel.Text = "From series ID";
-            this.InstructionsAddFadeColorsFromSeriesIDLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // InstructionsAddFadeColorsFromSeriesIDNumericUpDown
-            // 
-            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
-            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.Location = new System.Drawing.Point(398, 112);
-            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.Maximum = new decimal(new int[] {
-            99999,
-            0,
-            0,
-            0});
-            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.Name = "InstructionsAddFadeColorsFromSeriesIDNumericUpDown";
-            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.Size = new System.Drawing.Size(49, 14);
-            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.TabIndex = 63;
-            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.Tag = "Setting";
-            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -2740,6 +2740,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.BeatZoneToTrackBar)).EndInit();
             this.VisualizerPanel.ResumeLayout(false);
             this.VisualizerPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.VisualizerToSeriesIDNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VisualizerFromSeriesIDNumericUpDown)).EndInit();
             this.panel19.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.AutoTriggerMinNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AutoTriggerMaxNumericUpDown)).EndInit();
@@ -2774,15 +2776,17 @@
             this.panel21.ResumeLayout(false);
             this.panel10.ResumeLayout(false);
             this.panel11.ResumeLayout(false);
-            this.InstructionsAddDelayPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddDelayNumericUpDown)).EndInit();
             this.InstructionsAddFadeColorsPanel.ResumeLayout(false);
             this.InstructionsAddFadeColorsPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsToSeriesIDNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsFadeFactorNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsFadeSpeedNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsRedTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsBlueTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsGreenTrackBar)).EndInit();
+            this.InstructionsAddDelayPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddDelayNumericUpDown)).EndInit();
             this.ConfigureSetupPanel.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown)).EndInit();
@@ -2792,10 +2796,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupAddStripFromLEDID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupAddStripXDir)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupAddStripYDir)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VisualizerToSeriesIDNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VisualizerFromSeriesIDNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsToSeriesIDNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
