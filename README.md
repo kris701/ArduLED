@@ -1,5 +1,7 @@
 # ArduLED 
 
+### This project is work in progress, expect errors and mistakes
+
 Welcome, to the ArduLED project. What is this? you may ask, this is a program, both one for an Arduino and one for a computer, together makes it posable to control Neopixels. It features easy-to-do setup, that does not require much work. A full list of features can be made:
  
  - Supports up to 8 LED strips with a total of 128 LEDs (on a standard Arduino with 2kb of memory)
