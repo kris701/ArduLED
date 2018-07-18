@@ -13,3 +13,5 @@ Welcome, to the ArduLED project. What is this? you may ask, this is a program, b
 And this is only the main topics of what ArduLED can do. There is still a lot of smaller features, however those are for you to find :)
 
 This project is open source, so all the Visual Studio files comes with the project. From there on, you can either just use the program itself, or look into how its made.
+
+Please do take a look at the [Wiki](https://github.com/kris701/ArduLED/wiki) too see how the program works and how to set it up.
