@@ -20,4 +20,4 @@ Please do take a look at the [Wiki](https://github.com/kris701/ArduLED/wiki) too
 
    ![](https://vnvcqq.db.files.1drv.com/y4mFHE6C02IR04XVmfqUiOTwDYFHK34_CcjS4Hmpml-nh8gugMoXaOyX564caLH9KiD27N_2Z5qmDHvQQze5X5RlqaEbTKQxovOxPPf7cXwiAMdu8Ekx9ZLkbYT9lIwE3-zrwhhMtGuvMhJCBjp9hI4I2rKqAtFstOBogAt09NWsORGf5A4RQ8uWxW5hK2xyZIsWCj-PF-XOBq_InnaRM29jg/sample.gif?psid=1)         
    
-   Feel free to support us via patreon: https://www.patreon.com/ArduLed 
+   Feel free to support us via patreon: https://www.patreon.com/ArduLed I means alot! 
