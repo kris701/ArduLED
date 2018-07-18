@@ -1,4 +1,4 @@
-# ArduLED
+# ArduLED ![](https://vnvcqq.db.files.1drv.com/y4mFHE6C02IR04XVmfqUiOTwDYFHK34_CcjS4Hmpml-nh8gugMoXaOyX564caLH9KiD27N_2Z5qmDHvQQze5X5RlqaEbTKQxovOxPPf7cXwiAMdu8Ekx9ZLkbYT9lIwE3-zrwhhMtGuvMhJCBjp9hI4I2rKqAtFstOBogAt09NWsORGf5A4RQ8uWxW5hK2xyZIsWCj-PF-XOBq_InnaRM29jg/sample.gif?psid=1)
 
 Welcome, to the ArduLED project. What is this? you may ask, this is a program, both one for an Arduino and one for a computer, together makes it posable to control Neopixels. It features easy-to-do setup, that does not require much work. A full list of features can be made:
  
@@ -16,4 +16,4 @@ This project is open source, so all the Visual Studio files comes with the proje
 
 Please do take a look at the [Wiki](https://github.com/kris701/ArduLED/wiki) too see how the program works and how to set it up.
 
-![](https://vnvcqq.db.files.1drv.com/y4mFHE6C02IR04XVmfqUiOTwDYFHK34_CcjS4Hmpml-nh8gugMoXaOyX564caLH9KiD27N_2Z5qmDHvQQze5X5RlqaEbTKQxovOxPPf7cXwiAMdu8Ekx9ZLkbYT9lIwE3-zrwhhMtGuvMhJCBjp9hI4I2rKqAtFstOBogAt09NWsORGf5A4RQ8uWxW5hK2xyZIsWCj-PF-XOBq_InnaRM29jg/sample.gif?psid=1)
+
