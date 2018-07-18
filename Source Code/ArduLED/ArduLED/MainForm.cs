@@ -21,13 +21,15 @@ namespace ArduLEDNameSpace
         const int ButtonHeight = 15;
         const int BoxHeight = 45;
         const int Margins = 5;
+        const int ScroolBarWidth = 25;
         const int Sizex = 1411;
-        const int Sizey = 751;
+        const int Sizey = 775;
         const int TransferDelay = 25;
 
         List<string> IntructionsList = new List<string>();
         bool ContinueInstructionsLoop = false;
         bool StopInstructionsLoop = false;
+        bool InstructionsRunning = false;
         bool ShowLoadingScreen = true;
         bool UnitReady = false;
         List<List<int>> AudioDataPointStore = new List<List<int>>();
@@ -623,11 +625,11 @@ namespace ArduLEDNameSpace
                 string SerialOut;
                 if (_FromZero)
                 {
-                    SerialOut = "F;0;0;0;0;0;E";
+                    SerialOut = "F;0;-1;0;0;0;0;0;E";
                     SendDataBySerial(SerialOut);
                     Thread.Sleep(10);
                 }
-                SerialOut = "F;" + FadeColorsRedTrackBar.Value + ";" + FadeColorsGreenTrackBar.Value + ";" + FadeColorsBlueTrackBar.Value + ";" + FadeColorsFadeSpeedNumericUpDown.Value + ";" + Math.Round(FadeColorsFadeFactorNumericUpDown.Value * 100, 0) + ";E";
+                SerialOut = "F;0;-1;" + FadeColorsRedTrackBar.Value + ";" + FadeColorsGreenTrackBar.Value + ";" + FadeColorsBlueTrackBar.Value + ";" + FadeColorsFadeSpeedNumericUpDown.Value + ";" + Math.Round(FadeColorsFadeFactorNumericUpDown.Value * 100, 0) + ";E";
                 SendDataBySerial(SerialOut);
             }
         }
@@ -1117,8 +1119,11 @@ namespace ArduLEDNameSpace
 
         private async void InstructionStartLoopButton_Click(object sender, EventArgs e)
         {
-            ContinueInstructionsLoop = true;
-            await RunInstructions();
+            if (!InstructionsRunning)
+            {
+                ContinueInstructionsLoop = true;
+                await RunInstructions();
+            }
         }
 
         private void InstructionsAddDelayButton_Click(object sender, EventArgs e)
@@ -1147,7 +1152,7 @@ namespace ArduLEDNameSpace
 
         private void InstructionsAddFadeColorsAddButton_Click(object sender, EventArgs e)
         {
-            IntructionsList.Add("Fade Colors;" + InstructionsAddFadeColorsRedTrackBar.Value.ToString() + ";" + InstructionsAddFadeColorsGreenTrackBar.Value.ToString() + ";" + InstructionsAddFadeColorsBlueTrackBar.Value.ToString() + ";" + InstructionsAddFadeColorsFadeSpeedNumericUpDown.Value.ToString() + ";" + InstructionsAddFadeColorsFadeFactorNumericUpDown.Value.ToString());
+            IntructionsList.Add("Fade Colors;" + InstructionsAddFadeColorsFromSeriesIDNumericUpDown.Value + ";" + InstructionsAddFadeColorsToSeriesIDNumericUpDown.Value + ";" + InstructionsAddFadeColorsRedTrackBar.Value.ToString() + ";" + InstructionsAddFadeColorsGreenTrackBar.Value.ToString() + ";" + InstructionsAddFadeColorsBlueTrackBar.Value.ToString() + ";" + InstructionsAddFadeColorsFadeSpeedNumericUpDown.Value.ToString() + ";" + InstructionsAddFadeColorsFadeFactorNumericUpDown.Value.ToString());
             RestructureInstructions();
         }
 
@@ -1180,7 +1185,7 @@ namespace ArduLEDNameSpace
             Panel BackPanel = new Panel();
             BackPanel.Location = new Point(Margins, InstructionsWorkingPanel.Controls.Count * BoxHeight + 2 * Margins);
             BackPanel.Height = BoxHeight;
-            BackPanel.Width = InstructionsWorkingPanel.Width - 2 * Margins;
+            BackPanel.Width = InstructionsWorkingPanel.Width - 2 * Margins - ScroolBarWidth;
             BackPanel.BorderStyle = BorderStyle.FixedSingle;
             BackPanel.BackColor = Color.White;
             BackPanel.Tag = _Input;
@@ -1308,7 +1313,7 @@ namespace ArduLEDNameSpace
 
                 IntructionsList.Clear();
 
-                string[] Lines = File.ReadAllLines(Directory.GetCurrentDirectory() + "\\Instructions\\0.txt", System.Text.Encoding.UTF8);
+                string[] Lines = File.ReadAllLines(LoadFileDialog.FileName, System.Text.Encoding.UTF8);
                 for (int i = 0; i < Lines.Length; i++)
                 {
                     IntructionsList.Add(Lines[i]);
@@ -1349,6 +1354,7 @@ namespace ArduLEDNameSpace
         {
             await Task.Run(async () =>
             {
+                InstructionsRunning = true;
                 while (ContinueInstructionsLoop)
                 {
                     for (int i = 0; i < IntructionsList.Count; i++)
@@ -1375,7 +1381,7 @@ namespace ArduLEDNameSpace
                         }
                         if (Data[0] == "Fade Colors")
                         {
-                            string SerialOut = "F;" + Data[1] + ";" + Data[2] + ";" + Data[3] + ";" + Data[4] + ";" + Math.Round((Convert.ToDecimal(Data[5]) * 100), 0).ToString() + ";E";
+                            string SerialOut = "F;" + Data[1] + ";" + Data[2] + ";" + Data[3] + ";" + Data[4] + ";" + Data[5] + ";" + Data[6] + ";" + Math.Round((Convert.ToDecimal(Data[7]) * 100), 0).ToString() + ";E";
                             SendDataBySerial(SerialOut);
                         }
                         if (StopInstructionsLoop)
@@ -1386,19 +1392,22 @@ namespace ArduLEDNameSpace
                     {
                         StopInstructionsLoop = false;
                         ContinueInstructionsLoop = false;
+                        InstructionsRunning = false;
                     }
                 }
                 for (int i = 0; i < IntructionsList.Count; i++)
                 {
                     InstructionsWorkingPanel.Invoke((MethodInvoker)delegate { InstructionsWorkingPanel.Controls[i].BackColor = Color.White; });
                 }
+                InstructionsRunning = false;
             });
         }
 
         private void InstructionStopLoopButton_Click(object sender, EventArgs e)
         {
             if (ContinueInstructionsLoop)
-                StopInstructionsLoop = true;
+                if (InstructionsRunning)
+                    StopInstructionsLoop = true;
         }
 
         #endregion
@@ -1847,7 +1856,7 @@ namespace ArduLEDNameSpace
                 }
                 double OutValue = Math.Round(Math.Round((Hit / ((double)BeatZoneToTrackBar.Value - (double)BeatZoneFromTrackBar.Value)), 2) * 100, 0);
                 AutoTrigger((OutValue / 100) * (255 * 3));
-                string SerialOut = "B;" + OutValue.ToString().Replace(',', '.') + ";E";
+                string SerialOut = "B;" + VisualizerFromSeriesIDNumericUpDown.Value + ";" + VisualizerToSeriesIDNumericUpDown.Value + ";" + OutValue.ToString().Replace(',', '.') + ";E";
                 SendDataBySerial(SerialOut);
             }
             if (VisualizationTypeComboBox.SelectedIndex == 1 | VisualizationTypeComboBox.SelectedIndex == 2)
@@ -1908,9 +1917,9 @@ namespace ArduLEDNameSpace
 
                 string SerialOut = "";
                 if (VisualizationTypeComboBox.SelectedIndex == 1)
-                    SerialOut = "F;" + Math.Round(EndR, 0) + ";" + Math.Round(EndG, 0) + ";" + Math.Round(EndB, 0) + ";0;0;E";
+                    SerialOut = "F;" + VisualizerFromSeriesIDNumericUpDown.Value + ";" + VisualizerToSeriesIDNumericUpDown.Value + ";" + Math.Round(EndR, 0) + ";" + Math.Round(EndG, 0) + ";" + Math.Round(EndB, 0) + ";0;0;E";
                 if (VisualizationTypeComboBox.SelectedIndex == 2)
-                    SerialOut = "W;" + Math.Round(EndR, 0) + ";" + Math.Round(EndG, 0) + ";" + Math.Round(EndB, 0) + ";E";
+                    SerialOut = "W;" + VisualizerFromSeriesIDNumericUpDown.Value + ";" + VisualizerToSeriesIDNumericUpDown.Value + ";" + Math.Round(EndR, 0) + ";" + Math.Round(EndG, 0) + ";" + Math.Round(EndB, 0) + ";E";
                 SendDataBySerial(SerialOut);
             }
             if (VisualizationTypeComboBox.SelectedIndex == 3)
@@ -1960,13 +1969,13 @@ namespace ArduLEDNameSpace
                 if (EndB < 0)
                     EndB = 0;
 
-                string SerialOut = "W;" + EndR + ";" + EndG + ";" + EndB + ";E";
+                string SerialOut = "W;" + VisualizerFromSeriesIDNumericUpDown.Value + ";" + VisualizerToSeriesIDNumericUpDown.Value + ";" + EndR + ";" + EndG + ";" + EndB + ";E";
                 SendDataBySerial(SerialOut);
             }
             if (VisualizationTypeComboBox.SelectedIndex == 4)
             {
                 int Hit = 0;
-                string SerialOut = "S;" + FullSpectrumNumericUpDown.Value.ToString() + ";";
+                string SerialOut = "S;" + VisualizerFromSeriesIDNumericUpDown.Value + ";" + VisualizerToSeriesIDNumericUpDown.Value + ";" + FullSpectrumNumericUpDown.Value.ToString() + ";";
                 for (int i = BeatZoneFromTrackBar.Value; i < BeatZoneToTrackBar.Value; i++)
                 {
                     if (BeatZoneSeries.Points[i].YValues[0] >= BeatZoneTriggerHeight.Value)

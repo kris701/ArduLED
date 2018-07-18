@@ -117,21 +117,30 @@ void Run(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint8_t
 
 void Mode_F(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint8_t _PreviousColor[3], short _TotalSeriesCount, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS])
 {
+	int FromID = 0;
+	int ToID = _TotalSeriesCount;
+	if (_Split[1] >= 0)
+		if (_Split[1] <= _TotalSeriesCount)
+			FromID = _Split[1];
+	if (_Split[2] >= 0)
+		if (_Split[2] <= _TotalSeriesCount)
+			ToID = _Split[2];
+
 	float CurrentColor[3] = { 0,0,0 };
 	float CurrentColorJump[3] = { 0,0,0 };
 
 	for (int i = 0; i < 3; i++)
 	{
-		CurrentColorJump[i] = (((float)_PreviousColor[i] - (float)_Split[i + 1]) * ((float)_Split[5] / (float)100));
+		CurrentColorJump[i] = (((float)_PreviousColor[i] - (float)_Split[i + 3]) * ((float)_Split[7] / (float)100));
 		CurrentColor[i] = _PreviousColor[i];
 	}
 
-	while ((CurrentColor[0] == _Split[1]) + (CurrentColor[1] == _Split[2]) + (CurrentColor[2] == _Split[3]) < 3)
+	while ((CurrentColor[0] == _Split[3]) + (CurrentColor[1] == _Split[4]) + (CurrentColor[2] == _Split[5]) < 3)
 	{
 		for (int i = 0; i < 3; i++)
 		{
 			CurrentColor[i] -= CurrentColorJump[i];
-			CurrentColorJump[i] = ((CurrentColor[i] - (float)_Split[i + 1]) * ((float)_Split[5] / (float)100));
+			CurrentColorJump[i] = ((CurrentColor[i] - (float)_Split[i + 3]) * ((float)_Split[7] / (float)100));
 			if (CurrentColor[i] < 0)
 				CurrentColor[i] = 0;
 			if (CurrentColor[i] > 255)
@@ -139,15 +148,15 @@ void Mode_F(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint
 			if (CurrentColorJump[i] < 0)
 			{
 				if (CurrentColorJump[i] >= -1)
-					CurrentColor[i] = _Split[i + 1];
+					CurrentColor[i] = _Split[i + 3];
 			}
 			else
 			{
 				if (CurrentColorJump[i] <= 1)
-					CurrentColor[i] = _Split[i + 1];
+					CurrentColor[i] = _Split[i + 3];
 			}
 		}
-		for (int i = 0; i < _TotalSeriesCount; i++)
+		for (int i = FromID; i < ToID; i++)
 		{
 			_LEDStrips[_SeriesID[i]].setPixelColor(_Series[i], CurrentColor[0], CurrentColor[1], CurrentColor[2]);
 		}
@@ -159,18 +168,27 @@ void Mode_F(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint
 			}
 		}
 
-		delay(_Split[4]);
+		delay(_Split[6]);
 	}
-	_PreviousColor[0] = _Split[1];
-	_PreviousColor[1] = _Split[2];
-	_PreviousColor[2] = _Split[3];
+	_PreviousColor[0] = _Split[3];
+	_PreviousColor[1] = _Split[4];
+	_PreviousColor[2] = _Split[5];
 }
 
 void Mode_B(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint8_t _PreviousColor[3], short _TotalSeriesCount, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS])
 {
-	for (int i = 0; i < _TotalSeriesCount; i++)
+	int FromID = 0;
+	int ToID = _TotalSeriesCount;
+	if (_Split[1] >= 0)
+		if (_Split[1] <= _TotalSeriesCount)
+			FromID = _Split[1];
+	if (_Split[2] >= 0)
+		if (_Split[2] <= _TotalSeriesCount)
+			ToID = _Split[2];
+
+	for (int i = FromID; i < ToID; i++)
 	{
-		_LEDStrips[_SeriesID[i]].setPixelColor(_Series[i], _PreviousColor[0] * ((float)_Split[1] / (float)100), _PreviousColor[1] * ((float)_Split[2] / (float)100), _PreviousColor[2] * ((float)_Split[3] / (float)100));
+		_LEDStrips[_SeriesID[i]].setPixelColor(_Series[i], _PreviousColor[0] * ((float)_Split[3] / (float)100), _PreviousColor[1] * ((float)_Split[4] / (float)100), _PreviousColor[2] * ((float)_Split[5] / (float)100));
 	}
 	for (int i = 0; i < LEDStripsS; i++)
 	{
@@ -183,11 +201,20 @@ void Mode_B(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint
 
 void Mode_W(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], short _TotalSeriesCount, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS])
 {
-	for (int i = _TotalSeriesCount; i >= 0; i--)
+	int FromID = 0;
+	int ToID = _TotalSeriesCount;
+	if (_Split[1] >= 0)
+		if (_Split[1] <= _TotalSeriesCount)
+			FromID = _Split[1];
+	if (_Split[2] >= 0)
+		if (_Split[2] <= _TotalSeriesCount)
+			ToID = _Split[2];
+
+	for (int i = ToID; i >= FromID; i--)
 	{
-		if (i == 0)
+		if (i == FromID)
 		{
-			_LEDStrips[_SeriesID[i]].setPixelColor(_Series[i], _Split[1], _Split[2], _Split[3]);
+			_LEDStrips[_SeriesID[i]].setPixelColor(_Series[i], _Split[3], _Split[4], _Split[5]);
 		}
 		else
 		{
@@ -211,13 +238,22 @@ void Mode_I(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS])
 
 void Mode_S(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint8_t _PreviousColor[3], short _TotalSeriesCount, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS])
 {
-	int Count = 2;
+	int FromID = 0;
+	int ToID = _TotalSeriesCount;
+	if (_Split[1] >= 0)
+		if (_Split[1] <= _TotalSeriesCount)
+			FromID = _Split[1];
+	if (_Split[2] >= 0)
+		if (_Split[2] <= _TotalSeriesCount)
+			ToID = _Split[2];
 
-	for (int i = 0; i < _TotalSeriesCount; i++)
+	int Count = 4;
+
+	for (int i = FromID; i < ToID; i++)
 	{
 		_LEDStrips[_SeriesID[i]].setPixelColor(_Series[i], 0, 0, 0);
 	}
-	for (int i = 0; i < _TotalSeriesCount; i += _Split[1])
+	for (int i = FromID; i < ToID; i += _Split[3])
 	{
 		for (int j = 0; j < _Split[Count]; j++)
 		{
@@ -275,10 +311,17 @@ bool ReadSerial(short *_Split)
 		{
 			if (Input[i] == ';')
 			{
-				if (IsDigitsOnly((String)InnerSplit[CurrentPos]))
+				if (((String)InnerSplit[CurrentPos]).toInt() == -1)
+				{
 					_Split[CurrentPos] = ((String)InnerSplit[CurrentPos]).toInt();
+				}
 				else
-					_Split[CurrentPos] = InnerSplit[CurrentPos][0];
+				{
+					if (IsDigitsOnly((String)InnerSplit[CurrentPos]))
+						_Split[CurrentPos] = ((String)InnerSplit[CurrentPos]).toInt();
+					else
+						_Split[CurrentPos] = InnerSplit[CurrentPos][0];
+				}
 				CurrentStep = 0;
 				CurrentPos++;
 				if (CurrentPos >= SplitS)

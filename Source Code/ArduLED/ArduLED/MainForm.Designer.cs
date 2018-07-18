@@ -181,6 +181,10 @@
             this.InstructionsAddFadeColorsTopLabel = new System.Windows.Forms.Label();
             this.InstructionsWorkingPanel = new System.Windows.Forms.Panel();
             this.ConfigureSetupPanel = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.ConfigureSetupClickToSetupSeriesFromIDLabel = new System.Windows.Forms.Label();
+            this.ConfigureSetupClickToSetupSeriesCheckBox = new System.Windows.Forms.CheckBox();
+            this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.panel20 = new System.Windows.Forms.Panel();
             this.ConfigureSetupTopLabel = new System.Windows.Forms.Label();
             this.SendSetupProgressBar = new System.Windows.Forms.ProgressBar();
@@ -206,10 +210,14 @@
             this.ConfigureSetupWorkingPanel = new System.Windows.Forms.Panel();
             this.ConfigureSetupAutoSendCheckBox = new System.Windows.Forms.CheckBox();
             this.ConfigureSetupHiddenProgressBar = new System.Windows.Forms.ProgressBar();
-            this.ConfigureSetupClickToSetupSeriesCheckBox = new System.Windows.Forms.CheckBox();
-            this.ConfigureSetupClickToSetupSeriesFromIDLabel = new System.Windows.Forms.Label();
-            this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.VisualizerToSeriesIDLabel = new System.Windows.Forms.Label();
+            this.VisualizerToSeriesIDNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.VisualizerFromSeriesIDLabel = new System.Windows.Forms.Label();
+            this.VisualizerFromSeriesIDNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.InstructionsAddFadeColorsToSeriesIDLabel = new System.Windows.Forms.Label();
+            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.InstructionsAddFadeColorsFromSeriesIDLabel = new System.Windows.Forms.Label();
+            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.SampleTimeTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SmoothnessTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SensitivityTrackBar)).BeginInit();
@@ -257,14 +265,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsBlueTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsGreenTrackBar)).BeginInit();
             this.ConfigureSetupPanel.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown)).BeginInit();
             this.panel20.SuspendLayout();
             this.panel17.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupAddStripPinID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupAddStripFromLEDID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupAddStripXDir)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupAddStripYDir)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown)).BeginInit();
-            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.VisualizerToSeriesIDNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VisualizerFromSeriesIDNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsToSeriesIDNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // AudioSourceComboBox
@@ -577,6 +589,10 @@
             // 
             this.VisualizerPanel.BackColor = System.Drawing.Color.DimGray;
             this.VisualizerPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.VisualizerPanel.Controls.Add(this.VisualizerToSeriesIDLabel);
+            this.VisualizerPanel.Controls.Add(this.VisualizerToSeriesIDNumericUpDown);
+            this.VisualizerPanel.Controls.Add(this.VisualizerFromSeriesIDLabel);
+            this.VisualizerPanel.Controls.Add(this.VisualizerFromSeriesIDNumericUpDown);
             this.VisualizerPanel.Controls.Add(this.VisualizerCurrentValueLabel);
             this.VisualizerPanel.Controls.Add(this.panel19);
             this.VisualizerPanel.Controls.Add(this.AutoTriggerMinNumericUpDown);
@@ -617,7 +633,7 @@
             this.VisualizerPanel.ForeColor = System.Drawing.Color.White;
             this.VisualizerPanel.Location = new System.Drawing.Point(4, 21);
             this.VisualizerPanel.Name = "VisualizerPanel";
-            this.VisualizerPanel.Size = new System.Drawing.Size(947, 726);
+            this.VisualizerPanel.Size = new System.Drawing.Size(947, 748);
             this.VisualizerPanel.TabIndex = 44;
             this.VisualizerPanel.Visible = false;
             // 
@@ -1791,8 +1807,8 @@
             this.panel10.Controls.Add(this.InstructionsLoopCheckBox);
             this.panel10.Controls.Add(this.InstructionStartLoopButton);
             this.panel10.Controls.Add(this.panel11);
-            this.panel10.Controls.Add(this.InstructionsAddDelayPanel);
             this.panel10.Controls.Add(this.InstructionsAddFadeColorsPanel);
+            this.panel10.Controls.Add(this.InstructionsAddDelayPanel);
             this.panel10.Location = new System.Drawing.Point(8, 493);
             this.panel10.Name = "panel10";
             this.panel10.Size = new System.Drawing.Size(772, 178);
@@ -1973,8 +1989,12 @@
             // 
             this.InstructionsAddFadeColorsPanel.BackColor = System.Drawing.Color.Gray;
             this.InstructionsAddFadeColorsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.InstructionsAddFadeColorsPanel.Controls.Add(this.InstructionsAddFadeColorsToSeriesIDNumericUpDown);
+            this.InstructionsAddFadeColorsPanel.Controls.Add(this.InstructionsAddFadeColorsToSeriesIDLabel);
             this.InstructionsAddFadeColorsPanel.Controls.Add(this.InstructionsAddFadeColorsFadeFactorLabel);
             this.InstructionsAddFadeColorsPanel.Controls.Add(this.InstructionsAddFadeColorsFadeFactorNumericUpDown);
+            this.InstructionsAddFadeColorsPanel.Controls.Add(this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown);
+            this.InstructionsAddFadeColorsPanel.Controls.Add(this.InstructionsAddFadeColorsFromSeriesIDLabel);
             this.InstructionsAddFadeColorsPanel.Controls.Add(this.InstructionsAddFadeColorsFadeSpeedLabel);
             this.InstructionsAddFadeColorsPanel.Controls.Add(this.InstructionsAddFadeColorsFadeSpeedNumericUpDown);
             this.InstructionsAddFadeColorsPanel.Controls.Add(this.InstructionsAddFadeColorsAddButton);
@@ -1998,7 +2018,7 @@
             // 
             this.InstructionsAddFadeColorsFadeFactorLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.InstructionsAddFadeColorsFadeFactorLabel.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddFadeColorsFadeFactorLabel.Location = new System.Drawing.Point(395, 58);
+            this.InstructionsAddFadeColorsFadeFactorLabel.Location = new System.Drawing.Point(395, 51);
             this.InstructionsAddFadeColorsFadeFactorLabel.Name = "InstructionsAddFadeColorsFadeFactorLabel";
             this.InstructionsAddFadeColorsFadeFactorLabel.Size = new System.Drawing.Size(142, 15);
             this.InstructionsAddFadeColorsFadeFactorLabel.TabIndex = 76;
@@ -2012,7 +2032,7 @@
             this.InstructionsAddFadeColorsFadeFactorNumericUpDown.DecimalPlaces = 2;
             this.InstructionsAddFadeColorsFadeFactorNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.InstructionsAddFadeColorsFadeFactorNumericUpDown.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddFadeColorsFadeFactorNumericUpDown.Location = new System.Drawing.Point(398, 81);
+            this.InstructionsAddFadeColorsFadeFactorNumericUpDown.Location = new System.Drawing.Point(398, 74);
             this.InstructionsAddFadeColorsFadeFactorNumericUpDown.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -2189,6 +2209,7 @@
             // 
             // InstructionsWorkingPanel
             // 
+            this.InstructionsWorkingPanel.AutoScroll = true;
             this.InstructionsWorkingPanel.BackColor = System.Drawing.Color.Silver;
             this.InstructionsWorkingPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.InstructionsWorkingPanel.Location = new System.Drawing.Point(8, 73);
@@ -2214,6 +2235,51 @@
             this.ConfigureSetupPanel.Size = new System.Drawing.Size(871, 687);
             this.ConfigureSetupPanel.TabIndex = 49;
             this.ConfigureSetupPanel.Visible = false;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.Gray;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.ConfigureSetupClickToSetupSeriesFromIDLabel);
+            this.panel1.Controls.Add(this.ConfigureSetupClickToSetupSeriesCheckBox);
+            this.panel1.Controls.Add(this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown);
+            this.panel1.Location = new System.Drawing.Point(20, 624);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(580, 36);
+            this.panel1.TabIndex = 54;
+            // 
+            // ConfigureSetupClickToSetupSeriesFromIDLabel
+            // 
+            this.ConfigureSetupClickToSetupSeriesFromIDLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ConfigureSetupClickToSetupSeriesFromIDLabel.ForeColor = System.Drawing.Color.White;
+            this.ConfigureSetupClickToSetupSeriesFromIDLabel.Location = new System.Drawing.Point(372, 10);
+            this.ConfigureSetupClickToSetupSeriesFromIDLabel.Name = "ConfigureSetupClickToSetupSeriesFromIDLabel";
+            this.ConfigureSetupClickToSetupSeriesFromIDLabel.Size = new System.Drawing.Size(70, 15);
+            this.ConfigureSetupClickToSetupSeriesFromIDLabel.TabIndex = 71;
+            this.ConfigureSetupClickToSetupSeriesFromIDLabel.Text = "From ID";
+            // 
+            // ConfigureSetupClickToSetupSeriesCheckBox
+            // 
+            this.ConfigureSetupClickToSetupSeriesCheckBox.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ConfigureSetupClickToSetupSeriesCheckBox.ForeColor = System.Drawing.Color.White;
+            this.ConfigureSetupClickToSetupSeriesCheckBox.Location = new System.Drawing.Point(3, 10);
+            this.ConfigureSetupClickToSetupSeriesCheckBox.Name = "ConfigureSetupClickToSetupSeriesCheckBox";
+            this.ConfigureSetupClickToSetupSeriesCheckBox.Size = new System.Drawing.Size(363, 15);
+            this.ConfigureSetupClickToSetupSeriesCheckBox.TabIndex = 69;
+            this.ConfigureSetupClickToSetupSeriesCheckBox.Tag = "Setting";
+            this.ConfigureSetupClickToSetupSeriesCheckBox.Text = "Click to setup series ID";
+            this.ConfigureSetupClickToSetupSeriesCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // ConfigureSetupClickToSetupSeriesFromIDNumericUpDown
+            // 
+            this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
+            this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.ForeColor = System.Drawing.Color.White;
+            this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.Location = new System.Drawing.Point(446, 10);
+            this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.Name = "ConfigureSetupClickToSetupSeriesFromIDNumericUpDown";
+            this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.Size = new System.Drawing.Size(120, 14);
+            this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.TabIndex = 70;
             // 
             // panel20
             // 
@@ -2508,69 +2574,152 @@
             this.ConfigureSetupHiddenProgressBar.Visible = false;
             this.ConfigureSetupHiddenProgressBar.Click += new System.EventHandler(this.MenuButton_Click);
             // 
-            // ConfigureSetupClickToSetupSeriesCheckBox
+            // VisualizerToSeriesIDLabel
             // 
-            this.ConfigureSetupClickToSetupSeriesCheckBox.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ConfigureSetupClickToSetupSeriesCheckBox.ForeColor = System.Drawing.Color.White;
-            this.ConfigureSetupClickToSetupSeriesCheckBox.Location = new System.Drawing.Point(3, 10);
-            this.ConfigureSetupClickToSetupSeriesCheckBox.Name = "ConfigureSetupClickToSetupSeriesCheckBox";
-            this.ConfigureSetupClickToSetupSeriesCheckBox.Size = new System.Drawing.Size(363, 15);
-            this.ConfigureSetupClickToSetupSeriesCheckBox.TabIndex = 69;
-            this.ConfigureSetupClickToSetupSeriesCheckBox.Tag = "Setting";
-            this.ConfigureSetupClickToSetupSeriesCheckBox.Text = "Click to setup series ID";
-            this.ConfigureSetupClickToSetupSeriesCheckBox.UseVisualStyleBackColor = true;
+            this.VisualizerToSeriesIDLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VisualizerToSeriesIDLabel.Location = new System.Drawing.Point(251, 726);
+            this.VisualizerToSeriesIDLabel.Name = "VisualizerToSeriesIDLabel";
+            this.VisualizerToSeriesIDLabel.Size = new System.Drawing.Size(202, 11);
+            this.VisualizerToSeriesIDLabel.TabIndex = 62;
+            this.VisualizerToSeriesIDLabel.Text = "To Series ID";
+            this.VisualizerToSeriesIDLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // ConfigureSetupClickToSetupSeriesFromIDLabel
+            // VisualizerToSeriesIDNumericUpDown
             // 
-            this.ConfigureSetupClickToSetupSeriesFromIDLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ConfigureSetupClickToSetupSeriesFromIDLabel.ForeColor = System.Drawing.Color.White;
-            this.ConfigureSetupClickToSetupSeriesFromIDLabel.Location = new System.Drawing.Point(372, 10);
-            this.ConfigureSetupClickToSetupSeriesFromIDLabel.Name = "ConfigureSetupClickToSetupSeriesFromIDLabel";
-            this.ConfigureSetupClickToSetupSeriesFromIDLabel.Size = new System.Drawing.Size(70, 15);
-            this.ConfigureSetupClickToSetupSeriesFromIDLabel.TabIndex = 71;
-            this.ConfigureSetupClickToSetupSeriesFromIDLabel.Text = "From ID";
+            this.VisualizerToSeriesIDNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
+            this.VisualizerToSeriesIDNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.VisualizerToSeriesIDNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VisualizerToSeriesIDNumericUpDown.Location = new System.Drawing.Point(459, 726);
+            this.VisualizerToSeriesIDNumericUpDown.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.VisualizerToSeriesIDNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.VisualizerToSeriesIDNumericUpDown.Name = "VisualizerToSeriesIDNumericUpDown";
+            this.VisualizerToSeriesIDNumericUpDown.Size = new System.Drawing.Size(49, 14);
+            this.VisualizerToSeriesIDNumericUpDown.TabIndex = 60;
+            this.VisualizerToSeriesIDNumericUpDown.Tag = "Setting";
+            this.VisualizerToSeriesIDNumericUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
             // 
-            // ConfigureSetupClickToSetupSeriesFromIDNumericUpDown
+            // VisualizerFromSeriesIDLabel
             // 
-            this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
-            this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.ForeColor = System.Drawing.Color.White;
-            this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.Location = new System.Drawing.Point(446, 10);
-            this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.Name = "ConfigureSetupClickToSetupSeriesFromIDNumericUpDown";
-            this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.Size = new System.Drawing.Size(120, 14);
-            this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.TabIndex = 70;
+            this.VisualizerFromSeriesIDLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VisualizerFromSeriesIDLabel.Location = new System.Drawing.Point(3, 726);
+            this.VisualizerFromSeriesIDLabel.Name = "VisualizerFromSeriesIDLabel";
+            this.VisualizerFromSeriesIDLabel.Size = new System.Drawing.Size(194, 11);
+            this.VisualizerFromSeriesIDLabel.TabIndex = 61;
+            this.VisualizerFromSeriesIDLabel.Text = "From series ID";
+            this.VisualizerFromSeriesIDLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // panel1
+            // VisualizerFromSeriesIDNumericUpDown
             // 
-            this.panel1.BackColor = System.Drawing.Color.Gray;
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.ConfigureSetupClickToSetupSeriesFromIDLabel);
-            this.panel1.Controls.Add(this.ConfigureSetupClickToSetupSeriesCheckBox);
-            this.panel1.Controls.Add(this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown);
-            this.panel1.Location = new System.Drawing.Point(20, 624);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(580, 36);
-            this.panel1.TabIndex = 54;
+            this.VisualizerFromSeriesIDNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
+            this.VisualizerFromSeriesIDNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.VisualizerFromSeriesIDNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VisualizerFromSeriesIDNumericUpDown.Location = new System.Drawing.Point(200, 725);
+            this.VisualizerFromSeriesIDNumericUpDown.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.VisualizerFromSeriesIDNumericUpDown.Name = "VisualizerFromSeriesIDNumericUpDown";
+            this.VisualizerFromSeriesIDNumericUpDown.Size = new System.Drawing.Size(49, 14);
+            this.VisualizerFromSeriesIDNumericUpDown.TabIndex = 59;
+            this.VisualizerFromSeriesIDNumericUpDown.Tag = "Setting";
+            // 
+            // InstructionsAddFadeColorsToSeriesIDLabel
+            // 
+            this.InstructionsAddFadeColorsToSeriesIDLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddFadeColorsToSeriesIDLabel.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddFadeColorsToSeriesIDLabel.Location = new System.Drawing.Point(396, 135);
+            this.InstructionsAddFadeColorsToSeriesIDLabel.Name = "InstructionsAddFadeColorsToSeriesIDLabel";
+            this.InstructionsAddFadeColorsToSeriesIDLabel.Size = new System.Drawing.Size(141, 11);
+            this.InstructionsAddFadeColorsToSeriesIDLabel.TabIndex = 66;
+            this.InstructionsAddFadeColorsToSeriesIDLabel.Text = "To Series ID";
+            this.InstructionsAddFadeColorsToSeriesIDLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // InstructionsAddFadeColorsToSeriesIDNumericUpDown
+            // 
+            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
+            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.Location = new System.Drawing.Point(398, 148);
+            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.Name = "InstructionsAddFadeColorsToSeriesIDNumericUpDown";
+            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.Size = new System.Drawing.Size(49, 14);
+            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.TabIndex = 64;
+            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.Tag = "Setting";
+            this.InstructionsAddFadeColorsToSeriesIDNumericUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            // 
+            // InstructionsAddFadeColorsFromSeriesIDLabel
+            // 
+            this.InstructionsAddFadeColorsFromSeriesIDLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddFadeColorsFromSeriesIDLabel.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddFadeColorsFromSeriesIDLabel.Location = new System.Drawing.Point(396, 98);
+            this.InstructionsAddFadeColorsFromSeriesIDLabel.Name = "InstructionsAddFadeColorsFromSeriesIDLabel";
+            this.InstructionsAddFadeColorsFromSeriesIDLabel.Size = new System.Drawing.Size(141, 11);
+            this.InstructionsAddFadeColorsFromSeriesIDLabel.TabIndex = 65;
+            this.InstructionsAddFadeColorsFromSeriesIDLabel.Text = "From series ID";
+            this.InstructionsAddFadeColorsFromSeriesIDLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // InstructionsAddFadeColorsFromSeriesIDNumericUpDown
+            // 
+            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
+            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.Location = new System.Drawing.Point(398, 112);
+            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.Name = "InstructionsAddFadeColorsFromSeriesIDNumericUpDown";
+            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.Size = new System.Drawing.Size(49, 14);
+            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.TabIndex = 63;
+            this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown.Tag = "Setting";
             // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.ClientSize = new System.Drawing.Size(1411, 750);
+            this.ClientSize = new System.Drawing.Size(1411, 775);
             this.Controls.Add(this.MenuPanel);
-            this.Controls.Add(this.ConfigureSetupPanel);
             this.Controls.Add(this.ConfigureSetupHiddenProgressBar);
             this.Controls.Add(this.MenuButton);
             this.Controls.Add(this.InstructionsPanel);
             this.Controls.Add(this.IndividualLEDPanel);
             this.Controls.Add(this.VisualizerPanel);
+            this.Controls.Add(this.ConfigureSetupPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(1411, 750);
+            this.MaximumSize = new System.Drawing.Size(1411, 775);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(1411, 750);
+            this.MinimumSize = new System.Drawing.Size(1411, 775);
             this.Name = "MainForm";
             this.Opacity = 0D;
             this.ShowIcon = false;
@@ -2635,14 +2784,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsBlueTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsGreenTrackBar)).EndInit();
             this.ConfigureSetupPanel.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown)).EndInit();
             this.panel20.ResumeLayout(false);
             this.panel17.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupAddStripPinID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupAddStripFromLEDID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupAddStripXDir)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupAddStripYDir)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown)).EndInit();
-            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.VisualizerToSeriesIDNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VisualizerFromSeriesIDNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsToSeriesIDNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2822,6 +2975,14 @@
         private System.Windows.Forms.NumericUpDown ConfigureSetupClickToSetupSeriesFromIDNumericUpDown;
         private System.Windows.Forms.CheckBox ConfigureSetupClickToSetupSeriesCheckBox;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label VisualizerToSeriesIDLabel;
+        private System.Windows.Forms.NumericUpDown VisualizerToSeriesIDNumericUpDown;
+        private System.Windows.Forms.Label VisualizerFromSeriesIDLabel;
+        private System.Windows.Forms.NumericUpDown VisualizerFromSeriesIDNumericUpDown;
+        private System.Windows.Forms.NumericUpDown InstructionsAddFadeColorsToSeriesIDNumericUpDown;
+        private System.Windows.Forms.Label InstructionsAddFadeColorsToSeriesIDLabel;
+        private System.Windows.Forms.NumericUpDown InstructionsAddFadeColorsFromSeriesIDNumericUpDown;
+        private System.Windows.Forms.Label InstructionsAddFadeColorsFromSeriesIDLabel;
     }
 }
 

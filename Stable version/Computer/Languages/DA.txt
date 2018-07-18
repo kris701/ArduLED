@@ -87,6 +87,10 @@ InstructionsAddFadeColorsFadeSpeedLabel;Lucida Console;10;Falme Hastighed (ms)
 InstructionsAddFadeColorsFadeSpeedNumericUpDown;Lucida Console;8;10
 InstructionsAddFadeColorsFadeFactorLabel;Lucida Console;11;Falme Faktor
 InstructionsAddFadeColorsFadeFactorNumericUpDown;Lucida Console;8;0,10
+InstructionsAddFadeColorsFromSeriesIDLabel;Lucida Console;8;Fra serie ID
+InstructionsAddFadeColorsFromSeriesIDNumericUpDown;Lucida Console;8;
+InstructionsAddFadeColorsToSeriesIDLabel;Lucida Console;8;Til serie ID
+InstructionsAddFadeColorsToSeriesIDNumericUpDown;Lucida Console;8;
 
 InstructionsAddDelayTopLabel;Lucida Console;16;Pause
 InstructionsAddDelayLabel;Lucida Console;11;Vælg Pausetid (ms)
@@ -182,3 +186,8 @@ UpdateWaveButton;Lucida Console;8;Opdater
 FullSpectrumTopLabel;Lucida Console;12;Fuld Spektrum Instillinger
 FullSpectrumLabel;Lucida Console;8;Prøve mellemrum
 FullSpectrumNumericUpDown;Lucida Console;8;
+
+VisualizerFromSeriesIDLabel;Lucida Console;8;Fra serie ID
+VisualizerFromSeriesIDNumericUpDown;Lucida Console;8;
+VisualizerToSeriesIDLabel;Lucida Console;8;Til serie ID
+VisualizerToSeriesIDNumericUpDown;Lucida Console;8;
