@@ -162,29 +162,9 @@ namespace ArduLEDNameSpace
 
             AutoLoadAllSettings();
 
-            SetLoadingLabelTo("Updating Charts");
+            SetLoadingLabelTo("Formating layout");
 
-            UpdateSpectrumChart(SpectrumChart, SpectrumRedTextBox.Text, SpectrumGreenTextBox.Text, SpectrumBlueTextBox.Text, (int)VisualSamplesNumericUpDown.Value, SpectrumAutoScaleValuesCheckBox.Checked);
-            UpdateSpectrumChart(WaveChart, WaveRedTextBox.Text, WaveGreenTextBox.Text, WaveBlueTextBox.Text, 255 * 3, WaveAutoScaleValuesCheckBox.Checked);
-
-            SetLoadingLabelTo("Formating label values");
-
-            FadeColorsRedLabel.Text = FadeColorsRedTrackBar.Value.ToString();
-            FadeColorsGreenLabel.Text = FadeColorsGreenTrackBar.Value.ToString();
-            FadeColorsBlueLabel.Text = FadeColorsBlueTrackBar.Value.ToString();
-            FormatCustomText((int)Math.Round(((double)(FadeColorsRedTrackBar.Value + FadeColorsGreenTrackBar.Value + FadeColorsBlueTrackBar.Value) / (double)(3 * 255)) * 100, 0), FadeColorsBrightnessLabel, "%");
-
-            IndividalLEDRedLabel.Text = IndividalLEDRedTrackBar.Value.ToString();
-            IndividalLEDGreenLabel.Text = IndividalLEDGreenTrackBar.Value.ToString();
-            IndividalLEDBlueLabel.Text = IndividalLEDBlueTrackBar.Value.ToString();
-
-            SmoothnessLabel.Text = SmoothnessTrackBar.Value.ToString();
-            SampleTimeLabel.Text = SampleTimeTrackBar.Value.ToString();
-            SensitivityLabel.Text = SensitivityTrackBar.Value.ToString();
-
-            FormatCustomText(BeatZoneTriggerHeight.Value, BeatZoneTriggerHeightLabel, "");
-            FormatCustomText(BeatZoneFromTrackBar.Value, BeatZoneFromLabel, "");
-            FormatCustomText(BeatZoneToTrackBar.Value, BeatZoneToLabel, "");
+            FormatLayout();
 
             SetLoadingLabelTo("Complete!");
 
@@ -327,73 +307,15 @@ namespace ArduLEDNameSpace
                 }
                 catch {  }
             }
-            SensitivityLabel.Text = SensitivityTrackBar.Value.ToString();
-            SmoothnessLabel.Text = SmoothnessTrackBar.Value.ToString();
-            SampleTimeLabel.Text = SampleTimeTrackBar.Value.ToString();
 
-            FadeColorsRedLabel.Text = FadeColorsRedTrackBar.Value.ToString();
-            FadeColorsGreenLabel.Text = FadeColorsGreenTrackBar.Value.ToString();
-            FadeColorsBlueLabel.Text = FadeColorsBlueTrackBar.Value.ToString();
-            FormatCustomText((int)Math.Round(((double)(FadeColorsRedTrackBar.Value + FadeColorsGreenTrackBar.Value + FadeColorsBlueTrackBar.Value) / (double)(3 * 255)) * 100, 0), FadeColorsBrightnessLabel, "%");
-
-            IndividalLEDRedLabel.Text = IndividalLEDRedTrackBar.Value.ToString();
-            IndividalLEDGreenLabel.Text = IndividalLEDGreenTrackBar.Value.ToString();
-            IndividalLEDBlueLabel.Text = IndividalLEDBlueTrackBar.Value.ToString();
-
-            SmoothnessLabel.Text = SmoothnessTrackBar.Value.ToString();
-            SampleTimeLabel.Text = SampleTimeTrackBar.Value.ToString();
-            SensitivityLabel.Text = SensitivityTrackBar.Value.ToString();
-
-            FormatCustomText(BeatZoneTriggerHeight.Value, BeatZoneTriggerHeightLabel, "");
-            FormatCustomText(BeatZoneFromTrackBar.Value, BeatZoneFromLabel, "");
-            FormatCustomText(BeatZoneToTrackBar.Value, BeatZoneToLabel, "");
+            FormatLayout();
         }
 
         void AutoLoadAllSettings()
         {
             if (File.Exists(Directory.GetCurrentDirectory() + "\\cfg.txt"))
             {
-                string[] Lines = File.ReadAllLines(Directory.GetCurrentDirectory() + "\\cfg.txt", System.Text.Encoding.UTF8);
-                for (int i = 0; i < Lines.Length; i++)
-                {
-                    try
-                    {
-                        string[] Split = Lines[i].Split(';');
-                        if (Split[0] != "")
-                        {
-                            if (Split[0].ToUpper() == "COMBOBOX")
-                            {
-                                ComboBox LoadCombobox = Controls.Find(Split[1], true)[0] as ComboBox;
-                                LoadCombobox.SelectedIndex = Int32.Parse(Split[2]);
-                            }
-                            if (Split[0].ToUpper() == "CHECKBOX")
-                            {
-                                CheckBox LoadCheckBox = Controls.Find(Split[1], true)[0] as CheckBox;
-                                LoadCheckBox.Checked = Convert.ToBoolean(Split[2]);
-                            }
-                            if (Split[0].ToUpper() == "TEXTBOX")
-                            {
-                                TextBox LoadTextBox = Controls.Find(Split[1], true)[0] as TextBox;
-                                LoadTextBox.Text = Split[2];
-                            }
-                            if (Split[0].ToUpper() == "NUMERICUPDOWN")
-                            {
-                                NumericUpDown LoadNumericUpDown = Controls.Find(Split[1], true)[0] as NumericUpDown;
-                                LoadNumericUpDown.Value = Convert.ToDecimal(Split[2]);
-                            }
-                            if (Split[0].ToUpper() == "TRACKBAR")
-                            {
-                                TrackBar LoadTrackBar = Controls.Find(Split[1], true)[0] as TrackBar;
-                                LoadTrackBar.Value = Int32.Parse(Split[2]);
-                            }
-                            if (Split[0].ToUpper() == "SERIALPORT")
-                            {
-                                SerialPort1.BaudRate = Int32.Parse(Split[1]);
-                            }
-                        }
-                    }
-                    catch { }
-                }
+                LoadSettings(Directory.GetCurrentDirectory() + "\\cfg.txt");
             }
         }
 
@@ -401,52 +323,7 @@ namespace ArduLEDNameSpace
         {
             GetAllControls(this);
 
-            if (File.Exists(Directory.GetCurrentDirectory() + "\\cfg.txt"))
-                File.Delete(Directory.GetCurrentDirectory() + "\\cfg.txt");
-
-            using (StreamWriter SaveFile = File.CreateText(Directory.GetCurrentDirectory() + "\\cfg.txt"))
-            {
-                string SerialOut = "SERIALPORT;" + SerialPort1.BaudRate;
-                SaveFile.WriteLine(SerialOut);
-                foreach (Control c in ControlList)
-                {
-                    if (c is ComboBox)
-                    {
-                        ComboBox SaveComboBox = c as ComboBox;
-                        SerialOut = "COMBOBOX;" + SaveComboBox.Name + ";" + SaveComboBox.SelectedIndex;
-                        SaveFile.WriteLine(SerialOut);
-                        continue;
-                    }
-                    if (c is CheckBox)
-                    {
-                        CheckBox SaveCheckBox = c as CheckBox;
-                        SerialOut = "CHECKBOX;" + SaveCheckBox.Name + ";" + SaveCheckBox.Checked;
-                        SaveFile.WriteLine(SerialOut);
-                        continue;
-                    }
-                    if (c is TextBox)
-                    {
-                        TextBox SaveTextBox = c as TextBox;
-                        SerialOut = "TEXTBOX;" + SaveTextBox.Name + ";" + SaveTextBox.Text;
-                        SaveFile.WriteLine(SerialOut);
-                        continue;
-                    }
-                    if (c is NumericUpDown)
-                    {
-                        NumericUpDown SaveNumericUpDown = c as NumericUpDown;
-                        SerialOut = "NUMERICUPDOWN;" + SaveNumericUpDown.Name + ";" + SaveNumericUpDown.Value;
-                        SaveFile.WriteLine(SerialOut);
-                        continue;
-                    }
-                    if (c is TrackBar)
-                    {
-                        TrackBar SaveTrackBar = c as TrackBar;
-                        SerialOut = "TRACKBAR;" + SaveTrackBar.Name + ";" + SaveTrackBar.Value;
-                        SaveFile.WriteLine(SerialOut);
-                        continue;
-                    }
-                }
-            }
+            SaveSettings(Directory.GetCurrentDirectory() + "\\cfg.txt", "SERIALPORT;" + SerialPort1.BaudRate);
         }
 
         void GetAllControls(Control _InputControl)
@@ -2110,49 +1987,7 @@ namespace ArduLEDNameSpace
             SaveFileDialog.InitialDirectory = Directory.GetCurrentDirectory() + "\\VisualizerSettings";
             if (SaveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                SaveFileDialog.InitialDirectory = Directory.GetCurrentDirectory();
-                using (StreamWriter SaveFile = new StreamWriter(SaveFileDialog.FileName, false))
-                {
-                    string SerialOut;
-                    foreach (Control c in ControlList)
-                    {
-                        if (c is ComboBox)
-                        {
-                            ComboBox SaveComboBox = c as ComboBox;
-                            SerialOut = "COMBOBOX;" + SaveComboBox.Name + ";" + SaveComboBox.SelectedIndex;
-                            SaveFile.WriteLine(SerialOut);
-                            continue;
-                        }
-                        if (c is CheckBox)
-                        {
-                            CheckBox SaveCheckBox = c as CheckBox;
-                            SerialOut = "CHECKBOX;" + SaveCheckBox.Name + ";" + SaveCheckBox.Checked;
-                            SaveFile.WriteLine(SerialOut);
-                            continue;
-                        }
-                        if (c is TextBox)
-                        {
-                            TextBox SaveTextBox = c as TextBox;
-                            SerialOut = "TEXTBOX;" + SaveTextBox.Name + ";" + SaveTextBox.Text;
-                            SaveFile.WriteLine(SerialOut);
-                            continue;
-                        }
-                        if (c is NumericUpDown)
-                        {
-                            NumericUpDown SaveNumericUpDown = c as NumericUpDown;
-                            SerialOut = "NUMERICUPDOWN;" + SaveNumericUpDown.Name + ";" + SaveNumericUpDown.Value;
-                            SaveFile.WriteLine(SerialOut);
-                            continue;
-                        }
-                        if (c is TrackBar)
-                        {
-                            TrackBar SaveTrackBar = c as TrackBar;
-                            SerialOut = "TRACKBAR;" + SaveTrackBar.Name + ";" + SaveTrackBar.Value;
-                            SaveFile.WriteLine(SerialOut);
-                            continue;
-                        }
-                    }
-                }
+                SaveSettings(SaveFileDialog.FileName, "");
             }
             SaveFileDialog.InitialDirectory = Directory.GetCurrentDirectory();
         }
@@ -2162,59 +1997,132 @@ namespace ArduLEDNameSpace
             LoadFileDialog.InitialDirectory = Directory.GetCurrentDirectory() + "\\VisualizerSettings";
             if (LoadFileDialog.ShowDialog() == DialogResult.OK)
             {
-                string[] Lines = File.ReadAllLines(LoadFileDialog.FileName, System.Text.Encoding.UTF8);
-                for (int i = 0; i < Lines.Length; i++)
-                {
-                    try
-                    {
-                        string[] Split = Lines[i].Split(';');
-                        if (Split[0] != "")
-                        {
-                            if (Split[0].ToUpper() == "COMBOBOX")
-                            {
-                                ComboBox LoadCombobox = Controls.Find(Split[1], true)[0] as ComboBox;
-                                LoadCombobox.SelectedIndex = Int32.Parse(Split[2]);
-                            }
-                            if (Split[0].ToUpper() == "CHECKBOX")
-                            {
-                                CheckBox LoadCheckBox = Controls.Find(Split[1], true)[0] as CheckBox;
-                                LoadCheckBox.Checked = Convert.ToBoolean(Split[2]);
-                            }
-                            if (Split[0].ToUpper() == "TEXTBOX")
-                            {
-                                TextBox LoadTextBox = Controls.Find(Split[1], true)[0] as TextBox;
-                                LoadTextBox.Text = Split[2];
-                            }
-                            if (Split[0].ToUpper() == "NUMERICUPDOWN")
-                            {
-                                NumericUpDown LoadNumericUpDown = Controls.Find(Split[1], true)[0] as NumericUpDown;
-                                LoadNumericUpDown.Value = Convert.ToDecimal(Split[2]);
-                            }
-                            if (Split[0].ToUpper() == "TRACKBAR")
-                            {
-                                TrackBar LoadTrackBar = Controls.Find(Split[1], true)[0] as TrackBar;
-                                LoadTrackBar.Value = Int32.Parse(Split[2]);
-                            }
-                            if (Split[0].ToUpper() == "SERIALPORT")
-                            {
-                                SerialPort1.BaudRate = Int32.Parse(Split[1]);
-                            }
-                        }
-                    }
-                    catch { }
-                }
-                SmoothnessLabel.Text = SmoothnessTrackBar.Value.ToString();
-                SampleTimeLabel.Text = SampleTimeTrackBar.Value.ToString();
-                SensitivityLabel.Text = SensitivityTrackBar.Value.ToString();
-
-                FormatCustomText(BeatZoneTriggerHeight.Value, BeatZoneTriggerHeightLabel, "");
-                FormatCustomText(BeatZoneFromTrackBar.Value, BeatZoneFromLabel, "");
-                FormatCustomText(BeatZoneToTrackBar.Value, BeatZoneToLabel, "");
-
-                UpdateSpectrumChart(SpectrumChart, SpectrumRedTextBox.Text, SpectrumGreenTextBox.Text, SpectrumBlueTextBox.Text, (int)VisualSamplesNumericUpDown.Value, SpectrumAutoScaleValuesCheckBox.Checked);
-                UpdateSpectrumChart(WaveChart, WaveRedTextBox.Text, WaveGreenTextBox.Text, WaveBlueTextBox.Text, 255 * 3, WaveAutoScaleValuesCheckBox.Checked);
+                LoadSettings(LoadFileDialog.FileName);
             }
             LoadFileDialog.InitialDirectory = Directory.GetCurrentDirectory();
+        }
+
+        void LoadSettings(string _Location)
+        {
+            string[] Lines = File.ReadAllLines(_Location, System.Text.Encoding.UTF8);
+            for (int i = 0; i < Lines.Length; i++)
+            {
+                try
+                {
+                    string[] Split = Lines[i].Split(';');
+                    if (Split[0] != "")
+                    {
+                        if (Split[0].ToUpper() == "COMBOBOX")
+                        {
+                            ComboBox LoadCombobox = Controls.Find(Split[1], true)[0] as ComboBox;
+                            LoadCombobox.SelectedIndex = Int32.Parse(Split[2]);
+                        }
+                        if (Split[0].ToUpper() == "CHECKBOX")
+                        {
+                            CheckBox LoadCheckBox = Controls.Find(Split[1], true)[0] as CheckBox;
+                            LoadCheckBox.Checked = Convert.ToBoolean(Split[2]);
+                        }
+                        if (Split[0].ToUpper() == "TEXTBOX")
+                        {
+                            TextBox LoadTextBox = Controls.Find(Split[1], true)[0] as TextBox;
+                            LoadTextBox.Text = Split[2];
+                        }
+                        if (Split[0].ToUpper() == "NUMERICUPDOWN")
+                        {
+                            NumericUpDown LoadNumericUpDown = Controls.Find(Split[1], true)[0] as NumericUpDown;
+                            LoadNumericUpDown.Value = Convert.ToDecimal(Split[2]);
+                        }
+                        if (Split[0].ToUpper() == "TRACKBAR")
+                        {
+                            TrackBar LoadTrackBar = Controls.Find(Split[1], true)[0] as TrackBar;
+                            LoadTrackBar.Value = Int32.Parse(Split[2]);
+                        }
+                        if (Split[0].ToUpper() == "SERIALPORT")
+                        {
+                            SerialPort1.BaudRate = Int32.Parse(Split[1]);
+                        }
+                    }
+                }
+                catch { }
+            }
+            FormatLayout();
+        }
+
+        void SaveSettings(string _Location, string _Additional)
+        {
+            if (File.Exists(_Location))
+                File.Delete(_Location);
+
+            using (StreamWriter SaveFile = File.CreateText(_Location))
+            {
+                string SerialOut;
+                if (_Additional != "")
+                {
+                    SerialOut = _Additional;
+                    SaveFile.WriteLine(SerialOut);
+                }
+                foreach (Control c in ControlList)
+                {
+                    if (c is ComboBox)
+                    {
+                        ComboBox SaveComboBox = c as ComboBox;
+                        SerialOut = "COMBOBOX;" + SaveComboBox.Name + ";" + SaveComboBox.SelectedIndex;
+                        SaveFile.WriteLine(SerialOut);
+                        continue;
+                    }
+                    if (c is CheckBox)
+                    {
+                        CheckBox SaveCheckBox = c as CheckBox;
+                        SerialOut = "CHECKBOX;" + SaveCheckBox.Name + ";" + SaveCheckBox.Checked;
+                        SaveFile.WriteLine(SerialOut);
+                        continue;
+                    }
+                    if (c is TextBox)
+                    {
+                        TextBox SaveTextBox = c as TextBox;
+                        SerialOut = "TEXTBOX;" + SaveTextBox.Name + ";" + SaveTextBox.Text;
+                        SaveFile.WriteLine(SerialOut);
+                        continue;
+                    }
+                    if (c is NumericUpDown)
+                    {
+                        NumericUpDown SaveNumericUpDown = c as NumericUpDown;
+                        SerialOut = "NUMERICUPDOWN;" + SaveNumericUpDown.Name + ";" + SaveNumericUpDown.Value;
+                        SaveFile.WriteLine(SerialOut);
+                        continue;
+                    }
+                    if (c is TrackBar)
+                    {
+                        TrackBar SaveTrackBar = c as TrackBar;
+                        SerialOut = "TRACKBAR;" + SaveTrackBar.Name + ";" + SaveTrackBar.Value;
+                        SaveFile.WriteLine(SerialOut);
+                        continue;
+                    }
+                }
+            }
+        }
+
+        void FormatLayout()
+        {
+            UpdateSpectrumChart(SpectrumChart, SpectrumRedTextBox.Text, SpectrumGreenTextBox.Text, SpectrumBlueTextBox.Text, (int)VisualSamplesNumericUpDown.Value, SpectrumAutoScaleValuesCheckBox.Checked);
+            UpdateSpectrumChart(WaveChart, WaveRedTextBox.Text, WaveGreenTextBox.Text, WaveBlueTextBox.Text, 255 * 3, WaveAutoScaleValuesCheckBox.Checked);
+
+            FadeColorsRedLabel.Text = FadeColorsRedTrackBar.Value.ToString();
+            FadeColorsGreenLabel.Text = FadeColorsGreenTrackBar.Value.ToString();
+            FadeColorsBlueLabel.Text = FadeColorsBlueTrackBar.Value.ToString();
+            FormatCustomText((int)Math.Round(((double)(FadeColorsRedTrackBar.Value + FadeColorsGreenTrackBar.Value + FadeColorsBlueTrackBar.Value) / (double)(3 * 255)) * 100, 0), FadeColorsBrightnessLabel, "%");
+
+            IndividalLEDRedLabel.Text = IndividalLEDRedTrackBar.Value.ToString();
+            IndividalLEDGreenLabel.Text = IndividalLEDGreenTrackBar.Value.ToString();
+            IndividalLEDBlueLabel.Text = IndividalLEDBlueTrackBar.Value.ToString();
+
+            SmoothnessLabel.Text = SmoothnessTrackBar.Value.ToString();
+            SampleTimeLabel.Text = SampleTimeTrackBar.Value.ToString();
+            SensitivityLabel.Text = SensitivityTrackBar.Value.ToString();
+
+            FormatCustomText(BeatZoneTriggerHeight.Value, BeatZoneTriggerHeightLabel, "");
+            FormatCustomText(BeatZoneFromTrackBar.Value, BeatZoneFromLabel, "");
+            FormatCustomText(BeatZoneToTrackBar.Value, BeatZoneToLabel, "");
         }
 
         #endregion
