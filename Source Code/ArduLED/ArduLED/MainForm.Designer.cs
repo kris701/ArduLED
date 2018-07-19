@@ -301,7 +301,7 @@
             this.SampleTimeLabel.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SampleTimeLabel.Location = new System.Drawing.Point(538, 421);
             this.SampleTimeLabel.Name = "SampleTimeLabel";
-            this.SampleTimeLabel.Size = new System.Drawing.Size(34, 16);
+            this.SampleTimeLabel.Size = new System.Drawing.Size(41, 16);
             this.SampleTimeLabel.TabIndex = 24;
             this.SampleTimeLabel.Text = "0";
             this.SampleTimeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -366,7 +366,7 @@
             this.SmoothnessLabel.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SmoothnessLabel.Location = new System.Drawing.Point(538, 361);
             this.SmoothnessLabel.Name = "SmoothnessLabel";
-            this.SmoothnessLabel.Size = new System.Drawing.Size(34, 16);
+            this.SmoothnessLabel.Size = new System.Drawing.Size(41, 16);
             this.SmoothnessLabel.TabIndex = 17;
             this.SmoothnessLabel.Text = "0";
             this.SmoothnessLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -376,7 +376,7 @@
             this.SensitivityLabel.Font = new System.Drawing.Font("Lucida Console", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SensitivityLabel.Location = new System.Drawing.Point(538, 298);
             this.SensitivityLabel.Name = "SensitivityLabel";
-            this.SensitivityLabel.Size = new System.Drawing.Size(34, 16);
+            this.SensitivityLabel.Size = new System.Drawing.Size(41, 16);
             this.SensitivityLabel.TabIndex = 16;
             this.SensitivityLabel.Text = "0";
             this.SensitivityLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -2742,13 +2742,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(1411, 775);
+            this.Controls.Add(this.VisualizerPanel);
             this.Controls.Add(this.MenuPanel);
             this.Controls.Add(this.ConfigureSetupHiddenProgressBar);
             this.Controls.Add(this.MenuButton);
             this.Controls.Add(this.ConfigureSetupPanel);
             this.Controls.Add(this.InstructionsPanel);
             this.Controls.Add(this.IndividualLEDPanel);
-            this.Controls.Add(this.VisualizerPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;

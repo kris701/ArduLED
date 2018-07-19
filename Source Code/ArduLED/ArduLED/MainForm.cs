@@ -1443,69 +1443,73 @@ namespace ArduLEDNameSpace
                 }
             }
 
-            for (int i = 0; i < _XValues; i++)
+            try
             {
-                foreach(Series InnerSeries in AllSeries)
+
+                for (int i = 0; i < _XValues; i++)
                 {
-                    if (((string)InnerSeries.Tag).Contains("PW["))
+                    foreach (Series InnerSeries in AllSeries)
                     {
-                        string CurColor = (string)InnerSeries.Tag;
-                        List<string> RedInternals = new List<string>();
-                        while (CurColor.Contains("PW["))
+                        if (((string)InnerSeries.Tag).Contains("PW["))
                         {
-                            int StartIndex = CurColor.IndexOf('[');
-                            int EndIndex = CurColor.IndexOf(']');
-                            RedInternals.Add(CurColor.Substring(StartIndex + 1, EndIndex - StartIndex - 1));
-                            CurColor = CurColor.Remove(EndIndex, 1);
-                            CurColor = CurColor.Remove(StartIndex - 2, 3);
-                        }
-                        foreach (string s in RedInternals)
-                        {
-                            string[] InternalSplit = s.Split(':');
-                            if (Int32.Parse(InternalSplit[1]) <= i && Int32.Parse(InternalSplit[2]) >= i)
+                            string CurColor = (string)InnerSeries.Tag;
+                            List<string> RedInternals = new List<string>();
+                            while (CurColor.Contains("PW["))
                             {
-                                double ColorValue = TransformToPoint(InternalSplit[0], i);
-                                if (_AutoScale)
+                                int StartIndex = CurColor.IndexOf('[');
+                                int EndIndex = CurColor.IndexOf(']');
+                                RedInternals.Add(CurColor.Substring(StartIndex + 1, EndIndex - StartIndex - 1));
+                                CurColor = CurColor.Remove(EndIndex, 1);
+                                CurColor = CurColor.Remove(StartIndex - 2, 3);
+                            }
+                            foreach (string s in RedInternals)
+                            {
+                                string[] InternalSplit = s.Split(':');
+                                if (Int32.Parse(InternalSplit[1]) <= i && Int32.Parse(InternalSplit[2]) >= i)
                                 {
-                                    if (ColorValue > 255)
+                                    double ColorValue = TransformToPoint(InternalSplit[0], i);
+                                    if (_AutoScale)
                                     {
-                                        InnerSeries.Points[i].YValues[0] = 255;
+                                        if (ColorValue > 255)
+                                        {
+                                            InnerSeries.Points[i].YValues[0] = 255;
+                                        }
+                                        else
+                                        {
+                                            if (ColorValue < 0)
+                                                InnerSeries.Points[i].YValues[0] = 0;
+                                            else
+                                                InnerSeries.Points[i].YValues[0] = ColorValue;
+                                        }
                                     }
                                     else
-                                    {
-                                        if (ColorValue < 0)
-                                            InnerSeries.Points[i].YValues[0] = 0;
-                                        else
-                                            InnerSeries.Points[i].YValues[0] = ColorValue;
-                                    }
+                                        InnerSeries.Points[i].YValues[0] = ColorValue;
                                 }
-                                else
-                                    InnerSeries.Points[i].YValues[0] = ColorValue;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        double ColorValue = TransformToPoint((string)InnerSeries.Tag, i);
-                        if (_AutoScale)
-                        {
-                            if (ColorValue > 255)
-                            {
-                                InnerSeries.Points[i].YValues[0] = 255;
-                            }
-                            else
-                            {
-                                if (ColorValue < 0)
-                                    InnerSeries.Points[i].YValues[0] = 0;
-                                else
-                                    InnerSeries.Points[i].YValues[0] = ColorValue;
                             }
                         }
                         else
-                            InnerSeries.Points[i].YValues[0] = ColorValue;
+                        {
+                            double ColorValue = TransformToPoint((string)InnerSeries.Tag, i);
+                            if (_AutoScale)
+                            {
+                                if (ColorValue > 255)
+                                {
+                                    InnerSeries.Points[i].YValues[0] = 255;
+                                }
+                                else
+                                {
+                                    if (ColorValue < 0)
+                                        InnerSeries.Points[i].YValues[0] = 0;
+                                    else
+                                        InnerSeries.Points[i].YValues[0] = ColorValue;
+                                }
+                            }
+                            else
+                                InnerSeries.Points[i].YValues[0] = ColorValue;
+                        }
                     }
                 }
-            }
+            } catch { MessageBox.Show("Error in input string"); }
 
             foreach (Series InnerSeries in AllSeries)
             {
