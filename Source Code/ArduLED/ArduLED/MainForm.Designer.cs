@@ -218,6 +218,8 @@
             this.ConfigureSetupWorkingPanel = new System.Windows.Forms.Panel();
             this.ConfigureSetupAutoSendCheckBox = new System.Windows.Forms.CheckBox();
             this.ConfigureSetupHiddenProgressBar = new System.Windows.Forms.ProgressBar();
+            this.VisualizerSaveSettingsButton = new System.Windows.Forms.Button();
+            this.VisualizerLoadSettingsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.SampleTimeTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SmoothnessTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SensitivityTrackBar)).BeginInit();
@@ -589,6 +591,8 @@
             // 
             this.VisualizerPanel.BackColor = System.Drawing.Color.DimGray;
             this.VisualizerPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.VisualizerPanel.Controls.Add(this.VisualizerLoadSettingsButton);
+            this.VisualizerPanel.Controls.Add(this.VisualizerSaveSettingsButton);
             this.VisualizerPanel.Controls.Add(this.VisualizerToSeriesIDLabel);
             this.VisualizerPanel.Controls.Add(this.VisualizerToSeriesIDNumericUpDown);
             this.VisualizerPanel.Controls.Add(this.VisualizerFromSeriesIDLabel);
@@ -2705,6 +2709,34 @@
             this.ConfigureSetupHiddenProgressBar.Visible = false;
             this.ConfigureSetupHiddenProgressBar.Click += new System.EventHandler(this.MenuButton_Click);
             // 
+            // VisualizerSaveSettingsButton
+            // 
+            this.VisualizerSaveSettingsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
+            this.VisualizerSaveSettingsButton.FlatAppearance.BorderSize = 0;
+            this.VisualizerSaveSettingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.VisualizerSaveSettingsButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VisualizerSaveSettingsButton.Location = new System.Drawing.Point(580, 720);
+            this.VisualizerSaveSettingsButton.Name = "VisualizerSaveSettingsButton";
+            this.VisualizerSaveSettingsButton.Size = new System.Drawing.Size(171, 23);
+            this.VisualizerSaveSettingsButton.TabIndex = 63;
+            this.VisualizerSaveSettingsButton.Text = "Save settings";
+            this.VisualizerSaveSettingsButton.UseVisualStyleBackColor = false;
+            this.VisualizerSaveSettingsButton.Click += new System.EventHandler(this.VisualizerSaveSettingsButton_Click);
+            // 
+            // VisualizerLoadSettingsButton
+            // 
+            this.VisualizerLoadSettingsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
+            this.VisualizerLoadSettingsButton.FlatAppearance.BorderSize = 0;
+            this.VisualizerLoadSettingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.VisualizerLoadSettingsButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VisualizerLoadSettingsButton.Location = new System.Drawing.Point(770, 720);
+            this.VisualizerLoadSettingsButton.Name = "VisualizerLoadSettingsButton";
+            this.VisualizerLoadSettingsButton.Size = new System.Drawing.Size(171, 23);
+            this.VisualizerLoadSettingsButton.TabIndex = 64;
+            this.VisualizerLoadSettingsButton.Text = "Load settings";
+            this.VisualizerLoadSettingsButton.UseVisualStyleBackColor = false;
+            this.VisualizerLoadSettingsButton.Click += new System.EventHandler(this.VisualizerLoadSettingsButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -2986,6 +3018,8 @@
         private System.Windows.Forms.Label InstructionsAddFadeColorsToSeriesIDLabel;
         private System.Windows.Forms.NumericUpDown InstructionsAddFadeColorsFromSeriesIDNumericUpDown;
         private System.Windows.Forms.Label InstructionsAddFadeColorsFromSeriesIDLabel;
+        private System.Windows.Forms.Button VisualizerLoadSettingsButton;
+        private System.Windows.Forms.Button VisualizerSaveSettingsButton;
     }
 }
 

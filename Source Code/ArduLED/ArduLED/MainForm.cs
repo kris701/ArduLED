@@ -79,6 +79,13 @@ namespace ArduLEDNameSpace
                 Directory.CreateDirectory(Directory.GetCurrentDirectory() + "\\Setups");
             }
 
+            SetLoadingLabelTo("Visualizer settings folder");
+
+            if (!Directory.Exists(Directory.GetCurrentDirectory() + "\\VisualizerSettings"))
+            {
+                Directory.CreateDirectory(Directory.GetCurrentDirectory() + "\\VisualizerSettings");
+            }
+
             SetLoadingLabelTo("Language Packs");
 
             if (Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Languages").Length > 0)
@@ -161,10 +168,6 @@ namespace ArduLEDNameSpace
             UpdateSpectrumChart(WaveChart, WaveRedTextBox.Text, WaveGreenTextBox.Text, WaveBlueTextBox.Text, 255 * 3, WaveAutoScaleValuesCheckBox.Checked);
 
             SetLoadingLabelTo("Formating label values");
-
-            SensitivityLabel.Text = SensitivityTrackBar.Value.ToString();
-            SmoothnessLabel.Text = SmoothnessTrackBar.Value.ToString();
-            SampleTimeLabel.Text = SampleTimeTrackBar.Value.ToString();
 
             FadeColorsRedLabel.Text = FadeColorsRedTrackBar.Value.ToString();
             FadeColorsGreenLabel.Text = FadeColorsGreenTrackBar.Value.ToString();
@@ -397,7 +400,6 @@ namespace ArduLEDNameSpace
         void AutoSaveAllSettings()
         {
             GetAllControls(this);
-
 
             if (File.Exists(Directory.GetCurrentDirectory() + "\\cfg.txt"))
                 File.Delete(Directory.GetCurrentDirectory() + "\\cfg.txt");
@@ -2099,6 +2101,120 @@ namespace ArduLEDNameSpace
         {
             if (AudioSourceComboBox.Visible)
                 EnableBASS(true);
+        }
+
+        private void VisualizerSaveSettingsButton_Click(object sender, EventArgs e)
+        {
+            GetAllControls(VisualizerPanel);
+
+            SaveFileDialog.InitialDirectory = Directory.GetCurrentDirectory() + "\\VisualizerSettings";
+            if (SaveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                SaveFileDialog.InitialDirectory = Directory.GetCurrentDirectory();
+                using (StreamWriter SaveFile = new StreamWriter(SaveFileDialog.FileName, false))
+                {
+                    string SerialOut;
+                    foreach (Control c in ControlList)
+                    {
+                        if (c is ComboBox)
+                        {
+                            ComboBox SaveComboBox = c as ComboBox;
+                            SerialOut = "COMBOBOX;" + SaveComboBox.Name + ";" + SaveComboBox.SelectedIndex;
+                            SaveFile.WriteLine(SerialOut);
+                            continue;
+                        }
+                        if (c is CheckBox)
+                        {
+                            CheckBox SaveCheckBox = c as CheckBox;
+                            SerialOut = "CHECKBOX;" + SaveCheckBox.Name + ";" + SaveCheckBox.Checked;
+                            SaveFile.WriteLine(SerialOut);
+                            continue;
+                        }
+                        if (c is TextBox)
+                        {
+                            TextBox SaveTextBox = c as TextBox;
+                            SerialOut = "TEXTBOX;" + SaveTextBox.Name + ";" + SaveTextBox.Text;
+                            SaveFile.WriteLine(SerialOut);
+                            continue;
+                        }
+                        if (c is NumericUpDown)
+                        {
+                            NumericUpDown SaveNumericUpDown = c as NumericUpDown;
+                            SerialOut = "NUMERICUPDOWN;" + SaveNumericUpDown.Name + ";" + SaveNumericUpDown.Value;
+                            SaveFile.WriteLine(SerialOut);
+                            continue;
+                        }
+                        if (c is TrackBar)
+                        {
+                            TrackBar SaveTrackBar = c as TrackBar;
+                            SerialOut = "TRACKBAR;" + SaveTrackBar.Name + ";" + SaveTrackBar.Value;
+                            SaveFile.WriteLine(SerialOut);
+                            continue;
+                        }
+                    }
+                }
+            }
+            SaveFileDialog.InitialDirectory = Directory.GetCurrentDirectory();
+        }
+
+        private void VisualizerLoadSettingsButton_Click(object sender, EventArgs e)
+        {
+            LoadFileDialog.InitialDirectory = Directory.GetCurrentDirectory() + "\\VisualizerSettings";
+            if (LoadFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string[] Lines = File.ReadAllLines(LoadFileDialog.FileName, System.Text.Encoding.UTF8);
+                for (int i = 0; i < Lines.Length; i++)
+                {
+                    try
+                    {
+                        string[] Split = Lines[i].Split(';');
+                        if (Split[0] != "")
+                        {
+                            if (Split[0].ToUpper() == "COMBOBOX")
+                            {
+                                ComboBox LoadCombobox = Controls.Find(Split[1], true)[0] as ComboBox;
+                                LoadCombobox.SelectedIndex = Int32.Parse(Split[2]);
+                            }
+                            if (Split[0].ToUpper() == "CHECKBOX")
+                            {
+                                CheckBox LoadCheckBox = Controls.Find(Split[1], true)[0] as CheckBox;
+                                LoadCheckBox.Checked = Convert.ToBoolean(Split[2]);
+                            }
+                            if (Split[0].ToUpper() == "TEXTBOX")
+                            {
+                                TextBox LoadTextBox = Controls.Find(Split[1], true)[0] as TextBox;
+                                LoadTextBox.Text = Split[2];
+                            }
+                            if (Split[0].ToUpper() == "NUMERICUPDOWN")
+                            {
+                                NumericUpDown LoadNumericUpDown = Controls.Find(Split[1], true)[0] as NumericUpDown;
+                                LoadNumericUpDown.Value = Convert.ToDecimal(Split[2]);
+                            }
+                            if (Split[0].ToUpper() == "TRACKBAR")
+                            {
+                                TrackBar LoadTrackBar = Controls.Find(Split[1], true)[0] as TrackBar;
+                                LoadTrackBar.Value = Int32.Parse(Split[2]);
+                            }
+                            if (Split[0].ToUpper() == "SERIALPORT")
+                            {
+                                SerialPort1.BaudRate = Int32.Parse(Split[1]);
+                            }
+                        }
+                    }
+                    catch { }
+                }
+                SmoothnessLabel.Text = SmoothnessTrackBar.Value.ToString();
+                SampleTimeLabel.Text = SampleTimeTrackBar.Value.ToString();
+                SensitivityLabel.Text = SensitivityTrackBar.Value.ToString();
+
+                FormatCustomText(BeatZoneTriggerHeight.Value, BeatZoneTriggerHeightLabel, "");
+                FormatCustomText(BeatZoneFromTrackBar.Value, BeatZoneFromLabel, "");
+                FormatCustomText(BeatZoneToTrackBar.Value, BeatZoneToLabel, "");
+
+                UpdateSpectrumChart(SpectrumChart, SpectrumRedTextBox.Text, SpectrumGreenTextBox.Text, SpectrumBlueTextBox.Text, (int)VisualSamplesNumericUpDown.Value, SpectrumAutoScaleValuesCheckBox.Checked);
+                UpdateSpectrumChart(WaveChart, WaveRedTextBox.Text, WaveGreenTextBox.Text, WaveBlueTextBox.Text, 255 * 3, WaveAutoScaleValuesCheckBox.Checked);
+            }
+            LoadFileDialog.InitialDirectory = Directory.GetCurrentDirectory();
         }
 
         #endregion
