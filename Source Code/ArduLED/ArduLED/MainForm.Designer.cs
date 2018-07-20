@@ -62,6 +62,8 @@
             this.BeatZoneToLabel = new System.Windows.Forms.Label();
             this.BeatZoneTopLabel = new System.Windows.Forms.Label();
             this.VisualizerPanel = new System.Windows.Forms.Panel();
+            this.VisualizerLoadSettingsButton = new System.Windows.Forms.Button();
+            this.VisualizerSaveSettingsButton = new System.Windows.Forms.Button();
             this.VisualizerToSeriesIDLabel = new System.Windows.Forms.Label();
             this.VisualizerToSeriesIDNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.VisualizerFromSeriesIDLabel = new System.Windows.Forms.Label();
@@ -218,8 +220,8 @@
             this.ConfigureSetupWorkingPanel = new System.Windows.Forms.Panel();
             this.ConfigureSetupAutoSendCheckBox = new System.Windows.Forms.CheckBox();
             this.ConfigureSetupHiddenProgressBar = new System.Windows.Forms.ProgressBar();
-            this.VisualizerSaveSettingsButton = new System.Windows.Forms.Button();
-            this.VisualizerLoadSettingsButton = new System.Windows.Forms.Button();
+            this.HideTimer = new System.Windows.Forms.Timer(this.components);
+            this.MenuAutoHideCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.SampleTimeTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SmoothnessTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SensitivityTrackBar)).BeginInit();
@@ -640,6 +642,34 @@
             this.VisualizerPanel.Size = new System.Drawing.Size(947, 748);
             this.VisualizerPanel.TabIndex = 44;
             this.VisualizerPanel.Visible = false;
+            // 
+            // VisualizerLoadSettingsButton
+            // 
+            this.VisualizerLoadSettingsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
+            this.VisualizerLoadSettingsButton.FlatAppearance.BorderSize = 0;
+            this.VisualizerLoadSettingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.VisualizerLoadSettingsButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VisualizerLoadSettingsButton.Location = new System.Drawing.Point(770, 720);
+            this.VisualizerLoadSettingsButton.Name = "VisualizerLoadSettingsButton";
+            this.VisualizerLoadSettingsButton.Size = new System.Drawing.Size(171, 23);
+            this.VisualizerLoadSettingsButton.TabIndex = 64;
+            this.VisualizerLoadSettingsButton.Text = "Load settings";
+            this.VisualizerLoadSettingsButton.UseVisualStyleBackColor = false;
+            this.VisualizerLoadSettingsButton.Click += new System.EventHandler(this.VisualizerLoadSettingsButton_Click);
+            // 
+            // VisualizerSaveSettingsButton
+            // 
+            this.VisualizerSaveSettingsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
+            this.VisualizerSaveSettingsButton.FlatAppearance.BorderSize = 0;
+            this.VisualizerSaveSettingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.VisualizerSaveSettingsButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VisualizerSaveSettingsButton.Location = new System.Drawing.Point(580, 720);
+            this.VisualizerSaveSettingsButton.Name = "VisualizerSaveSettingsButton";
+            this.VisualizerSaveSettingsButton.Size = new System.Drawing.Size(171, 23);
+            this.VisualizerSaveSettingsButton.TabIndex = 63;
+            this.VisualizerSaveSettingsButton.Text = "Save settings";
+            this.VisualizerSaveSettingsButton.UseVisualStyleBackColor = false;
+            this.VisualizerSaveSettingsButton.Click += new System.EventHandler(this.VisualizerSaveSettingsButton_Click);
             // 
             // VisualizerToSeriesIDLabel
             // 
@@ -1456,6 +1486,7 @@
             // 
             this.MenuPanel.BackColor = System.Drawing.Color.DimGray;
             this.MenuPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.MenuPanel.Controls.Add(this.MenuAutoHideCheckBox);
             this.MenuPanel.Controls.Add(this.LanguageComboBox);
             this.MenuPanel.Controls.Add(this.panel7);
             this.MenuPanel.Controls.Add(this.FadeLEDPanel);
@@ -1477,7 +1508,7 @@
             this.LanguageComboBox.Location = new System.Drawing.Point(338, 224);
             this.LanguageComboBox.Name = "LanguageComboBox";
             this.LanguageComboBox.Size = new System.Drawing.Size(44, 19);
-            this.LanguageComboBox.TabIndex = 5;
+            this.LanguageComboBox.TabIndex = 6;
             this.LanguageComboBox.Tag = "Setting";
             this.LanguageComboBox.SelectedIndexChanged += new System.EventHandler(this.LanguageComboBox_SelectedIndexChanged);
             // 
@@ -2709,33 +2740,25 @@
             this.ConfigureSetupHiddenProgressBar.Visible = false;
             this.ConfigureSetupHiddenProgressBar.Click += new System.EventHandler(this.MenuButton_Click);
             // 
-            // VisualizerSaveSettingsButton
+            // HideTimer
             // 
-            this.VisualizerSaveSettingsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
-            this.VisualizerSaveSettingsButton.FlatAppearance.BorderSize = 0;
-            this.VisualizerSaveSettingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.VisualizerSaveSettingsButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VisualizerSaveSettingsButton.Location = new System.Drawing.Point(580, 720);
-            this.VisualizerSaveSettingsButton.Name = "VisualizerSaveSettingsButton";
-            this.VisualizerSaveSettingsButton.Size = new System.Drawing.Size(171, 23);
-            this.VisualizerSaveSettingsButton.TabIndex = 63;
-            this.VisualizerSaveSettingsButton.Text = "Save settings";
-            this.VisualizerSaveSettingsButton.UseVisualStyleBackColor = false;
-            this.VisualizerSaveSettingsButton.Click += new System.EventHandler(this.VisualizerSaveSettingsButton_Click);
+            this.HideTimer.Interval = 3000;
+            this.HideTimer.Tick += new System.EventHandler(this.HideTimer_Tick);
             // 
-            // VisualizerLoadSettingsButton
+            // MenuAutoHideCheckBox
             // 
-            this.VisualizerLoadSettingsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
-            this.VisualizerLoadSettingsButton.FlatAppearance.BorderSize = 0;
-            this.VisualizerLoadSettingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.VisualizerLoadSettingsButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VisualizerLoadSettingsButton.Location = new System.Drawing.Point(770, 720);
-            this.VisualizerLoadSettingsButton.Name = "VisualizerLoadSettingsButton";
-            this.VisualizerLoadSettingsButton.Size = new System.Drawing.Size(171, 23);
-            this.VisualizerLoadSettingsButton.TabIndex = 64;
-            this.VisualizerLoadSettingsButton.Text = "Load settings";
-            this.VisualizerLoadSettingsButton.UseVisualStyleBackColor = false;
-            this.VisualizerLoadSettingsButton.Click += new System.EventHandler(this.VisualizerLoadSettingsButton_Click);
+            this.MenuAutoHideCheckBox.AutoSize = true;
+            this.MenuAutoHideCheckBox.BackColor = System.Drawing.Color.DimGray;
+            this.MenuAutoHideCheckBox.Checked = true;
+            this.MenuAutoHideCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.MenuAutoHideCheckBox.ForeColor = System.Drawing.Color.White;
+            this.MenuAutoHideCheckBox.Location = new System.Drawing.Point(6, 225);
+            this.MenuAutoHideCheckBox.Name = "MenuAutoHideCheckBox";
+            this.MenuAutoHideCheckBox.Size = new System.Drawing.Size(73, 17);
+            this.MenuAutoHideCheckBox.TabIndex = 5;
+            this.MenuAutoHideCheckBox.Tag = "Setting";
+            this.MenuAutoHideCheckBox.Text = "Auto Hide";
+            this.MenuAutoHideCheckBox.UseVisualStyleBackColor = false;
             // 
             // MainForm
             // 
@@ -2744,11 +2767,11 @@
             this.ClientSize = new System.Drawing.Size(1411, 775);
             this.Controls.Add(this.VisualizerPanel);
             this.Controls.Add(this.MenuPanel);
-            this.Controls.Add(this.ConfigureSetupHiddenProgressBar);
-            this.Controls.Add(this.MenuButton);
             this.Controls.Add(this.ConfigureSetupPanel);
             this.Controls.Add(this.InstructionsPanel);
             this.Controls.Add(this.IndividualLEDPanel);
+            this.Controls.Add(this.MenuButton);
+            this.Controls.Add(this.ConfigureSetupHiddenProgressBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -2758,10 +2781,10 @@
             this.Name = "MainForm";
             this.Opacity = 0D;
             this.ShowIcon = false;
-            this.ShowInTaskbar = false;
             this.Text = "ArduLED";
             this.TopMost = true;
             this.TransparencyKey = System.Drawing.SystemColors.ActiveBorder;
+            this.Activated += new System.EventHandler(this.MainForm_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Move += new System.EventHandler(this.ResetToDefaultPosition);
@@ -2797,6 +2820,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.FadeColorsGreenTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.FadeColorsFadeSpeedNumericUpDown)).EndInit();
             this.MenuPanel.ResumeLayout(false);
+            this.MenuPanel.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.FadeLEDPanel.ResumeLayout(false);
             this.FadeLEDPanel.PerformLayout();
@@ -3020,6 +3044,8 @@
         private System.Windows.Forms.Label InstructionsAddFadeColorsFromSeriesIDLabel;
         private System.Windows.Forms.Button VisualizerLoadSettingsButton;
         private System.Windows.Forms.Button VisualizerSaveSettingsButton;
+        private System.Windows.Forms.Timer HideTimer;
+        private System.Windows.Forms.CheckBox MenuAutoHideCheckBox;
     }
 }
 

@@ -358,6 +358,37 @@ namespace ArduLEDNameSpace
             catch { }
         }
 
+        private async void HideTimer_Tick(object sender, EventArgs e)
+        {
+            for (double i = 100; i >= 0; i -= 2)
+            {
+                Opacity = i / 100;
+                await Task.Delay(10);
+            }
+            HideTimer.Stop();
+        }
+
+        private async void MainForm_Activated(object sender, EventArgs e)
+        {
+            if (MenuAutoHideCheckBox.Checked)
+            {
+                HideTimer.Stop();
+                bool BreakInside = false;
+                for (double i = 0; i <= 100; i += 2)
+                {
+                    if (Opacity == 1)
+                    {
+                        BreakInside = true;
+                        break;
+                    }
+                    Opacity = i / 100;
+                    await Task.Delay(10);
+                }
+                if (!BreakInside)
+                    HideTimer.Start();
+            }
+        }
+
         #endregion
 
         #region Menu Section
@@ -418,9 +449,18 @@ namespace ArduLEDNameSpace
                 ConfigureSetupPanel.Visible = false;
                 InstructionsPanel.Visible = false;
                 AutoSaveAllSettings();
+                if (MenuAutoHideCheckBox.Checked)
+                    HideTimer.Start();
             }
             else
+            {
+                if (MenuAutoHideCheckBox.Checked)
+                {
+                    HideTimer.Stop();
+                    Opacity = 1;
+                }
                 MenuPanel.Visible = true;
+            }
         }
 
         private void ModeSelectrionComboBox_SelectedIndexChanged(object sender, EventArgs e)
