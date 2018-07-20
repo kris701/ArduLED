@@ -4,6 +4,7 @@ MenuExitButton;Lucida Console;8;X
 MenuConnectButton;Lucida Console;8;Forbind
 MenuButton;Lucida Console;8;ArduLED
 LanguageComboBox;Lucida Console;8;
+MenuAutoHideCheckBox;Lucida Console;8;Gør automatisk usynlig
 
 ModeSelectrionComboBox;Lucida Console;8;
 INDEXNAMES;ModeSelectrionComboBox;Falme Farver;Visualizer;Individuelle Farver;Instruktioner;Opsætning

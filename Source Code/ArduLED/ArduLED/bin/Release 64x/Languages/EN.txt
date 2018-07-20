@@ -4,6 +4,7 @@ MenuExitButton;Lucida Console;8;X
 MenuConnectButton;Lucida Console;8;Connect
 MenuButton;Lucida Console;8;ArduLED
 LanguageComboBox;Lucida Console;8;
+MenuAutoHideCheckBox;Lucida Console;8;Auto Hide
 
 ModeSelectrionComboBox;Lucida Console;8;
 INDEXNAMES;ModeSelectrionComboBox;Fade Colors;Visualizer;Individual Colors;Indstructions Mode;Configure Setup
