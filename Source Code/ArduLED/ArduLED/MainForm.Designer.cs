@@ -124,6 +124,7 @@
             this.MenuSelectComDeviceLabel = new System.Windows.Forms.Label();
             this.FadeColorsFadeSpeedNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.MenuPanel = new System.Windows.Forms.Panel();
+            this.MenuAutoHideCheckBox = new System.Windows.Forms.CheckBox();
             this.LanguageComboBox = new System.Windows.Forms.ComboBox();
             this.panel7 = new System.Windows.Forms.Panel();
             this.MenuExitButton = new System.Windows.Forms.Button();
@@ -221,7 +222,6 @@
             this.ConfigureSetupAutoSendCheckBox = new System.Windows.Forms.CheckBox();
             this.ConfigureSetupHiddenProgressBar = new System.Windows.Forms.ProgressBar();
             this.HideTimer = new System.Windows.Forms.Timer(this.components);
-            this.MenuAutoHideCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.SampleTimeTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SmoothnessTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SensitivityTrackBar)).BeginInit();
@@ -1497,6 +1497,21 @@
             this.MenuPanel.TabIndex = 46;
             this.MenuPanel.Visible = false;
             // 
+            // MenuAutoHideCheckBox
+            // 
+            this.MenuAutoHideCheckBox.AutoSize = true;
+            this.MenuAutoHideCheckBox.BackColor = System.Drawing.Color.DimGray;
+            this.MenuAutoHideCheckBox.Checked = true;
+            this.MenuAutoHideCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.MenuAutoHideCheckBox.ForeColor = System.Drawing.Color.White;
+            this.MenuAutoHideCheckBox.Location = new System.Drawing.Point(6, 225);
+            this.MenuAutoHideCheckBox.Name = "MenuAutoHideCheckBox";
+            this.MenuAutoHideCheckBox.Size = new System.Drawing.Size(73, 17);
+            this.MenuAutoHideCheckBox.TabIndex = 5;
+            this.MenuAutoHideCheckBox.Tag = "Setting";
+            this.MenuAutoHideCheckBox.Text = "Auto Hide";
+            this.MenuAutoHideCheckBox.UseVisualStyleBackColor = false;
+            // 
             // LanguageComboBox
             // 
             this.LanguageComboBox.BackColor = System.Drawing.Color.Gray;
@@ -2745,21 +2760,6 @@
             this.HideTimer.Interval = 3000;
             this.HideTimer.Tick += new System.EventHandler(this.HideTimer_Tick);
             // 
-            // MenuAutoHideCheckBox
-            // 
-            this.MenuAutoHideCheckBox.AutoSize = true;
-            this.MenuAutoHideCheckBox.BackColor = System.Drawing.Color.DimGray;
-            this.MenuAutoHideCheckBox.Checked = true;
-            this.MenuAutoHideCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.MenuAutoHideCheckBox.ForeColor = System.Drawing.Color.White;
-            this.MenuAutoHideCheckBox.Location = new System.Drawing.Point(6, 225);
-            this.MenuAutoHideCheckBox.Name = "MenuAutoHideCheckBox";
-            this.MenuAutoHideCheckBox.Size = new System.Drawing.Size(73, 17);
-            this.MenuAutoHideCheckBox.TabIndex = 5;
-            this.MenuAutoHideCheckBox.Tag = "Setting";
-            this.MenuAutoHideCheckBox.Text = "Auto Hide";
-            this.MenuAutoHideCheckBox.UseVisualStyleBackColor = false;
-            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -2770,8 +2770,8 @@
             this.Controls.Add(this.ConfigureSetupPanel);
             this.Controls.Add(this.InstructionsPanel);
             this.Controls.Add(this.IndividualLEDPanel);
-            this.Controls.Add(this.MenuButton);
             this.Controls.Add(this.ConfigureSetupHiddenProgressBar);
+            this.Controls.Add(this.MenuButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
