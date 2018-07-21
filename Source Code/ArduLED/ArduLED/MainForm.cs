@@ -372,20 +372,26 @@ namespace ArduLEDNameSpace
         {
             if (MenuAutoHideCheckBox.Checked)
             {
-                HideTimer.Stop();
-                bool BreakInside = false;
-                for (double i = 0; i <= 100; i += 2)
+                if (Opacity != 1)
                 {
-                    if (Opacity == 1)
+                    if (!ShowLoadingScreen)
                     {
-                        BreakInside = true;
-                        break;
+                        HideTimer.Stop();
+                        bool BreakInside = false;
+                        for (double i = 0; i <= 100; i += 2)
+                        {
+                            if (Opacity == 1)
+                            {
+                                BreakInside = true;
+                                break;
+                            }
+                            Opacity = i / 100;
+                            await Task.Delay(10);
+                        }
+                        if (!BreakInside)
+                            HideTimer.Start();
                     }
-                    Opacity = i / 100;
-                    await Task.Delay(10);
                 }
-                if (!BreakInside)
-                    HideTimer.Start();
             }
         }
 
