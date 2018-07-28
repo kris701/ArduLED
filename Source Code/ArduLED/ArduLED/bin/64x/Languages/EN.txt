@@ -115,7 +115,7 @@ ColorEntireLEDStripCheckBox;Lucida Console;8;Color Entire Strip
 VisualizerTopLabel;Lucida Console;16;Visualizer Settings
 AudioSourceLabel;Lucida Console;12;Select Audio Source
 AudioSourceComboBox;Lucida Console;8;
-INDEXNAMES;VisualizationTypeComboBox;Beat;Spectrum Beat;Spectrum Wave;Beat Wave;Full Spectrum
+INDEXNAMES;VisualizationTypeComboBox;Beat;Spectrum Beat;Spectrum Wave;Beat Wave;"Beat Wave" Beat;Full Spectrum
 
 VisualizationTypeLabel;Lucida Console;12;Visualization type (def: Beat)
 VisualizationTypeComboBox;Lucida Console;8;

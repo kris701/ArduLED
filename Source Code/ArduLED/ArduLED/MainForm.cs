@@ -130,6 +130,7 @@ namespace ArduLEDNameSpace
             VisualizationTypeComboBox.Items.Add(" ");
             VisualizationTypeComboBox.Items.Add(" ");
             VisualizationTypeComboBox.Items.Add(" ");
+            VisualizationTypeComboBox.Items.Add(" ");
             PixelTypeComboBox.Items.Add(" ");
             PixelTypeComboBox.Items.Add(" ");
             PixelBitstreamComboBox.Items.Add(" ");
@@ -1906,7 +1907,7 @@ namespace ArduLEDNameSpace
                     SerialOut = "W;" + VisualizerFromSeriesIDNumericUpDown.Value + ";" + VisualizerToSeriesIDNumericUpDown.Value + ";" + Math.Round(EndR, 0) + ";" + Math.Round(EndG, 0) + ";" + Math.Round(EndB, 0) + ";E";
                 SendDataBySerial(SerialOut);
             }
-            if (VisualizationTypeComboBox.SelectedIndex == 3)
+            if (VisualizationTypeComboBox.SelectedIndex == 3 | VisualizationTypeComboBox.SelectedIndex == 4)
             {
                 int EndR = 0;
                 int EndG = 0;
@@ -1953,10 +1954,14 @@ namespace ArduLEDNameSpace
                 if (EndB < 0)
                     EndB = 0;
 
-                string SerialOut = "W;" + VisualizerFromSeriesIDNumericUpDown.Value + ";" + VisualizerToSeriesIDNumericUpDown.Value + ";" + EndR + ";" + EndG + ";" + EndB + ";E";
+                string SerialOut = "";
+                if (VisualizationTypeComboBox.SelectedIndex == 4)
+                    SerialOut = "F;" + VisualizerFromSeriesIDNumericUpDown.Value + ";" + VisualizerToSeriesIDNumericUpDown.Value + ";" + EndR + ";" + EndG + ";" + EndB + ";0;0;E";
+                if (VisualizationTypeComboBox.SelectedIndex == 3)
+                    SerialOut = "W;" + VisualizerFromSeriesIDNumericUpDown.Value + ";" + VisualizerToSeriesIDNumericUpDown.Value + ";" + EndR + ";" + EndG + ";" + EndB + ";E";
                 SendDataBySerial(SerialOut);
             }
-            if (VisualizationTypeComboBox.SelectedIndex == 4)
+            if (VisualizationTypeComboBox.SelectedIndex == 5)
             {
                 int Hit = 0;
                 string SerialOut = "S;" + VisualizerFromSeriesIDNumericUpDown.Value + ";" + VisualizerToSeriesIDNumericUpDown.Value + ";" + FullSpectrumNumericUpDown.Value.ToString() + ";";

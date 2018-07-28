@@ -115,7 +115,7 @@ ColorEntireLEDStripCheckBox;Lucida Console;8;Farv hele striben
 VisualizerTopLabel;Lucida Console;16;Visualizer Indstillinger
 AudioSourceLabel;Lucida Console;12;Vælg Lyd Kilde
 AudioSourceComboBox;Lucida Console;8;
-INDEXNAMES;VisualizationTypeComboBox;Beat;Spektrum Beat;Spektrum Bølge;Beat Bølge;Fuld Spectrum
+INDEXNAMES;VisualizationTypeComboBox;Beat;Spektrum Beat;Spektrum Bølge;Beat Bølge;"Beat Bølge" Beat;Fuld Spectrum
 
 VisualizationTypeLabel;Lucida Console;12;Visualiserings Type (def: Beat)
 VisualizationTypeComboBox;Lucida Console;8;
