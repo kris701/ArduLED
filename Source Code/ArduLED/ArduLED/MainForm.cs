@@ -1449,11 +1449,11 @@ namespace ArduLEDNameSpace
             {
                 SpectrumPanel.Enabled = true;
             }
-            if (VisualizationTypeComboBox.SelectedIndex == 3)
+            if (VisualizationTypeComboBox.SelectedIndex == 3 | VisualizationTypeComboBox.SelectedIndex == 4)
             {
                 WavePanel.Enabled = true;
             }
-            if (VisualizationTypeComboBox.SelectedIndex == 4)
+            if (VisualizationTypeComboBox.SelectedIndex == 5)
             {
                 FullSpectrumPanel.Enabled = true;
             }
