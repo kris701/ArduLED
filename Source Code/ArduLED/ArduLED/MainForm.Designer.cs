@@ -1835,6 +1835,9 @@
             this.IndividualLEDWorkingPanel.Name = "IndividualLEDWorkingPanel";
             this.IndividualLEDWorkingPanel.Size = new System.Drawing.Size(832, 457);
             this.IndividualLEDWorkingPanel.TabIndex = 10;
+            this.IndividualLEDWorkingPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.IndividualLEDWorkingPanel_MouseDown);
+            this.IndividualLEDWorkingPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.IndividualLEDWorkingPanel_MouseMove);
+            this.IndividualLEDWorkingPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.IndividualLEDWorkingPanel_MouseUp);
             // 
             // SaveFileDialog
             // 
@@ -2782,10 +2785,10 @@
             this.Controls.Add(this.MenuPanel);
             this.Controls.Add(this.ConfigureSetupHiddenProgressBar);
             this.Controls.Add(this.MenuButton);
-            this.Controls.Add(this.ConfigureSetupPanel);
-            this.Controls.Add(this.InstructionsPanel);
             this.Controls.Add(this.IndividualLEDPanel);
             this.Controls.Add(this.VisualizerPanel);
+            this.Controls.Add(this.ConfigureSetupPanel);
+            this.Controls.Add(this.InstructionsPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;

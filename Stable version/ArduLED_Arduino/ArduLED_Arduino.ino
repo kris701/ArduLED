@@ -5,7 +5,7 @@
 #define InnersplitY 5
 #define InputS 128
 #define LEDStripsS 8
-#define SeriesS 64
+#define SeriesS 128
 #define SeriesidS SeriesS
 #define BaudRate 1000000
 

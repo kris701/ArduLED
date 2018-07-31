@@ -715,7 +715,7 @@ namespace ArduLEDNameSpace
                 }
             }
 
-            Point3D[] TagData = { new Point3D(0, 0, 0), new Point3D(_XLEDAmount, _YLEDAmount, _PinID), new Point3D(Convert.ToInt32(_InvertXDir), Convert.ToInt32(_InvertYDir), _FromLEDID), new Point3D(_PixelTypeIndex, _PixelBitstreamIndex, 0) };
+            Point3D[] TagData = { new Point3D(_XLocation, _YLocation, 0), new Point3D(_XLEDAmount, _YLEDAmount, _PinID), new Point3D(Convert.ToInt32(_InvertXDir), Convert.ToInt32(_InvertYDir), _FromLEDID), new Point3D(_PixelTypeIndex, _PixelBitstreamIndex, 0) };
             BackPanel.Tag = TagData;
 
             if (_IsIndividualLEDs)
@@ -1068,8 +1068,23 @@ namespace ArduLEDNameSpace
 
         private void ConfigureSetupWorkingPanel_MouseDown(object sender, MouseEventArgs e)
         {
+            WorkingPanelMouseDown(sender);
+        }
+
+        private void ConfigureSetupWorkingPanel_MouseUp(object sender, MouseEventArgs e)
+        {
+            WorkingPanelMouseUp(sender);
+        }
+
+        private void ConfigureSetupWorkingPanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            WorkingPanelMouseMove(sender);
+        }
+
+        void WorkingPanelMouseDown(object _Sender)
+        {
             DragStart = MousePosition;
-            Panel SenderPanel = sender as Panel;
+            Panel SenderPanel = _Sender as Panel;
             foreach (Control InnerControl in SenderPanel.Controls)
             {
                 foreach (Control InnerInnerControl in InnerControl.Controls)
@@ -1081,10 +1096,9 @@ namespace ArduLEDNameSpace
                 InnerControl.Tag = MomentaryDataTag;
             }
         }
-
-        private void ConfigureSetupWorkingPanel_MouseUp(object sender, MouseEventArgs e)
+        void WorkingPanelMouseUp(object _Sender)
         {
-            Panel SenderPanel = sender as Panel;
+            Panel SenderPanel = _Sender as Panel;
             foreach (Control InnerControl in SenderPanel.Controls)
             {
                 foreach (Control InnerInnerControl in InnerControl.Controls)
@@ -1096,10 +1110,9 @@ namespace ArduLEDNameSpace
                 InnerControl.Tag = MomentaryDataTag;
             }
         }
-
-        private void ConfigureSetupWorkingPanel_MouseMove(object sender, MouseEventArgs e)
+        void WorkingPanelMouseMove(object _Sender)
         {
-            Panel SenderPanel = sender as Panel;
+            Panel SenderPanel = _Sender as Panel;
             foreach (Control InnerControl in SenderPanel.Controls)
             {
                 Point3D[] MomentaryDataTag = (Point3D[])InnerControl.Tag;
@@ -1171,6 +1184,20 @@ namespace ArduLEDNameSpace
         private void IndividalLEDBlueTrackBar_Scroll(object sender, EventArgs e)
         {
             IndividalLEDBlueLabel.Text = IndividalLEDBlueTrackBar.Value.ToString();
+        }
+
+        private void IndividualLEDWorkingPanel_MouseDown(object sender, MouseEventArgs e)
+        {
+            WorkingPanelMouseDown(sender);
+        }
+        private void IndividualLEDWorkingPanel_MouseUp(object sender, MouseEventArgs e)
+        {
+            WorkingPanelMouseUp(sender);
+        }
+
+        private void IndividualLEDWorkingPanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            WorkingPanelMouseMove(sender);
         }
 
         #endregion
