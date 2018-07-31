@@ -243,7 +243,7 @@ namespace ArduLEDNameSpace
         private void SerialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             UnitReady = true;
-            SerialPort1.ReadExisting();
+            SerialPort1.ReadExisting();       
         }
 
         private void LanguageComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -889,11 +889,13 @@ namespace ArduLEDNameSpace
         {
             while (IndividualLEDWorkingPanel.Controls.Count > 0)
                 IndividualLEDWorkingPanel.Controls[0].Dispose();
+
             foreach (Control InnerControl in ConfigureSetupWorkingPanel.Controls)
             {
                 Point3D[] MomentaryDataTag = (Point3D[])InnerControl.Tag;
                 MakeLEDStrip((int)MomentaryDataTag[0].X, (int)MomentaryDataTag[0].Y, (int)MomentaryDataTag[2].Z, Convert.ToBoolean(MomentaryDataTag[2].X), Convert.ToBoolean(MomentaryDataTag[2].Y), (int)MomentaryDataTag[1].X, (int)MomentaryDataTag[1].Y, (int)MomentaryDataTag[1].Z, "", true, (int)MomentaryDataTag[3].X, (int)MomentaryDataTag[3].Y);
             }
+
             await SendSetup();
         }
 
@@ -941,26 +943,106 @@ namespace ArduLEDNameSpace
                 if (ConfigureSetupAutoSendCheckBox.Checked)
                     ConfigureSetupHiddenProgressBar.Invoke((MethodInvoker)delegate { ConfigureSetupHiddenProgressBar.Maximum = TotalLEDs; });
 
-                for (int i = 0; i < TotalLEDs; i++)
+                if (EnableDataCompressionMode.Checked)
                 {
-                    SendSetupProgressBar.Invoke((MethodInvoker)delegate { SendSetupProgressBar.Value = i; });
-                    if (ConfigureSetupAutoSendCheckBox.Checked)
-                        ConfigureSetupHiddenProgressBar.Invoke((MethodInvoker)delegate { ConfigureSetupHiddenProgressBar.Value = i; });
+                    List<int> UpOrDownFrom = new List<int>();
+                    List<int> UpOrDownTo = new List<int>();
+                    List<int> InternalPins = new List<int>();
+                    List<int> SeriesData = new List<int>();
+
                     foreach (Control c in ConfigureSetupWorkingPanel.Controls)
                     {
-                        for (int j = 0; j < c.Controls.Count; j++)
+                        Point3D[] MomentaryDataTag = (Point3D[])c.Tag;
+                        InternalPins.Add((int)MomentaryDataTag[1].Z);
+
+                        int Lowest = 999999;
+                        int Highest = 0;
+                        foreach (Control g in c.Controls)
                         {
-                            if (c.Controls[j] is TextBox)
+                            if (g is TextBox)
                             {
-                                if (c.Controls[j].Enabled)
+                                if (!g.Enabled)
                                 {
-                                    TextBox LEDTextBox = c.Controls[j] as TextBox;
-                                    if (c.Controls[j].Text == i.ToString())
+                                    int Value = Int32.Parse(g.Text);
+                                    if (Value > Highest)
+                                        Highest = Value;
+                                    if (Value < Lowest)
+                                        Lowest = Value;
+                                }
+                            }
+                        }
+                        int UpDownValue = Int32.Parse(c.Controls[c.Controls.Count - 1].Text) - Int32.Parse(c.Controls[c.Controls.Count - 3].Text);
+                        if (UpDownValue < 0)
+                            UpDownValue = 0;
+                        if (UpDownValue > 0)
+                        {
+                            UpOrDownFrom.Add(Lowest);
+                            UpOrDownTo.Add(Highest);
+                        }
+                        else
+                        {
+                            UpOrDownFrom.Add(Highest);
+                            UpOrDownTo.Add(Lowest);
+                        }
+                    }
+
+                    SendDataBySerial("D;8888;E");
+                    await Task.Delay(TransferDelay * 2);
+
+                    int PanelNumber = 0;
+                    for (int i = 0; i < ConfigureSetupWorkingPanel.Controls.Count; i++)
+                    {
+                        int Position = SeriesData.Count;
+                        for (int j = 0; j < SeriesData.Count; j++)
+                        {
+                            int ValueA = Int32.Parse(ConfigureSetupWorkingPanel.Controls[i].Controls[ConfigureSetupWorkingPanel.Controls[i].Controls.Count - 1].Text);
+                            int ValueB = Int32.Parse(ConfigureSetupWorkingPanel.Controls[j].Controls[ConfigureSetupWorkingPanel.Controls[j].Controls.Count - 1].Text);
+                            if (ValueA < ValueB)
+                            {
+                                Position--;
+                            }
+                        }
+                        SeriesData.Insert(Position, PanelNumber);
+                        PanelNumber++;
+                    }
+
+                    for (int i = 0; i < InternalPins.Count; i++)
+                    {
+                        SendSetupProgressBar.Invoke((MethodInvoker)delegate { SendSetupProgressBar.Value = i; });
+                        if (ConfigureSetupAutoSendCheckBox.Checked)
+                            ConfigureSetupHiddenProgressBar.Invoke((MethodInvoker)delegate { ConfigureSetupHiddenProgressBar.Value = i; });
+
+                        string SerialOut = "D;" + UpOrDownFrom[SeriesData[i]] + ";" + UpOrDownTo[SeriesData[i]] + ";" + InternalPins[SeriesData[i]] + ";E";
+                        SendDataBySerial(SerialOut);
+                        await Task.Delay(TransferDelay);
+                    }
+
+                    SendDataBySerial("D;9999;E");
+                    await Task.Delay(TransferDelay * 2);
+                }
+                else
+                {
+                    for (int i = 0; i < TotalLEDs; i++)
+                    {
+                        SendSetupProgressBar.Invoke((MethodInvoker)delegate { SendSetupProgressBar.Value = i; });
+                        if (ConfigureSetupAutoSendCheckBox.Checked)
+                            ConfigureSetupHiddenProgressBar.Invoke((MethodInvoker)delegate { ConfigureSetupHiddenProgressBar.Value = i; });
+                        foreach (Control c in ConfigureSetupWorkingPanel.Controls)
+                        {
+                            for (int j = 0; j < c.Controls.Count; j++)
+                            {
+                                if (c.Controls[j] is TextBox)
+                                {
+                                    if (c.Controls[j].Enabled)
                                     {
-                                        Point3D[] MomentaryDataTag = (Point3D[])c.Controls[j].Parent.Tag;
-                                        string SerialOut = "D;" + c.Controls[j - 1].Text + ";" + MomentaryDataTag[1].Z + ";E";
-                                        SendDataBySerial(SerialOut);
-                                        await Task.Delay(TransferDelay);
+                                        TextBox LEDTextBox = c.Controls[j] as TextBox;
+                                        if (c.Controls[j].Text == i.ToString())
+                                        {
+                                            Point3D[] MomentaryDataTag = (Point3D[])c.Controls[j].Parent.Tag;
+                                            string SerialOut = "D;" + c.Controls[j - 1].Text + ";" + MomentaryDataTag[1].Z + ";E";
+                                            SendDataBySerial(SerialOut);
+                                            await Task.Delay(TransferDelay);
+                                        }
                                     }
                                 }
                             }
@@ -981,9 +1063,6 @@ namespace ArduLEDNameSpace
                 }
 
                 SendDataBySerial("D;9999;E");
-
-                if (!ConfigureSetupAutoSendCheckBox.Checked)
-                    ModeSelectrionComboBox.Invoke((MethodInvoker)delegate { ModeSelectrionComboBox.SelectedIndex = 0; });
             });
         }
 

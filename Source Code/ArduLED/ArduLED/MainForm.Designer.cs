@@ -192,6 +192,7 @@
             this.InstructionsAddDelayTopLabel = new System.Windows.Forms.Label();
             this.InstructionsWorkingPanel = new System.Windows.Forms.Panel();
             this.ConfigureSetupPanel = new System.Windows.Forms.Panel();
+            this.EnableDataCompressionMode = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ConfigureSetupClickToSetupSeriesFromIDLabel = new System.Windows.Forms.Label();
             this.ConfigureSetupClickToSetupSeriesCheckBox = new System.Windows.Forms.CheckBox();
@@ -2399,6 +2400,7 @@
             // 
             this.ConfigureSetupPanel.BackColor = System.Drawing.Color.DimGray;
             this.ConfigureSetupPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ConfigureSetupPanel.Controls.Add(this.EnableDataCompressionMode);
             this.ConfigureSetupPanel.Controls.Add(this.panel1);
             this.ConfigureSetupPanel.Controls.Add(this.panel20);
             this.ConfigureSetupPanel.Controls.Add(this.SendSetupProgressBar);
@@ -2413,6 +2415,18 @@
             this.ConfigureSetupPanel.Size = new System.Drawing.Size(871, 687);
             this.ConfigureSetupPanel.TabIndex = 49;
             this.ConfigureSetupPanel.Visible = false;
+            // 
+            // EnableDataCompressionMode
+            // 
+            this.EnableDataCompressionMode.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EnableDataCompressionMode.ForeColor = System.Drawing.Color.White;
+            this.EnableDataCompressionMode.Location = new System.Drawing.Point(609, 651);
+            this.EnableDataCompressionMode.Name = "EnableDataCompressionMode";
+            this.EnableDataCompressionMode.Size = new System.Drawing.Size(240, 15);
+            this.EnableDataCompressionMode.TabIndex = 70;
+            this.EnableDataCompressionMode.Tag = "Setting";
+            this.EnableDataCompressionMode.Text = "Enable data compression mode";
+            this.EnableDataCompressionMode.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -2765,13 +2779,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(1411, 775);
-            this.Controls.Add(this.VisualizerPanel);
             this.Controls.Add(this.MenuPanel);
+            this.Controls.Add(this.ConfigureSetupHiddenProgressBar);
+            this.Controls.Add(this.MenuButton);
             this.Controls.Add(this.ConfigureSetupPanel);
             this.Controls.Add(this.InstructionsPanel);
             this.Controls.Add(this.IndividualLEDPanel);
-            this.Controls.Add(this.ConfigureSetupHiddenProgressBar);
-            this.Controls.Add(this.MenuButton);
+            this.Controls.Add(this.VisualizerPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -3046,6 +3060,7 @@
         private System.Windows.Forms.Button VisualizerSaveSettingsButton;
         private System.Windows.Forms.Timer HideTimer;
         private System.Windows.Forms.CheckBox MenuAutoHideCheckBox;
+        private System.Windows.Forms.CheckBox EnableDataCompressionMode;
     }
 }
 
