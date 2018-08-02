@@ -216,9 +216,9 @@ void Mode_W(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], shor
 		if (_ToID > _FromID)
 		{
 			short CurrentIndex = _TotalLEDCount;
-			for (short i = _SeriesIndex - 2; i >= 0; i -= 2)
+			for (short i = _SeriesIndex - 2; i >= _DiscardFromIndex; i -= 2)
 			{
-				if (i >= _DiscardFromIndex && i <= _DiscardToIndex)
+				if (i <= _DiscardToIndex)
 				{
 					if (_Series[i + 1] > _Series[i])
 					{
@@ -242,6 +242,8 @@ void Mode_W(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], shor
 										_LEDStrips[_SeriesID[i / 2]].setPixelColor(j, _LEDStrips[_SeriesID[i / 2]].getPixelColor(j - 1));
 								}
 							}
+							else
+								break;
 						}
 					}
 					else
@@ -266,6 +268,8 @@ void Mode_W(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], shor
 										_LEDStrips[_SeriesID[i / 2]].setPixelColor(j, _LEDStrips[_SeriesID[i / 2]].getPixelColor(j + 1));
 								}
 							}
+							else
+								break;
 						}
 					}
 				}
@@ -318,7 +322,7 @@ void Mode_S(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint
 		short CurrentSplitIndex = 0;
 		short CurrentIndex = 0;
 
-		for (short j = 0; j <= _SeriesIndex - 2; j += 2)
+		for (short j = 0; j <= _DiscardToIndex; j += 2)
 		{
 			if (j >= _DiscardFromIndex && j <= _DiscardToIndex)
 			{
@@ -477,7 +481,7 @@ void ColorEntireStripFromTo(short _FromID, short _ToID, short _Red, short _Green
 	if (_UsesCompression)
 	{
 		short CurrentIndex = 0;
-		for (short j = 0; j <= _SeriesIndex - 2; j += 2)
+		for (short j = 0; j <= _DiscardToIndex; j += 2)
 		{
 			if (j >= _DiscardFromIndex && j <= _DiscardToIndex)
 			{

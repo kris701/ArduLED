@@ -105,83 +105,64 @@ void setup()
 		}
 	}
 
-	ColorEntireStripFromTo(0, TotalLEDCount, 255, 255, 255, 5, UsesCompression, LEDStrips, SeriesIndex, Series, SeriesID, TotalLEDCount);
+	ColorEntireStripFromTo(0, TotalLEDCount, 255, 255, 255, 5, UsesCompression, LEDStrips, SeriesIndex, Series, SeriesID, TotalLEDCount, 0, SeriesIndex);
 
 	Run(LEDStrips, &Split[0], PreviousColor, SeriesIndex, Series, SeriesID, UsesCompression, TotalLEDCount);
 }
 
 void Run(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint8_t _PreviousColor[3], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], bool _UsesCompression, short _TotalLEDCount)
 {
+	short FromID = 0;
+	short ToID = _TotalLEDCount;
+	short DiscardFromIndex = 0;
+	short DiscardToIndex = _SeriesIndex / 2;
+	short CountToFromID = _TotalLEDCount;
+
 	while (true)
 	{
 		if (ReadSerial(&_Split[0]))
 		{
-			short FromID = 0;
-			short ToID = 0;
-
-			if (_UsesCompression)
-			{
-				FromID = 0;
-				ToID = _TotalLEDCount;
-
-				if (_Split[1] > 0)
-					if (_Split[1] < _TotalLEDCount)
-						FromID = _Split[1];
-				if (_Split[2] >= 0)
-					if (_Split[2] <= _TotalLEDCount)
-						ToID = _Split[2];
-			}
-			else
-			{
-				FromID = 0;
-				ToID = _SeriesIndex;
-
-				if (_Split[1] > 0)
-					if (_Split[1] <= _SeriesIndex)
-						FromID = _Split[1];
-				if (_Split[2] >= 0)
-					if (_Split[2] <= _SeriesIndex)
-						ToID = _Split[2];
-			}
-
 			switch (_Split[0]) {
 			case 'F':
-				Mode_F(_LEDStrips, _Split, _PreviousColor, _SeriesIndex, _Series, _SeriesID, _UsesCompression, _TotalLEDCount, FromID, ToID);
+				Mode_F(_LEDStrips, _Split, _PreviousColor, _SeriesIndex, _Series, _SeriesID, _UsesCompression, _TotalLEDCount, FromID, ToID, DiscardFromIndex, DiscardToIndex);
 				break;
 			case 'B':
-				Mode_B(_LEDStrips, _Split, _PreviousColor, _SeriesIndex, _Series, _SeriesID, _UsesCompression, _TotalLEDCount, FromID, ToID);
+				Mode_B(_LEDStrips, _Split, _PreviousColor, _SeriesIndex, _Series, _SeriesID, _UsesCompression, _TotalLEDCount, FromID, ToID, DiscardFromIndex, DiscardToIndex);
 				break;
 			case 'W':
-				Mode_W(_LEDStrips, _Split, _SeriesIndex, _Series, _SeriesID, _UsesCompression, _TotalLEDCount, FromID, ToID);
+				Mode_W(_LEDStrips, _Split, _SeriesIndex, _Series, _SeriesID, _UsesCompression, _TotalLEDCount, FromID, ToID, DiscardFromIndex, DiscardToIndex, CountToFromID);
 				break;
 			case 'I':
 				Mode_I(_LEDStrips, _Split);
 				break;
 			case 'S':
-				Mode_S(_LEDStrips, _Split, _PreviousColor, _SeriesIndex, _Series, _SeriesID, _UsesCompression, _TotalLEDCount, FromID, ToID);
+				Mode_S(_LEDStrips, _Split, _PreviousColor, _SeriesIndex, _Series, _SeriesID, _UsesCompression, _TotalLEDCount, FromID, ToID, DiscardFromIndex, DiscardToIndex);
+				break;
+			case 'R':
+				Mode_R(&DiscardFromIndex, &DiscardToIndex, &CountToFromID, _SeriesIndex, _Series, &FromID, &ToID, _UsesCompression, _TotalLEDCount, _Split);
 				break;
 			}
 		}
 	}
 }
 
-void Mode_F(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint8_t _PreviousColor[3], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], bool _UsesCompression, short _TotalLEDCount, short _FromID, short _ToID)
+void Mode_F(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint8_t _PreviousColor[3], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], bool _UsesCompression, short _TotalLEDCount, short _FromID, short _ToID, short _DiscardFromIndex, short _DiscardToIndex)
 {
 	float CurrentColor[3] = { 0,0,0 };
 	float CurrentColorJump[3] = { 0,0,0 };
 
 	for (short i = 0; i < 3; i++)
 	{
-		CurrentColorJump[i] = (((float)_PreviousColor[i] - (float)_Split[i + 3]) * ((float)_Split[7] / (float)100));
+		CurrentColorJump[i] = (((float)_PreviousColor[i] - (float)_Split[i + 1]) * ((float)_Split[5] / (float)100));
 		CurrentColor[i] = _PreviousColor[i];
 	}
 
-	while ((CurrentColor[0] == _Split[3]) + (CurrentColor[1] == _Split[4]) + (CurrentColor[2] == _Split[5]) < 3)
+	while ((CurrentColor[0] == _Split[1]) + (CurrentColor[1] == _Split[2]) + (CurrentColor[2] == _Split[3]) < 3)
 	{
 		for (short i = 0; i < 3; i++)
 		{
 			CurrentColor[i] -= CurrentColorJump[i];
-			CurrentColorJump[i] = ((CurrentColor[i] - (float)_Split[i + 3]) * ((float)_Split[7] / (float)100));
+			CurrentColorJump[i] = ((CurrentColor[i] - (float)_Split[i + 1]) * ((float)_Split[5] / (float)100));
 			if (CurrentColor[i] < 0)
 				CurrentColor[i] = 0;
 			if (CurrentColor[i] > 255)
@@ -189,15 +170,15 @@ void Mode_F(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint
 			if (CurrentColorJump[i] < 0)
 			{
 				if (CurrentColorJump[i] >= -1)
-					CurrentColor[i] = _Split[i + 3];
+					CurrentColor[i] = _Split[i + 1];
 			}
 			else
 			{
 				if (CurrentColorJump[i] <= 1)
-					CurrentColor[i] = _Split[i + 3];
+					CurrentColor[i] = _Split[i + 1];
 			}
 		}
-		ColorEntireStripFromTo(_FromID, _ToID, CurrentColor[0], CurrentColor[1], CurrentColor[2], 0, _UsesCompression, _LEDStrips, _SeriesIndex, _Series, _SeriesID, _TotalLEDCount);
+		ColorEntireStripFromTo(_FromID, _ToID, CurrentColor[0], CurrentColor[1], CurrentColor[2], 0, _UsesCompression, _LEDStrips, _SeriesIndex, _Series, _SeriesID, _TotalLEDCount, _DiscardFromIndex, _DiscardToIndex);
 
 		for (short i = 0; i < LEDStripsS; i++)
 		{
@@ -207,17 +188,17 @@ void Mode_F(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint
 			}
 		}
 
-		delay(_Split[6]);
+		delay(_Split[4]);
 	}
-	_PreviousColor[0] = _Split[3];
-	_PreviousColor[1] = _Split[4];
-	_PreviousColor[2] = _Split[5];
+	_PreviousColor[0] = _Split[1];
+	_PreviousColor[1] = _Split[2];
+	_PreviousColor[2] = _Split[3];
 
 }
 
-void Mode_B(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint8_t _PreviousColor[3], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], bool _UsesCompression, short _TotalLEDCount, short _FromID, short _ToID)
+void Mode_B(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint8_t _PreviousColor[3], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], bool _UsesCompression, short _TotalLEDCount, short _FromID, short _ToID, short _DiscardFromIndex, short _DiscardToIndex)
 {
-	ColorEntireStripFromTo(_FromID, _ToID, _PreviousColor[0] * ((float)_Split[3] / (float)100), _PreviousColor[1] * ((float)_Split[4] / (float)100), _PreviousColor[2] * ((float)_Split[5] / (float)100), 0, _UsesCompression, _LEDStrips, _SeriesIndex, _Series, _SeriesID, _TotalLEDCount);
+	ColorEntireStripFromTo(_FromID, _ToID, _PreviousColor[0] * ((float)_Split[1] / (float)100), _PreviousColor[1] * ((float)_Split[2] / (float)100), _PreviousColor[2] * ((float)_Split[3] / (float)100), 0, _UsesCompression, _LEDStrips, _SeriesIndex, _Series, _SeriesID, _TotalLEDCount, _DiscardFromIndex, _DiscardToIndex);
 
 	for (short i = 0; i < LEDStripsS; i++)
 	{
@@ -228,22 +209,16 @@ void Mode_B(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint
 	}
 }
 
-void Mode_W(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], bool _UsesCompression, short _TotalLEDCount, short _FromID, short _ToID)
+void Mode_W(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], bool _UsesCompression, short _TotalLEDCount, short _FromID, short _ToID, short _DiscardFromIndex, short _DiscardToIndex, short _CountToFromID)
 {
 	if (_UsesCompression)
 	{
 		if (_ToID > _FromID)
 		{
-			short DiscardFromIndex = 0;
-			short DiscardToIndex = 0;
-			short CountToFromID = _TotalLEDCount;
-
-			SetDiscardIndexes(&DiscardFromIndex, &DiscardToIndex, &CountToFromID, _Series, _SeriesIndex, _FromID, _ToID);
-
 			short CurrentIndex = _TotalLEDCount;
-			for (short i = _SeriesIndex - 2; i >= 0; i -= 2)
+			for (short i = _SeriesIndex - 2; i >= _DiscardFromIndex; i -= 2)
 			{
-				if (i >= DiscardFromIndex && i <= DiscardToIndex + 1)
+				if (i <= _DiscardToIndex)
 				{
 					if (_Series[i + 1] > _Series[i])
 					{
@@ -267,6 +242,8 @@ void Mode_W(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], shor
 										_LEDStrips[_SeriesID[i / 2]].setPixelColor(j, _LEDStrips[_SeriesID[i / 2]].getPixelColor(j - 1));
 								}
 							}
+							else
+								break;
 						}
 					}
 					else
@@ -291,16 +268,18 @@ void Mode_W(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], shor
 										_LEDStrips[_SeriesID[i / 2]].setPixelColor(j, _LEDStrips[_SeriesID[i / 2]].getPixelColor(j + 1));
 								}
 							}
+							else
+								break;
 						}
 					}
 				}
 				CurrentIndex -= abs(_Series[i] - _Series[i + 1]) + 1;
 			}
 
-			if (_Series[DiscardFromIndex + 1] > _Series[DiscardFromIndex])
-				_LEDStrips[_SeriesID[DiscardFromIndex / 2]].setPixelColor(_Series[DiscardFromIndex + 1] - (CountToFromID - _FromID + 1), _Split[3], _Split[4], _Split[5]);
+			if (_Series[_DiscardFromIndex + 1] > _Series[_DiscardFromIndex])
+				_LEDStrips[_SeriesID[_DiscardFromIndex / 2]].setPixelColor(_Series[_DiscardFromIndex + 1] - (_CountToFromID - _FromID + 1), _Split[1], _Split[2], _Split[3]);
 			else
-				_LEDStrips[_SeriesID[DiscardFromIndex / 2]].setPixelColor(_Series[DiscardFromIndex + 1] + (CountToFromID - _FromID - 1), _Split[3], _Split[4], _Split[5]);
+				_LEDStrips[_SeriesID[_DiscardFromIndex / 2]].setPixelColor(_Series[_DiscardFromIndex + 1] + (_CountToFromID - _FromID - 1), _Split[1], _Split[2], _Split[3]);
 		}
 	}
 	else
@@ -309,7 +288,7 @@ void Mode_W(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], shor
 		{
 			if (i == _FromID)
 			{
-				_LEDStrips[_SeriesID[i]].setPixelColor(_Series[i], _Split[3], _Split[4], _Split[5]);
+				_LEDStrips[_SeriesID[i]].setPixelColor(_Series[i], _Split[1], _Split[2], _Split[3]);
 			}
 			else
 			{
@@ -333,35 +312,29 @@ void Mode_I(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS])
 	_LEDStrips[_Split[1]].show();
 }
 
-void Mode_S(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint8_t _PreviousColor[3], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], bool _UsesCompression, short _TotalLEDCount, short _FromID, short _ToID)
+void Mode_S(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint8_t _PreviousColor[3], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], bool _UsesCompression, short _TotalLEDCount, short _FromID, short _ToID, short _DiscardFromIndex, short _DiscardToIndex)
 {
 	if (_UsesCompression)
 	{
-		short DiscardFromIndex = 0;
-		short DiscardToIndex = 0;
-		short CountToFromID = _TotalLEDCount;
-
-		SetDiscardIndexes(&DiscardFromIndex, &DiscardToIndex, &CountToFromID, _Series, _SeriesIndex, _FromID, _ToID);
-
-		ColorEntireStripFromTo(_FromID, _ToID, 0, 0, 0, 0, _UsesCompression, _LEDStrips, _SeriesIndex, _Series, _SeriesID, _TotalLEDCount);
+		ColorEntireStripFromTo(_FromID, _ToID, 0, 0, 0, 0, _UsesCompression, _LEDStrips, _SeriesIndex, _Series, _SeriesID, _TotalLEDCount, _DiscardFromIndex, _DiscardToIndex);
 
 		short Count = 4;
 		short CurrentSplitIndex = 0;
 		short CurrentIndex = 0;
 
-		for (short j = 0; j <= _SeriesIndex - 2; j += 2)
+		for (short j = 0; j <= _DiscardToIndex; j += 2)
 		{
-			if (j >= DiscardFromIndex && j <= DiscardToIndex + 1)
+			if (j >= _DiscardFromIndex && j <= _DiscardToIndex)
 			{
 				if (_Series[j + 1] > _Series[j])
 				{
-					for (int i = _Series[j] + abs(CurrentSplitIndex - CurrentIndex); i <= _Series[j + 1] + _Split[3]; i += _Split[3])
+					for (int i = _Series[j] + abs(CurrentSplitIndex - CurrentIndex); i <= _Series[j + 1] + _Split[1]; i += _Split[1])
 					{
 						if (i >= _Series[j])
 						{
 							if (CurrentSplitIndex >= _FromID)
 							{
-								if (CurrentSplitIndex + _Split[3] <= _ToID)
+								if (CurrentSplitIndex + _Split[1] <= _ToID)
 								{
 									for (short l = i; l < i + _Split[Count]; l++)
 									{
@@ -378,7 +351,7 @@ void Mode_S(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint
 								}
 							}
 						}
-						CurrentSplitIndex += _Split[3];
+						CurrentSplitIndex += _Split[1];
 						Count++;
 						if (Count > SplitS)
 							break;
@@ -386,13 +359,13 @@ void Mode_S(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint
 				}
 				else
 				{
-					for (int i = _Series[j] - abs(CurrentSplitIndex - CurrentIndex); i >= _Series[j + 1] - _Split[3]; i -= _Split[3])
+					for (int i = _Series[j] - abs(CurrentSplitIndex - CurrentIndex); i >= _Series[j + 1] - _Split[1]; i -= _Split[1])
 					{
 						if (i <= _Series[j])
 						{
 							if (CurrentSplitIndex >= _FromID)
 							{
-								if (CurrentSplitIndex + _Split[3] <= _ToID)
+								if (CurrentSplitIndex + _Split[1] <= _ToID)
 								{
 									for (short l = i; l > i - _Split[Count]; l--)
 									{
@@ -409,7 +382,7 @@ void Mode_S(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint
 								}
 							}
 						}
-						CurrentSplitIndex += _Split[3];
+						CurrentSplitIndex += _Split[1];
 						Count++;
 						if (Count > SplitS)
 							break;
@@ -426,13 +399,13 @@ void Mode_S(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint
 	}
 	else
 	{
-		short Count = 4;
+		short Count = 2;
 
 		for (short i = _FromID; i < _ToID; i++)
 		{
 			_LEDStrips[_SeriesID[i]].setPixelColor(_Series[i], 0, 0, 0);
 		}
-		for (short i = _FromID; i < _ToID; i += _Split[3])
+		for (short i = _FromID; i < _ToID; i += _Split[1])
 		{
 			for (short j = 0; j < _Split[Count]; j++)
 			{
@@ -452,20 +425,65 @@ void Mode_S(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint
 	}
 }
 
-void ColorEntireStripFromTo(short _FromID, short _ToID, short _Red, short _Green, short _Blue, short _Delay, bool _UsesCompression, Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], short _TotalLEDCount)
+void Mode_R(short *_DiscardFromIndex, short *_DiscardToIndex, short *_CountToFromID, short _SeriesIndex, short _Series[SeriesS], short *_FromID, short *_ToID, bool _UsesCompression, short _TotalLEDCount, short _Split[SplitS])
+{
+	*_CountToFromID = _TotalLEDCount;
+
+	if (_UsesCompression)
+	{
+		*_FromID = 0;
+		*_ToID = _TotalLEDCount;
+
+		if (_Split[1] > 0)
+			if (_Split[1] < _TotalLEDCount)
+				*_FromID = _Split[1];
+		if (_Split[2] >= 0)
+			if (_Split[2] <= _TotalLEDCount)
+				*_ToID = _Split[2];
+
+		for (short i = _SeriesIndex - 2; i >= 0; i -= 2)
+		{
+			*_CountToFromID -= abs(_Series[i] - _Series[i + 1]) + 1;
+			if (*_CountToFromID <= *_ToID)
+			{
+				*_DiscardToIndex = i;
+				break;
+			}
+		}
+
+		*_CountToFromID = 0;
+		for (short i = 0; i <= _SeriesIndex - 2; i += 2)
+		{
+			*_CountToFromID += abs(_Series[i] - _Series[i + 1]) + 1;
+			if (*_CountToFromID >= *_FromID)
+			{
+				*_DiscardFromIndex = i;
+				break;
+			}
+		}
+	}
+	else
+	{
+		*_FromID = 0;
+		*_ToID = _SeriesIndex;
+
+		if (_Split[1] > 0)
+			if (_Split[1] <= _SeriesIndex)
+				*_FromID = _Split[1];
+		if (_Split[2] >= 0)
+			if (_Split[2] <= _SeriesIndex)
+				*_ToID = _Split[2];
+	}
+}
+
+void ColorEntireStripFromTo(short _FromID, short _ToID, short _Red, short _Green, short _Blue, short _Delay, bool _UsesCompression, Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], short _TotalLEDCount, short _DiscardFromIndex, short _DiscardToIndex)
 {
 	if (_UsesCompression)
 	{
-		short DiscardFromIndex = 0;
-		short DiscardToIndex = 0;
-		short CountToFromID = _TotalLEDCount;
-
-		SetDiscardIndexes(&DiscardFromIndex, &DiscardToIndex, &CountToFromID, _Series, _SeriesIndex, _FromID, _ToID);
-
 		short CurrentIndex = 0;
-		for (short j = 0; j <= _SeriesIndex - 2; j += 2)
+		for (short j = 0; j <= _DiscardToIndex; j += 2)
 		{
-			if (j >= DiscardFromIndex && j <= DiscardToIndex + 1)
+			if (j >= _DiscardFromIndex && j <= _DiscardToIndex)
 			{
 				if (_Series[j + 1] > _Series[j])
 				{
@@ -517,30 +535,6 @@ void ColorEntireStripFromTo(short _FromID, short _ToID, short _Red, short _Green
 				_LEDStrips[_SeriesID[i]].show();
 				delay(_Delay);
 			}
-		}
-	}
-}
-
-void SetDiscardIndexes(short *_DiscardFromIndex, short *_DiscardToIndex, short *_CountToFromID, short _Series[SeriesS], short _SeriesIndex, short _FromID, short _ToID)
-{
-	for (short i = _SeriesIndex - 2; i >= 0; i -= 2)
-	{
-		*_CountToFromID -= abs(_Series[i] - _Series[i + 1]) + 1;
-		if (*_CountToFromID <= _ToID)
-		{
-			*_DiscardToIndex = i;
-			break;
-		}
-	}
-
-	*_CountToFromID = 0;
-	for (short i = 0; i <= _SeriesIndex - 2; i += 2)
-	{
-		*_CountToFromID += abs(_Series[i] - _Series[i + 1]) + 1;
-		if (*_CountToFromID >= _FromID)
-		{
-			*_DiscardFromIndex = i;
-			break;
 		}
 	}
 }
