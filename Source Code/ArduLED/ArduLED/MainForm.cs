@@ -481,6 +481,11 @@ namespace ArduLEDNameSpace
 
             if (ModeSelectrionComboBox.SelectedIndex == 0)
             {
+                Thread.Sleep(TransferDelay);
+                string SerialOut = "R;0;-1;E";
+                SendDataBySerial(SerialOut);
+                Thread.Sleep(TransferDelay);
+
                 FadeLEDPanel.Enabled = true;
                 FadeLEDPanel.BringToFront();
                 if (!ContinueInstructionsLoop)
@@ -488,6 +493,11 @@ namespace ArduLEDNameSpace
             }
             if (ModeSelectrionComboBox.SelectedIndex == 1)
             {
+                Thread.Sleep(TransferDelay);
+                string SerialOut = "R;" + VisualizerFromSeriesIDNumericUpDown.Value + ";" + VisualizerToSeriesIDNumericUpDown.Value + ";E";
+                SendDataBySerial(SerialOut);
+                Thread.Sleep(TransferDelay);
+
                 VisualizerPanel.Visible = true;
                 VisualizerPanel.BringToFront();
                 if (!ContinueInstructionsLoop)
@@ -553,11 +563,11 @@ namespace ArduLEDNameSpace
                 string SerialOut;
                 if (_FromZero)
                 {
-                    SerialOut = "F;0;-1;0;0;0;0;0;E";
+                    SerialOut = "F;0;0;0;0;0;E";
                     SendDataBySerial(SerialOut);
                     Thread.Sleep(10);
                 }
-                SerialOut = "F;0;-1;" + FadeColorsRedTrackBar.Value + ";" + FadeColorsGreenTrackBar.Value + ";" + FadeColorsBlueTrackBar.Value + ";" + FadeColorsFadeSpeedNumericUpDown.Value + ";" + Math.Round(FadeColorsFadeFactorNumericUpDown.Value * 100, 0) + ";E";
+                SerialOut = "F;" + FadeColorsRedTrackBar.Value + ";" + FadeColorsGreenTrackBar.Value + ";" + FadeColorsBlueTrackBar.Value + ";" + FadeColorsFadeSpeedNumericUpDown.Value + ";" + Math.Round(FadeColorsFadeFactorNumericUpDown.Value * 100, 0) + ";E";
                 SendDataBySerial(SerialOut);
             }
         }
@@ -939,12 +949,12 @@ namespace ArduLEDNameSpace
                 foreach (int i in LEDCount)
                     TotalLEDs += i;
 
-                SendSetupProgressBar.Invoke((MethodInvoker)delegate { SendSetupProgressBar.Maximum = TotalLEDs; });
-                if (ConfigureSetupAutoSendCheckBox.Checked)
-                    ConfigureSetupHiddenProgressBar.Invoke((MethodInvoker)delegate { ConfigureSetupHiddenProgressBar.Maximum = TotalLEDs; });
-
                 if (EnableDataCompressionMode.Checked)
                 {
+                    SendSetupProgressBar.Invoke((MethodInvoker)delegate { SendSetupProgressBar.Maximum = ConfigureSetupWorkingPanel.Controls.Count; });
+                    if (ConfigureSetupAutoSendCheckBox.Checked)
+                        ConfigureSetupHiddenProgressBar.Invoke((MethodInvoker)delegate { ConfigureSetupHiddenProgressBar.Maximum = ConfigureSetupWorkingPanel.Controls.Count; });
+
                     List<int> UpOrDownFrom = new List<int>();
                     List<int> UpOrDownTo = new List<int>();
                     List<int> InternalPins = new List<int>();
@@ -1022,6 +1032,10 @@ namespace ArduLEDNameSpace
                 }
                 else
                 {
+                    SendSetupProgressBar.Invoke((MethodInvoker)delegate { SendSetupProgressBar.Maximum = TotalLEDs; });
+                    if (ConfigureSetupAutoSendCheckBox.Checked)
+                        ConfigureSetupHiddenProgressBar.Invoke((MethodInvoker)delegate { ConfigureSetupHiddenProgressBar.Maximum = TotalLEDs; });
+
                     for (int i = 0; i < TotalLEDs; i++)
                     {
                         SendSetupProgressBar.Invoke((MethodInvoker)delegate { SendSetupProgressBar.Value = i; });
@@ -1468,7 +1482,9 @@ namespace ArduLEDNameSpace
                         }
                         if (Data[0] == "Fade Colors")
                         {
-                            string SerialOut = "F;" + Data[1] + ";" + Data[2] + ";" + Data[3] + ";" + Data[4] + ";" + Data[5] + ";" + Data[6] + ";" + Math.Round((Convert.ToDecimal(Data[7]) * 100), 0).ToString() + ";E";
+                            string SerialOut = "R;" + Data[1] + ";" + Data[2] + ";E";
+                            SendDataBySerial(SerialOut);
+                            SerialOut = "F;" + Data[3] + ";" + Data[4] + ";" + Data[5] + ";" + Data[6] + ";" + Math.Round((Convert.ToDecimal(Data[7]) * 100), 0).ToString() + ";E";
                             SendDataBySerial(SerialOut);
                         }
                         if (StopInstructionsLoop)
@@ -1947,7 +1963,7 @@ namespace ArduLEDNameSpace
                 }
                 double OutValue = Math.Round(Math.Round((Hit / ((double)BeatZoneToTrackBar.Value - (double)BeatZoneFromTrackBar.Value)), 2) * 100, 0);
                 AutoTrigger((OutValue / 100) * (255 * 3));
-                string SerialOut = "B;" + VisualizerFromSeriesIDNumericUpDown.Value + ";" + VisualizerToSeriesIDNumericUpDown.Value + ";" + OutValue.ToString().Replace(',', '.') + ";E";
+                string SerialOut = "B;" + OutValue.ToString().Replace(',', '.') + ";E";
                 SendDataBySerial(SerialOut);
             }
             if (VisualizationTypeComboBox.SelectedIndex == 1 | VisualizationTypeComboBox.SelectedIndex == 2)
@@ -2008,9 +2024,9 @@ namespace ArduLEDNameSpace
 
                 string SerialOut = "";
                 if (VisualizationTypeComboBox.SelectedIndex == 1)
-                    SerialOut = "F;" + VisualizerFromSeriesIDNumericUpDown.Value + ";" + VisualizerToSeriesIDNumericUpDown.Value + ";" + Math.Round(EndR, 0) + ";" + Math.Round(EndG, 0) + ";" + Math.Round(EndB, 0) + ";0;0;E";
+                    SerialOut = "F;" + Math.Round(EndR, 0) + ";" + Math.Round(EndG, 0) + ";" + Math.Round(EndB, 0) + ";0;0;E";
                 if (VisualizationTypeComboBox.SelectedIndex == 2)
-                    SerialOut = "W;" + VisualizerFromSeriesIDNumericUpDown.Value + ";" + VisualizerToSeriesIDNumericUpDown.Value + ";" + Math.Round(EndR, 0) + ";" + Math.Round(EndG, 0) + ";" + Math.Round(EndB, 0) + ";E";
+                    SerialOut = "W;" + Math.Round(EndR, 0) + ";" + Math.Round(EndG, 0) + ";" + Math.Round(EndB, 0) + ";E";
                 SendDataBySerial(SerialOut);
             }
             if (VisualizationTypeComboBox.SelectedIndex == 3 | VisualizationTypeComboBox.SelectedIndex == 4)
@@ -2062,15 +2078,15 @@ namespace ArduLEDNameSpace
 
                 string SerialOut = "";
                 if (VisualizationTypeComboBox.SelectedIndex == 4)
-                    SerialOut = "F;" + VisualizerFromSeriesIDNumericUpDown.Value + ";" + VisualizerToSeriesIDNumericUpDown.Value + ";" + EndR + ";" + EndG + ";" + EndB + ";0;0;E";
+                    SerialOut = "F;" + EndR + ";" + EndG + ";" + EndB + ";0;0;E";
                 if (VisualizationTypeComboBox.SelectedIndex == 3)
-                    SerialOut = "W;" + VisualizerFromSeriesIDNumericUpDown.Value + ";" + VisualizerToSeriesIDNumericUpDown.Value + ";" + EndR + ";" + EndG + ";" + EndB + ";E";
+                    SerialOut = "W;" + EndR + ";" + EndG + ";" + EndB + ";E";
                 SendDataBySerial(SerialOut);
             }
             if (VisualizationTypeComboBox.SelectedIndex == 5)
             {
                 int Hit = 0;
-                string SerialOut = "S;" + VisualizerFromSeriesIDNumericUpDown.Value + ";" + VisualizerToSeriesIDNumericUpDown.Value + ";" + FullSpectrumNumericUpDown.Value.ToString() + ";";
+                string SerialOut = "S;" + FullSpectrumNumericUpDown.Value.ToString() + ";";
                 for (int i = BeatZoneFromTrackBar.Value; i < BeatZoneToTrackBar.Value; i++)
                 {
                     if (BeatZoneSeries.Points[i].YValues[0] >= BeatZoneTriggerHeight.Value)
@@ -2287,5 +2303,15 @@ namespace ArduLEDNameSpace
         }
 
         #endregion
+
+        private void VisualizerToSeriesIDNumericUpDown_KeyDown(object sender, KeyEventArgs e)
+        {
+            AudioDataTimer.Stop();
+            Thread.Sleep(TransferDelay);
+            string SerialOut = "R;" + VisualizerFromSeriesIDNumericUpDown.Value + ";" + VisualizerToSeriesIDNumericUpDown.Value + ";E";
+            SendDataBySerial(SerialOut);
+            Thread.Sleep(TransferDelay);
+            AudioDataTimer.Start();
+        }
     }
 }

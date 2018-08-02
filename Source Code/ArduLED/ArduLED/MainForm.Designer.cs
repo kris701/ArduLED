@@ -707,6 +707,7 @@
             0,
             0,
             -2147483648});
+            this.VisualizerToSeriesIDNumericUpDown.KeyUp += new System.Windows.Forms.KeyEventHandler(this.VisualizerToSeriesIDNumericUpDown_KeyDown);
             // 
             // VisualizerFromSeriesIDLabel
             // 
@@ -733,6 +734,7 @@
             this.VisualizerFromSeriesIDNumericUpDown.Size = new System.Drawing.Size(49, 14);
             this.VisualizerFromSeriesIDNumericUpDown.TabIndex = 59;
             this.VisualizerFromSeriesIDNumericUpDown.Tag = "Setting";
+            this.VisualizerFromSeriesIDNumericUpDown.KeyUp += new System.Windows.Forms.KeyEventHandler(this.VisualizerToSeriesIDNumericUpDown_KeyDown);
             // 
             // VisualizerCurrentValueLabel
             // 
@@ -2790,10 +2792,10 @@
             this.Controls.Add(this.MenuPanel);
             this.Controls.Add(this.ConfigureSetupHiddenProgressBar);
             this.Controls.Add(this.MenuButton);
-            this.Controls.Add(this.ConfigureSetupPanel);
             this.Controls.Add(this.InstructionsPanel);
             this.Controls.Add(this.IndividualLEDPanel);
             this.Controls.Add(this.VisualizerPanel);
+            this.Controls.Add(this.ConfigureSetupPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
