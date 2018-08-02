@@ -2472,6 +2472,11 @@
             this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.ForeColor = System.Drawing.Color.White;
             this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.Location = new System.Drawing.Point(446, 10);
+            this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.Maximum = new decimal(new int[] {
+            999999,
+            0,
+            0,
+            0});
             this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.Name = "ConfigureSetupClickToSetupSeriesFromIDNumericUpDown";
             this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.Size = new System.Drawing.Size(120, 14);
             this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.TabIndex = 70;
@@ -2785,10 +2790,10 @@
             this.Controls.Add(this.MenuPanel);
             this.Controls.Add(this.ConfigureSetupHiddenProgressBar);
             this.Controls.Add(this.MenuButton);
-            this.Controls.Add(this.IndividualLEDPanel);
-            this.Controls.Add(this.VisualizerPanel);
             this.Controls.Add(this.ConfigureSetupPanel);
             this.Controls.Add(this.InstructionsPanel);
+            this.Controls.Add(this.IndividualLEDPanel);
+            this.Controls.Add(this.VisualizerPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
