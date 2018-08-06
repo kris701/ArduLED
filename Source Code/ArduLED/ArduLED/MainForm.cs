@@ -10,6 +10,7 @@ using System.Windows.Forms.DataVisualization.Charting;
 using System.Windows.Threading;
 using Un4seen.Bass;
 using Un4seen.BassWasapi;
+using System.Drawing.Imaging;
 
 namespace ArduLEDNameSpace
 {
@@ -41,6 +42,16 @@ namespace ArduLEDNameSpace
         List<Control> ControlList = new List<Control>();
         Loading LoadingForm;
         Point DragStart = new Point(0,0);
+        List<Block> BlockList = new List<Block>();
+
+        DispatcherTimer AmbilightTimer;
+        int AmbilightSendingStep = 0;
+        Bitmap ImageWindow = new Bitmap(50, 50, PixelFormat.Format32bppArgb);
+        Bitmap ImageWindowLeft = new Bitmap(50, 50, PixelFormat.Format32bppArgb);
+        Bitmap ImageWindowTop = new Bitmap(50, 50, PixelFormat.Format32bppArgb);
+        Bitmap ImageWindowRight = new Bitmap(50, 50, PixelFormat.Format32bppArgb);
+        Bitmap ImageWindowBottom = new Bitmap(50, 50, PixelFormat.Format32bppArgb);
+        Graphics GFXScreenshot;
 
         #endregion
 
@@ -86,6 +97,13 @@ namespace ArduLEDNameSpace
                 Directory.CreateDirectory(Directory.GetCurrentDirectory() + "\\VisualizerSettings");
             }
 
+            SetLoadingLabelTo("Ambilight settings folder");
+
+            if (!Directory.Exists(Directory.GetCurrentDirectory() + "\\AmbilightSettings"))
+            {
+                Directory.CreateDirectory(Directory.GetCurrentDirectory() + "\\AmbilightSettings");
+            }
+
             SetLoadingLabelTo("Language Packs");
 
             if (Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Languages").Length > 0)
@@ -125,6 +143,7 @@ namespace ArduLEDNameSpace
             ModeSelectrionComboBox.Items.Add(" ");
             ModeSelectrionComboBox.Items.Add(" ");
             ModeSelectrionComboBox.Items.Add(" ");
+            ModeSelectrionComboBox.Items.Add(" ");
             VisualizationTypeComboBox.Items.Add(" ");
             VisualizationTypeComboBox.Items.Add(" ");
             VisualizationTypeComboBox.Items.Add(" ");
@@ -143,6 +162,10 @@ namespace ArduLEDNameSpace
             AudioSampleRateComboBox.SelectedIndex = 6;
             PixelTypeComboBox.SelectedIndex = 0;
             PixelBitstreamComboBox.SelectedIndex = 0;
+
+            SetLoadingLabelTo("Getting Screen index");
+
+            AmbiLightModeScreenIDNumericUpDown.Maximum = Screen.AllScreens.Length;
 
             SetLoadingLabelTo("Last Setup");
 
@@ -354,7 +377,7 @@ namespace ArduLEDNameSpace
         {
             try
             {
-                SerialPort1.WriteLine(_Input);
+                SerialPort1.WriteLine(";" + _Input + ";-10;");
             }
             catch { }
         }
@@ -439,7 +462,7 @@ namespace ArduLEDNameSpace
                 {
                     ModeSelectrionComboBox.Enabled = true;
                     if (!ConfigureSetupAutoSendCheckBox.Checked)
-                        ModeSelectrionComboBox.SelectedIndex = 4;
+                        ModeSelectrionComboBox.SelectedIndex = 5;
                     else
                         await SendSetup();
                 }
@@ -455,6 +478,7 @@ namespace ArduLEDNameSpace
                 VisualizerPanel.Visible = false;
                 ConfigureSetupPanel.Visible = false;
                 InstructionsPanel.Visible = false;
+                AmbiLightModePanel.Visible = false;
                 AutoSaveAllSettings();
                 if (MenuAutoHideCheckBox.Checked)
                     HideTimer.Start();
@@ -477,12 +501,15 @@ namespace ArduLEDNameSpace
             IndividualLEDPanel.Visible = false;
             InstructionsPanel.Visible = false;
             ConfigureSetupPanel.Visible = false;
+            AmbiLightModePanel.Visible = false;
             EnableBASS(false);
+            if (AmbilightTimer != null)
+                AmbilightTimer.IsEnabled = false;
 
             if (ModeSelectrionComboBox.SelectedIndex == 0)
             {
                 Thread.Sleep(TransferDelay);
-                string SerialOut = "R;0;-1;E";
+                string SerialOut = "6;0;-1";
                 SendDataBySerial(SerialOut);
                 Thread.Sleep(TransferDelay);
 
@@ -494,7 +521,7 @@ namespace ArduLEDNameSpace
             if (ModeSelectrionComboBox.SelectedIndex == 1)
             {
                 Thread.Sleep(TransferDelay);
-                string SerialOut = "R;" + VisualizerFromSeriesIDNumericUpDown.Value + ";" + VisualizerToSeriesIDNumericUpDown.Value + ";E";
+                string SerialOut = "6;" + VisualizerFromSeriesIDNumericUpDown.Value + ";" + VisualizerToSeriesIDNumericUpDown.Value;
                 SendDataBySerial(SerialOut);
                 Thread.Sleep(TransferDelay);
 
@@ -518,6 +545,11 @@ namespace ArduLEDNameSpace
                     FadeColorsSendData(true);
             }
             if (ModeSelectrionComboBox.SelectedIndex == 4)
+            {
+                AmbiLightModePanel.Visible = true;
+                AmbiLightModePanel.BringToFront();
+            }
+            if (ModeSelectrionComboBox.SelectedIndex == 5)
             {
                 ConfigureSetupPanel.Visible = true;
                 ConfigureSetupPanel.BringToFront();
@@ -563,11 +595,11 @@ namespace ArduLEDNameSpace
                 string SerialOut;
                 if (_FromZero)
                 {
-                    SerialOut = "F;0;0;0;0;0;E";
+                    SerialOut = "1;0;0;0;0;0";
                     SendDataBySerial(SerialOut);
-                    Thread.Sleep(10);
+                    Thread.Sleep(TransferDelay);
                 }
-                SerialOut = "F;" + FadeColorsRedTrackBar.Value + ";" + FadeColorsGreenTrackBar.Value + ";" + FadeColorsBlueTrackBar.Value + ";" + FadeColorsFadeSpeedNumericUpDown.Value + ";" + Math.Round(FadeColorsFadeFactorNumericUpDown.Value * 100, 0) + ";E";
+                SerialOut = "1;" + FadeColorsRedTrackBar.Value + ";" + FadeColorsGreenTrackBar.Value + ";" + FadeColorsBlueTrackBar.Value + ";" + FadeColorsFadeSpeedNumericUpDown.Value + ";" + Math.Round(FadeColorsFadeFactorNumericUpDown.Value * 100, 0);
                 SendDataBySerial(SerialOut);
             }
         }
@@ -937,12 +969,12 @@ namespace ArduLEDNameSpace
 
                 for (int i = 0; i < Pins.Count; i++)
                 {
-                    string SerialOut = "D;" + LEDCount[i] + ";" + Pins[i] + ";" + PixelTypesIndexs[i] + ";" + PixelBitrateIndexs[i] + ";E";
+                    string SerialOut = "-1;" + LEDCount[i] + ";" + Pins[i] + ";" + PixelTypesIndexs[i] + ";" + PixelBitrateIndexs[i];
                     SendDataBySerial(SerialOut);
                     await Task.Delay(TransferDelay);
                 }
 
-                SendDataBySerial("D;9999;E");
+                SendDataBySerial("-1;9999");
                 await Task.Delay(TransferDelay * 2);
 
                 int TotalLEDs = 0;
@@ -996,7 +1028,7 @@ namespace ArduLEDNameSpace
                         }
                     }
 
-                    SendDataBySerial("D;8888;E");
+                    SendDataBySerial("-1;8888");
                     await Task.Delay(TransferDelay * 2);
 
                     int PanelNumber = 0;
@@ -1022,12 +1054,12 @@ namespace ArduLEDNameSpace
                         if (ConfigureSetupAutoSendCheckBox.Checked)
                             ConfigureSetupHiddenProgressBar.Invoke((MethodInvoker)delegate { ConfigureSetupHiddenProgressBar.Value = i; });
 
-                        string SerialOut = "D;" + UpOrDownFrom[SeriesData[i]] + ";" + UpOrDownTo[SeriesData[i]] + ";" + InternalPins[SeriesData[i]] + ";E";
+                        string SerialOut = "-1;" + UpOrDownFrom[SeriesData[i]] + ";" + UpOrDownTo[SeriesData[i]] + ";" + InternalPins[SeriesData[i]];
                         SendDataBySerial(SerialOut);
                         await Task.Delay(TransferDelay);
                     }
 
-                    SendDataBySerial("D;9999;E");
+                    SendDataBySerial("-1;9999;");
                     await Task.Delay(TransferDelay * 2);
                 }
                 else
@@ -1053,7 +1085,7 @@ namespace ArduLEDNameSpace
                                         if (c.Controls[j].Text == i.ToString())
                                         {
                                             Point3D[] MomentaryDataTag = (Point3D[])c.Controls[j].Parent.Tag;
-                                            string SerialOut = "D;" + c.Controls[j - 1].Text + ";" + MomentaryDataTag[1].Z + ";E";
+                                            string SerialOut = "-1;" + c.Controls[j - 1].Text + ";" + MomentaryDataTag[1].Z;
                                             SendDataBySerial(SerialOut);
                                             await Task.Delay(TransferDelay);
                                         }
@@ -1076,7 +1108,7 @@ namespace ArduLEDNameSpace
                     ConfigureSetupAutoSendCheckBox.Invoke((MethodInvoker)delegate { ConfigureSetupAutoSendCheckBox.Enabled = true; });
                 }
 
-                SendDataBySerial("D;9999;E");
+                SendDataBySerial("-1;9999");
             });
         }
 
@@ -1152,7 +1184,7 @@ namespace ArduLEDNameSpace
             {
                 Point3D[] MomentaryDataTag = (Point3D[])SenderButton.Parent.Tag;
                 SenderButton.BackColor = Color.FromArgb(IndividalLEDRedTrackBar.Value, IndividalLEDGreenTrackBar.Value, IndividalLEDBlueTrackBar.Value);
-                string SerialOut = "I;" + MomentaryDataTag[1].Z + ";" + SenderButton.Text + ";" + IndividalLEDRedTrackBar.Value.ToString() + ";" + IndividalLEDGreenTrackBar.Value.ToString() + ";" + IndividalLEDBlueTrackBar.Value.ToString() + ";E";
+                string SerialOut = "4;" + MomentaryDataTag[1].Z + ";" + SenderButton.Text + ";" + IndividalLEDRedTrackBar.Value.ToString() + ";" + IndividalLEDGreenTrackBar.Value.ToString() + ";" + IndividalLEDBlueTrackBar.Value.ToString();
                 SendDataBySerial(SerialOut);
             }
         }
@@ -1173,7 +1205,7 @@ namespace ArduLEDNameSpace
                                     IndividalLEDBlueTrackBar.Invoke((MethodInvoker)delegate {
                                         Point3D[] MomentaryDataTag = (Point3D[])Button.Parent.Tag;
                                         Button.BackColor = Color.FromArgb(IndividalLEDRedTrackBar.Value, IndividalLEDGreenTrackBar.Value, IndividalLEDBlueTrackBar.Value);
-                                        string SerialOut = "I;" + MomentaryDataTag[1].Z + ";" + Button.Text + ";" + IndividalLEDRedTrackBar.Value.ToString() + ";" + IndividalLEDGreenTrackBar.Value.ToString() + ";" + IndividalLEDBlueTrackBar.Value.ToString() + ";E";
+                                        string SerialOut = "4;" + MomentaryDataTag[1].Z + ";" + Button.Text + ";" + IndividalLEDRedTrackBar.Value.ToString() + ";" + IndividalLEDGreenTrackBar.Value.ToString() + ";" + IndividalLEDBlueTrackBar.Value.ToString();
                                         SendDataBySerial(SerialOut);
                                     });
                                 });
@@ -1482,9 +1514,9 @@ namespace ArduLEDNameSpace
                         }
                         if (Data[0] == "Fade Colors")
                         {
-                            string SerialOut = "R;" + Data[1] + ";" + Data[2] + ";E";
+                            string SerialOut = "6;" + Data[1] + ";" + Data[2];
                             SendDataBySerial(SerialOut);
-                            SerialOut = "F;" + Data[3] + ";" + Data[4] + ";" + Data[5] + ";" + Data[6] + ";" + Math.Round((Convert.ToDecimal(Data[7]) * 100), 0).ToString() + ";E";
+                            SerialOut = "1;" + Data[3] + ";" + Data[4] + ";" + Data[5] + ";" + Data[6] + ";" + Math.Round((Convert.ToDecimal(Data[7]) * 100), 0).ToString();
                             SendDataBySerial(SerialOut);
                         }
                         if (StopInstructionsLoop)
@@ -1963,7 +1995,7 @@ namespace ArduLEDNameSpace
                 }
                 double OutValue = Math.Round(Math.Round((Hit / ((double)BeatZoneToTrackBar.Value - (double)BeatZoneFromTrackBar.Value)), 2) * 100, 0);
                 AutoTrigger((OutValue / 100) * (255 * 3));
-                string SerialOut = "B;" + OutValue.ToString().Replace(',', '.') + ";E";
+                string SerialOut = "2;" + OutValue.ToString().Replace(',', '.');
                 SendDataBySerial(SerialOut);
             }
             if (VisualizationTypeComboBox.SelectedIndex == 1 | VisualizationTypeComboBox.SelectedIndex == 2)
@@ -2024,9 +2056,9 @@ namespace ArduLEDNameSpace
 
                 string SerialOut = "";
                 if (VisualizationTypeComboBox.SelectedIndex == 1)
-                    SerialOut = "F;" + Math.Round(EndR, 0) + ";" + Math.Round(EndG, 0) + ";" + Math.Round(EndB, 0) + ";0;0;E";
+                    SerialOut = "1;" + Math.Round(EndR, 0) + ";" + Math.Round(EndG, 0) + ";" + Math.Round(EndB, 0) + ";0;0";
                 if (VisualizationTypeComboBox.SelectedIndex == 2)
-                    SerialOut = "W;" + Math.Round(EndR, 0) + ";" + Math.Round(EndG, 0) + ";" + Math.Round(EndB, 0) + ";E";
+                    SerialOut = "3;" + Math.Round(EndR, 0) + ";" + Math.Round(EndG, 0) + ";" + Math.Round(EndB, 0);
                 SendDataBySerial(SerialOut);
             }
             if (VisualizationTypeComboBox.SelectedIndex == 3 | VisualizationTypeComboBox.SelectedIndex == 4)
@@ -2078,15 +2110,15 @@ namespace ArduLEDNameSpace
 
                 string SerialOut = "";
                 if (VisualizationTypeComboBox.SelectedIndex == 4)
-                    SerialOut = "F;" + EndR + ";" + EndG + ";" + EndB + ";0;0;E";
+                    SerialOut = "1;" + EndR + ";" + EndG + ";" + EndB + ";0;0";
                 if (VisualizationTypeComboBox.SelectedIndex == 3)
-                    SerialOut = "W;" + EndR + ";" + EndG + ";" + EndB + ";E";
+                    SerialOut = "3;" + EndR + ";" + EndG + ";" + EndB + "";
                 SendDataBySerial(SerialOut);
             }
             if (VisualizationTypeComboBox.SelectedIndex == 5)
             {
                 int Hit = 0;
-                string SerialOut = "S;" + FullSpectrumNumericUpDown.Value.ToString() + ";";
+                string SerialOut = "5;" + FullSpectrumNumericUpDown.Value.ToString() + ";";
                 for (int i = BeatZoneFromTrackBar.Value; i < BeatZoneToTrackBar.Value; i++)
                 {
                     if (BeatZoneSeries.Points[i].YValues[0] >= BeatZoneTriggerHeight.Value)
@@ -2100,7 +2132,6 @@ namespace ArduLEDNameSpace
 
                 AutoTrigger(((float)Hit / ((float)BeatZoneToTrackBar.Value - (float)BeatZoneFromTrackBar.Value)) * (255 * 3));
 
-                SerialOut += "E";
                 SendDataBySerial(SerialOut);
             }
         }
@@ -2302,16 +2333,276 @@ namespace ArduLEDNameSpace
             FormatCustomText(BeatZoneToTrackBar.Value, BeatZoneToLabel, "");
         }
 
-        #endregion
-
         private void VisualizerToSeriesIDNumericUpDown_KeyDown(object sender, KeyEventArgs e)
         {
             AudioDataTimer.Stop();
             Thread.Sleep(TransferDelay);
-            string SerialOut = "R;" + VisualizerFromSeriesIDNumericUpDown.Value + ";" + VisualizerToSeriesIDNumericUpDown.Value + ";E";
+            string SerialOut = "6;" + VisualizerFromSeriesIDNumericUpDown.Value + ";" + VisualizerToSeriesIDNumericUpDown.Value;
             SendDataBySerial(SerialOut);
             Thread.Sleep(TransferDelay);
             AudioDataTimer.Start();
+        }
+
+        #endregion
+
+        #region Ambilight Sectrion
+
+        private void AmbiLightModeShowHideBlocksButton_Click(object sender, EventArgs e)
+        {
+            if (BlockList.Count == 0)
+            {
+                if (AmbiLightModeLeftCheckBox.Checked)
+                {
+                    for (int i = (Screen.PrimaryScreen.Bounds.Height - (int)AmbiLightModeLeftBlockHeightNumericUpDown.Value + (int)AmbiLightModeLeftBlockOffsetYNumericUpDown.Value); i > (int)AmbiLightModeLeftBlockOffsetYNumericUpDown.Value; i -= (int)(AmbiLightModeLeftBlockHeightNumericUpDown.Value + AmbiLightModeLeftBlockSpacingNumericUpDown.Value))
+                    {
+                        Block NewBlock = new Block();
+                        NewBlock.Show();
+                        NewBlock.Width = (int)AmbiLightModeLeftBlockWidthNumericUpDown.Value;
+                        NewBlock.Height = (int)AmbiLightModeLeftBlockHeightNumericUpDown.Value;
+                        NewBlock.Location = new Point((int)AmbiLightModeLeftBlockOffsetXNumericUpDown.Value, i);
+                        BlockList.Add(NewBlock);
+                    }
+                }
+                if (AmbiLightModeTopCheckBox.Checked)
+                {
+                    for (int i = (int)AmbiLightModeTopBlockOffsetXNumericUpDown.Value; i < (Screen.PrimaryScreen.Bounds.Width - (int)AmbiLightModeTopBlockWidthNumericUpDown.Value); i += (int)(AmbiLightModeTopBlockWidthNumericUpDown.Value + AmbiLightModeTopBlockSpacingNumericUpDown.Value))
+                    {
+                        Block NewBlock = new Block();
+                        NewBlock.Show();
+                        NewBlock.Width = (int)AmbiLightModeTopBlockWidthNumericUpDown.Value;
+                        NewBlock.Height = (int)AmbiLightModeTopBlockHeightNumericUpDown.Value;
+                        NewBlock.Location = new Point(i, (int)AmbiLightModeTopBlockOffsetYNumericUpDown.Value);
+                        BlockList.Add(NewBlock);
+                    }
+                }
+                if (AmbiLightModeRightCheckBox.Checked)
+                {
+                    for (int i = (int)AmbiLightModeRightBlockOffsetYNumericUpDown.Value; i < Screen.PrimaryScreen.Bounds.Height - (int)AmbiLightModeRightBlockHeightNumericUpDown.Value; i += (int)(AmbiLightModeRightBlockHeightNumericUpDown.Value + AmbiLightModeRightBlockSpacingNumericUpDown.Value))
+                    {
+                        Block NewBlock = new Block();
+                        NewBlock.Show();
+                        NewBlock.Width = (int)AmbiLightModeRightBlockWidthNumericUpDown.Value;
+                        NewBlock.Height = (int)AmbiLightModeRightBlockHeightNumericUpDown.Value;
+                        NewBlock.Location = new Point(Screen.PrimaryScreen.Bounds.Width - (int)AmbiLightModeRightBlockOffsetXNumericUpDown.Value - (int)AmbiLightModeRightBlockWidthNumericUpDown.Value, i);
+                        BlockList.Add(NewBlock);
+                    }
+                }
+                if (AmbiLightModeBottomCheckBox.Checked)
+                {
+                    for (int i = (Screen.PrimaryScreen.Bounds.Width - (int)AmbiLightModeBottomBlockWidthNumericUpDown.Value) + (int)AmbiLightModeBottomBlockOffsetXNumericUpDown.Value; i > (int)AmbiLightModeBottomBlockWidthNumericUpDown.Value; i -= (int)(AmbiLightModeBottomBlockWidthNumericUpDown.Value + AmbiLightModeBottomBlockSpacingNumericUpDown.Value))
+                    {
+                        Block NewBlock = new Block();
+                        NewBlock.Show();
+                        NewBlock.Width = (int)AmbiLightModeBottomBlockWidthNumericUpDown.Value;
+                        NewBlock.Height = (int)AmbiLightModeBottomBlockHeightNumericUpDown.Value;
+                        NewBlock.Location = new Point(i, Screen.PrimaryScreen.Bounds.Height - (int)AmbiLightModeBottomBlockOffsetYNumericUpDown.Value - (int)AmbiLightModeBottomBlockHeightNumericUpDown.Value);
+                        BlockList.Add(NewBlock);
+                    }
+                }
+            }
+            else
+            {
+                foreach (Block b in BlockList)
+                    b.Close();
+                BlockList.Clear();
+            }
+        }
+        private void AmbiLightModeStartAmbilightButton_Click(object sender, EventArgs e)
+        {
+            if (AmbilightTimer != null)
+                AmbilightTimer.IsEnabled = false;
+
+            int Highest = 0;
+            int Lowest = 0;
+
+            if (AmbiLightModeLeftCheckBox.Checked)
+                if (AmbiLightModeLeftFromIDNumericUpDown.Value < Lowest)
+                    Lowest = (int)AmbiLightModeLeftFromIDNumericUpDown.Value;
+
+            if (AmbiLightModeTopCheckBox.Checked)
+                if (AmbiLightModeTopFromIDNumericUpDown.Value < Lowest)
+                    Lowest = (int)AmbiLightModeTopFromIDNumericUpDown.Value;
+
+            if (AmbiLightModeRightCheckBox.Checked)
+                if (AmbiLightModeRightFromIDNumericUpDown.Value < Lowest)
+                    Lowest = (int)AmbiLightModeRightFromIDNumericUpDown.Value;
+
+            if (AmbiLightModeBottomCheckBox.Checked)
+                if (AmbiLightModeBottomFromIDNumericUpDown.Value < Lowest)
+                    Lowest = (int)AmbiLightModeBottomFromIDNumericUpDown.Value;
+
+            if (AmbiLightModeLeftCheckBox.Checked)
+                if (AmbiLightModeLeftToIDNumericUpDown.Value > Highest)
+                    Highest = (int)AmbiLightModeLeftToIDNumericUpDown.Value;
+
+            if (AmbiLightModeTopCheckBox.Checked)
+                if (AmbiLightModeTopToIDNumericUpDown.Value > Highest)
+                    Highest = (int)AmbiLightModeTopToIDNumericUpDown.Value;
+
+            if (AmbiLightModeRightCheckBox.Checked)
+                if (AmbiLightModeRightToIDNumericUpDown.Value > Highest)
+                    Highest = (int)AmbiLightModeRightToIDNumericUpDown.Value;
+
+            if (AmbiLightModeBottomCheckBox.Checked)
+                if (AmbiLightModeBottomToIDNumericUpDown.Value > Highest)
+                    Highest = (int)AmbiLightModeBottomToIDNumericUpDown.Value;
+
+            string SerialOut = "6;" + Lowest + ";" + Highest;
+            SendDataBySerial(SerialOut);
+            Thread.Sleep(TransferDelay);
+
+            ImageWindowLeft = new Bitmap((int)AmbiLightModeLeftBlockWidthNumericUpDown.Value, (int)AmbiLightModeLeftBlockHeightNumericUpDown.Value, PixelFormat.Format32bppArgb);
+            ImageWindowTop = new Bitmap((int)AmbiLightModeTopBlockWidthNumericUpDown.Value, (int)AmbiLightModeTopBlockHeightNumericUpDown.Value, PixelFormat.Format32bppArgb);
+            ImageWindowRight = new Bitmap((int)AmbiLightModeRightBlockWidthNumericUpDown.Value, (int)AmbiLightModeRightBlockHeightNumericUpDown.Value, PixelFormat.Format32bppArgb);
+            ImageWindowBottom = new Bitmap((int)AmbiLightModeBottomBlockWidthNumericUpDown.Value, (int)AmbiLightModeBottomBlockHeightNumericUpDown.Value, PixelFormat.Format32bppArgb);
+
+            AmbilightTimer = new DispatcherTimer();
+            AmbilightTimer.Tick += AmbilightTimer_Tick;
+            AmbilightTimer.Interval = TimeSpan.FromMilliseconds((int)AmbiLightModeRefreshRateNumericUpDown.Value);
+
+            AmbilightTimer.IsEnabled = true;
+        }
+
+        private void AmbiLightModeStopAmbilightButton_Click(object sender, EventArgs e)
+        {
+            if (AmbilightTimer != null)
+                AmbilightTimer.IsEnabled = false;
+        }
+
+        private void AmbilightTimer_Tick(object sender, EventArgs e)
+        {
+            string SerialOut;
+            if (AmbilightSendingStep == 0)
+            {
+                if (AmbiLightModeLeftCheckBox.Checked)
+                {
+                    SerialOut = "7;" + AmbiLightModeLeftFromIDNumericUpDown.Value + ";" + AmbiLightModeLeftToIDNumericUpDown.Value + ";" + AmbiLightModeLeftLEDsPrBlockNumericUpDown.Value + ";";
+                    for (int i = (Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height - (int)AmbiLightModeLeftBlockHeightNumericUpDown.Value + (int)AmbiLightModeLeftBlockOffsetYNumericUpDown.Value); i > (int)AmbiLightModeLeftBlockOffsetYNumericUpDown.Value; i -= (int)(AmbiLightModeLeftBlockHeightNumericUpDown.Value + AmbiLightModeLeftBlockSpacingNumericUpDown.Value))
+                    {
+                        Color OutPutColor = GetColorOfSection(ImageWindowLeft, (int)AmbiLightModeLeftBlockWidthNumericUpDown.Value, (int)AmbiLightModeLeftBlockHeightNumericUpDown.Value, (int)AmbiLightModeLeftBlockOffsetXNumericUpDown.Value, i);
+                        SerialOut += Math.Round((decimal)9 / ((decimal)255 / ((decimal)OutPutColor.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)OutPutColor.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)OutPutColor.B + 1)), 0) + ";";
+                    }
+                    SendDataBySerial(SerialOut);
+                }
+            }
+            if (AmbilightSendingStep == 1)
+            {
+                if (AmbiLightModeTopCheckBox.Checked)
+                {
+                    SerialOut = "7;" + AmbiLightModeTopFromIDNumericUpDown.Value + ";" + AmbiLightModeTopToIDNumericUpDown.Value + ";" + AmbiLightModeTopLEDsPrBlockNumericUpDown.Value + ";";
+                    for (int i = (int)AmbiLightModeTopBlockOffsetXNumericUpDown.Value; i < (Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width - (int)AmbiLightModeTopBlockWidthNumericUpDown.Value); i += (int)(AmbiLightModeTopBlockWidthNumericUpDown.Value + AmbiLightModeTopBlockSpacingNumericUpDown.Value))
+                    {
+                        Color OutPutColor = GetColorOfSection(ImageWindowTop, (int)AmbiLightModeTopBlockWidthNumericUpDown.Value, (int)AmbiLightModeTopBlockHeightNumericUpDown.Value, i, (int)AmbiLightModeTopBlockOffsetYNumericUpDown.Value);
+                        SerialOut += Math.Round((decimal)9 / ((decimal)255 / ((decimal)OutPutColor.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)OutPutColor.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)OutPutColor.B + 1)), 0) + ";";
+                    }
+                    SendDataBySerial(SerialOut);
+                }
+            }
+            if (AmbilightSendingStep == 2)
+            {
+                if (AmbiLightModeRightCheckBox.Checked)
+                {
+                    SerialOut = "7;" + AmbiLightModeRightFromIDNumericUpDown.Value + ";" + AmbiLightModeRightToIDNumericUpDown.Value + ";" + AmbiLightModeRightLEDsPrBlockNumericUpDown.Value + ";";
+                    for (int i = (int)AmbiLightModeRightBlockOffsetYNumericUpDown.Value; i < Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height - (int)AmbiLightModeRightBlockHeightNumericUpDown.Value; i += (int)(AmbiLightModeRightBlockHeightNumericUpDown.Value + AmbiLightModeRightBlockSpacingNumericUpDown.Value))
+                    {
+                        Color OutPutColor = GetColorOfSection(ImageWindowRight, (int)AmbiLightModeRightBlockWidthNumericUpDown.Value, (int)AmbiLightModeRightBlockHeightNumericUpDown.Value, (Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width - (int)AmbiLightModeRightBlockWidthNumericUpDown.Value + (int)AmbiLightModeRightBlockOffsetXNumericUpDown.Value), i);
+                        SerialOut += Math.Round((decimal)9 / ((decimal)255 / ((decimal)OutPutColor.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)OutPutColor.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)OutPutColor.B + 1)), 0) + ";";
+                    }
+                    SendDataBySerial(SerialOut);
+                }
+            }
+            if (AmbilightSendingStep == 3)
+            {
+                if (AmbiLightModeBottomCheckBox.Checked)
+                {
+                    SerialOut = "7;" + AmbiLightModeBottomFromIDNumericUpDown.Value + ";" + AmbiLightModeBottomToIDNumericUpDown.Value + ";" + AmbiLightModeBottomLEDsPrBlockNumericUpDown.Value + ";";
+                    for (int i = (Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width - (int)AmbiLightModeBottomBlockWidthNumericUpDown.Value) + (int)AmbiLightModeBottomBlockOffsetXNumericUpDown.Value; i > (int)AmbiLightModeBottomBlockWidthNumericUpDown.Value; i -= (int)(AmbiLightModeBottomBlockWidthNumericUpDown.Value + AmbiLightModeBottomBlockSpacingNumericUpDown.Value))
+                    {
+                        Color OutPutColor = GetColorOfSection(ImageWindowBottom, (int)AmbiLightModeBottomBlockWidthNumericUpDown.Value, (int)AmbiLightModeBottomBlockHeightNumericUpDown.Value, i, Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height - (int)AmbiLightModeBottomBlockHeightNumericUpDown.Value + (int)AmbiLightModeBottomBlockOffsetYNumericUpDown.Value);
+                        SerialOut += Math.Round((decimal)9 / ((decimal)255 / ((decimal)OutPutColor.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)OutPutColor.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)OutPutColor.B + 1)), 0) + ";";
+                    }
+                    SendDataBySerial(SerialOut);
+                }
+                AmbilightSendingStep = -1;
+            }
+
+            AmbilightSendingStep++;
+        }
+
+        Color GetColorOfSection(Bitmap ImageWindow, int _Width, int _Height, int _Xpos, int _Ypos)
+        {
+            using (GFXScreenshot = Graphics.FromImage(ImageWindow))
+            {
+                GFXScreenshot.CopyFromScreen(_Xpos, _Ypos, 0, 0, new Size(_Width, _Height), CopyPixelOperation.SourceCopy);
+            }
+
+            int Count = 0;
+            int AvgR = 0;
+            int AvgG = 0;
+            int AvgB = 0;
+
+            for (int y = 0; y < _Height; y += _Height / (int)AmbiLightModeBlockSampleSplitNumericUpDown.Value)
+            {
+                for (int x = 0; x < _Width; x += _Width / (int)AmbiLightModeBlockSampleSplitNumericUpDown.Value)
+                {
+                    
+                    Color Pixel = ImageWindow.GetPixel(x, y);
+                    AvgR += Pixel.R;
+                    AvgG += Pixel.G;
+                    AvgB += Pixel.B;
+                    Count++;
+                }
+            }
+
+            AvgR = AvgR / Count;
+            AvgG = AvgG / Count;
+            AvgB = AvgB / Count;
+
+            return Color.FromArgb(AvgR, AvgG, AvgB);
+        }
+
+        private void AmbiLightModeCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            AmbiLightModeLeftPanel.Enabled = false;
+            AmbiLightModeTopPanel.Enabled = false;
+            AmbiLightModeRightPanel.Enabled = false;
+            AmbiLightModeBottomPanel.Enabled = false;
+
+            if (AmbiLightModeLeftCheckBox.Checked)
+                AmbiLightModeLeftPanel.Enabled = true;
+
+            if (AmbiLightModeTopCheckBox.Checked)
+                AmbiLightModeTopPanel.Enabled = true;
+
+            if (AmbiLightModeRightCheckBox.Checked)
+                AmbiLightModeRightPanel.Enabled = true;
+
+            if (AmbiLightModeBottomCheckBox.Checked)
+                AmbiLightModeBottomPanel.Enabled = true;
+        }
+
+        private void LoadAAmbilightSetup(object sender, EventArgs e)
+        {
+            LoadFileDialog.InitialDirectory = Directory.GetCurrentDirectory() + "\\AmbilightSettings";
+            if (LoadFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                LoadSettings(LoadFileDialog.FileName);
+            }
+            LoadFileDialog.InitialDirectory = Directory.GetCurrentDirectory();
+        }
+
+        #endregion
+
+        private void SaveCurrentAmbilightSetup(object sender, EventArgs e)
+        {
+            GetAllControls(AmbiLightModePanel);
+
+            SaveFileDialog.InitialDirectory = Directory.GetCurrentDirectory() + "\\AmbilightSettings";
+            if (SaveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                SaveSettings(SaveFileDialog.FileName, "");
+            }
+            SaveFileDialog.InitialDirectory = Directory.GetCurrentDirectory();
         }
     }
 }

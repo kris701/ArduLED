@@ -7,7 +7,7 @@ LanguageComboBox;Lucida Console;8;
 MenuAutoHideCheckBox;Lucida Console;8;Gør automatisk usynlig
 
 ModeSelectrionComboBox;Lucida Console;8;
-INDEXNAMES;ModeSelectrionComboBox;Falme Farver;Visualizer;Individuelle Farver;Instruktioner;Opsætning
+INDEXNAMES;ModeSelectrionComboBox;Falme Farver;Visualizer;Individuelle Farver;Instruktioner;Ambilight;Opsætning
 
 FadeColorsRedTopLabel;Lucida Console;11;Rød
 FadeColorsGreenTopLabel;Lucida Console;11;Grøn
@@ -62,10 +62,10 @@ ConfigureSetupClickToSetupSeriesFromIDLabel;Lucida Console;11;Fra ID
 ConfigureSetupClickToSetupSeriesFromIDNumericUpDown;Lucida Console;8;
 
 
-InstructionsInstructionPanelRemoveButton;Lucida Console;8;X
-InstructionsInstructionPanelMoveUpButton;Lucida Console;8;^
-InstructionsInstructionPanelMoveDownButton;Lucida Console;8;v
-InstructionsInstructionPanelInfoTextBox;Lucida Console;8;
+POSSIBLE;InstructionsInstructionPanelRemoveButton;Lucida Console;8;X
+POSSIBLE;InstructionsInstructionPanelMoveUpButton;Lucida Console;8;^
+POSSIBLE;InstructionsInstructionPanelMoveDownButton;Lucida Console;8;v
+POSSIBLE;InstructionsInstructionPanelInfoTextBox;Lucida Console;8;
 
 InstructionsModeTopLabel;Lucida Console;16;Instructioner
 InstructionsModeAddItemsLabel;Lucida Console;10;Tilføj instruction
@@ -193,3 +193,94 @@ VisualizerFromSeriesIDLabel;Lucida Console;8;Fra serie ID
 VisualizerFromSeriesIDNumericUpDown;Lucida Console;8;
 VisualizerToSeriesIDLabel;Lucida Console;8;Til serie ID
 VisualizerToSeriesIDNumericUpDown;Lucida Console;8;
+
+
+AmbiLightModeTopLabel;Lucida Console;8;Ambilight Mode
+AmbiLightModeShowHideBlocksButton;Lucida Console;8;Vis/gem blokke
+AmbiLightModeStartAmbilightButton;Lucida Console;8;Start Ambilight
+AmbiLightModeStopAmbilightButton;Lucida Console;8;Stop Ambilight
+AmbiLightModeSaveSetup;Lucida Console;8;Gem nuværende opsætning
+AmbiLightModeLoadSetup;Lucida Console;8;Åben en opsætning
+
+AmbiLightModeRefreshRateLabel;Lucida Console;8;Minimum opdaterings hastighed
+AmbiLightModeRefreshRateNumericUpDown;Lucida Console;8;
+AmbiLightModeBlockSampleSplitLabel;Lucida Console;8;Blok samlings opdeling
+AmbiLightModeBlockSampleSplitNumericUpDown;Lucida Console;8;
+AmbiLightModeScreenIDLabel;Lucida Console;8;Skærm ID
+AmbiLightModeScreenIDNumericUpDown;Lucida Console;8;
+AmbiLightModeLeftCheckBox;Lucida Console;8;Brug venstre side
+AmbiLightModeTopCheckBox;Lucida Console;8;Brug øverste side
+AmbiLightModeRightCheckBox;Lucida Console;8;Brug højre side
+AmbiLightModeBottomCheckBox;Lucida Console;8;Brug nederste side
+
+AmbiLightModeTopPanelLabel;Lucida Console;8;Øverste side
+AmbiLightModeTopLEDsPrBlockLabel;Lucida Console;8;LEDer pr Blok
+AmbiLightModeTopLEDsPrBlockNumericUpDown;Lucida Console;8;
+AmbiLightModeTopBlockHeightLabel;Lucida Console;8;Blok højde
+AmbiLightModeTopBlockHeightNumericUpDown;Lucida Console;8;
+AmbiLightModeTopBlockWidthLabel;Lucida Console;8;Blok bredte
+AmbiLightModeTopBlockWidthNumericUpDown;Lucida Console;8;
+AmbiLightModeTopBlockSpacingLabel;Lucida Console;8;Blok mellemrum
+AmbiLightModeTopBlockSpacingNumericUpDown;Lucida Console;8;
+AmbiLightModeTopBlockOffsetXLabel;Lucida Console;8;Blok forskydning X
+AmbiLightModeTopBlockOffsetXNumericUpDown;Lucida Console;8;
+AmbiLightModeTopBlockOffsetYLabel;Lucida Console;8;Blok forskydning Y
+AmbiLightModeTopBlockOffsetYNumericUpDown;Lucida Console;8;
+AmbiLightModeTopFromIDLabel;Lucida Console;8;Fra serie ID
+AmbiLightModeTopFromIDNumericUpDown;Lucida Console;8;
+AmbiLightModeTopToIDLabel;Lucida Console;8;Til serie ID
+AmbiLightModeTopToIDNumericUpDown;Lucida Console;8;
+
+AmbiLightModeLeftPanelLabel;Lucida Console;8;Øverste side
+AmbiLightModeLeftLEDsPrBlockLabel;Lucida Console;8;LEDer pr Blok
+AmbiLightModeLeftLEDsPrBlockNumericUpDown;Lucida Console;8;
+AmbiLightModeLeftBlockHeightLabel;Lucida Console;8;Blok højde
+AmbiLightModeLeftBlockHeightNumericUpDown;Lucida Console;8;
+AmbiLightModeLeftBlockWidthLabel;Lucida Console;8;Blok bredte
+AmbiLightModeLeftBlockWidthNumericUpDown;Lucida Console;8;
+AmbiLightModeLeftBlockSpacingLabel;Lucida Console;8;Blok mellemrum
+AmbiLightModeLeftBlockSpacingNumericUpDown;Lucida Console;8;
+AmbiLightModeLeftBlockOffsetXLabel;Lucida Console;8;Blok forskydning X
+AmbiLightModeLeftBlockOffsetXNumericUpDown;Lucida Console;8;
+AmbiLightModeLeftBlockOffsetYLabel;Lucida Console;8;Blok forskydning Y
+AmbiLightModeLeftBlockOffsetYNumericUpDown;Lucida Console;8;
+AmbiLightModeLeftFromIDLabel;Lucida Console;8;Fra serie ID
+AmbiLightModeLeftFromIDNumericUpDown;Lucida Console;8;
+AmbiLightModeLeftToIDLabel;Lucida Console;8;Til serie ID
+AmbiLightModeLeftToIDNumericUpDown;Lucida Console;8;
+
+AmbiLightModeRightPanelLabel;Lucida Console;8;Øverste side
+AmbiLightModeRightLEDsPrBlockLabel;Lucida Console;8;LEDer pr Blok
+AmbiLightModeRightLEDsPrBlockNumericUpDown;Lucida Console;8;
+AmbiLightModeRightBlockHeightLabel;Lucida Console;8;Blok højde
+AmbiLightModeRightBlockHeightNumericUpDown;Lucida Console;8;
+AmbiLightModeRightBlockWidthLabel;Lucida Console;8;Blok bredte
+AmbiLightModeRightBlockWidthNumericUpDown;Lucida Console;8;
+AmbiLightModeRightBlockSpacingLabel;Lucida Console;8;Blok mellemrum
+AmbiLightModeRightBlockSpacingNumericUpDown;Lucida Console;8;
+AmbiLightModeRightBlockOffsetXLabel;Lucida Console;8;Blok forskydning X
+AmbiLightModeRightBlockOffsetXNumericUpDown;Lucida Console;8;
+AmbiLightModeRightBlockOffsetYLabel;Lucida Console;8;Blok forskydning Y
+AmbiLightModeRightBlockOffsetYNumericUpDown;Lucida Console;8;
+AmbiLightModeRightFromIDLabel;Lucida Console;8;Fra serie ID
+AmbiLightModeRightFromIDNumericUpDown;Lucida Console;8;
+AmbiLightModeRightToIDLabel;Lucida Console;8;Til serie ID
+AmbiLightModeRightToIDNumericUpDown;Lucida Console;8;
+
+AmbiLightModeBottomPanelLabel;Lucida Console;8;Øverste side
+AmbiLightModeBottomLEDsPrBlockLabel;Lucida Console;8;LEDer pr Blok
+AmbiLightModeBottomLEDsPrBlockNumericUpDown;Lucida Console;8;
+AmbiLightModeBottomBlockHeightLabel;Lucida Console;8;Blok højde
+AmbiLightModeBottomBlockHeightNumericUpDown;Lucida Console;8;
+AmbiLightModeBottomBlockWidthLabel;Lucida Console;8;Blok bredte
+AmbiLightModeBottomBlockWidthNumericUpDown;Lucida Console;8;
+AmbiLightModeBottomBlockSpacingLabel;Lucida Console;8;Blok mellemrum
+AmbiLightModeBottomBlockSpacingNumericUpDown;Lucida Console;8;
+AmbiLightModeBottomBlockOffsetXLabel;Lucida Console;8;Blok forskydning X
+AmbiLightModeBottomBlockOffsetXNumericUpDown;Lucida Console;8;
+AmbiLightModeBottomBlockOffsetYLabel;Lucida Console;8;Blok forskydning Y
+AmbiLightModeBottomBlockOffsetYNumericUpDown;Lucida Console;8;
+AmbiLightModeBottomFromIDLabel;Lucida Console;8;Fra serie ID
+AmbiLightModeBottomFromIDNumericUpDown;Lucida Console;8;
+AmbiLightModeBottomToIDLabel;Lucida Console;8;Til serie ID
+AmbiLightModeBottomToIDNumericUpDown;Lucida Console;8;

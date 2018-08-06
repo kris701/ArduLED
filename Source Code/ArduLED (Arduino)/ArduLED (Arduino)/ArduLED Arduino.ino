@@ -1,9 +1,6 @@
 #include <Adafruit_NeoPixel.h>
 
-#define SplitS 32
-#define InnersplitS SplitS + 2
-#define InnersplitY 5
-#define InputS 128
+#define SplitS 128
 #define LEDStripsS 8
 #define SeriesS 128
 #define SeriesidS SeriesS
@@ -105,7 +102,7 @@ void setup()
 		}
 	}
 
-	ColorEntireStripFromTo(0, TotalLEDCount, 255, 255, 255, 5, UsesCompression, LEDStrips, SeriesIndex, Series, SeriesID, TotalLEDCount, 0, SeriesIndex, 0);
+	ColorEntireStripFromTo(0, TotalLEDCount, 255, 255, 255, 5, UsesCompression, LEDStrips, SeriesIndex, Series, SeriesID, TotalLEDCount, -2, SeriesIndex, 0);
 
 	Run(LEDStrips, &Split[0], PreviousColor, SeriesIndex, Series, SeriesID, UsesCompression, TotalLEDCount);
 }
@@ -126,23 +123,26 @@ void Run(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint8_t
 		if (ReadSerial(&_Split[0]))
 		{
 			switch (_Split[0]) {
-			case 'F':
+			case 1:
 				Mode_F(_LEDStrips, _Split, _PreviousColor, _SeriesIndex, _Series, _SeriesID, _UsesCompression, _TotalLEDCount, FromID, ToID, DiscardFromIndex, DiscardToIndex, CountFromID, ShowFromPin, ShowToPin);
 				break;
-			case 'B':
+			case 2:
 				Mode_B(_LEDStrips, _Split, _PreviousColor, _SeriesIndex, _Series, _SeriesID, _UsesCompression, _TotalLEDCount, FromID, ToID, DiscardFromIndex, DiscardToIndex, CountFromID, ShowFromPin, ShowToPin);
 				break;
-			case 'W':
+			case 3:
 				Mode_W(_LEDStrips, _Split, _SeriesIndex, _Series, _SeriesID, _UsesCompression, _TotalLEDCount, FromID, ToID, DiscardFromIndex, DiscardToIndex, CountFromID, CountToID, ShowFromPin, ShowToPin);
 				break;
-			case 'I':
+			case 4:
 				Mode_I(_LEDStrips, _Split);
 				break;
-			case 'S':
+			case 5:
 				Mode_S(_LEDStrips, _Split, _PreviousColor, _SeriesIndex, _Series, _SeriesID, _UsesCompression, _TotalLEDCount, FromID, ToID, DiscardFromIndex, DiscardToIndex, CountFromID, ShowFromPin, ShowToPin);
 				break;
-			case 'R':
+			case 6:
 				Mode_R(&DiscardFromIndex, &DiscardToIndex, &CountFromID, &CountToID, _SeriesIndex, _LEDStrips, _Series, _SeriesID, &FromID, &ToID, _UsesCompression, _TotalLEDCount, _Split, &ShowFromPin, &ShowToPin);
+				break;
+			case 7:
+				Mode_A(_LEDStrips, _Split, _SeriesIndex, _Series, _SeriesID, _UsesCompression, _TotalLEDCount, FromID, ToID, DiscardFromIndex, DiscardToIndex, CountFromID, ShowFromPin, ShowToPin);
 				break;
 			}
 		}
@@ -484,6 +484,78 @@ void Mode_R(short *_DiscardFromIndex, short *_DiscardToIndex, short *_CountFromI
 	}
 }
 
+void Mode_A(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], bool _UsesCompression, short _TotalLEDCount, short _FromID, short _ToID, short _DiscardFromIndex, short _DiscardToIndex, short _CountFromID, short _ShowFromPin, short _ShowToPin)
+{
+	if (_UsesCompression)
+	{
+		short Count = 4;
+		short CurrentIndex = _CountFromID - (abs(_Series[_DiscardFromIndex] - _Series[_DiscardFromIndex + 1]) + 1);;
+
+		for (short j = _DiscardFromIndex; j <= _DiscardToIndex; j += 2)
+		{
+			if (_Series[j + 1] > _Series[j])
+			{
+				for (int i = _Series[j]; i <= _Series[j + 1]; i++)
+				{
+					if (CurrentIndex + (i - _Series[j]) >= _Split[1])
+					{
+						if (CurrentIndex + (i - _Series[j]) <= _Split[2])
+						{
+							for (int l = i; l <= i + _Split[3]; l++)
+							{
+								if (CurrentIndex + (l - _Series[j]) >= _Split[1])
+								{
+									if (CurrentIndex + (l - _Series[j]) <= _Split[2])
+									{
+										_LEDStrips[_SeriesID[j / 2]].setPixelColor(l, ((255 / 9) * (_Split[Count])), ((255 / 9) * (_Split[Count + 1])), ((255 / 9) * (_Split[Count + 2])));
+									}
+								}
+							}
+							Count += 3;
+							i += _Split[3] - 1;
+						}
+					}
+				}
+			}
+			else
+			{
+				for (int i = _Series[j]; i >= _Series[j + 1]; i--)
+				{
+					if (CurrentIndex + (_Series[j] - i) >= _Split[1])
+					{
+						if (CurrentIndex + (_Series[j] - i) <= _Split[2])
+						{
+							for (int l = i; l >= i - _Split[3]; l--)
+							{
+								if (CurrentIndex + (_Series[j] - l) >= _Split[1])
+								{
+									if (CurrentIndex + (_Series[j] - l) <= _Split[2])
+									{
+										_LEDStrips[_SeriesID[j / 2]].setPixelColor(l, ((255 / 9) * (_Split[Count])), ((255 / 9) * (_Split[Count + 1])), ((255 / 9) * (_Split[Count + 2])));
+									}
+								}
+							}
+							Count += 3;
+							i -= _Split[3] - 1;
+						}
+					}
+				}
+			}
+			CurrentIndex += abs(_Series[j] - _Series[j + 1]) + 1;
+		}
+	}
+	else
+	{
+
+	}
+
+	for (short i = _ShowFromPin; i <= _ShowToPin; i++)
+	{
+		if (_LEDStrips[i].numPixels() > 0)
+			_LEDStrips[i].show();
+	}
+}
+
 void ColorEntireStripFromTo(short _FromID, short _ToID, short _Red, short _Green, short _Blue, short _Delay, bool _UsesCompression, Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], short _TotalLEDCount, short _DiscardFromIndex, short _DiscardToIndex, short _CountFromID)
 {
 	if (_UsesCompression)
@@ -548,28 +620,24 @@ bool ReadSerial(short *_Split)
 {
 	if (Serial.available() > 0)
 	{
-		char Input[InputS];
-		char InnerSplit[InnersplitS][InnersplitY];
-
-		for (short i = 0; i < InputS; i++)
-			Input[i] = 0;
 		for (short i = 0; i < SplitS; i++)
 			_Split[i] = 0;
-		for (short i = 0; i < InnersplitS; i++)
-			for (short j = 0; j < InnersplitY; j++)
-				InnerSplit[i][j] = 0;
 
 		short Step = 0;
 
 		while (true)
 		{
-			if (Serial.available() > 0)
+			if (Serial.available() > 4)
 			{
-				Input[Step] = (char)Serial.read();
-				if (Input[Step] == 'E')
+				int Value = Serial.parseInt();
+				if (Value == -10)
+				{
+					Serial.read();
 					break;
+				}
+				_Split[Step] = Value;
 				Step++;
-				if (Step >= InputS)
+				if (Step >= SplitS)
 				{
 					Serial.read();
 					return false;
@@ -577,57 +645,9 @@ bool ReadSerial(short *_Split)
 			}
 		}
 
-		short CurrentPos = 0;
-		short CurrentStep = 0;
-		for (short i = 0; i < InputS; i++)
-		{
-			if (Input[i] == ';')
-			{
-				if (((String)InnerSplit[CurrentPos]).toInt() == -1)
-				{
-					_Split[CurrentPos] = ((String)InnerSplit[CurrentPos]).toInt();
-				}
-				else
-				{
-					if (IsDigitsOnly((String)InnerSplit[CurrentPos]))
-						_Split[CurrentPos] = ((String)InnerSplit[CurrentPos]).toInt();
-					else
-						_Split[CurrentPos] = InnerSplit[CurrentPos][0];
-				}
-				CurrentStep = 0;
-				CurrentPos++;
-				if (CurrentPos >= SplitS)
-					return false;
-			}
-			else
-			{
-				if (Input[i] == 'E')
-					break;
-				if (Input[i] == 10)
-					continue;
-
-				InnerSplit[CurrentPos][CurrentStep] = Input[i];
-				CurrentStep++;
-
-				if (CurrentStep >= InnersplitY)
-					return false;
-			}
-		}
-
 		return true;
 	}
 	return false;
-}
-
-bool IsDigitsOnly(String _InputString)
-{
-	for (short i = 0; i < _InputString.length(); i++)
-	{
-		if (_InputString[i] < '0' || _InputString[i] > '9')
-			return false;
-	}
-
-	return true;
 }
 
 void loop() { }
