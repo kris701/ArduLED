@@ -201,6 +201,8 @@ AmbiLightModeStartAmbilightButton;Lucida Console;8;Start Ambilight
 AmbiLightModeStopAmbilightButton;Lucida Console;8;Stop Ambilight
 AmbiLightModeSaveSetup;Lucida Console;8;Gem nuværende opsætning
 AmbiLightModeLoadSetup;Lucida Console;8;Åben en opsætning
+AmbiLightModeFadeFactorLabel;Lucida Console;12;Falme faktor
+AmbiLightModeFadeFactorNumericUpDown;Lucida Console;8;
 
 AmbiLightModeRefreshRateLabel;Lucida Console;8;Minimum opdaterings hastighed
 AmbiLightModeRefreshRateNumericUpDown;Lucida Console;8;
@@ -213,7 +215,7 @@ AmbiLightModeTopCheckBox;Lucida Console;8;Brug øverste side
 AmbiLightModeRightCheckBox;Lucida Console;8;Brug højre side
 AmbiLightModeBottomCheckBox;Lucida Console;8;Brug nederste side
 
-AmbiLightModeTopPanelLabel;Lucida Console;8;Øverste side
+AmbiLightModeTopPanelLabel;Lucida Console;12;Øverste side
 AmbiLightModeTopLEDsPrBlockLabel;Lucida Console;8;LEDer pr Blok
 AmbiLightModeTopLEDsPrBlockNumericUpDown;Lucida Console;8;
 AmbiLightModeTopBlockHeightLabel;Lucida Console;8;Blok højde
@@ -231,7 +233,7 @@ AmbiLightModeTopFromIDNumericUpDown;Lucida Console;8;
 AmbiLightModeTopToIDLabel;Lucida Console;8;Til serie ID
 AmbiLightModeTopToIDNumericUpDown;Lucida Console;8;
 
-AmbiLightModeLeftPanelLabel;Lucida Console;8;Øverste side
+AmbiLightModeLeftPanelLabel;Lucida Console;12;Øverste side
 AmbiLightModeLeftLEDsPrBlockLabel;Lucida Console;8;LEDer pr Blok
 AmbiLightModeLeftLEDsPrBlockNumericUpDown;Lucida Console;8;
 AmbiLightModeLeftBlockHeightLabel;Lucida Console;8;Blok højde
@@ -249,7 +251,7 @@ AmbiLightModeLeftFromIDNumericUpDown;Lucida Console;8;
 AmbiLightModeLeftToIDLabel;Lucida Console;8;Til serie ID
 AmbiLightModeLeftToIDNumericUpDown;Lucida Console;8;
 
-AmbiLightModeRightPanelLabel;Lucida Console;8;Øverste side
+AmbiLightModeRightPanelLabel;Lucida Console;12;Øverste side
 AmbiLightModeRightLEDsPrBlockLabel;Lucida Console;8;LEDer pr Blok
 AmbiLightModeRightLEDsPrBlockNumericUpDown;Lucida Console;8;
 AmbiLightModeRightBlockHeightLabel;Lucida Console;8;Blok højde
@@ -267,7 +269,7 @@ AmbiLightModeRightFromIDNumericUpDown;Lucida Console;8;
 AmbiLightModeRightToIDLabel;Lucida Console;8;Til serie ID
 AmbiLightModeRightToIDNumericUpDown;Lucida Console;8;
 
-AmbiLightModeBottomPanelLabel;Lucida Console;8;Øverste side
+AmbiLightModeBottomPanelLabel;Lucida Console;12;Øverste side
 AmbiLightModeBottomLEDsPrBlockLabel;Lucida Console;8;LEDer pr Blok
 AmbiLightModeBottomLEDsPrBlockNumericUpDown;Lucida Console;8;
 AmbiLightModeBottomBlockHeightLabel;Lucida Console;8;Blok højde

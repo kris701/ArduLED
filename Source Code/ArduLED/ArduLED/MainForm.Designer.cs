@@ -224,6 +224,10 @@
             this.ConfigureSetupHiddenProgressBar = new System.Windows.Forms.ProgressBar();
             this.HideTimer = new System.Windows.Forms.Timer(this.components);
             this.AmbiLightModePanel = new System.Windows.Forms.Panel();
+            this.AmbiLightModeScreenIDLabel = new System.Windows.Forms.Label();
+            this.AmbiLightModeScreenIDNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.AmbiLightModeLoadSetup = new System.Windows.Forms.Button();
+            this.AmbiLightModeSaveSetup = new System.Windows.Forms.Button();
             this.AmbiLightModeStopAmbilightButton = new System.Windows.Forms.Button();
             this.AmbiLightModeBlockSampleSplitLabel = new System.Windows.Forms.Label();
             this.AmbiLightModeBlockSampleSplitNumericUpDown = new System.Windows.Forms.NumericUpDown();
@@ -309,10 +313,8 @@
             this.AmbiLightModeShowHideBlocksButton = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.AmbiLightModeTopLabel = new System.Windows.Forms.Label();
-            this.AmbiLightModeSaveSetup = new System.Windows.Forms.Button();
-            this.AmbiLightModeLoadSetup = new System.Windows.Forms.Button();
-            this.AmbiLightModeScreenIDLabel = new System.Windows.Forms.Label();
-            this.AmbiLightModeScreenIDNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.AmbiLightModeFadeFactorLabel = new System.Windows.Forms.Label();
+            this.AmbiLightModeFadeFactorNumericUpDown = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.SampleTimeTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SmoothnessTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SensitivityTrackBar)).BeginInit();
@@ -373,6 +375,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupAddStripXDir)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupAddStripYDir)).BeginInit();
             this.AmbiLightModePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeScreenIDNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeBlockSampleSplitNumericUpDown)).BeginInit();
             this.AmbiLightModeBottomPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeBottomLEDsPrBlockNumericUpDown)).BeginInit();
@@ -412,7 +415,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeLeftBlockOffsetYNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeRefreshRateNumericUpDown)).BeginInit();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeScreenIDNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeFadeFactorNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // AudioSourceComboBox
@@ -2919,6 +2922,8 @@
             // 
             this.AmbiLightModePanel.BackColor = System.Drawing.Color.DimGray;
             this.AmbiLightModePanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.AmbiLightModePanel.Controls.Add(this.AmbiLightModeFadeFactorLabel);
+            this.AmbiLightModePanel.Controls.Add(this.AmbiLightModeFadeFactorNumericUpDown);
             this.AmbiLightModePanel.Controls.Add(this.AmbiLightModeScreenIDLabel);
             this.AmbiLightModePanel.Controls.Add(this.AmbiLightModeScreenIDNumericUpDown);
             this.AmbiLightModePanel.Controls.Add(this.AmbiLightModeLoadSetup);
@@ -2941,9 +2946,66 @@
             this.AmbiLightModePanel.Controls.Add(this.panel3);
             this.AmbiLightModePanel.Location = new System.Drawing.Point(264, 21);
             this.AmbiLightModePanel.Name = "AmbiLightModePanel";
-            this.AmbiLightModePanel.Size = new System.Drawing.Size(687, 630);
+            this.AmbiLightModePanel.Size = new System.Drawing.Size(687, 657);
             this.AmbiLightModePanel.TabIndex = 69;
             this.AmbiLightModePanel.Visible = false;
+            // 
+            // AmbiLightModeScreenIDLabel
+            // 
+            this.AmbiLightModeScreenIDLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmbiLightModeScreenIDLabel.ForeColor = System.Drawing.Color.White;
+            this.AmbiLightModeScreenIDLabel.Location = new System.Drawing.Point(466, 101);
+            this.AmbiLightModeScreenIDLabel.Name = "AmbiLightModeScreenIDLabel";
+            this.AmbiLightModeScreenIDLabel.Size = new System.Drawing.Size(195, 15);
+            this.AmbiLightModeScreenIDLabel.TabIndex = 114;
+            this.AmbiLightModeScreenIDLabel.Text = "Screen ID";
+            this.AmbiLightModeScreenIDLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // AmbiLightModeScreenIDNumericUpDown
+            // 
+            this.AmbiLightModeScreenIDNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
+            this.AmbiLightModeScreenIDNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmbiLightModeScreenIDNumericUpDown.ForeColor = System.Drawing.Color.White;
+            this.AmbiLightModeScreenIDNumericUpDown.Location = new System.Drawing.Point(466, 126);
+            this.AmbiLightModeScreenIDNumericUpDown.Maximum = new decimal(new int[] {
+            8192,
+            0,
+            0,
+            0});
+            this.AmbiLightModeScreenIDNumericUpDown.Name = "AmbiLightModeScreenIDNumericUpDown";
+            this.AmbiLightModeScreenIDNumericUpDown.Size = new System.Drawing.Size(195, 18);
+            this.AmbiLightModeScreenIDNumericUpDown.TabIndex = 113;
+            this.AmbiLightModeScreenIDNumericUpDown.Tag = "Setting";
+            // 
+            // AmbiLightModeLoadSetup
+            // 
+            this.AmbiLightModeLoadSetup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
+            this.AmbiLightModeLoadSetup.FlatAppearance.BorderSize = 0;
+            this.AmbiLightModeLoadSetup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AmbiLightModeLoadSetup.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmbiLightModeLoadSetup.ForeColor = System.Drawing.Color.White;
+            this.AmbiLightModeLoadSetup.Location = new System.Drawing.Point(347, 591);
+            this.AmbiLightModeLoadSetup.Name = "AmbiLightModeLoadSetup";
+            this.AmbiLightModeLoadSetup.Size = new System.Drawing.Size(316, 22);
+            this.AmbiLightModeLoadSetup.TabIndex = 112;
+            this.AmbiLightModeLoadSetup.Text = "Load a Ambilight Setup";
+            this.AmbiLightModeLoadSetup.UseVisualStyleBackColor = false;
+            this.AmbiLightModeLoadSetup.Click += new System.EventHandler(this.LoadAAmbilightSetup);
+            // 
+            // AmbiLightModeSaveSetup
+            // 
+            this.AmbiLightModeSaveSetup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
+            this.AmbiLightModeSaveSetup.FlatAppearance.BorderSize = 0;
+            this.AmbiLightModeSaveSetup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AmbiLightModeSaveSetup.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmbiLightModeSaveSetup.ForeColor = System.Drawing.Color.White;
+            this.AmbiLightModeSaveSetup.Location = new System.Drawing.Point(18, 589);
+            this.AmbiLightModeSaveSetup.Name = "AmbiLightModeSaveSetup";
+            this.AmbiLightModeSaveSetup.Size = new System.Drawing.Size(316, 22);
+            this.AmbiLightModeSaveSetup.TabIndex = 111;
+            this.AmbiLightModeSaveSetup.Text = "Save Current Ambilight Setup";
+            this.AmbiLightModeSaveSetup.UseVisualStyleBackColor = false;
+            this.AmbiLightModeSaveSetup.Click += new System.EventHandler(this.SaveCurrentAmbilightSetup);
             // 
             // AmbiLightModeStopAmbilightButton
             // 
@@ -4406,62 +4468,43 @@
             this.AmbiLightModeTopLabel.Text = "Ambilight Mode";
             this.AmbiLightModeTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // AmbiLightModeSaveSetup
+            // AmbiLightModeFadeFactorLabel
             // 
-            this.AmbiLightModeSaveSetup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
-            this.AmbiLightModeSaveSetup.FlatAppearance.BorderSize = 0;
-            this.AmbiLightModeSaveSetup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AmbiLightModeSaveSetup.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AmbiLightModeSaveSetup.ForeColor = System.Drawing.Color.White;
-            this.AmbiLightModeSaveSetup.Location = new System.Drawing.Point(18, 589);
-            this.AmbiLightModeSaveSetup.Name = "AmbiLightModeSaveSetup";
-            this.AmbiLightModeSaveSetup.Size = new System.Drawing.Size(316, 22);
-            this.AmbiLightModeSaveSetup.TabIndex = 111;
-            this.AmbiLightModeSaveSetup.Text = "Save Current Ambilight Setup";
-            this.AmbiLightModeSaveSetup.UseVisualStyleBackColor = false;
-            this.AmbiLightModeSaveSetup.Click += new System.EventHandler(this.SaveCurrentAmbilightSetup);
+            this.AmbiLightModeFadeFactorLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmbiLightModeFadeFactorLabel.ForeColor = System.Drawing.Color.White;
+            this.AmbiLightModeFadeFactorLabel.Location = new System.Drawing.Point(18, 623);
+            this.AmbiLightModeFadeFactorLabel.Name = "AmbiLightModeFadeFactorLabel";
+            this.AmbiLightModeFadeFactorLabel.Size = new System.Drawing.Size(316, 15);
+            this.AmbiLightModeFadeFactorLabel.TabIndex = 116;
+            this.AmbiLightModeFadeFactorLabel.Text = "Fade factor";
+            this.AmbiLightModeFadeFactorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // AmbiLightModeLoadSetup
+            // AmbiLightModeFadeFactorNumericUpDown
             // 
-            this.AmbiLightModeLoadSetup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
-            this.AmbiLightModeLoadSetup.FlatAppearance.BorderSize = 0;
-            this.AmbiLightModeLoadSetup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AmbiLightModeLoadSetup.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AmbiLightModeLoadSetup.ForeColor = System.Drawing.Color.White;
-            this.AmbiLightModeLoadSetup.Location = new System.Drawing.Point(347, 591);
-            this.AmbiLightModeLoadSetup.Name = "AmbiLightModeLoadSetup";
-            this.AmbiLightModeLoadSetup.Size = new System.Drawing.Size(316, 22);
-            this.AmbiLightModeLoadSetup.TabIndex = 112;
-            this.AmbiLightModeLoadSetup.Text = "Load a Ambilight Setup";
-            this.AmbiLightModeLoadSetup.UseVisualStyleBackColor = false;
-            this.AmbiLightModeLoadSetup.Click += new System.EventHandler(this.LoadAAmbilightSetup);
-            // 
-            // AmbiLightModeScreenIDLabel
-            // 
-            this.AmbiLightModeScreenIDLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AmbiLightModeScreenIDLabel.ForeColor = System.Drawing.Color.White;
-            this.AmbiLightModeScreenIDLabel.Location = new System.Drawing.Point(466, 101);
-            this.AmbiLightModeScreenIDLabel.Name = "AmbiLightModeScreenIDLabel";
-            this.AmbiLightModeScreenIDLabel.Size = new System.Drawing.Size(195, 15);
-            this.AmbiLightModeScreenIDLabel.TabIndex = 114;
-            this.AmbiLightModeScreenIDLabel.Text = "Screen ID";
-            this.AmbiLightModeScreenIDLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // AmbiLightModeScreenIDNumericUpDown
-            // 
-            this.AmbiLightModeScreenIDNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
-            this.AmbiLightModeScreenIDNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AmbiLightModeScreenIDNumericUpDown.ForeColor = System.Drawing.Color.White;
-            this.AmbiLightModeScreenIDNumericUpDown.Location = new System.Drawing.Point(466, 126);
-            this.AmbiLightModeScreenIDNumericUpDown.Maximum = new decimal(new int[] {
-            8192,
+            this.AmbiLightModeFadeFactorNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
+            this.AmbiLightModeFadeFactorNumericUpDown.DecimalPlaces = 2;
+            this.AmbiLightModeFadeFactorNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmbiLightModeFadeFactorNumericUpDown.ForeColor = System.Drawing.Color.White;
+            this.AmbiLightModeFadeFactorNumericUpDown.Location = new System.Drawing.Point(347, 621);
+            this.AmbiLightModeFadeFactorNumericUpDown.Maximum = new decimal(new int[] {
+            10,
             0,
             0,
             0});
-            this.AmbiLightModeScreenIDNumericUpDown.Name = "AmbiLightModeScreenIDNumericUpDown";
-            this.AmbiLightModeScreenIDNumericUpDown.Size = new System.Drawing.Size(195, 18);
-            this.AmbiLightModeScreenIDNumericUpDown.TabIndex = 113;
-            this.AmbiLightModeScreenIDNumericUpDown.Tag = "Setting";
+            this.AmbiLightModeFadeFactorNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.AmbiLightModeFadeFactorNumericUpDown.Name = "AmbiLightModeFadeFactorNumericUpDown";
+            this.AmbiLightModeFadeFactorNumericUpDown.Size = new System.Drawing.Size(316, 18);
+            this.AmbiLightModeFadeFactorNumericUpDown.TabIndex = 115;
+            this.AmbiLightModeFadeFactorNumericUpDown.Tag = "Setting";
+            this.AmbiLightModeFadeFactorNumericUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
             // 
             // MainForm
             // 
@@ -4560,6 +4603,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupAddStripXDir)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupAddStripYDir)).EndInit();
             this.AmbiLightModePanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeScreenIDNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeBlockSampleSplitNumericUpDown)).EndInit();
             this.AmbiLightModeBottomPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeBottomLEDsPrBlockNumericUpDown)).EndInit();
@@ -4599,7 +4643,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeLeftBlockOffsetYNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeRefreshRateNumericUpDown)).EndInit();
             this.panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeScreenIDNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeFadeFactorNumericUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -4882,6 +4926,8 @@
         private System.Windows.Forms.Button AmbiLightModeSaveSetup;
         private System.Windows.Forms.Label AmbiLightModeScreenIDLabel;
         private System.Windows.Forms.NumericUpDown AmbiLightModeScreenIDNumericUpDown;
+        private System.Windows.Forms.Label AmbiLightModeFadeFactorLabel;
+        private System.Windows.Forms.NumericUpDown AmbiLightModeFadeFactorNumericUpDown;
     }
 }
 
