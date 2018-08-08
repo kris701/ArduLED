@@ -412,24 +412,27 @@ namespace ArduLEDNameSpace
         {
             if (MenuAutoHideCheckBox.Checked)
             {
-                if (Opacity != 1)
+                if (!MenuPanel.Visible)
                 {
-                    if (!ShowLoadingScreen)
+                    if (Opacity != 1)
                     {
-                        HideTimer.Stop();
-                        bool BreakInside = false;
-                        for (double i = 0; i <= 100; i += 2)
+                        if (!ShowLoadingScreen)
                         {
-                            if (Opacity == 1)
+                            HideTimer.Stop();
+                            bool BreakInside = false;
+                            for (double i = 0; i <= 100; i += 2)
                             {
-                                BreakInside = true;
-                                break;
+                                if (Opacity == 1)
+                                {
+                                    BreakInside = true;
+                                    break;
+                                }
+                                Opacity = i / 100;
+                                await Task.Delay(10);
                             }
-                            Opacity = i / 100;
-                            await Task.Delay(10);
+                            if (!BreakInside)
+                                HideTimer.Start();
                         }
-                        if (!BreakInside)
-                            HideTimer.Start();
                     }
                 }
             }
@@ -2515,33 +2518,40 @@ namespace ArduLEDNameSpace
                                 SerialOutLeft = "7;" + AmbiLightModeLeftFromIDNumericUpDown.Value + ";" + AmbiLightModeLeftToIDNumericUpDown.Value + ";" + AmbiLightModeLeftLEDsPrBlockNumericUpDown.Value + ";";
                                 for (int i = Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height - (int)AmbiLightModeLeftBlockHeightNumericUpDown.Value; i > 0; i -= (int)(AmbiLightModeLeftBlockHeightNumericUpDown.Value + AmbiLightModeLeftBlockSpacingNumericUpDown.Value))
                                 {
-                                    Color OutPutColor = GetColorOfSection(GFXScreenshotLeft, ImageWindowLeft, (int)AmbiLightModeLeftBlockWidthNumericUpDown.Value, (int)AmbiLightModeLeftBlockHeightNumericUpDown.Value, 0, i);
-                                    if (AmbilightColorStore[0].Count == Count)
+                                    Color OutPutColor = GetColorOfSection(ImageWindowLeft, (int)AmbiLightModeLeftBlockWidthNumericUpDown.Value, (int)AmbiLightModeLeftBlockHeightNumericUpDown.Value, 0, i);
+                                    if (AmbiLightModeFadeFactorNumericUpDown.Value != 0)
                                     {
-                                        AmbilightColorStore[0].Add(new List<int>());
-                                        AmbilightColorStore[0][Count].Add(OutPutColor.R);
-                                        AmbilightColorStore[0][Count].Add(OutPutColor.G);
-                                        AmbilightColorStore[0][Count].Add(OutPutColor.B);
+                                        if (AmbilightColorStore[0].Count == Count)
+                                        {
+                                            AmbilightColorStore[0].Add(new List<int>());
+                                            AmbilightColorStore[0][Count].Add(OutPutColor.R);
+                                            AmbilightColorStore[0][Count].Add(OutPutColor.G);
+                                            AmbilightColorStore[0][Count].Add(OutPutColor.B);
+                                        }
+                                        else
+                                        {
+                                            AmbilightColorStore[0][Count][0] = AmbilightColorStore[0][Count][0] + (int)(((double)OutPutColor.R - (double)AmbilightColorStore[0][Count][0]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
+                                            if (AmbilightColorStore[0][Count][0] > 255)
+                                                AmbilightColorStore[0][Count][0] = 255;
+                                            if (AmbilightColorStore[0][Count][0] < 0)
+                                                AmbilightColorStore[0][Count][0] = 0;
+                                            AmbilightColorStore[0][Count][1] = AmbilightColorStore[0][Count][1] + (int)(((double)OutPutColor.G - (double)AmbilightColorStore[0][Count][1]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
+                                            if (AmbilightColorStore[0][Count][1] > 255)
+                                                AmbilightColorStore[0][Count][1] = 255;
+                                            if (AmbilightColorStore[0][Count][1] < 0)
+                                                AmbilightColorStore[0][Count][1] = 0;
+                                            AmbilightColorStore[0][Count][2] = AmbilightColorStore[0][Count][2] + (int)(((double)OutPutColor.B - (double)AmbilightColorStore[0][Count][2]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
+                                            if (AmbilightColorStore[0][Count][2] > 255)
+                                                AmbilightColorStore[0][Count][2] = 255;
+                                            if (AmbilightColorStore[0][Count][2] < 0)
+                                                AmbilightColorStore[0][Count][2] = 0;
+                                        }
+                                        SerialOutLeft += Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[0][Count][0] + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[0][Count][1] + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[0][Count][2] + 1)), 0) + ";";
                                     }
                                     else
                                     {
-                                        AmbilightColorStore[0][Count][0] = AmbilightColorStore[0][Count][0] + (int)(((double)OutPutColor.R - (double)AmbilightColorStore[0][Count][0]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
-                                        if (AmbilightColorStore[0][Count][0] > 255)
-                                            AmbilightColorStore[0][Count][0] = 255;
-                                        if (AmbilightColorStore[0][Count][0] < 0)
-                                            AmbilightColorStore[0][Count][0] = 0;
-                                        AmbilightColorStore[0][Count][1] = AmbilightColorStore[0][Count][1] + (int)(((double)OutPutColor.G - (double)AmbilightColorStore[0][Count][1]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
-                                        if (AmbilightColorStore[0][Count][1] > 255)
-                                            AmbilightColorStore[0][Count][1] = 255;
-                                        if (AmbilightColorStore[0][Count][1] < 0)
-                                            AmbilightColorStore[0][Count][1] = 0;
-                                        AmbilightColorStore[0][Count][2] = AmbilightColorStore[0][Count][2] + (int)(((double)OutPutColor.B - (double)AmbilightColorStore[0][Count][2]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
-                                        if (AmbilightColorStore[0][Count][2] > 255)
-                                            AmbilightColorStore[0][Count][2] = 255;
-                                        if (AmbilightColorStore[0][Count][2] < 0)
-                                            AmbilightColorStore[0][Count][2] = 0;
+                                        SerialOutLeft += Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.B + 1)), 0) + ";";
                                     }
-                                    SerialOutLeft += Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[0][Count][0] + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[0][Count][1] + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[0][Count][2] + 1)), 0) + ";";
                                     Count++;
                                 }
                                 SerialOutLeftReady = true;
@@ -2562,33 +2572,40 @@ namespace ArduLEDNameSpace
                                 SerialOutTop = "7;" + AmbiLightModeTopFromIDNumericUpDown.Value + ";" + AmbiLightModeTopToIDNumericUpDown.Value + ";" + AmbiLightModeTopLEDsPrBlockNumericUpDown.Value + ";";
                                 for (int i = 0; i < (Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width - (int)AmbiLightModeTopBlockWidthNumericUpDown.Value); i += (int)(AmbiLightModeTopBlockWidthNumericUpDown.Value + AmbiLightModeTopBlockSpacingNumericUpDown.Value))
                                 {
-                                    Color OutPutColor = GetColorOfSection(GFXScreenshotTop, ImageWindowTop, (int)AmbiLightModeTopBlockWidthNumericUpDown.Value, (int)AmbiLightModeTopBlockHeightNumericUpDown.Value, i, 0);
-                                    if (AmbilightColorStore[1].Count <= Count)
+                                    Color OutPutColor = GetColorOfSection(ImageWindowTop, (int)AmbiLightModeTopBlockWidthNumericUpDown.Value, (int)AmbiLightModeTopBlockHeightNumericUpDown.Value, i, 0);
+                                    if (AmbiLightModeFadeFactorNumericUpDown.Value != 0)
                                     {
-                                        AmbilightColorStore[1].Add(new List<int>());
-                                        AmbilightColorStore[1][Count].Add(OutPutColor.R);
-                                        AmbilightColorStore[1][Count].Add(OutPutColor.G);
-                                        AmbilightColorStore[1][Count].Add(OutPutColor.B);
+                                        if (AmbilightColorStore[1].Count <= Count)
+                                        {
+                                            AmbilightColorStore[1].Add(new List<int>());
+                                            AmbilightColorStore[1][Count].Add(OutPutColor.R);
+                                            AmbilightColorStore[1][Count].Add(OutPutColor.G);
+                                            AmbilightColorStore[1][Count].Add(OutPutColor.B);
+                                        }
+                                        else
+                                        {
+                                            AmbilightColorStore[1][Count][0] = AmbilightColorStore[1][Count][0] + (int)(((double)OutPutColor.R - (double)AmbilightColorStore[1][Count][0]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
+                                            if (AmbilightColorStore[1][Count][0] > 255)
+                                                AmbilightColorStore[1][Count][0] = 255;
+                                            if (AmbilightColorStore[1][Count][0] < 0)
+                                                AmbilightColorStore[1][Count][0] = 0;
+                                            AmbilightColorStore[1][Count][1] = AmbilightColorStore[1][Count][1] + (int)(((double)OutPutColor.G - (double)AmbilightColorStore[1][Count][1]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
+                                            if (AmbilightColorStore[1][Count][1] > 255)
+                                                AmbilightColorStore[1][Count][1] = 255;
+                                            if (AmbilightColorStore[1][Count][1] < 0)
+                                                AmbilightColorStore[1][Count][1] = 0;
+                                            AmbilightColorStore[1][Count][2] = AmbilightColorStore[1][Count][2] + (int)(((double)OutPutColor.B - (double)AmbilightColorStore[1][Count][2]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
+                                            if (AmbilightColorStore[1][Count][2] > 255)
+                                                AmbilightColorStore[1][Count][2] = 255;
+                                            if (AmbilightColorStore[1][Count][2] < 0)
+                                                AmbilightColorStore[1][Count][2] = 0;
+                                        }
+                                        SerialOutTop += Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[1][Count][0] + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[1][Count][1] + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[1][Count][2] + 1)), 0) + ";";
                                     }
                                     else
                                     {
-                                        AmbilightColorStore[1][Count][0] = AmbilightColorStore[1][Count][0] + (int)(((double)OutPutColor.R - (double)AmbilightColorStore[1][Count][0]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
-                                        if (AmbilightColorStore[1][Count][0] > 255)
-                                            AmbilightColorStore[1][Count][0] = 255;
-                                        if (AmbilightColorStore[1][Count][0] < 0)
-                                            AmbilightColorStore[1][Count][0] = 0;
-                                        AmbilightColorStore[1][Count][1] = AmbilightColorStore[1][Count][1] + (int)(((double)OutPutColor.G - (double)AmbilightColorStore[1][Count][1]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
-                                        if (AmbilightColorStore[1][Count][1] > 255)
-                                            AmbilightColorStore[1][Count][1] = 255;
-                                        if (AmbilightColorStore[1][Count][1] < 0)
-                                            AmbilightColorStore[1][Count][1] = 0;
-                                        AmbilightColorStore[1][Count][2] = AmbilightColorStore[1][Count][2] + (int)(((double)OutPutColor.B - (double)AmbilightColorStore[1][Count][2]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
-                                        if (AmbilightColorStore[1][Count][2] > 255)
-                                            AmbilightColorStore[1][Count][2] = 255;
-                                        if (AmbilightColorStore[1][Count][2] < 0)
-                                            AmbilightColorStore[1][Count][2] = 0;
+                                        SerialOutTop += Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.B + 1)), 0) + ";";
                                     }
-                                    SerialOutTop += Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[1][Count][0] + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[1][Count][1] + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[1][Count][2] + 1)), 0) + ";";
                                     Count++;
                                 }
                                 SerialOutTopReady = true;
@@ -2609,33 +2626,40 @@ namespace ArduLEDNameSpace
                                 SerialOutRight = "7;" + AmbiLightModeRightFromIDNumericUpDown.Value + ";" + AmbiLightModeRightToIDNumericUpDown.Value + ";" + AmbiLightModeRightLEDsPrBlockNumericUpDown.Value + ";";
                                 for (int i = 0; i < Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height - (int)AmbiLightModeRightBlockHeightNumericUpDown.Value; i += (int)(AmbiLightModeRightBlockHeightNumericUpDown.Value + AmbiLightModeRightBlockSpacingNumericUpDown.Value))
                                 {
-                                    Color OutPutColor = GetColorOfSection(GFXScreenshotRight, ImageWindowRight, (int)AmbiLightModeRightBlockWidthNumericUpDown.Value, (int)AmbiLightModeRightBlockHeightNumericUpDown.Value, 0, i);
-                                    if (AmbilightColorStore[2].Count <= Count)
+                                    Color OutPutColor = GetColorOfSection(ImageWindowRight, (int)AmbiLightModeRightBlockWidthNumericUpDown.Value, (int)AmbiLightModeRightBlockHeightNumericUpDown.Value, 0, i);
+                                    if (AmbiLightModeFadeFactorNumericUpDown.Value != 0)
                                     {
-                                        AmbilightColorStore[2].Add(new List<int>());
-                                        AmbilightColorStore[2][Count].Add(OutPutColor.R);
-                                        AmbilightColorStore[2][Count].Add(OutPutColor.G);
-                                        AmbilightColorStore[2][Count].Add(OutPutColor.B);
+                                        if (AmbilightColorStore[2].Count <= Count)
+                                        {
+                                            AmbilightColorStore[2].Add(new List<int>());
+                                            AmbilightColorStore[2][Count].Add(OutPutColor.R);
+                                            AmbilightColorStore[2][Count].Add(OutPutColor.G);
+                                            AmbilightColorStore[2][Count].Add(OutPutColor.B);
+                                        }
+                                        else
+                                        {
+                                            AmbilightColorStore[2][Count][0] = AmbilightColorStore[2][Count][0] + (int)(((double)OutPutColor.R - (double)AmbilightColorStore[2][Count][0]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
+                                            if (AmbilightColorStore[2][Count][0] > 255)
+                                                AmbilightColorStore[2][Count][0] = 255;
+                                            if (AmbilightColorStore[2][Count][0] < 0)
+                                                AmbilightColorStore[2][Count][0] = 0;
+                                            AmbilightColorStore[2][Count][1] = AmbilightColorStore[2][Count][1] + (int)(((double)OutPutColor.G - (double)AmbilightColorStore[2][Count][1]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
+                                            if (AmbilightColorStore[2][Count][1] > 255)
+                                                AmbilightColorStore[2][Count][1] = 255;
+                                            if (AmbilightColorStore[2][Count][1] < 0)
+                                                AmbilightColorStore[2][Count][1] = 0;
+                                            AmbilightColorStore[2][Count][2] = AmbilightColorStore[2][Count][2] + (int)(((double)OutPutColor.B - (double)AmbilightColorStore[2][Count][2]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
+                                            if (AmbilightColorStore[2][Count][2] > 255)
+                                                AmbilightColorStore[2][Count][2] = 255;
+                                            if (AmbilightColorStore[2][Count][2] < 0)
+                                                AmbilightColorStore[2][Count][2] = 0;
+                                        }
+                                        SerialOutRight += Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[2][Count][0] + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[2][Count][1] + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[2][Count][2] + 1)), 0) + ";";
                                     }
                                     else
                                     {
-                                        AmbilightColorStore[2][Count][0] = AmbilightColorStore[2][Count][0] + (int)(((double)OutPutColor.R - (double)AmbilightColorStore[2][Count][0]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
-                                        if (AmbilightColorStore[2][Count][0] > 255)
-                                            AmbilightColorStore[2][Count][0] = 255;
-                                        if (AmbilightColorStore[2][Count][0] < 0)
-                                            AmbilightColorStore[2][Count][0] = 0;
-                                        AmbilightColorStore[2][Count][1] = AmbilightColorStore[2][Count][1] + (int)(((double)OutPutColor.G - (double)AmbilightColorStore[2][Count][1]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
-                                        if (AmbilightColorStore[2][Count][1] > 255)
-                                            AmbilightColorStore[2][Count][1] = 255;
-                                        if (AmbilightColorStore[2][Count][1] < 0)
-                                            AmbilightColorStore[2][Count][1] = 0;
-                                        AmbilightColorStore[2][Count][2] = AmbilightColorStore[2][Count][2] + (int)(((double)OutPutColor.B - (double)AmbilightColorStore[2][Count][2]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
-                                        if (AmbilightColorStore[2][Count][2] > 255)
-                                            AmbilightColorStore[2][Count][2] = 255;
-                                        if (AmbilightColorStore[2][Count][2] < 0)
-                                            AmbilightColorStore[2][Count][2] = 0;
+                                        SerialOutRight += Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.B + 1)), 0) + ";";
                                     }
-                                    SerialOutRight += Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[2][Count][0] + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[2][Count][1] + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[2][Count][2] + 1)), 0) + ";";
                                     Count++;
                                 }
                                 SerialOutRightReady = true;
@@ -2656,33 +2680,40 @@ namespace ArduLEDNameSpace
                                 SerialOutBottom = "7;" + AmbiLightModeBottomFromIDNumericUpDown.Value + ";" + AmbiLightModeBottomToIDNumericUpDown.Value + ";" + AmbiLightModeBottomLEDsPrBlockNumericUpDown.Value + ";";
                                 for (int i = (Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width - (int)AmbiLightModeBottomBlockWidthNumericUpDown.Value); i > (int)AmbiLightModeBottomBlockWidthNumericUpDown.Value; i -= (int)(AmbiLightModeBottomBlockWidthNumericUpDown.Value + AmbiLightModeBottomBlockSpacingNumericUpDown.Value))
                                 {
-                                    Color OutPutColor = GetColorOfSection(GFXScreenshotBottom, ImageWindowBottom, (int)AmbiLightModeBottomBlockWidthNumericUpDown.Value, (int)AmbiLightModeBottomBlockHeightNumericUpDown.Value, i, 0);
-                                    if (AmbilightColorStore[3].Count <= Count)
+                                    Color OutPutColor = GetColorOfSection(ImageWindowBottom, (int)AmbiLightModeBottomBlockWidthNumericUpDown.Value, (int)AmbiLightModeBottomBlockHeightNumericUpDown.Value, i, 0);
+                                    if (AmbiLightModeFadeFactorNumericUpDown.Value != 0)
                                     {
-                                        AmbilightColorStore[3].Add(new List<int>());
-                                        AmbilightColorStore[3][Count].Add(OutPutColor.R);
-                                        AmbilightColorStore[3][Count].Add(OutPutColor.G);
-                                        AmbilightColorStore[3][Count].Add(OutPutColor.B);
+                                        if (AmbilightColorStore[3].Count <= Count)
+                                        {
+                                            AmbilightColorStore[3].Add(new List<int>());
+                                            AmbilightColorStore[3][Count].Add(OutPutColor.R);
+                                            AmbilightColorStore[3][Count].Add(OutPutColor.G);
+                                            AmbilightColorStore[3][Count].Add(OutPutColor.B);
+                                        }
+                                        else
+                                        {
+                                            AmbilightColorStore[3][Count][0] = AmbilightColorStore[3][Count][0] + (int)(((double)OutPutColor.R - (double)AmbilightColorStore[3][Count][0]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
+                                            if (AmbilightColorStore[3][Count][0] > 255)
+                                                AmbilightColorStore[3][Count][0] = 255;
+                                            if (AmbilightColorStore[3][Count][0] < 0)
+                                                AmbilightColorStore[3][Count][0] = 0;
+                                            AmbilightColorStore[3][Count][1] = AmbilightColorStore[3][Count][1] + (int)(((double)OutPutColor.G - (double)AmbilightColorStore[3][Count][1]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
+                                            if (AmbilightColorStore[3][Count][1] > 255)
+                                                AmbilightColorStore[3][Count][1] = 255;
+                                            if (AmbilightColorStore[3][Count][1] < 0)
+                                                AmbilightColorStore[3][Count][1] = 0;
+                                            AmbilightColorStore[3][Count][2] = AmbilightColorStore[3][Count][2] + (int)(((double)OutPutColor.B - (double)AmbilightColorStore[3][Count][2]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
+                                            if (AmbilightColorStore[3][Count][2] > 255)
+                                                AmbilightColorStore[3][Count][2] = 255;
+                                            if (AmbilightColorStore[3][Count][2] < 0)
+                                                AmbilightColorStore[3][Count][2] = 0;
+                                        }
+                                        SerialOutBottom += Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[3][Count][0] + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[3][Count][1] + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[3][Count][2] + 1)), 0) + ";";
                                     }
                                     else
                                     {
-                                        AmbilightColorStore[3][Count][0] = AmbilightColorStore[3][Count][0] + (int)(((double)OutPutColor.R - (double)AmbilightColorStore[3][Count][0]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
-                                        if (AmbilightColorStore[3][Count][0] > 255)
-                                            AmbilightColorStore[3][Count][0] = 255;
-                                        if (AmbilightColorStore[3][Count][0] < 0)
-                                            AmbilightColorStore[3][Count][0] = 0;
-                                        AmbilightColorStore[3][Count][1] = AmbilightColorStore[3][Count][1] + (int)(((double)OutPutColor.G - (double)AmbilightColorStore[3][Count][1]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
-                                        if (AmbilightColorStore[3][Count][1] > 255)
-                                            AmbilightColorStore[3][Count][1] = 255;
-                                        if (AmbilightColorStore[3][Count][1] < 0)
-                                            AmbilightColorStore[3][Count][1] = 0;
-                                        AmbilightColorStore[3][Count][2] = AmbilightColorStore[3][Count][2] + (int)(((double)OutPutColor.B - (double)AmbilightColorStore[3][Count][2]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
-                                        if (AmbilightColorStore[3][Count][2] > 255)
-                                            AmbilightColorStore[3][Count][2] = 255;
-                                        if (AmbilightColorStore[3][Count][2] < 0)
-                                            AmbilightColorStore[3][Count][2] = 0;
+                                        SerialOutBottom += Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.B + 1)), 0) + ";";
                                     }
-                                    SerialOutBottom += Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[3][Count][0] + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[3][Count][1] + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[3][Count][2] + 1)), 0) + ";";
                                     Count++;
                                 }
                                 SerialOutBottomReady = true;
@@ -2735,7 +2766,7 @@ namespace ArduLEDNameSpace
             }
         }
 
-        Color GetColorOfSection(Graphics GFXScreenshot, Bitmap ImageWindow, int _Width, int _Height, int _Xpos, int _Ypos)
+        Color GetColorOfSection(Bitmap ImageWindow, int _Width, int _Height, int _Xpos, int _Ypos)
         {
             int Count = 0;
             int AvgR = 0;

@@ -224,6 +224,7 @@
             this.ConfigureSetupHiddenProgressBar = new System.Windows.Forms.ProgressBar();
             this.HideTimer = new System.Windows.Forms.Timer(this.components);
             this.AmbiLightModePanel = new System.Windows.Forms.Panel();
+            this.AmbilightModeFPSCounterLabel = new System.Windows.Forms.Label();
             this.AmbiLightModeFadeFactorLabel = new System.Windows.Forms.Label();
             this.AmbiLightModeFadeFactorNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.AmbiLightModeScreenIDLabel = new System.Windows.Forms.Label();
@@ -315,7 +316,6 @@
             this.AmbiLightModeShowHideBlocksButton = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.AmbiLightModeTopLabel = new System.Windows.Forms.Label();
-            this.AmbilightModeFPSCounterLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.SampleTimeTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SmoothnessTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SensitivityTrackBar)).BeginInit();
@@ -2952,6 +2952,17 @@
             this.AmbiLightModePanel.TabIndex = 69;
             this.AmbiLightModePanel.Visible = false;
             // 
+            // AmbilightModeFPSCounterLabel
+            // 
+            this.AmbilightModeFPSCounterLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmbilightModeFPSCounterLabel.ForeColor = System.Drawing.Color.White;
+            this.AmbilightModeFPSCounterLabel.Location = new System.Drawing.Point(17, 623);
+            this.AmbilightModeFPSCounterLabel.Name = "AmbilightModeFPSCounterLabel";
+            this.AmbilightModeFPSCounterLabel.Size = new System.Drawing.Size(135, 15);
+            this.AmbilightModeFPSCounterLabel.TabIndex = 117;
+            this.AmbilightModeFPSCounterLabel.Text = "FPS: ";
+            this.AmbilightModeFPSCounterLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // AmbiLightModeFadeFactorLabel
             // 
             this.AmbiLightModeFadeFactorLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -2975,11 +2986,6 @@
             0,
             0,
             0});
-            this.AmbiLightModeFadeFactorNumericUpDown.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
             this.AmbiLightModeFadeFactorNumericUpDown.Name = "AmbiLightModeFadeFactorNumericUpDown";
             this.AmbiLightModeFadeFactorNumericUpDown.Size = new System.Drawing.Size(316, 18);
             this.AmbiLightModeFadeFactorNumericUpDown.TabIndex = 115;
@@ -4507,17 +4513,6 @@
             this.AmbiLightModeTopLabel.TabIndex = 10;
             this.AmbiLightModeTopLabel.Text = "Ambilight Mode";
             this.AmbiLightModeTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // AmbilightModeFPSCounterLabel
-            // 
-            this.AmbilightModeFPSCounterLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AmbilightModeFPSCounterLabel.ForeColor = System.Drawing.Color.White;
-            this.AmbilightModeFPSCounterLabel.Location = new System.Drawing.Point(17, 623);
-            this.AmbilightModeFPSCounterLabel.Name = "AmbilightModeFPSCounterLabel";
-            this.AmbilightModeFPSCounterLabel.Size = new System.Drawing.Size(135, 15);
-            this.AmbilightModeFPSCounterLabel.TabIndex = 117;
-            this.AmbilightModeFPSCounterLabel.Text = "FPS: ";
-            this.AmbilightModeFPSCounterLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // MainForm
             // 
