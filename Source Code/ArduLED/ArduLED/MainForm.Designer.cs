@@ -156,29 +156,23 @@
             this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.LoadFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.InstructionsPanel = new System.Windows.Forms.Panel();
-            this.InstructionsAddAmbilightPanel = new System.Windows.Forms.Panel();
-            this.InstructionsAddAmbilightShowHideBlocksCheckBox = new System.Windows.Forms.CheckBox();
-            this.InstructionsAddAmbilightAutoSetOffsetsCheckBox = new System.Windows.Forms.CheckBox();
-            this.InstructionsAddAmbilightStopAmbilightCheckBox = new System.Windows.Forms.CheckBox();
-            this.InstructionsAddAmbilightUseAmbilightSettings = new System.Windows.Forms.Button();
-            this.InstructionsAddAmbilightAddButton = new System.Windows.Forms.Button();
-            this.InstructionsAddAmbilightTopLabel = new System.Windows.Forms.Label();
-            this.InstructionStopLoopButton = new System.Windows.Forms.Button();
-            this.InstructionsLoopCheckBox = new System.Windows.Forms.CheckBox();
-            this.InstructionStartLoopButton = new System.Windows.Forms.Button();
-            this.panel11 = new System.Windows.Forms.Panel();
-            this.InstructionsAddAmbilightButton = new System.Windows.Forms.Button();
-            this.InstructionsAddIndividualLEDButton = new System.Windows.Forms.Button();
-            this.InstructionsAddVisualizerButton = new System.Windows.Forms.Button();
-            this.InstructionsAddFadeColorsButton = new System.Windows.Forms.Button();
-            this.InstructionsAddDelayButton = new System.Windows.Forms.Button();
-            this.InstructionsModeAddItemsLabel = new System.Windows.Forms.Label();
+            this.InstructionsAddIndividualLEDPanel = new System.Windows.Forms.Panel();
+            this.InstructionsAddIndividualLEDOnPinLabel = new System.Windows.Forms.Label();
+            this.InstructionsAddIndividualLEDOnPinNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.InstructionsAddIndividualLEDAtIDLabel = new System.Windows.Forms.Label();
+            this.InstructionsAddIndividualLEDAtIdNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.InstructionsAddIndividualLEDRedTrackBar = new System.Windows.Forms.TrackBar();
+            this.InstructionsAddIndividualLEDBlueTrackBar = new System.Windows.Forms.TrackBar();
+            this.InstructionsAddIndividualLEDGreenLabel = new System.Windows.Forms.Label();
+            this.InstructionsAddIndividualLEDBlueLabel = new System.Windows.Forms.Label();
+            this.InstructionsAddIndividualLEDRedLabel = new System.Windows.Forms.Label();
+            this.InstructionsAddIndividualLEDRedValueLabel = new System.Windows.Forms.Label();
+            this.InstructionsAddIndividualLEDGreenValueLabel = new System.Windows.Forms.Label();
+            this.InstructionsAddIndividualLEDGreenTrackBar = new System.Windows.Forms.TrackBar();
+            this.InstructionsAddIndividualLEDBlueValueLabel = new System.Windows.Forms.Label();
+            this.InstructionsAddIndividualLEDAddButton = new System.Windows.Forms.Button();
+            this.InstructionsAddIndividualLEDPanelTopLabel = new System.Windows.Forms.Label();
             this.InstructionsAddFadeColorsPanel = new System.Windows.Forms.Panel();
-            this.InstructionsAddVisualizerPanel = new System.Windows.Forms.Panel();
-            this.InstructionsAddVisualizerStopVisualizerCheckBox = new System.Windows.Forms.CheckBox();
-            this.InstructionsAddVisualizerLoadSetup = new System.Windows.Forms.Button();
-            this.InstructionsAddVisualizerPanelAdd = new System.Windows.Forms.Button();
-            this.InstructionsAddVisualizerTopLabel = new System.Windows.Forms.Label();
             this.InstructionsAddFadeColorsToSeriesIDNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.InstructionsAddFadeColorsToSeriesIDLabel = new System.Windows.Forms.Label();
             this.InstructionsAddFadeColorsFadeFactorLabel = new System.Windows.Forms.Label();
@@ -198,33 +192,39 @@
             this.InstructionsAddFadeColorsGreenTrackBar = new System.Windows.Forms.TrackBar();
             this.InstructionsAddFadeColorsBlueLabel = new System.Windows.Forms.Label();
             this.InstructionsAddFadeColorsTopLabel = new System.Windows.Forms.Label();
+            this.InstructionStopLoopButton = new System.Windows.Forms.Button();
+            this.InstructionsModeLoadButton = new System.Windows.Forms.Button();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.InstructionsAddAmbilightButton = new System.Windows.Forms.Button();
+            this.InstructionsAddIndividualLEDButton = new System.Windows.Forms.Button();
+            this.InstructionsAddVisualizerButton = new System.Windows.Forms.Button();
+            this.InstructionsAddFadeColorsButton = new System.Windows.Forms.Button();
+            this.InstructionsAddDelayButton = new System.Windows.Forms.Button();
+            this.InstructionsModeAddItemsLabel = new System.Windows.Forms.Label();
+            this.InstructionsLoopCheckBox = new System.Windows.Forms.CheckBox();
+            this.InstructionsModeSaveButton = new System.Windows.Forms.Button();
+            this.InstructionStartLoopButton = new System.Windows.Forms.Button();
+            this.panel21 = new System.Windows.Forms.Panel();
+            this.InstructionsModeTopLabel = new System.Windows.Forms.Label();
+            this.InstructionsWorkingPanel = new System.Windows.Forms.Panel();
+            this.InstructionsAddAmbilightPanel = new System.Windows.Forms.Panel();
+            this.InstructionsAddAmbilightShowHideBlocksCheckBox = new System.Windows.Forms.CheckBox();
+            this.InstructionsAddAmbilightAutoSetOffsetsCheckBox = new System.Windows.Forms.CheckBox();
+            this.InstructionsAddAmbilightStopAmbilightCheckBox = new System.Windows.Forms.CheckBox();
+            this.InstructionsAddAmbilightUseAmbilightSettings = new System.Windows.Forms.Button();
+            this.InstructionsAddAmbilightAddButton = new System.Windows.Forms.Button();
+            this.InstructionsAddAmbilightTopLabel = new System.Windows.Forms.Label();
+            this.InstructionsAddVisualizerPanel = new System.Windows.Forms.Panel();
+            this.InstructionsAddVisualizerStopVisualizerCheckBox = new System.Windows.Forms.CheckBox();
+            this.InstructionsAddVisualizerLoadSetup = new System.Windows.Forms.Button();
+            this.InstructionsAddVisualizerPanelAdd = new System.Windows.Forms.Button();
+            this.InstructionsAddVisualizerTopLabel = new System.Windows.Forms.Label();
             this.InstructionsAddDelayPanel = new System.Windows.Forms.Panel();
             this.InstructionsAddDelayAddButton = new System.Windows.Forms.Button();
             this.InstructionsAddDelayNoteLabel = new System.Windows.Forms.Label();
             this.InstructionsAddDelayLabel = new System.Windows.Forms.Label();
             this.InstructionsAddDelayNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.InstructionsAddDelayTopLabel = new System.Windows.Forms.Label();
-            this.InstructionsAddIndividualLEDPanel = new System.Windows.Forms.Panel();
-            this.InstructionsAddIndividualLEDOnPinLabel = new System.Windows.Forms.Label();
-            this.InstructionsAddIndividualLEDOnPinNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.InstructionsAddIndividualLEDAtIDLabel = new System.Windows.Forms.Label();
-            this.InstructionsAddIndividualLEDAtIdNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.InstructionsAddIndividualLEDRedTrackBar = new System.Windows.Forms.TrackBar();
-            this.InstructionsAddIndividualLEDBlueTrackBar = new System.Windows.Forms.TrackBar();
-            this.InstructionsAddIndividualLEDGreenLabel = new System.Windows.Forms.Label();
-            this.InstructionsAddIndividualLEDBlueLabel = new System.Windows.Forms.Label();
-            this.InstructionsAddIndividualLEDRedLabel = new System.Windows.Forms.Label();
-            this.InstructionsAddIndividualLEDRedValueLabel = new System.Windows.Forms.Label();
-            this.InstructionsAddIndividualLEDGreenValueLabel = new System.Windows.Forms.Label();
-            this.InstructionsAddIndividualLEDGreenTrackBar = new System.Windows.Forms.TrackBar();
-            this.InstructionsAddIndividualLEDBlueValueLabel = new System.Windows.Forms.Label();
-            this.InstructionsAddIndividualLEDAddButton = new System.Windows.Forms.Button();
-            this.InstructionsAddIndividualLEDPanelTopLabel = new System.Windows.Forms.Label();
-            this.InstructionsModeLoadButton = new System.Windows.Forms.Button();
-            this.InstructionsModeSaveButton = new System.Windows.Forms.Button();
-            this.panel21 = new System.Windows.Forms.Panel();
-            this.InstructionsModeTopLabel = new System.Windows.Forms.Label();
-            this.InstructionsWorkingPanel = new System.Windows.Forms.Panel();
             this.ConfigureSetupPanel = new System.Windows.Forms.Panel();
             this.EnableDataCompressionMode = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -391,10 +391,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.IndividalLEDBlueTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.IndividalLEDGreenTrackBar)).BeginInit();
             this.InstructionsPanel.SuspendLayout();
-            this.InstructionsAddAmbilightPanel.SuspendLayout();
-            this.panel11.SuspendLayout();
+            this.InstructionsAddIndividualLEDPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddIndividualLEDOnPinNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddIndividualLEDAtIdNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddIndividualLEDRedTrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddIndividualLEDBlueTrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddIndividualLEDGreenTrackBar)).BeginInit();
             this.InstructionsAddFadeColorsPanel.SuspendLayout();
-            this.InstructionsAddVisualizerPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsToSeriesIDNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsFadeFactorNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown)).BeginInit();
@@ -402,15 +405,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsRedTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsBlueTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsGreenTrackBar)).BeginInit();
+            this.panel11.SuspendLayout();
+            this.panel21.SuspendLayout();
+            this.InstructionsAddAmbilightPanel.SuspendLayout();
+            this.InstructionsAddVisualizerPanel.SuspendLayout();
             this.InstructionsAddDelayPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddDelayNumericUpDown)).BeginInit();
-            this.InstructionsAddIndividualLEDPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddIndividualLEDOnPinNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddIndividualLEDAtIdNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddIndividualLEDRedTrackBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddIndividualLEDBlueTrackBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddIndividualLEDGreenTrackBar)).BeginInit();
-            this.panel21.SuspendLayout();
             this.ConfigureSetupPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown)).BeginInit();
@@ -2122,238 +2122,222 @@
             this.InstructionsPanel.TabIndex = 48;
             this.InstructionsPanel.Visible = false;
             // 
-            // InstructionsAddAmbilightPanel
+            // InstructionsAddIndividualLEDPanel
             // 
-            this.InstructionsAddAmbilightPanel.BackColor = System.Drawing.Color.Gray;
-            this.InstructionsAddAmbilightPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.InstructionsAddAmbilightPanel.Controls.Add(this.InstructionsAddAmbilightShowHideBlocksCheckBox);
-            this.InstructionsAddAmbilightPanel.Controls.Add(this.InstructionsAddAmbilightAutoSetOffsetsCheckBox);
-            this.InstructionsAddAmbilightPanel.Controls.Add(this.InstructionsAddAmbilightStopAmbilightCheckBox);
-            this.InstructionsAddAmbilightPanel.Controls.Add(this.InstructionsAddAmbilightUseAmbilightSettings);
-            this.InstructionsAddAmbilightPanel.Controls.Add(this.InstructionsAddAmbilightAddButton);
-            this.InstructionsAddAmbilightPanel.Controls.Add(this.InstructionsAddAmbilightTopLabel);
-            this.InstructionsAddAmbilightPanel.Location = new System.Drawing.Point(219, 495);
-            this.InstructionsAddAmbilightPanel.Name = "InstructionsAddAmbilightPanel";
-            this.InstructionsAddAmbilightPanel.Size = new System.Drawing.Size(554, 169);
-            this.InstructionsAddAmbilightPanel.TabIndex = 78;
-            this.InstructionsAddAmbilightPanel.Visible = false;
+            this.InstructionsAddIndividualLEDPanel.BackColor = System.Drawing.Color.Gray;
+            this.InstructionsAddIndividualLEDPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDOnPinLabel);
+            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDOnPinNumericUpDown);
+            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDAtIDLabel);
+            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDAtIdNumericUpDown);
+            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDRedTrackBar);
+            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDBlueTrackBar);
+            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDGreenLabel);
+            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDBlueLabel);
+            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDRedLabel);
+            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDRedValueLabel);
+            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDGreenValueLabel);
+            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDGreenTrackBar);
+            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDBlueValueLabel);
+            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDAddButton);
+            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDPanelTopLabel);
+            this.InstructionsAddIndividualLEDPanel.Location = new System.Drawing.Point(219, 495);
+            this.InstructionsAddIndividualLEDPanel.Name = "InstructionsAddIndividualLEDPanel";
+            this.InstructionsAddIndividualLEDPanel.Size = new System.Drawing.Size(554, 169);
+            this.InstructionsAddIndividualLEDPanel.TabIndex = 78;
+            this.InstructionsAddIndividualLEDPanel.Visible = false;
             // 
-            // InstructionsAddAmbilightShowHideBlocksCheckBox
+            // InstructionsAddIndividualLEDOnPinLabel
             // 
-            this.InstructionsAddAmbilightShowHideBlocksCheckBox.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddAmbilightShowHideBlocksCheckBox.Location = new System.Drawing.Point(14, 92);
-            this.InstructionsAddAmbilightShowHideBlocksCheckBox.Name = "InstructionsAddAmbilightShowHideBlocksCheckBox";
-            this.InstructionsAddAmbilightShowHideBlocksCheckBox.Size = new System.Drawing.Size(226, 17);
-            this.InstructionsAddAmbilightShowHideBlocksCheckBox.TabIndex = 22;
-            this.InstructionsAddAmbilightShowHideBlocksCheckBox.Tag = "Setting";
-            this.InstructionsAddAmbilightShowHideBlocksCheckBox.Text = "Show / hide Blocks";
-            this.InstructionsAddAmbilightShowHideBlocksCheckBox.UseVisualStyleBackColor = false;
+            this.InstructionsAddIndividualLEDOnPinLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddIndividualLEDOnPinLabel.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddIndividualLEDOnPinLabel.Location = new System.Drawing.Point(424, 80);
+            this.InstructionsAddIndividualLEDOnPinLabel.Name = "InstructionsAddIndividualLEDOnPinLabel";
+            this.InstructionsAddIndividualLEDOnPinLabel.Size = new System.Drawing.Size(110, 11);
+            this.InstructionsAddIndividualLEDOnPinLabel.TabIndex = 84;
+            this.InstructionsAddIndividualLEDOnPinLabel.Text = "On pin:";
+            this.InstructionsAddIndividualLEDOnPinLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // InstructionsAddAmbilightAutoSetOffsetsCheckBox
+            // InstructionsAddIndividualLEDOnPinNumericUpDown
             // 
-            this.InstructionsAddAmbilightAutoSetOffsetsCheckBox.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddAmbilightAutoSetOffsetsCheckBox.Location = new System.Drawing.Point(254, 69);
-            this.InstructionsAddAmbilightAutoSetOffsetsCheckBox.Name = "InstructionsAddAmbilightAutoSetOffsetsCheckBox";
-            this.InstructionsAddAmbilightAutoSetOffsetsCheckBox.Size = new System.Drawing.Size(226, 17);
-            this.InstructionsAddAmbilightAutoSetOffsetsCheckBox.TabIndex = 21;
-            this.InstructionsAddAmbilightAutoSetOffsetsCheckBox.Tag = "Setting";
-            this.InstructionsAddAmbilightAutoSetOffsetsCheckBox.Text = "Autoset offsets";
-            this.InstructionsAddAmbilightAutoSetOffsetsCheckBox.UseVisualStyleBackColor = false;
+            this.InstructionsAddIndividualLEDOnPinNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
+            this.InstructionsAddIndividualLEDOnPinNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.InstructionsAddIndividualLEDOnPinNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddIndividualLEDOnPinNumericUpDown.Location = new System.Drawing.Point(426, 103);
+            this.InstructionsAddIndividualLEDOnPinNumericUpDown.Maximum = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            this.InstructionsAddIndividualLEDOnPinNumericUpDown.Name = "InstructionsAddIndividualLEDOnPinNumericUpDown";
+            this.InstructionsAddIndividualLEDOnPinNumericUpDown.Size = new System.Drawing.Size(110, 14);
+            this.InstructionsAddIndividualLEDOnPinNumericUpDown.TabIndex = 83;
+            this.InstructionsAddIndividualLEDOnPinNumericUpDown.Tag = "Setting";
             // 
-            // InstructionsAddAmbilightStopAmbilightCheckBox
+            // InstructionsAddIndividualLEDAtIDLabel
             // 
-            this.InstructionsAddAmbilightStopAmbilightCheckBox.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddAmbilightStopAmbilightCheckBox.Location = new System.Drawing.Point(15, 69);
-            this.InstructionsAddAmbilightStopAmbilightCheckBox.Name = "InstructionsAddAmbilightStopAmbilightCheckBox";
-            this.InstructionsAddAmbilightStopAmbilightCheckBox.Size = new System.Drawing.Size(226, 17);
-            this.InstructionsAddAmbilightStopAmbilightCheckBox.TabIndex = 19;
-            this.InstructionsAddAmbilightStopAmbilightCheckBox.Tag = "Setting";
-            this.InstructionsAddAmbilightStopAmbilightCheckBox.Text = "Stop Ambilight";
-            this.InstructionsAddAmbilightStopAmbilightCheckBox.UseVisualStyleBackColor = false;
+            this.InstructionsAddIndividualLEDAtIDLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddIndividualLEDAtIDLabel.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddIndividualLEDAtIDLabel.Location = new System.Drawing.Point(424, 31);
+            this.InstructionsAddIndividualLEDAtIDLabel.Name = "InstructionsAddIndividualLEDAtIDLabel";
+            this.InstructionsAddIndividualLEDAtIDLabel.Size = new System.Drawing.Size(110, 11);
+            this.InstructionsAddIndividualLEDAtIDLabel.TabIndex = 82;
+            this.InstructionsAddIndividualLEDAtIDLabel.Text = "At Hardware ID:";
+            this.InstructionsAddIndividualLEDAtIDLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // InstructionsAddAmbilightUseAmbilightSettings
+            // InstructionsAddIndividualLEDAtIdNumericUpDown
             // 
-            this.InstructionsAddAmbilightUseAmbilightSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
-            this.InstructionsAddAmbilightUseAmbilightSettings.FlatAppearance.BorderSize = 0;
-            this.InstructionsAddAmbilightUseAmbilightSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.InstructionsAddAmbilightUseAmbilightSettings.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddAmbilightUseAmbilightSettings.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddAmbilightUseAmbilightSettings.Location = new System.Drawing.Point(15, 36);
-            this.InstructionsAddAmbilightUseAmbilightSettings.Name = "InstructionsAddAmbilightUseAmbilightSettings";
-            this.InstructionsAddAmbilightUseAmbilightSettings.Size = new System.Drawing.Size(226, 23);
-            this.InstructionsAddAmbilightUseAmbilightSettings.TabIndex = 18;
-            this.InstructionsAddAmbilightUseAmbilightSettings.Text = "Ambilight settings to use";
-            this.InstructionsAddAmbilightUseAmbilightSettings.UseVisualStyleBackColor = false;
-            this.InstructionsAddAmbilightUseAmbilightSettings.Click += new System.EventHandler(this.InstructionsAddAmbilightUseAmbilightSettings_Click);
+            this.InstructionsAddIndividualLEDAtIdNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
+            this.InstructionsAddIndividualLEDAtIdNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.InstructionsAddIndividualLEDAtIdNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddIndividualLEDAtIdNumericUpDown.Location = new System.Drawing.Point(426, 54);
+            this.InstructionsAddIndividualLEDAtIdNumericUpDown.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.InstructionsAddIndividualLEDAtIdNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.InstructionsAddIndividualLEDAtIdNumericUpDown.Name = "InstructionsAddIndividualLEDAtIdNumericUpDown";
+            this.InstructionsAddIndividualLEDAtIdNumericUpDown.Size = new System.Drawing.Size(110, 14);
+            this.InstructionsAddIndividualLEDAtIdNumericUpDown.TabIndex = 81;
+            this.InstructionsAddIndividualLEDAtIdNumericUpDown.Tag = "Setting";
+            this.InstructionsAddIndividualLEDAtIdNumericUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
             // 
-            // InstructionsAddAmbilightAddButton
+            // InstructionsAddIndividualLEDRedTrackBar
             // 
-            this.InstructionsAddAmbilightAddButton.BackColor = System.Drawing.Color.DarkGray;
-            this.InstructionsAddAmbilightAddButton.FlatAppearance.BorderSize = 0;
-            this.InstructionsAddAmbilightAddButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.InstructionsAddAmbilightAddButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddAmbilightAddButton.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddAmbilightAddButton.Location = new System.Drawing.Point(15, 131);
-            this.InstructionsAddAmbilightAddButton.Name = "InstructionsAddAmbilightAddButton";
-            this.InstructionsAddAmbilightAddButton.Size = new System.Drawing.Size(75, 23);
-            this.InstructionsAddAmbilightAddButton.TabIndex = 17;
-            this.InstructionsAddAmbilightAddButton.Text = "Add";
-            this.InstructionsAddAmbilightAddButton.UseVisualStyleBackColor = false;
-            this.InstructionsAddAmbilightAddButton.Click += new System.EventHandler(this.InstructionsAddAmbilightAddButton_Click);
+            this.InstructionsAddIndividualLEDRedTrackBar.Location = new System.Drawing.Point(168, 28);
+            this.InstructionsAddIndividualLEDRedTrackBar.Maximum = 255;
+            this.InstructionsAddIndividualLEDRedTrackBar.Name = "InstructionsAddIndividualLEDRedTrackBar";
+            this.InstructionsAddIndividualLEDRedTrackBar.Size = new System.Drawing.Size(209, 45);
+            this.InstructionsAddIndividualLEDRedTrackBar.TabIndex = 72;
+            this.InstructionsAddIndividualLEDRedTrackBar.TickFrequency = 10;
+            this.InstructionsAddIndividualLEDRedTrackBar.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.InstructionsAddIndividualLEDRedTrackBar.Value = 255;
+            this.InstructionsAddIndividualLEDRedTrackBar.Scroll += new System.EventHandler(this.InstructionsAddIndividualLEDRedTrackBar_Scroll);
             // 
-            // InstructionsAddAmbilightTopLabel
+            // InstructionsAddIndividualLEDBlueTrackBar
             // 
-            this.InstructionsAddAmbilightTopLabel.Font = new System.Drawing.Font("Lucida Console", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddAmbilightTopLabel.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddAmbilightTopLabel.Location = new System.Drawing.Point(4, 3);
-            this.InstructionsAddAmbilightTopLabel.Name = "InstructionsAddAmbilightTopLabel";
-            this.InstructionsAddAmbilightTopLabel.Size = new System.Drawing.Size(542, 21);
-            this.InstructionsAddAmbilightTopLabel.TabIndex = 12;
-            this.InstructionsAddAmbilightTopLabel.Text = "Ambilight";
-            this.InstructionsAddAmbilightTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.InstructionsAddIndividualLEDBlueTrackBar.Location = new System.Drawing.Point(168, 115);
+            this.InstructionsAddIndividualLEDBlueTrackBar.Maximum = 255;
+            this.InstructionsAddIndividualLEDBlueTrackBar.Name = "InstructionsAddIndividualLEDBlueTrackBar";
+            this.InstructionsAddIndividualLEDBlueTrackBar.Size = new System.Drawing.Size(209, 45);
+            this.InstructionsAddIndividualLEDBlueTrackBar.TabIndex = 74;
+            this.InstructionsAddIndividualLEDBlueTrackBar.TickFrequency = 10;
+            this.InstructionsAddIndividualLEDBlueTrackBar.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.InstructionsAddIndividualLEDBlueTrackBar.Value = 255;
+            this.InstructionsAddIndividualLEDBlueTrackBar.Scroll += new System.EventHandler(this.InstructionsAddIndividualLEDBlueTrackBar_Scroll);
             // 
-            // InstructionStopLoopButton
+            // InstructionsAddIndividualLEDGreenLabel
             // 
-            this.InstructionStopLoopButton.BackColor = System.Drawing.Color.DarkGray;
-            this.InstructionStopLoopButton.FlatAppearance.BorderSize = 0;
-            this.InstructionStopLoopButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.InstructionStopLoopButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionStopLoopButton.ForeColor = System.Drawing.Color.White;
-            this.InstructionStopLoopButton.Location = new System.Drawing.Point(89, 640);
-            this.InstructionStopLoopButton.Name = "InstructionStopLoopButton";
-            this.InstructionStopLoopButton.Size = new System.Drawing.Size(59, 23);
-            this.InstructionStopLoopButton.TabIndex = 14;
-            this.InstructionStopLoopButton.Text = "Stop";
-            this.InstructionStopLoopButton.UseVisualStyleBackColor = false;
-            this.InstructionStopLoopButton.Click += new System.EventHandler(this.InstructionStopLoopButton_Click);
+            this.InstructionsAddIndividualLEDGreenLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddIndividualLEDGreenLabel.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddIndividualLEDGreenLabel.Location = new System.Drawing.Point(109, 83);
+            this.InstructionsAddIndividualLEDGreenLabel.Name = "InstructionsAddIndividualLEDGreenLabel";
+            this.InstructionsAddIndividualLEDGreenLabel.Size = new System.Drawing.Size(60, 15);
+            this.InstructionsAddIndividualLEDGreenLabel.TabIndex = 76;
+            this.InstructionsAddIndividualLEDGreenLabel.Text = "Green";
+            this.InstructionsAddIndividualLEDGreenLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // InstructionsLoopCheckBox
+            // InstructionsAddIndividualLEDBlueLabel
             // 
-            this.InstructionsLoopCheckBox.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsLoopCheckBox.ForeColor = System.Drawing.Color.White;
-            this.InstructionsLoopCheckBox.Location = new System.Drawing.Point(13, 645);
-            this.InstructionsLoopCheckBox.Name = "InstructionsLoopCheckBox";
-            this.InstructionsLoopCheckBox.Size = new System.Drawing.Size(95, 15);
-            this.InstructionsLoopCheckBox.TabIndex = 7;
-            this.InstructionsLoopCheckBox.Text = "Loop";
-            this.InstructionsLoopCheckBox.UseVisualStyleBackColor = true;
+            this.InstructionsAddIndividualLEDBlueLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddIndividualLEDBlueLabel.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddIndividualLEDBlueLabel.Location = new System.Drawing.Point(109, 126);
+            this.InstructionsAddIndividualLEDBlueLabel.Name = "InstructionsAddIndividualLEDBlueLabel";
+            this.InstructionsAddIndividualLEDBlueLabel.Size = new System.Drawing.Size(60, 15);
+            this.InstructionsAddIndividualLEDBlueLabel.TabIndex = 77;
+            this.InstructionsAddIndividualLEDBlueLabel.Text = "Blue";
+            this.InstructionsAddIndividualLEDBlueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // InstructionStartLoopButton
+            // InstructionsAddIndividualLEDRedLabel
             // 
-            this.InstructionStartLoopButton.BackColor = System.Drawing.Color.DarkGray;
-            this.InstructionStartLoopButton.FlatAppearance.BorderSize = 0;
-            this.InstructionStartLoopButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.InstructionStartLoopButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionStartLoopButton.ForeColor = System.Drawing.Color.White;
-            this.InstructionStartLoopButton.Location = new System.Drawing.Point(154, 640);
-            this.InstructionStartLoopButton.Name = "InstructionStartLoopButton";
-            this.InstructionStartLoopButton.Size = new System.Drawing.Size(59, 23);
-            this.InstructionStartLoopButton.TabIndex = 6;
-            this.InstructionStartLoopButton.Text = "Start";
-            this.InstructionStartLoopButton.UseVisualStyleBackColor = false;
-            this.InstructionStartLoopButton.Click += new System.EventHandler(this.InstructionStartLoopButton_Click);
+            this.InstructionsAddIndividualLEDRedLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddIndividualLEDRedLabel.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddIndividualLEDRedLabel.Location = new System.Drawing.Point(109, 40);
+            this.InstructionsAddIndividualLEDRedLabel.Name = "InstructionsAddIndividualLEDRedLabel";
+            this.InstructionsAddIndividualLEDRedLabel.Size = new System.Drawing.Size(60, 15);
+            this.InstructionsAddIndividualLEDRedLabel.TabIndex = 75;
+            this.InstructionsAddIndividualLEDRedLabel.Text = "Red";
+            this.InstructionsAddIndividualLEDRedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // panel11
+            // InstructionsAddIndividualLEDRedValueLabel
             // 
-            this.panel11.AutoScroll = true;
-            this.panel11.BackColor = System.Drawing.Color.Gray;
-            this.panel11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel11.Controls.Add(this.InstructionsAddAmbilightButton);
-            this.panel11.Controls.Add(this.InstructionsAddIndividualLEDButton);
-            this.panel11.Controls.Add(this.InstructionsAddVisualizerButton);
-            this.panel11.Controls.Add(this.InstructionsAddFadeColorsButton);
-            this.panel11.Controls.Add(this.InstructionsAddDelayButton);
-            this.panel11.Controls.Add(this.InstructionsModeAddItemsLabel);
-            this.panel11.Location = new System.Drawing.Point(13, 493);
-            this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(200, 143);
-            this.panel11.TabIndex = 0;
+            this.InstructionsAddIndividualLEDRedValueLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddIndividualLEDRedValueLabel.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddIndividualLEDRedValueLabel.Location = new System.Drawing.Point(379, 38);
+            this.InstructionsAddIndividualLEDRedValueLabel.Name = "InstructionsAddIndividualLEDRedValueLabel";
+            this.InstructionsAddIndividualLEDRedValueLabel.Size = new System.Drawing.Size(41, 15);
+            this.InstructionsAddIndividualLEDRedValueLabel.TabIndex = 78;
+            this.InstructionsAddIndividualLEDRedValueLabel.Text = "255";
+            this.InstructionsAddIndividualLEDRedValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // InstructionsAddAmbilightButton
+            // InstructionsAddIndividualLEDGreenValueLabel
             // 
-            this.InstructionsAddAmbilightButton.BackColor = System.Drawing.Color.DarkGray;
-            this.InstructionsAddAmbilightButton.FlatAppearance.BorderSize = 0;
-            this.InstructionsAddAmbilightButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.InstructionsAddAmbilightButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddAmbilightButton.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddAmbilightButton.Location = new System.Drawing.Point(3, 126);
-            this.InstructionsAddAmbilightButton.Name = "InstructionsAddAmbilightButton";
-            this.InstructionsAddAmbilightButton.Size = new System.Drawing.Size(174, 23);
-            this.InstructionsAddAmbilightButton.TabIndex = 16;
-            this.InstructionsAddAmbilightButton.Text = "Ambilight";
-            this.InstructionsAddAmbilightButton.UseVisualStyleBackColor = false;
-            this.InstructionsAddAmbilightButton.Click += new System.EventHandler(this.InstructionsAddAmbilightButton_Click);
+            this.InstructionsAddIndividualLEDGreenValueLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddIndividualLEDGreenValueLabel.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddIndividualLEDGreenValueLabel.Location = new System.Drawing.Point(379, 83);
+            this.InstructionsAddIndividualLEDGreenValueLabel.Name = "InstructionsAddIndividualLEDGreenValueLabel";
+            this.InstructionsAddIndividualLEDGreenValueLabel.Size = new System.Drawing.Size(41, 15);
+            this.InstructionsAddIndividualLEDGreenValueLabel.TabIndex = 79;
+            this.InstructionsAddIndividualLEDGreenValueLabel.Text = "255";
+            this.InstructionsAddIndividualLEDGreenValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // InstructionsAddIndividualLEDButton
+            // InstructionsAddIndividualLEDGreenTrackBar
             // 
-            this.InstructionsAddIndividualLEDButton.BackColor = System.Drawing.Color.DarkGray;
-            this.InstructionsAddIndividualLEDButton.FlatAppearance.BorderSize = 0;
-            this.InstructionsAddIndividualLEDButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.InstructionsAddIndividualLEDButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddIndividualLEDButton.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddIndividualLEDButton.Location = new System.Drawing.Point(3, 76);
-            this.InstructionsAddIndividualLEDButton.Name = "InstructionsAddIndividualLEDButton";
-            this.InstructionsAddIndividualLEDButton.Size = new System.Drawing.Size(174, 23);
-            this.InstructionsAddIndividualLEDButton.TabIndex = 15;
-            this.InstructionsAddIndividualLEDButton.Text = "Individual LEDs";
-            this.InstructionsAddIndividualLEDButton.UseVisualStyleBackColor = false;
-            this.InstructionsAddIndividualLEDButton.Click += new System.EventHandler(this.InstructionsAddIndividualLEDButton_Click);
+            this.InstructionsAddIndividualLEDGreenTrackBar.Location = new System.Drawing.Point(168, 73);
+            this.InstructionsAddIndividualLEDGreenTrackBar.Maximum = 255;
+            this.InstructionsAddIndividualLEDGreenTrackBar.Name = "InstructionsAddIndividualLEDGreenTrackBar";
+            this.InstructionsAddIndividualLEDGreenTrackBar.Size = new System.Drawing.Size(209, 45);
+            this.InstructionsAddIndividualLEDGreenTrackBar.TabIndex = 73;
+            this.InstructionsAddIndividualLEDGreenTrackBar.TickFrequency = 10;
+            this.InstructionsAddIndividualLEDGreenTrackBar.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.InstructionsAddIndividualLEDGreenTrackBar.Value = 255;
+            this.InstructionsAddIndividualLEDGreenTrackBar.Scroll += new System.EventHandler(this.InstructionsAddIndividualLEDGreenTrackBar_Scroll);
             // 
-            // InstructionsAddVisualizerButton
+            // InstructionsAddIndividualLEDBlueValueLabel
             // 
-            this.InstructionsAddVisualizerButton.BackColor = System.Drawing.Color.DarkGray;
-            this.InstructionsAddVisualizerButton.FlatAppearance.BorderSize = 0;
-            this.InstructionsAddVisualizerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.InstructionsAddVisualizerButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddVisualizerButton.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddVisualizerButton.Location = new System.Drawing.Point(3, 101);
-            this.InstructionsAddVisualizerButton.Name = "InstructionsAddVisualizerButton";
-            this.InstructionsAddVisualizerButton.Size = new System.Drawing.Size(174, 23);
-            this.InstructionsAddVisualizerButton.TabIndex = 14;
-            this.InstructionsAddVisualizerButton.Text = "Visualizer";
-            this.InstructionsAddVisualizerButton.UseVisualStyleBackColor = false;
-            this.InstructionsAddVisualizerButton.Click += new System.EventHandler(this.InstructionsAddVisualizerButton_Click);
+            this.InstructionsAddIndividualLEDBlueValueLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddIndividualLEDBlueValueLabel.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddIndividualLEDBlueValueLabel.Location = new System.Drawing.Point(379, 126);
+            this.InstructionsAddIndividualLEDBlueValueLabel.Name = "InstructionsAddIndividualLEDBlueValueLabel";
+            this.InstructionsAddIndividualLEDBlueValueLabel.Size = new System.Drawing.Size(41, 15);
+            this.InstructionsAddIndividualLEDBlueValueLabel.TabIndex = 80;
+            this.InstructionsAddIndividualLEDBlueValueLabel.Text = "255";
+            this.InstructionsAddIndividualLEDBlueValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // InstructionsAddFadeColorsButton
+            // InstructionsAddIndividualLEDAddButton
             // 
-            this.InstructionsAddFadeColorsButton.BackColor = System.Drawing.Color.DarkGray;
-            this.InstructionsAddFadeColorsButton.FlatAppearance.BorderSize = 0;
-            this.InstructionsAddFadeColorsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.InstructionsAddFadeColorsButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddFadeColorsButton.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddFadeColorsButton.Location = new System.Drawing.Point(3, 51);
-            this.InstructionsAddFadeColorsButton.Name = "InstructionsAddFadeColorsButton";
-            this.InstructionsAddFadeColorsButton.Size = new System.Drawing.Size(174, 23);
-            this.InstructionsAddFadeColorsButton.TabIndex = 11;
-            this.InstructionsAddFadeColorsButton.Text = "Fade Colors";
-            this.InstructionsAddFadeColorsButton.UseVisualStyleBackColor = false;
-            this.InstructionsAddFadeColorsButton.Click += new System.EventHandler(this.InstructionsAddFadeColorsButton_Click);
+            this.InstructionsAddIndividualLEDAddButton.BackColor = System.Drawing.Color.DarkGray;
+            this.InstructionsAddIndividualLEDAddButton.FlatAppearance.BorderSize = 0;
+            this.InstructionsAddIndividualLEDAddButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.InstructionsAddIndividualLEDAddButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddIndividualLEDAddButton.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddIndividualLEDAddButton.Location = new System.Drawing.Point(15, 131);
+            this.InstructionsAddIndividualLEDAddButton.Name = "InstructionsAddIndividualLEDAddButton";
+            this.InstructionsAddIndividualLEDAddButton.Size = new System.Drawing.Size(75, 23);
+            this.InstructionsAddIndividualLEDAddButton.TabIndex = 17;
+            this.InstructionsAddIndividualLEDAddButton.Text = "Add";
+            this.InstructionsAddIndividualLEDAddButton.UseVisualStyleBackColor = false;
+            this.InstructionsAddIndividualLEDAddButton.Click += new System.EventHandler(this.InstructionsAddIndividualLEDAddButton_Click);
             // 
-            // InstructionsAddDelayButton
+            // InstructionsAddIndividualLEDPanelTopLabel
             // 
-            this.InstructionsAddDelayButton.BackColor = System.Drawing.Color.DarkGray;
-            this.InstructionsAddDelayButton.FlatAppearance.BorderSize = 0;
-            this.InstructionsAddDelayButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.InstructionsAddDelayButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddDelayButton.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddDelayButton.Location = new System.Drawing.Point(3, 26);
-            this.InstructionsAddDelayButton.Name = "InstructionsAddDelayButton";
-            this.InstructionsAddDelayButton.Size = new System.Drawing.Size(174, 23);
-            this.InstructionsAddDelayButton.TabIndex = 10;
-            this.InstructionsAddDelayButton.Text = "Delay";
-            this.InstructionsAddDelayButton.UseVisualStyleBackColor = false;
-            this.InstructionsAddDelayButton.Click += new System.EventHandler(this.InstructionsAddDelayButton_Click);
-            // 
-            // InstructionsModeAddItemsLabel
-            // 
-            this.InstructionsModeAddItemsLabel.Font = new System.Drawing.Font("Lucida Console", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsModeAddItemsLabel.ForeColor = System.Drawing.Color.White;
-            this.InstructionsModeAddItemsLabel.Location = new System.Drawing.Point(4, 3);
-            this.InstructionsModeAddItemsLabel.Name = "InstructionsModeAddItemsLabel";
-            this.InstructionsModeAddItemsLabel.Size = new System.Drawing.Size(174, 21);
-            this.InstructionsModeAddItemsLabel.TabIndex = 13;
-            this.InstructionsModeAddItemsLabel.Text = "Add items";
-            this.InstructionsModeAddItemsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.InstructionsAddIndividualLEDPanelTopLabel.Font = new System.Drawing.Font("Lucida Console", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddIndividualLEDPanelTopLabel.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddIndividualLEDPanelTopLabel.Location = new System.Drawing.Point(4, 3);
+            this.InstructionsAddIndividualLEDPanelTopLabel.Name = "InstructionsAddIndividualLEDPanelTopLabel";
+            this.InstructionsAddIndividualLEDPanelTopLabel.Size = new System.Drawing.Size(542, 21);
+            this.InstructionsAddIndividualLEDPanelTopLabel.TabIndex = 12;
+            this.InstructionsAddIndividualLEDPanelTopLabel.Text = "Individual LED Control";
+            this.InstructionsAddIndividualLEDPanelTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // InstructionsAddFadeColorsPanel
             // 
@@ -2383,73 +2367,6 @@
             this.InstructionsAddFadeColorsPanel.Size = new System.Drawing.Size(554, 169);
             this.InstructionsAddFadeColorsPanel.TabIndex = 1;
             this.InstructionsAddFadeColorsPanel.Visible = false;
-            // 
-            // InstructionsAddVisualizerPanel
-            // 
-            this.InstructionsAddVisualizerPanel.BackColor = System.Drawing.Color.Gray;
-            this.InstructionsAddVisualizerPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.InstructionsAddVisualizerPanel.Controls.Add(this.InstructionsAddVisualizerStopVisualizerCheckBox);
-            this.InstructionsAddVisualizerPanel.Controls.Add(this.InstructionsAddVisualizerLoadSetup);
-            this.InstructionsAddVisualizerPanel.Controls.Add(this.InstructionsAddVisualizerPanelAdd);
-            this.InstructionsAddVisualizerPanel.Controls.Add(this.InstructionsAddVisualizerTopLabel);
-            this.InstructionsAddVisualizerPanel.Location = new System.Drawing.Point(219, 495);
-            this.InstructionsAddVisualizerPanel.Name = "InstructionsAddVisualizerPanel";
-            this.InstructionsAddVisualizerPanel.Size = new System.Drawing.Size(554, 169);
-            this.InstructionsAddVisualizerPanel.TabIndex = 77;
-            this.InstructionsAddVisualizerPanel.Visible = false;
-            // 
-            // InstructionsAddVisualizerStopVisualizerCheckBox
-            // 
-            this.InstructionsAddVisualizerStopVisualizerCheckBox.AutoSize = true;
-            this.InstructionsAddVisualizerStopVisualizerCheckBox.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddVisualizerStopVisualizerCheckBox.Location = new System.Drawing.Point(15, 69);
-            this.InstructionsAddVisualizerStopVisualizerCheckBox.Name = "InstructionsAddVisualizerStopVisualizerCheckBox";
-            this.InstructionsAddVisualizerStopVisualizerCheckBox.Size = new System.Drawing.Size(94, 17);
-            this.InstructionsAddVisualizerStopVisualizerCheckBox.TabIndex = 19;
-            this.InstructionsAddVisualizerStopVisualizerCheckBox.Tag = "Setting";
-            this.InstructionsAddVisualizerStopVisualizerCheckBox.Text = "Stop visualizer";
-            this.InstructionsAddVisualizerStopVisualizerCheckBox.UseVisualStyleBackColor = false;
-            // 
-            // InstructionsAddVisualizerLoadSetup
-            // 
-            this.InstructionsAddVisualizerLoadSetup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
-            this.InstructionsAddVisualizerLoadSetup.FlatAppearance.BorderSize = 0;
-            this.InstructionsAddVisualizerLoadSetup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.InstructionsAddVisualizerLoadSetup.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddVisualizerLoadSetup.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddVisualizerLoadSetup.Location = new System.Drawing.Point(15, 36);
-            this.InstructionsAddVisualizerLoadSetup.Name = "InstructionsAddVisualizerLoadSetup";
-            this.InstructionsAddVisualizerLoadSetup.Size = new System.Drawing.Size(226, 23);
-            this.InstructionsAddVisualizerLoadSetup.TabIndex = 18;
-            this.InstructionsAddVisualizerLoadSetup.Text = "Visualizer settings to use";
-            this.InstructionsAddVisualizerLoadSetup.UseVisualStyleBackColor = false;
-            this.InstructionsAddVisualizerLoadSetup.Click += new System.EventHandler(this.InstructionsAddVisualizerLoadSetup_Click);
-            // 
-            // InstructionsAddVisualizerPanelAdd
-            // 
-            this.InstructionsAddVisualizerPanelAdd.BackColor = System.Drawing.Color.DarkGray;
-            this.InstructionsAddVisualizerPanelAdd.FlatAppearance.BorderSize = 0;
-            this.InstructionsAddVisualizerPanelAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.InstructionsAddVisualizerPanelAdd.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddVisualizerPanelAdd.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddVisualizerPanelAdd.Location = new System.Drawing.Point(15, 131);
-            this.InstructionsAddVisualizerPanelAdd.Name = "InstructionsAddVisualizerPanelAdd";
-            this.InstructionsAddVisualizerPanelAdd.Size = new System.Drawing.Size(75, 23);
-            this.InstructionsAddVisualizerPanelAdd.TabIndex = 17;
-            this.InstructionsAddVisualizerPanelAdd.Text = "Add";
-            this.InstructionsAddVisualizerPanelAdd.UseVisualStyleBackColor = false;
-            this.InstructionsAddVisualizerPanelAdd.Click += new System.EventHandler(this.InstructionsAddVisualizerPanelAdd_Click);
-            // 
-            // InstructionsAddVisualizerTopLabel
-            // 
-            this.InstructionsAddVisualizerTopLabel.Font = new System.Drawing.Font("Lucida Console", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddVisualizerTopLabel.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddVisualizerTopLabel.Location = new System.Drawing.Point(4, 3);
-            this.InstructionsAddVisualizerTopLabel.Name = "InstructionsAddVisualizerTopLabel";
-            this.InstructionsAddVisualizerTopLabel.Size = new System.Drawing.Size(542, 21);
-            this.InstructionsAddVisualizerTopLabel.TabIndex = 12;
-            this.InstructionsAddVisualizerTopLabel.Text = "Visualizer";
-            this.InstructionsAddVisualizerTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // InstructionsAddFadeColorsToSeriesIDNumericUpDown
             // 
@@ -2710,6 +2627,366 @@
             this.InstructionsAddFadeColorsTopLabel.Text = "Fade Colors";
             this.InstructionsAddFadeColorsTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // InstructionStopLoopButton
+            // 
+            this.InstructionStopLoopButton.BackColor = System.Drawing.Color.DarkGray;
+            this.InstructionStopLoopButton.FlatAppearance.BorderSize = 0;
+            this.InstructionStopLoopButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.InstructionStopLoopButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionStopLoopButton.ForeColor = System.Drawing.Color.White;
+            this.InstructionStopLoopButton.Location = new System.Drawing.Point(89, 640);
+            this.InstructionStopLoopButton.Name = "InstructionStopLoopButton";
+            this.InstructionStopLoopButton.Size = new System.Drawing.Size(59, 23);
+            this.InstructionStopLoopButton.TabIndex = 14;
+            this.InstructionStopLoopButton.Text = "Stop";
+            this.InstructionStopLoopButton.UseVisualStyleBackColor = false;
+            this.InstructionStopLoopButton.Click += new System.EventHandler(this.InstructionStopLoopButton_Click);
+            // 
+            // InstructionsModeLoadButton
+            // 
+            this.InstructionsModeLoadButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
+            this.InstructionsModeLoadButton.FlatAppearance.BorderSize = 0;
+            this.InstructionsModeLoadButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.InstructionsModeLoadButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsModeLoadButton.ForeColor = System.Drawing.Color.White;
+            this.InstructionsModeLoadButton.Location = new System.Drawing.Point(399, 672);
+            this.InstructionsModeLoadButton.Name = "InstructionsModeLoadButton";
+            this.InstructionsModeLoadButton.Size = new System.Drawing.Size(374, 23);
+            this.InstructionsModeLoadButton.TabIndex = 9;
+            this.InstructionsModeLoadButton.Text = "Load instructions";
+            this.InstructionsModeLoadButton.UseVisualStyleBackColor = false;
+            this.InstructionsModeLoadButton.Click += new System.EventHandler(this.LoadInstructions);
+            // 
+            // panel11
+            // 
+            this.panel11.AutoScroll = true;
+            this.panel11.BackColor = System.Drawing.Color.Gray;
+            this.panel11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel11.Controls.Add(this.InstructionsAddAmbilightButton);
+            this.panel11.Controls.Add(this.InstructionsAddIndividualLEDButton);
+            this.panel11.Controls.Add(this.InstructionsAddVisualizerButton);
+            this.panel11.Controls.Add(this.InstructionsAddFadeColorsButton);
+            this.panel11.Controls.Add(this.InstructionsAddDelayButton);
+            this.panel11.Controls.Add(this.InstructionsModeAddItemsLabel);
+            this.panel11.Location = new System.Drawing.Point(13, 493);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(200, 143);
+            this.panel11.TabIndex = 0;
+            // 
+            // InstructionsAddAmbilightButton
+            // 
+            this.InstructionsAddAmbilightButton.BackColor = System.Drawing.Color.DarkGray;
+            this.InstructionsAddAmbilightButton.FlatAppearance.BorderSize = 0;
+            this.InstructionsAddAmbilightButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.InstructionsAddAmbilightButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddAmbilightButton.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddAmbilightButton.Location = new System.Drawing.Point(3, 126);
+            this.InstructionsAddAmbilightButton.Name = "InstructionsAddAmbilightButton";
+            this.InstructionsAddAmbilightButton.Size = new System.Drawing.Size(174, 23);
+            this.InstructionsAddAmbilightButton.TabIndex = 16;
+            this.InstructionsAddAmbilightButton.Text = "Ambilight";
+            this.InstructionsAddAmbilightButton.UseVisualStyleBackColor = false;
+            this.InstructionsAddAmbilightButton.Click += new System.EventHandler(this.InstructionsAddAmbilightButton_Click);
+            // 
+            // InstructionsAddIndividualLEDButton
+            // 
+            this.InstructionsAddIndividualLEDButton.BackColor = System.Drawing.Color.DarkGray;
+            this.InstructionsAddIndividualLEDButton.FlatAppearance.BorderSize = 0;
+            this.InstructionsAddIndividualLEDButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.InstructionsAddIndividualLEDButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddIndividualLEDButton.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddIndividualLEDButton.Location = new System.Drawing.Point(3, 76);
+            this.InstructionsAddIndividualLEDButton.Name = "InstructionsAddIndividualLEDButton";
+            this.InstructionsAddIndividualLEDButton.Size = new System.Drawing.Size(174, 23);
+            this.InstructionsAddIndividualLEDButton.TabIndex = 15;
+            this.InstructionsAddIndividualLEDButton.Text = "Individual LEDs";
+            this.InstructionsAddIndividualLEDButton.UseVisualStyleBackColor = false;
+            this.InstructionsAddIndividualLEDButton.Click += new System.EventHandler(this.InstructionsAddIndividualLEDButton_Click);
+            // 
+            // InstructionsAddVisualizerButton
+            // 
+            this.InstructionsAddVisualizerButton.BackColor = System.Drawing.Color.DarkGray;
+            this.InstructionsAddVisualizerButton.FlatAppearance.BorderSize = 0;
+            this.InstructionsAddVisualizerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.InstructionsAddVisualizerButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddVisualizerButton.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddVisualizerButton.Location = new System.Drawing.Point(3, 101);
+            this.InstructionsAddVisualizerButton.Name = "InstructionsAddVisualizerButton";
+            this.InstructionsAddVisualizerButton.Size = new System.Drawing.Size(174, 23);
+            this.InstructionsAddVisualizerButton.TabIndex = 14;
+            this.InstructionsAddVisualizerButton.Text = "Visualizer";
+            this.InstructionsAddVisualizerButton.UseVisualStyleBackColor = false;
+            this.InstructionsAddVisualizerButton.Click += new System.EventHandler(this.InstructionsAddVisualizerButton_Click);
+            // 
+            // InstructionsAddFadeColorsButton
+            // 
+            this.InstructionsAddFadeColorsButton.BackColor = System.Drawing.Color.DarkGray;
+            this.InstructionsAddFadeColorsButton.FlatAppearance.BorderSize = 0;
+            this.InstructionsAddFadeColorsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.InstructionsAddFadeColorsButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddFadeColorsButton.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddFadeColorsButton.Location = new System.Drawing.Point(3, 51);
+            this.InstructionsAddFadeColorsButton.Name = "InstructionsAddFadeColorsButton";
+            this.InstructionsAddFadeColorsButton.Size = new System.Drawing.Size(174, 23);
+            this.InstructionsAddFadeColorsButton.TabIndex = 11;
+            this.InstructionsAddFadeColorsButton.Text = "Fade Colors";
+            this.InstructionsAddFadeColorsButton.UseVisualStyleBackColor = false;
+            this.InstructionsAddFadeColorsButton.Click += new System.EventHandler(this.InstructionsAddFadeColorsButton_Click);
+            // 
+            // InstructionsAddDelayButton
+            // 
+            this.InstructionsAddDelayButton.BackColor = System.Drawing.Color.DarkGray;
+            this.InstructionsAddDelayButton.FlatAppearance.BorderSize = 0;
+            this.InstructionsAddDelayButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.InstructionsAddDelayButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddDelayButton.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddDelayButton.Location = new System.Drawing.Point(3, 26);
+            this.InstructionsAddDelayButton.Name = "InstructionsAddDelayButton";
+            this.InstructionsAddDelayButton.Size = new System.Drawing.Size(174, 23);
+            this.InstructionsAddDelayButton.TabIndex = 10;
+            this.InstructionsAddDelayButton.Text = "Delay";
+            this.InstructionsAddDelayButton.UseVisualStyleBackColor = false;
+            this.InstructionsAddDelayButton.Click += new System.EventHandler(this.InstructionsAddDelayButton_Click);
+            // 
+            // InstructionsModeAddItemsLabel
+            // 
+            this.InstructionsModeAddItemsLabel.Font = new System.Drawing.Font("Lucida Console", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsModeAddItemsLabel.ForeColor = System.Drawing.Color.White;
+            this.InstructionsModeAddItemsLabel.Location = new System.Drawing.Point(4, 3);
+            this.InstructionsModeAddItemsLabel.Name = "InstructionsModeAddItemsLabel";
+            this.InstructionsModeAddItemsLabel.Size = new System.Drawing.Size(174, 21);
+            this.InstructionsModeAddItemsLabel.TabIndex = 13;
+            this.InstructionsModeAddItemsLabel.Text = "Add items";
+            this.InstructionsModeAddItemsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // InstructionsLoopCheckBox
+            // 
+            this.InstructionsLoopCheckBox.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsLoopCheckBox.ForeColor = System.Drawing.Color.White;
+            this.InstructionsLoopCheckBox.Location = new System.Drawing.Point(13, 645);
+            this.InstructionsLoopCheckBox.Name = "InstructionsLoopCheckBox";
+            this.InstructionsLoopCheckBox.Size = new System.Drawing.Size(95, 15);
+            this.InstructionsLoopCheckBox.TabIndex = 7;
+            this.InstructionsLoopCheckBox.Text = "Loop";
+            this.InstructionsLoopCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // InstructionsModeSaveButton
+            // 
+            this.InstructionsModeSaveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
+            this.InstructionsModeSaveButton.FlatAppearance.BorderSize = 0;
+            this.InstructionsModeSaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.InstructionsModeSaveButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsModeSaveButton.ForeColor = System.Drawing.Color.White;
+            this.InstructionsModeSaveButton.Location = new System.Drawing.Point(13, 672);
+            this.InstructionsModeSaveButton.Name = "InstructionsModeSaveButton";
+            this.InstructionsModeSaveButton.Size = new System.Drawing.Size(374, 23);
+            this.InstructionsModeSaveButton.TabIndex = 8;
+            this.InstructionsModeSaveButton.Text = "Save instructions";
+            this.InstructionsModeSaveButton.UseVisualStyleBackColor = false;
+            this.InstructionsModeSaveButton.Click += new System.EventHandler(this.SaveInstructions);
+            // 
+            // InstructionStartLoopButton
+            // 
+            this.InstructionStartLoopButton.BackColor = System.Drawing.Color.DarkGray;
+            this.InstructionStartLoopButton.FlatAppearance.BorderSize = 0;
+            this.InstructionStartLoopButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.InstructionStartLoopButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionStartLoopButton.ForeColor = System.Drawing.Color.White;
+            this.InstructionStartLoopButton.Location = new System.Drawing.Point(154, 640);
+            this.InstructionStartLoopButton.Name = "InstructionStartLoopButton";
+            this.InstructionStartLoopButton.Size = new System.Drawing.Size(59, 23);
+            this.InstructionStartLoopButton.TabIndex = 6;
+            this.InstructionStartLoopButton.Text = "Start";
+            this.InstructionStartLoopButton.UseVisualStyleBackColor = false;
+            this.InstructionStartLoopButton.Click += new System.EventHandler(this.InstructionStartLoopButton_Click);
+            // 
+            // panel21
+            // 
+            this.panel21.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.panel21.Controls.Add(this.InstructionsModeTopLabel);
+            this.panel21.Location = new System.Drawing.Point(0, 0);
+            this.panel21.Name = "panel21";
+            this.panel21.Size = new System.Drawing.Size(786, 63);
+            this.panel21.TabIndex = 69;
+            // 
+            // InstructionsModeTopLabel
+            // 
+            this.InstructionsModeTopLabel.Font = new System.Drawing.Font("Lucida Console", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsModeTopLabel.ForeColor = System.Drawing.Color.White;
+            this.InstructionsModeTopLabel.Location = new System.Drawing.Point(0, 0);
+            this.InstructionsModeTopLabel.Name = "InstructionsModeTopLabel";
+            this.InstructionsModeTopLabel.Size = new System.Drawing.Size(786, 63);
+            this.InstructionsModeTopLabel.TabIndex = 10;
+            this.InstructionsModeTopLabel.Text = "Instructions Mode";
+            this.InstructionsModeTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // InstructionsWorkingPanel
+            // 
+            this.InstructionsWorkingPanel.AutoScroll = true;
+            this.InstructionsWorkingPanel.BackColor = System.Drawing.Color.Silver;
+            this.InstructionsWorkingPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.InstructionsWorkingPanel.Location = new System.Drawing.Point(8, 73);
+            this.InstructionsWorkingPanel.Name = "InstructionsWorkingPanel";
+            this.InstructionsWorkingPanel.Size = new System.Drawing.Size(768, 414);
+            this.InstructionsWorkingPanel.TabIndex = 18;
+            // 
+            // InstructionsAddAmbilightPanel
+            // 
+            this.InstructionsAddAmbilightPanel.BackColor = System.Drawing.Color.Gray;
+            this.InstructionsAddAmbilightPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.InstructionsAddAmbilightPanel.Controls.Add(this.InstructionsAddAmbilightShowHideBlocksCheckBox);
+            this.InstructionsAddAmbilightPanel.Controls.Add(this.InstructionsAddAmbilightAutoSetOffsetsCheckBox);
+            this.InstructionsAddAmbilightPanel.Controls.Add(this.InstructionsAddAmbilightStopAmbilightCheckBox);
+            this.InstructionsAddAmbilightPanel.Controls.Add(this.InstructionsAddAmbilightUseAmbilightSettings);
+            this.InstructionsAddAmbilightPanel.Controls.Add(this.InstructionsAddAmbilightAddButton);
+            this.InstructionsAddAmbilightPanel.Controls.Add(this.InstructionsAddAmbilightTopLabel);
+            this.InstructionsAddAmbilightPanel.Location = new System.Drawing.Point(219, 495);
+            this.InstructionsAddAmbilightPanel.Name = "InstructionsAddAmbilightPanel";
+            this.InstructionsAddAmbilightPanel.Size = new System.Drawing.Size(554, 169);
+            this.InstructionsAddAmbilightPanel.TabIndex = 78;
+            this.InstructionsAddAmbilightPanel.Visible = false;
+            // 
+            // InstructionsAddAmbilightShowHideBlocksCheckBox
+            // 
+            this.InstructionsAddAmbilightShowHideBlocksCheckBox.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddAmbilightShowHideBlocksCheckBox.Location = new System.Drawing.Point(14, 92);
+            this.InstructionsAddAmbilightShowHideBlocksCheckBox.Name = "InstructionsAddAmbilightShowHideBlocksCheckBox";
+            this.InstructionsAddAmbilightShowHideBlocksCheckBox.Size = new System.Drawing.Size(226, 17);
+            this.InstructionsAddAmbilightShowHideBlocksCheckBox.TabIndex = 22;
+            this.InstructionsAddAmbilightShowHideBlocksCheckBox.Tag = "Setting";
+            this.InstructionsAddAmbilightShowHideBlocksCheckBox.Text = "Show / hide Blocks";
+            this.InstructionsAddAmbilightShowHideBlocksCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // InstructionsAddAmbilightAutoSetOffsetsCheckBox
+            // 
+            this.InstructionsAddAmbilightAutoSetOffsetsCheckBox.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddAmbilightAutoSetOffsetsCheckBox.Location = new System.Drawing.Point(254, 69);
+            this.InstructionsAddAmbilightAutoSetOffsetsCheckBox.Name = "InstructionsAddAmbilightAutoSetOffsetsCheckBox";
+            this.InstructionsAddAmbilightAutoSetOffsetsCheckBox.Size = new System.Drawing.Size(226, 17);
+            this.InstructionsAddAmbilightAutoSetOffsetsCheckBox.TabIndex = 21;
+            this.InstructionsAddAmbilightAutoSetOffsetsCheckBox.Tag = "Setting";
+            this.InstructionsAddAmbilightAutoSetOffsetsCheckBox.Text = "Autoset offsets";
+            this.InstructionsAddAmbilightAutoSetOffsetsCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // InstructionsAddAmbilightStopAmbilightCheckBox
+            // 
+            this.InstructionsAddAmbilightStopAmbilightCheckBox.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddAmbilightStopAmbilightCheckBox.Location = new System.Drawing.Point(15, 69);
+            this.InstructionsAddAmbilightStopAmbilightCheckBox.Name = "InstructionsAddAmbilightStopAmbilightCheckBox";
+            this.InstructionsAddAmbilightStopAmbilightCheckBox.Size = new System.Drawing.Size(226, 17);
+            this.InstructionsAddAmbilightStopAmbilightCheckBox.TabIndex = 19;
+            this.InstructionsAddAmbilightStopAmbilightCheckBox.Tag = "Setting";
+            this.InstructionsAddAmbilightStopAmbilightCheckBox.Text = "Stop Ambilight";
+            this.InstructionsAddAmbilightStopAmbilightCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // InstructionsAddAmbilightUseAmbilightSettings
+            // 
+            this.InstructionsAddAmbilightUseAmbilightSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
+            this.InstructionsAddAmbilightUseAmbilightSettings.FlatAppearance.BorderSize = 0;
+            this.InstructionsAddAmbilightUseAmbilightSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.InstructionsAddAmbilightUseAmbilightSettings.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddAmbilightUseAmbilightSettings.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddAmbilightUseAmbilightSettings.Location = new System.Drawing.Point(15, 36);
+            this.InstructionsAddAmbilightUseAmbilightSettings.Name = "InstructionsAddAmbilightUseAmbilightSettings";
+            this.InstructionsAddAmbilightUseAmbilightSettings.Size = new System.Drawing.Size(226, 23);
+            this.InstructionsAddAmbilightUseAmbilightSettings.TabIndex = 18;
+            this.InstructionsAddAmbilightUseAmbilightSettings.Text = "Ambilight settings to use";
+            this.InstructionsAddAmbilightUseAmbilightSettings.UseVisualStyleBackColor = false;
+            this.InstructionsAddAmbilightUseAmbilightSettings.Click += new System.EventHandler(this.InstructionsAddAmbilightUseAmbilightSettings_Click);
+            // 
+            // InstructionsAddAmbilightAddButton
+            // 
+            this.InstructionsAddAmbilightAddButton.BackColor = System.Drawing.Color.DarkGray;
+            this.InstructionsAddAmbilightAddButton.FlatAppearance.BorderSize = 0;
+            this.InstructionsAddAmbilightAddButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.InstructionsAddAmbilightAddButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddAmbilightAddButton.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddAmbilightAddButton.Location = new System.Drawing.Point(15, 131);
+            this.InstructionsAddAmbilightAddButton.Name = "InstructionsAddAmbilightAddButton";
+            this.InstructionsAddAmbilightAddButton.Size = new System.Drawing.Size(75, 23);
+            this.InstructionsAddAmbilightAddButton.TabIndex = 17;
+            this.InstructionsAddAmbilightAddButton.Text = "Add";
+            this.InstructionsAddAmbilightAddButton.UseVisualStyleBackColor = false;
+            this.InstructionsAddAmbilightAddButton.Click += new System.EventHandler(this.InstructionsAddAmbilightAddButton_Click);
+            // 
+            // InstructionsAddAmbilightTopLabel
+            // 
+            this.InstructionsAddAmbilightTopLabel.Font = new System.Drawing.Font("Lucida Console", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddAmbilightTopLabel.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddAmbilightTopLabel.Location = new System.Drawing.Point(4, 3);
+            this.InstructionsAddAmbilightTopLabel.Name = "InstructionsAddAmbilightTopLabel";
+            this.InstructionsAddAmbilightTopLabel.Size = new System.Drawing.Size(542, 21);
+            this.InstructionsAddAmbilightTopLabel.TabIndex = 12;
+            this.InstructionsAddAmbilightTopLabel.Text = "Ambilight";
+            this.InstructionsAddAmbilightTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // InstructionsAddVisualizerPanel
+            // 
+            this.InstructionsAddVisualizerPanel.BackColor = System.Drawing.Color.Gray;
+            this.InstructionsAddVisualizerPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.InstructionsAddVisualizerPanel.Controls.Add(this.InstructionsAddVisualizerStopVisualizerCheckBox);
+            this.InstructionsAddVisualizerPanel.Controls.Add(this.InstructionsAddVisualizerLoadSetup);
+            this.InstructionsAddVisualizerPanel.Controls.Add(this.InstructionsAddVisualizerPanelAdd);
+            this.InstructionsAddVisualizerPanel.Controls.Add(this.InstructionsAddVisualizerTopLabel);
+            this.InstructionsAddVisualizerPanel.Location = new System.Drawing.Point(219, 495);
+            this.InstructionsAddVisualizerPanel.Name = "InstructionsAddVisualizerPanel";
+            this.InstructionsAddVisualizerPanel.Size = new System.Drawing.Size(554, 169);
+            this.InstructionsAddVisualizerPanel.TabIndex = 77;
+            this.InstructionsAddVisualizerPanel.Visible = false;
+            // 
+            // InstructionsAddVisualizerStopVisualizerCheckBox
+            // 
+            this.InstructionsAddVisualizerStopVisualizerCheckBox.AutoSize = true;
+            this.InstructionsAddVisualizerStopVisualizerCheckBox.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddVisualizerStopVisualizerCheckBox.Location = new System.Drawing.Point(15, 69);
+            this.InstructionsAddVisualizerStopVisualizerCheckBox.Name = "InstructionsAddVisualizerStopVisualizerCheckBox";
+            this.InstructionsAddVisualizerStopVisualizerCheckBox.Size = new System.Drawing.Size(94, 17);
+            this.InstructionsAddVisualizerStopVisualizerCheckBox.TabIndex = 19;
+            this.InstructionsAddVisualizerStopVisualizerCheckBox.Tag = "Setting";
+            this.InstructionsAddVisualizerStopVisualizerCheckBox.Text = "Stop visualizer";
+            this.InstructionsAddVisualizerStopVisualizerCheckBox.UseVisualStyleBackColor = false;
+            // 
+            // InstructionsAddVisualizerLoadSetup
+            // 
+            this.InstructionsAddVisualizerLoadSetup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
+            this.InstructionsAddVisualizerLoadSetup.FlatAppearance.BorderSize = 0;
+            this.InstructionsAddVisualizerLoadSetup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.InstructionsAddVisualizerLoadSetup.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddVisualizerLoadSetup.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddVisualizerLoadSetup.Location = new System.Drawing.Point(15, 36);
+            this.InstructionsAddVisualizerLoadSetup.Name = "InstructionsAddVisualizerLoadSetup";
+            this.InstructionsAddVisualizerLoadSetup.Size = new System.Drawing.Size(226, 23);
+            this.InstructionsAddVisualizerLoadSetup.TabIndex = 18;
+            this.InstructionsAddVisualizerLoadSetup.Text = "Visualizer settings to use";
+            this.InstructionsAddVisualizerLoadSetup.UseVisualStyleBackColor = false;
+            this.InstructionsAddVisualizerLoadSetup.Click += new System.EventHandler(this.InstructionsAddVisualizerLoadSetup_Click);
+            // 
+            // InstructionsAddVisualizerPanelAdd
+            // 
+            this.InstructionsAddVisualizerPanelAdd.BackColor = System.Drawing.Color.DarkGray;
+            this.InstructionsAddVisualizerPanelAdd.FlatAppearance.BorderSize = 0;
+            this.InstructionsAddVisualizerPanelAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.InstructionsAddVisualizerPanelAdd.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddVisualizerPanelAdd.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddVisualizerPanelAdd.Location = new System.Drawing.Point(15, 131);
+            this.InstructionsAddVisualizerPanelAdd.Name = "InstructionsAddVisualizerPanelAdd";
+            this.InstructionsAddVisualizerPanelAdd.Size = new System.Drawing.Size(75, 23);
+            this.InstructionsAddVisualizerPanelAdd.TabIndex = 17;
+            this.InstructionsAddVisualizerPanelAdd.Text = "Add";
+            this.InstructionsAddVisualizerPanelAdd.UseVisualStyleBackColor = false;
+            this.InstructionsAddVisualizerPanelAdd.Click += new System.EventHandler(this.InstructionsAddVisualizerPanelAdd_Click);
+            // 
+            // InstructionsAddVisualizerTopLabel
+            // 
+            this.InstructionsAddVisualizerTopLabel.Font = new System.Drawing.Font("Lucida Console", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.InstructionsAddVisualizerTopLabel.ForeColor = System.Drawing.Color.White;
+            this.InstructionsAddVisualizerTopLabel.Location = new System.Drawing.Point(4, 3);
+            this.InstructionsAddVisualizerTopLabel.Name = "InstructionsAddVisualizerTopLabel";
+            this.InstructionsAddVisualizerTopLabel.Size = new System.Drawing.Size(542, 21);
+            this.InstructionsAddVisualizerTopLabel.TabIndex = 12;
+            this.InstructionsAddVisualizerTopLabel.Text = "Visualizer";
+            this.InstructionsAddVisualizerTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // InstructionsAddDelayPanel
             // 
             this.InstructionsAddDelayPanel.BackColor = System.Drawing.Color.Gray;
@@ -2786,283 +3063,6 @@
             this.InstructionsAddDelayTopLabel.TabIndex = 12;
             this.InstructionsAddDelayTopLabel.Text = "Delay";
             this.InstructionsAddDelayTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // InstructionsAddIndividualLEDPanel
-            // 
-            this.InstructionsAddIndividualLEDPanel.BackColor = System.Drawing.Color.Gray;
-            this.InstructionsAddIndividualLEDPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDOnPinLabel);
-            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDOnPinNumericUpDown);
-            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDAtIDLabel);
-            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDAtIdNumericUpDown);
-            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDRedTrackBar);
-            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDBlueTrackBar);
-            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDGreenLabel);
-            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDBlueLabel);
-            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDRedLabel);
-            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDRedValueLabel);
-            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDGreenValueLabel);
-            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDGreenTrackBar);
-            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDBlueValueLabel);
-            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDAddButton);
-            this.InstructionsAddIndividualLEDPanel.Controls.Add(this.InstructionsAddIndividualLEDPanelTopLabel);
-            this.InstructionsAddIndividualLEDPanel.Location = new System.Drawing.Point(219, 495);
-            this.InstructionsAddIndividualLEDPanel.Name = "InstructionsAddIndividualLEDPanel";
-            this.InstructionsAddIndividualLEDPanel.Size = new System.Drawing.Size(554, 169);
-            this.InstructionsAddIndividualLEDPanel.TabIndex = 78;
-            this.InstructionsAddIndividualLEDPanel.Visible = false;
-            // 
-            // InstructionsAddIndividualLEDOnPinLabel
-            // 
-            this.InstructionsAddIndividualLEDOnPinLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddIndividualLEDOnPinLabel.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddIndividualLEDOnPinLabel.Location = new System.Drawing.Point(424, 80);
-            this.InstructionsAddIndividualLEDOnPinLabel.Name = "InstructionsAddIndividualLEDOnPinLabel";
-            this.InstructionsAddIndividualLEDOnPinLabel.Size = new System.Drawing.Size(110, 11);
-            this.InstructionsAddIndividualLEDOnPinLabel.TabIndex = 84;
-            this.InstructionsAddIndividualLEDOnPinLabel.Text = "On pin:";
-            this.InstructionsAddIndividualLEDOnPinLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // InstructionsAddIndividualLEDOnPinNumericUpDown
-            // 
-            this.InstructionsAddIndividualLEDOnPinNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
-            this.InstructionsAddIndividualLEDOnPinNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.InstructionsAddIndividualLEDOnPinNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddIndividualLEDOnPinNumericUpDown.Location = new System.Drawing.Point(426, 103);
-            this.InstructionsAddIndividualLEDOnPinNumericUpDown.Maximum = new decimal(new int[] {
-            8,
-            0,
-            0,
-            0});
-            this.InstructionsAddIndividualLEDOnPinNumericUpDown.Name = "InstructionsAddIndividualLEDOnPinNumericUpDown";
-            this.InstructionsAddIndividualLEDOnPinNumericUpDown.Size = new System.Drawing.Size(110, 14);
-            this.InstructionsAddIndividualLEDOnPinNumericUpDown.TabIndex = 83;
-            this.InstructionsAddIndividualLEDOnPinNumericUpDown.Tag = "Setting";
-            // 
-            // InstructionsAddIndividualLEDAtIDLabel
-            // 
-            this.InstructionsAddIndividualLEDAtIDLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddIndividualLEDAtIDLabel.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddIndividualLEDAtIDLabel.Location = new System.Drawing.Point(424, 31);
-            this.InstructionsAddIndividualLEDAtIDLabel.Name = "InstructionsAddIndividualLEDAtIDLabel";
-            this.InstructionsAddIndividualLEDAtIDLabel.Size = new System.Drawing.Size(110, 11);
-            this.InstructionsAddIndividualLEDAtIDLabel.TabIndex = 82;
-            this.InstructionsAddIndividualLEDAtIDLabel.Text = "At Hardware ID:";
-            this.InstructionsAddIndividualLEDAtIDLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // InstructionsAddIndividualLEDAtIdNumericUpDown
-            // 
-            this.InstructionsAddIndividualLEDAtIdNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
-            this.InstructionsAddIndividualLEDAtIdNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.InstructionsAddIndividualLEDAtIdNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddIndividualLEDAtIdNumericUpDown.Location = new System.Drawing.Point(426, 54);
-            this.InstructionsAddIndividualLEDAtIdNumericUpDown.Maximum = new decimal(new int[] {
-            99999,
-            0,
-            0,
-            0});
-            this.InstructionsAddIndividualLEDAtIdNumericUpDown.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            this.InstructionsAddIndividualLEDAtIdNumericUpDown.Name = "InstructionsAddIndividualLEDAtIdNumericUpDown";
-            this.InstructionsAddIndividualLEDAtIdNumericUpDown.Size = new System.Drawing.Size(110, 14);
-            this.InstructionsAddIndividualLEDAtIdNumericUpDown.TabIndex = 81;
-            this.InstructionsAddIndividualLEDAtIdNumericUpDown.Tag = "Setting";
-            this.InstructionsAddIndividualLEDAtIdNumericUpDown.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147483648});
-            // 
-            // InstructionsAddIndividualLEDRedTrackBar
-            // 
-            this.InstructionsAddIndividualLEDRedTrackBar.Location = new System.Drawing.Point(168, 28);
-            this.InstructionsAddIndividualLEDRedTrackBar.Maximum = 255;
-            this.InstructionsAddIndividualLEDRedTrackBar.Name = "InstructionsAddIndividualLEDRedTrackBar";
-            this.InstructionsAddIndividualLEDRedTrackBar.Size = new System.Drawing.Size(209, 45);
-            this.InstructionsAddIndividualLEDRedTrackBar.TabIndex = 72;
-            this.InstructionsAddIndividualLEDRedTrackBar.TickFrequency = 10;
-            this.InstructionsAddIndividualLEDRedTrackBar.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.InstructionsAddIndividualLEDRedTrackBar.Value = 255;
-            this.InstructionsAddIndividualLEDRedTrackBar.Scroll += new System.EventHandler(this.InstructionsAddIndividualLEDRedTrackBar_Scroll);
-            // 
-            // InstructionsAddIndividualLEDBlueTrackBar
-            // 
-            this.InstructionsAddIndividualLEDBlueTrackBar.Location = new System.Drawing.Point(168, 115);
-            this.InstructionsAddIndividualLEDBlueTrackBar.Maximum = 255;
-            this.InstructionsAddIndividualLEDBlueTrackBar.Name = "InstructionsAddIndividualLEDBlueTrackBar";
-            this.InstructionsAddIndividualLEDBlueTrackBar.Size = new System.Drawing.Size(209, 45);
-            this.InstructionsAddIndividualLEDBlueTrackBar.TabIndex = 74;
-            this.InstructionsAddIndividualLEDBlueTrackBar.TickFrequency = 10;
-            this.InstructionsAddIndividualLEDBlueTrackBar.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.InstructionsAddIndividualLEDBlueTrackBar.Value = 255;
-            this.InstructionsAddIndividualLEDBlueTrackBar.Scroll += new System.EventHandler(this.InstructionsAddIndividualLEDBlueTrackBar_Scroll);
-            // 
-            // InstructionsAddIndividualLEDGreenLabel
-            // 
-            this.InstructionsAddIndividualLEDGreenLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddIndividualLEDGreenLabel.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddIndividualLEDGreenLabel.Location = new System.Drawing.Point(109, 83);
-            this.InstructionsAddIndividualLEDGreenLabel.Name = "InstructionsAddIndividualLEDGreenLabel";
-            this.InstructionsAddIndividualLEDGreenLabel.Size = new System.Drawing.Size(60, 15);
-            this.InstructionsAddIndividualLEDGreenLabel.TabIndex = 76;
-            this.InstructionsAddIndividualLEDGreenLabel.Text = "Green";
-            this.InstructionsAddIndividualLEDGreenLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // InstructionsAddIndividualLEDBlueLabel
-            // 
-            this.InstructionsAddIndividualLEDBlueLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddIndividualLEDBlueLabel.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddIndividualLEDBlueLabel.Location = new System.Drawing.Point(109, 126);
-            this.InstructionsAddIndividualLEDBlueLabel.Name = "InstructionsAddIndividualLEDBlueLabel";
-            this.InstructionsAddIndividualLEDBlueLabel.Size = new System.Drawing.Size(60, 15);
-            this.InstructionsAddIndividualLEDBlueLabel.TabIndex = 77;
-            this.InstructionsAddIndividualLEDBlueLabel.Text = "Blue";
-            this.InstructionsAddIndividualLEDBlueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // InstructionsAddIndividualLEDRedLabel
-            // 
-            this.InstructionsAddIndividualLEDRedLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddIndividualLEDRedLabel.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddIndividualLEDRedLabel.Location = new System.Drawing.Point(109, 40);
-            this.InstructionsAddIndividualLEDRedLabel.Name = "InstructionsAddIndividualLEDRedLabel";
-            this.InstructionsAddIndividualLEDRedLabel.Size = new System.Drawing.Size(60, 15);
-            this.InstructionsAddIndividualLEDRedLabel.TabIndex = 75;
-            this.InstructionsAddIndividualLEDRedLabel.Text = "Red";
-            this.InstructionsAddIndividualLEDRedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // InstructionsAddIndividualLEDRedValueLabel
-            // 
-            this.InstructionsAddIndividualLEDRedValueLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddIndividualLEDRedValueLabel.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddIndividualLEDRedValueLabel.Location = new System.Drawing.Point(379, 38);
-            this.InstructionsAddIndividualLEDRedValueLabel.Name = "InstructionsAddIndividualLEDRedValueLabel";
-            this.InstructionsAddIndividualLEDRedValueLabel.Size = new System.Drawing.Size(41, 15);
-            this.InstructionsAddIndividualLEDRedValueLabel.TabIndex = 78;
-            this.InstructionsAddIndividualLEDRedValueLabel.Text = "255";
-            this.InstructionsAddIndividualLEDRedValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // InstructionsAddIndividualLEDGreenValueLabel
-            // 
-            this.InstructionsAddIndividualLEDGreenValueLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddIndividualLEDGreenValueLabel.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddIndividualLEDGreenValueLabel.Location = new System.Drawing.Point(379, 83);
-            this.InstructionsAddIndividualLEDGreenValueLabel.Name = "InstructionsAddIndividualLEDGreenValueLabel";
-            this.InstructionsAddIndividualLEDGreenValueLabel.Size = new System.Drawing.Size(41, 15);
-            this.InstructionsAddIndividualLEDGreenValueLabel.TabIndex = 79;
-            this.InstructionsAddIndividualLEDGreenValueLabel.Text = "255";
-            this.InstructionsAddIndividualLEDGreenValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // InstructionsAddIndividualLEDGreenTrackBar
-            // 
-            this.InstructionsAddIndividualLEDGreenTrackBar.Location = new System.Drawing.Point(168, 73);
-            this.InstructionsAddIndividualLEDGreenTrackBar.Maximum = 255;
-            this.InstructionsAddIndividualLEDGreenTrackBar.Name = "InstructionsAddIndividualLEDGreenTrackBar";
-            this.InstructionsAddIndividualLEDGreenTrackBar.Size = new System.Drawing.Size(209, 45);
-            this.InstructionsAddIndividualLEDGreenTrackBar.TabIndex = 73;
-            this.InstructionsAddIndividualLEDGreenTrackBar.TickFrequency = 10;
-            this.InstructionsAddIndividualLEDGreenTrackBar.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.InstructionsAddIndividualLEDGreenTrackBar.Value = 255;
-            this.InstructionsAddIndividualLEDGreenTrackBar.Scroll += new System.EventHandler(this.InstructionsAddIndividualLEDGreenTrackBar_Scroll);
-            // 
-            // InstructionsAddIndividualLEDBlueValueLabel
-            // 
-            this.InstructionsAddIndividualLEDBlueValueLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddIndividualLEDBlueValueLabel.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddIndividualLEDBlueValueLabel.Location = new System.Drawing.Point(379, 126);
-            this.InstructionsAddIndividualLEDBlueValueLabel.Name = "InstructionsAddIndividualLEDBlueValueLabel";
-            this.InstructionsAddIndividualLEDBlueValueLabel.Size = new System.Drawing.Size(41, 15);
-            this.InstructionsAddIndividualLEDBlueValueLabel.TabIndex = 80;
-            this.InstructionsAddIndividualLEDBlueValueLabel.Text = "255";
-            this.InstructionsAddIndividualLEDBlueValueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // InstructionsAddIndividualLEDAddButton
-            // 
-            this.InstructionsAddIndividualLEDAddButton.BackColor = System.Drawing.Color.DarkGray;
-            this.InstructionsAddIndividualLEDAddButton.FlatAppearance.BorderSize = 0;
-            this.InstructionsAddIndividualLEDAddButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.InstructionsAddIndividualLEDAddButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddIndividualLEDAddButton.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddIndividualLEDAddButton.Location = new System.Drawing.Point(15, 131);
-            this.InstructionsAddIndividualLEDAddButton.Name = "InstructionsAddIndividualLEDAddButton";
-            this.InstructionsAddIndividualLEDAddButton.Size = new System.Drawing.Size(75, 23);
-            this.InstructionsAddIndividualLEDAddButton.TabIndex = 17;
-            this.InstructionsAddIndividualLEDAddButton.Text = "Add";
-            this.InstructionsAddIndividualLEDAddButton.UseVisualStyleBackColor = false;
-            this.InstructionsAddIndividualLEDAddButton.Click += new System.EventHandler(this.InstructionsAddIndividualLEDAddButton_Click);
-            // 
-            // InstructionsAddIndividualLEDPanelTopLabel
-            // 
-            this.InstructionsAddIndividualLEDPanelTopLabel.Font = new System.Drawing.Font("Lucida Console", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsAddIndividualLEDPanelTopLabel.ForeColor = System.Drawing.Color.White;
-            this.InstructionsAddIndividualLEDPanelTopLabel.Location = new System.Drawing.Point(4, 3);
-            this.InstructionsAddIndividualLEDPanelTopLabel.Name = "InstructionsAddIndividualLEDPanelTopLabel";
-            this.InstructionsAddIndividualLEDPanelTopLabel.Size = new System.Drawing.Size(542, 21);
-            this.InstructionsAddIndividualLEDPanelTopLabel.TabIndex = 12;
-            this.InstructionsAddIndividualLEDPanelTopLabel.Text = "Individual LED Control";
-            this.InstructionsAddIndividualLEDPanelTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // InstructionsModeLoadButton
-            // 
-            this.InstructionsModeLoadButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
-            this.InstructionsModeLoadButton.FlatAppearance.BorderSize = 0;
-            this.InstructionsModeLoadButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.InstructionsModeLoadButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsModeLoadButton.ForeColor = System.Drawing.Color.White;
-            this.InstructionsModeLoadButton.Location = new System.Drawing.Point(399, 672);
-            this.InstructionsModeLoadButton.Name = "InstructionsModeLoadButton";
-            this.InstructionsModeLoadButton.Size = new System.Drawing.Size(374, 23);
-            this.InstructionsModeLoadButton.TabIndex = 9;
-            this.InstructionsModeLoadButton.Text = "Load instructions";
-            this.InstructionsModeLoadButton.UseVisualStyleBackColor = false;
-            this.InstructionsModeLoadButton.Click += new System.EventHandler(this.LoadInstructions);
-            // 
-            // InstructionsModeSaveButton
-            // 
-            this.InstructionsModeSaveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
-            this.InstructionsModeSaveButton.FlatAppearance.BorderSize = 0;
-            this.InstructionsModeSaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.InstructionsModeSaveButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsModeSaveButton.ForeColor = System.Drawing.Color.White;
-            this.InstructionsModeSaveButton.Location = new System.Drawing.Point(13, 672);
-            this.InstructionsModeSaveButton.Name = "InstructionsModeSaveButton";
-            this.InstructionsModeSaveButton.Size = new System.Drawing.Size(374, 23);
-            this.InstructionsModeSaveButton.TabIndex = 8;
-            this.InstructionsModeSaveButton.Text = "Save instructions";
-            this.InstructionsModeSaveButton.UseVisualStyleBackColor = false;
-            this.InstructionsModeSaveButton.Click += new System.EventHandler(this.SaveInstructions);
-            // 
-            // panel21
-            // 
-            this.panel21.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.panel21.Controls.Add(this.InstructionsModeTopLabel);
-            this.panel21.Location = new System.Drawing.Point(0, 0);
-            this.panel21.Name = "panel21";
-            this.panel21.Size = new System.Drawing.Size(786, 63);
-            this.panel21.TabIndex = 69;
-            // 
-            // InstructionsModeTopLabel
-            // 
-            this.InstructionsModeTopLabel.Font = new System.Drawing.Font("Lucida Console", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.InstructionsModeTopLabel.ForeColor = System.Drawing.Color.White;
-            this.InstructionsModeTopLabel.Location = new System.Drawing.Point(0, 0);
-            this.InstructionsModeTopLabel.Name = "InstructionsModeTopLabel";
-            this.InstructionsModeTopLabel.Size = new System.Drawing.Size(786, 63);
-            this.InstructionsModeTopLabel.TabIndex = 10;
-            this.InstructionsModeTopLabel.Text = "Instructions Mode";
-            this.InstructionsModeTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // InstructionsWorkingPanel
-            // 
-            this.InstructionsWorkingPanel.AutoScroll = true;
-            this.InstructionsWorkingPanel.BackColor = System.Drawing.Color.Silver;
-            this.InstructionsWorkingPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.InstructionsWorkingPanel.Location = new System.Drawing.Point(8, 73);
-            this.InstructionsWorkingPanel.Name = "InstructionsWorkingPanel";
-            this.InstructionsWorkingPanel.Size = new System.Drawing.Size(768, 414);
-            this.InstructionsWorkingPanel.TabIndex = 18;
             // 
             // ConfigureSetupPanel
             // 
@@ -5074,11 +5074,11 @@
             this.Controls.Add(this.MenuPanel);
             this.Controls.Add(this.ConfigureSetupHiddenProgressBar);
             this.Controls.Add(this.MenuButton);
-            this.Controls.Add(this.InstructionsPanel);
             this.Controls.Add(this.AmbiLightModePanel);
             this.Controls.Add(this.IndividualLEDPanel);
             this.Controls.Add(this.VisualizerPanel);
             this.Controls.Add(this.ConfigureSetupPanel);
+            this.Controls.Add(this.InstructionsPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -5141,21 +5141,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.IndividalLEDBlueTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.IndividalLEDGreenTrackBar)).EndInit();
             this.InstructionsPanel.ResumeLayout(false);
-            this.InstructionsAddAmbilightPanel.ResumeLayout(false);
-            this.panel11.ResumeLayout(false);
-            this.InstructionsAddFadeColorsPanel.ResumeLayout(false);
-            this.InstructionsAddFadeColorsPanel.PerformLayout();
-            this.InstructionsAddVisualizerPanel.ResumeLayout(false);
-            this.InstructionsAddVisualizerPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsToSeriesIDNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsFadeFactorNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsFadeSpeedNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsRedTrackBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsBlueTrackBar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsGreenTrackBar)).EndInit();
-            this.InstructionsAddDelayPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddDelayNumericUpDown)).EndInit();
             this.InstructionsAddIndividualLEDPanel.ResumeLayout(false);
             this.InstructionsAddIndividualLEDPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddIndividualLEDOnPinNumericUpDown)).EndInit();
@@ -5163,7 +5148,22 @@
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddIndividualLEDRedTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddIndividualLEDBlueTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddIndividualLEDGreenTrackBar)).EndInit();
+            this.InstructionsAddFadeColorsPanel.ResumeLayout(false);
+            this.InstructionsAddFadeColorsPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsToSeriesIDNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsFadeFactorNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsFromSeriesIDNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsFadeSpeedNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsRedTrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsBlueTrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddFadeColorsGreenTrackBar)).EndInit();
+            this.panel11.ResumeLayout(false);
             this.panel21.ResumeLayout(false);
+            this.InstructionsAddAmbilightPanel.ResumeLayout(false);
+            this.InstructionsAddVisualizerPanel.ResumeLayout(false);
+            this.InstructionsAddVisualizerPanel.PerformLayout();
+            this.InstructionsAddDelayPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddDelayNumericUpDown)).EndInit();
             this.ConfigureSetupPanel.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown)).EndInit();

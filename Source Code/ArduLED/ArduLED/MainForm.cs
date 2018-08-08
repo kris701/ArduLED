@@ -524,11 +524,9 @@ namespace ArduLEDNameSpace
             InstructionsPanel.Visible = false;
             ConfigureSetupPanel.Visible = false;
             AmbiLightModePanel.Visible = false;
+
             if (!ContinueInstructionsLoop)
-            {
                 EnableBASS(false);
-                StopAmbilight();
-            }
 
             if (ModeSelectrionComboBox.SelectedIndex == 0)
             {
@@ -539,6 +537,8 @@ namespace ArduLEDNameSpace
             }
             if (ModeSelectrionComboBox.SelectedIndex == 1)
             {
+                StopAmbilight();
+
                 VisualizerPanel.Visible = true;
                 VisualizerPanel.BringToFront();
                 if (!ContinueInstructionsLoop)
