@@ -24,6 +24,11 @@ FadeColorsBrightnessLabel;Lucida Console;11;Lysstyrke: XXXX
 FadeColorsFadeSpeedNumericUpDown;Lucida Console;8;10
 FadeColorsFadeFactorNumericUpDown;Lucida Console;8;0,10
 
+FadeLEDPanelFromIDLabel;Lucida Console;8;Fra serie ID
+FadeLEDPanelFromIDNumericUpDown;Lucida Console;8;
+FadeLEDPanelToIDLabel;Lucida Console;8;Til series ID
+FadeLEDPanelToIDNumericUpDown;Lucida Console;8;
+
 
 ConfigureSetupAutoSendCheckBox;Lucida Console;8;Automatisk overfør denne opsætning næste gang
 ConfigureSetupTopLabel;Lucida Console;16;Opsætning
@@ -100,6 +105,33 @@ InstructionsAddDelayNoteLabel;Lucida Console;11;(Pausen må ikke være mindre en
 InstructionsAddDelayNumericUpDown;Lucida Console;8;0
 InstructionsAddDelayAddButton;Lucida Console;8;Tilføj
 
+InstructionsAddIndividualLEDButton;Lucida Console;8;Individuel LED
+InstructionsAddIndividualLEDPanelTopLabel;Lucida Console;16;Individuel LED Kontrol
+InstructionsAddIndividualLEDRedLabel;Lucida Console;12;Rød
+InstructionsAddIndividualLEDRedValueLabel;Lucida Console;12;
+InstructionsAddIndividualLEDGreenLabel;Lucida Console;12;Grøn
+InstructionsAddIndividualLEDGreenValueLabel;Lucida Console;12;
+InstructionsAddIndividualLEDBlueLabel;Lucida Console;12;Blå
+InstructionsAddIndividualLEDBlueValueLabel;Lucida Console;12;
+InstructionsAddIndividualLEDAtIDLabel;Lucida Console;8;Ved hardware ID:
+InstructionsAddIndividualLEDAtIdNumericUpDown;Lucida Console;8;
+InstructionsAddIndividualLEDOnPinLabel;Lucida Console;8;På pin:
+InstructionsAddIndividualLEDOnPinNumericUpDown;Lucida Console;8;
+InstructionsAddIndividualLEDAddButton;Lucida Console;8;Tilføj
+
+InstructionsAddVisualizerButton;Lucida Console;8;Visualisering
+InstructionsAddVisualizerTopLabel;Lucida Console;16;Visualisering
+InstructionsAddVisualizerLoadSetup;Lucida Console;8;Visualiserings indstillinger
+InstructionsAddVisualizerStopVisualizerCheckBox;Lucida Console;8;Stop Visualisering
+InstructionsAddVisualizerPanelAdd;Lucida Console;8;Tilføj
+
+InstructionsAddAmbilightButton;Lucida Console;8;Ambilight
+InstructionsAddAmbilightTopLabel;Lucida Console;16;Ambilight
+InstructionsAddAmbilightUseAmbilightSettings;Lucida Console;8;Ambilight indstillinger
+InstructionsAddAmbilightStopAmbilightCheckBox;Lucida Console;8;Stop Ambilight
+InstructionsAddAmbilightAutoSetOffsetsCheckBox;Lucida Console;8;Autoset offsets
+InstructionsAddAmbilightShowHideBlocksCheckBox;Lucida Console;8;Vis / gem blokke
+InstructionsAddAmbilightAddButton;Lucida Console;8;Tilføj
 
 IndividualLEDTopLabel;Lucida Console;16;Individuelle Farver
 
@@ -201,9 +233,10 @@ AmbiLightModeStartAmbilightButton;Lucida Console;8;Start Ambilight
 AmbiLightModeStopAmbilightButton;Lucida Console;8;Stop Ambilight
 AmbiLightModeSaveSetup;Lucida Console;8;Gem nuværende opsætning
 AmbiLightModeLoadSetup;Lucida Console;8;Åben en opsætning
-AmbiLightModeFadeFactorLabel;Lucida Console;12;Falme faktor
+AmbiLightModeFadeFactorLabel;Lucida Console;8;Falme faktor
 AmbiLightModeFadeFactorNumericUpDown;Lucida Console;8;
 AmbilightModeFPSCounterLabel;Lucida Console;12;FPS:
+AmbiLightModeAutosetOffsets;Lucida Console;8;Autosæt forskydninger
 
 AmbiLightModeRefreshRateLabel;Lucida Console;8;Minimum opdaterings hastighed
 AmbiLightModeRefreshRateNumericUpDown;Lucida Console;8;

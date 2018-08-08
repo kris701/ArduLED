@@ -24,6 +24,11 @@ FadeColorsBrightnessLabel;Lucida Console;11;Brightness: XXXX
 FadeColorsFadeSpeedNumericUpDown;Lucida Console;8;10
 FadeColorsFadeFactorNumericUpDown;Lucida Console;8;0,10
 
+FadeLEDPanelFromIDLabel;Lucida Console;8;From series ID
+FadeLEDPanelFromIDNumericUpDown;Lucida Console;8;
+FadeLEDPanelToIDLabel;Lucida Console;8;To series ID
+FadeLEDPanelToIDNumericUpDown;Lucida Console;8;
+
 
 ConfigureSetupAutoSendCheckBox;Lucida Console;8;Auto send current setup next time
 ConfigureSetupTopLabel;Lucida Console;16;Configure Setup
@@ -100,9 +105,36 @@ InstructionsAddDelayNoteLabel;Lucida Console;11;(delay should be no less than 10
 InstructionsAddDelayNumericUpDown;Lucida Console;8;0
 InstructionsAddDelayAddButton;Lucida Console;8;Add
 
+InstructionsAddIndividualLEDButton;Lucida Console;8;Individual LEDs
+InstructionsAddIndividualLEDPanelTopLabel;Lucida Console;16;Individual LED Control
+InstructionsAddIndividualLEDRedLabel;Lucida Console;12;Red
+InstructionsAddIndividualLEDRedValueLabel;Lucida Console;12;
+InstructionsAddIndividualLEDGreenLabel;Lucida Console;12;Green
+InstructionsAddIndividualLEDGreenValueLabel;Lucida Console;12;
+InstructionsAddIndividualLEDBlueLabel;Lucida Console;12;Blue
+InstructionsAddIndividualLEDBlueValueLabel;Lucida Console;12;
+InstructionsAddIndividualLEDAtIDLabel;Lucida Console;8;At Hardware ID:
+InstructionsAddIndividualLEDAtIdNumericUpDown;Lucida Console;8;
+InstructionsAddIndividualLEDOnPinLabel;Lucida Console;8;On pin:
+InstructionsAddIndividualLEDOnPinNumericUpDown;Lucida Console;8;
+InstructionsAddIndividualLEDAddButton;Lucida Console;8;Add
+
+InstructionsAddVisualizerButton;Lucida Console;8;Visualizer
+InstructionsAddVisualizerTopLabel;Lucida Console;16;Visualizer
+InstructionsAddVisualizerLoadSetup;Lucida Console;8;Visualizer settings to use
+InstructionsAddVisualizerStopVisualizerCheckBox;Lucida Console;8;Stop visualizer
+InstructionsAddVisualizerPanelAdd;Lucida Console;8;Add
+
+InstructionsAddAmbilightButton;Lucida Console;8;Ambilight
+InstructionsAddAmbilightTopLabel;Lucida Console;16;Ambilight
+InstructionsAddAmbilightUseAmbilightSettings;Lucida Console;8;Ambilight settings to use
+InstructionsAddAmbilightStopAmbilightCheckBox;Lucida Console;8;Stop Ambilight
+InstructionsAddAmbilightAutoSetOffsetsCheckBox;Lucida Console;8;Autoset offsets
+InstructionsAddAmbilightShowHideBlocksCheckBox;Lucida Console;8;Show / hide Blocks
+InstructionsAddAmbilightAddButton;Lucida Console;8;Add
+
 
 IndividualLEDTopLabel;Lucida Console;16;Individual LED Control
-
 IndividualLEDRedNameLabel;Lucida Console;11;Red
 IndividalLEDRedLabel;Lucida Console;11;255
 IndividualLEDGreenNameLabel;Lucida Console;11;Green
@@ -201,9 +233,10 @@ AmbiLightModeStartAmbilightButton;Lucida Console;8;Start Ambilight
 AmbiLightModeStopAmbilightButton;Lucida Console;8;Stop Ambilight
 AmbiLightModeSaveSetup;Lucida Console;8;Save Current Ambilight Setup
 AmbiLightModeLoadSetup;Lucida Console;8;Load a Ambilight Setup
-AmbiLightModeFadeFactorLabel;Lucida Console;12;Fade Factor
+AmbiLightModeFadeFactorLabel;Lucida Console;8;Fade Factor
 AmbiLightModeFadeFactorNumericUpDown;Lucida Console;8;
 AmbilightModeFPSCounterLabel;Lucida Console;12;FPS:
+AmbiLightModeAutosetOffsets;Lucida Console;8;Autoset Offsets
 
 AmbiLightModeRefreshRateLabel;Lucida Console;8;Minimum refresh rate
 AmbiLightModeRefreshRateNumericUpDown;Lucida Console;8;
