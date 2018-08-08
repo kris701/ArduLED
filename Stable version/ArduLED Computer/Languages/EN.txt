@@ -227,7 +227,7 @@ VisualizerToSeriesIDLabel;Lucida Console;8;To series ID
 VisualizerToSeriesIDNumericUpDown;Lucida Console;8;
 
 
-AmbiLightModeTopLabel;Lucida Console;8;Ambilight Mode
+AmbiLightModeTopLabel;Lucida Console;16;Ambilight Mode
 AmbiLightModeShowHideBlocksButton;Lucida Console;8;Show/hide Blocks
 AmbiLightModeStartAmbilightButton;Lucida Console;8;Start Ambilight
 AmbiLightModeStopAmbilightButton;Lucida Console;8;Stop Ambilight
