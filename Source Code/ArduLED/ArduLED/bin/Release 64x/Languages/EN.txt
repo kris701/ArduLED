@@ -203,6 +203,7 @@ AmbiLightModeSaveSetup;Lucida Console;8;Save Current Ambilight Setup
 AmbiLightModeLoadSetup;Lucida Console;8;Load a Ambilight Setup
 AmbiLightModeFadeFactorLabel;Lucida Console;12;Fade Factor
 AmbiLightModeFadeFactorNumericUpDown;Lucida Console;8;
+AmbilightModeFPSCounterLabel;Lucida Console;12;FPS:
 
 AmbiLightModeRefreshRateLabel;Lucida Console;8;Minimum refresh rate
 AmbiLightModeRefreshRateNumericUpDown;Lucida Console;8;

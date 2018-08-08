@@ -54,6 +54,8 @@ namespace ArduLEDNameSpace
         Graphics GFXScreenshotBottom;
         List<List<List<int>>> AmbilightColorStore = new List<List<List<int>>>();
         bool RunAmbilight = false;
+        DateTime AmbilightFPSCounter;
+        int AmbilightFPSCounterFramesRendered;
 
         string SerialOutLeft;
         string SerialOutTop;
@@ -2500,6 +2502,7 @@ namespace ArduLEDNameSpace
                         SerialOutTopReady = false;
                         SerialOutRightReady = false;
                         SerialOutBottomReady = false;
+
                         if (AmbiLightModeLeftCheckBox.Checked)
                         {
                             Task.Run(() =>
@@ -2713,6 +2716,15 @@ namespace ArduLEDNameSpace
                         if (AmbiLightModeBottomCheckBox.Checked)
                             SendDataBySerial(SerialOutBottom);
                         AmbilightSendingStep = -1;
+
+                        AmbilightFPSCounterFramesRendered++;
+
+                        if ((DateTime.Now - AmbilightFPSCounter).TotalSeconds >= 1)
+                        {
+                            AmbilightModeFPSCounterLabel.Invoke((MethodInvoker)delegate { AmbilightModeFPSCounterLabel.Text = "FPS: " + AmbilightFPSCounterFramesRendered; });
+                            AmbilightFPSCounterFramesRendered = 0;
+                            AmbilightFPSCounter = DateTime.Now;
+                        }
                     }
 
                     Thread.Sleep((int)AmbiLightModeRefreshRateNumericUpDown.Value);

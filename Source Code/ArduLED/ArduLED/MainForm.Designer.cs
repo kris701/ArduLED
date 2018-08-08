@@ -315,6 +315,7 @@
             this.AmbiLightModeShowHideBlocksButton = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.AmbiLightModeTopLabel = new System.Windows.Forms.Label();
+            this.AmbilightModeFPSCounterLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.SampleTimeTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SmoothnessTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SensitivityTrackBar)).BeginInit();
@@ -2922,6 +2923,7 @@
             // 
             this.AmbiLightModePanel.BackColor = System.Drawing.Color.DimGray;
             this.AmbiLightModePanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.AmbiLightModePanel.Controls.Add(this.AmbilightModeFPSCounterLabel);
             this.AmbiLightModePanel.Controls.Add(this.AmbiLightModeFadeFactorLabel);
             this.AmbiLightModePanel.Controls.Add(this.AmbiLightModeFadeFactorNumericUpDown);
             this.AmbiLightModePanel.Controls.Add(this.AmbiLightModeScreenIDLabel);
@@ -2954,9 +2956,9 @@
             // 
             this.AmbiLightModeFadeFactorLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AmbiLightModeFadeFactorLabel.ForeColor = System.Drawing.Color.White;
-            this.AmbiLightModeFadeFactorLabel.Location = new System.Drawing.Point(18, 623);
+            this.AmbiLightModeFadeFactorLabel.Location = new System.Drawing.Point(199, 623);
             this.AmbiLightModeFadeFactorLabel.Name = "AmbiLightModeFadeFactorLabel";
-            this.AmbiLightModeFadeFactorLabel.Size = new System.Drawing.Size(316, 15);
+            this.AmbiLightModeFadeFactorLabel.Size = new System.Drawing.Size(135, 15);
             this.AmbiLightModeFadeFactorLabel.TabIndex = 116;
             this.AmbiLightModeFadeFactorLabel.Text = "Fade factor";
             this.AmbiLightModeFadeFactorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -4506,6 +4508,17 @@
             this.AmbiLightModeTopLabel.Text = "Ambilight Mode";
             this.AmbiLightModeTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // AmbilightModeFPSCounterLabel
+            // 
+            this.AmbilightModeFPSCounterLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmbilightModeFPSCounterLabel.ForeColor = System.Drawing.Color.White;
+            this.AmbilightModeFPSCounterLabel.Location = new System.Drawing.Point(17, 623);
+            this.AmbilightModeFPSCounterLabel.Name = "AmbilightModeFPSCounterLabel";
+            this.AmbilightModeFPSCounterLabel.Size = new System.Drawing.Size(135, 15);
+            this.AmbilightModeFPSCounterLabel.TabIndex = 117;
+            this.AmbilightModeFPSCounterLabel.Text = "FPS: ";
+            this.AmbilightModeFPSCounterLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -4928,6 +4941,7 @@
         private System.Windows.Forms.NumericUpDown AmbiLightModeScreenIDNumericUpDown;
         private System.Windows.Forms.Label AmbiLightModeFadeFactorLabel;
         private System.Windows.Forms.NumericUpDown AmbiLightModeFadeFactorNumericUpDown;
+        private System.Windows.Forms.Label AmbilightModeFPSCounterLabel;
     }
 }
 

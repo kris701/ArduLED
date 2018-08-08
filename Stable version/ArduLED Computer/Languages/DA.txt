@@ -203,6 +203,7 @@ AmbiLightModeSaveSetup;Lucida Console;8;Gem nuværende opsætning
 AmbiLightModeLoadSetup;Lucida Console;8;Åben en opsætning
 AmbiLightModeFadeFactorLabel;Lucida Console;12;Falme faktor
 AmbiLightModeFadeFactorNumericUpDown;Lucida Console;8;
+AmbilightModeFPSCounterLabel;Lucida Console;12;FPS:
 
 AmbiLightModeRefreshRateLabel;Lucida Console;8;Minimum opdaterings hastighed
 AmbiLightModeRefreshRateNumericUpDown;Lucida Console;8;
