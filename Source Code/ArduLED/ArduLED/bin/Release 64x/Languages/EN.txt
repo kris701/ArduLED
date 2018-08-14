@@ -188,6 +188,7 @@ AutoTriggerDecreseAtLabel;Lucida Console;8;Decrease trigger level at <
 AutoTriggerIncreseAtNumericUpDown;Lucida Console;8;
 AutoTriggerIncreseAtLabel;Lucida Console;8;Increase trigger level at >
 VisualizerCurrentValueLabel;Lucida Console;8;0
+VisualizerRPSLabel;Lucida Console;8;RPS: 0
 
 SpectrumTopLabel;Lucida Console;12;Spectrum Beat/Wave Settings
 SpectrumAutoScaleValuesCheckBox;Lucida Console;8;Auto scale values

@@ -176,6 +176,7 @@ AutoTriggerMaxLabel;Lucida Console;7;Max:
 AutoTriggerMinNumericUpDown;Lucida Console;8;
 AutoTriggerMinLabel;Lucida Console;7;Min:
 VisualizerCurrentValueLabel;Lucida Console;8;0
+VisualizerRPSLabel;Lucida Console;8;RPS: 0
 
 AutoTriggerCheckBox;Lucida Console;8;Auto Udløs
 

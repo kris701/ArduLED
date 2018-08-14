@@ -34,12 +34,12 @@ namespace ArduLEDNameSpace
         bool InstructionsRunning = false;
         bool ShowLoadingScreen = true;
         bool UnitReady = false;
-        List<List<int>> AudioDataPointStore = new List<List<int>>();
-        DispatcherTimer AudioDataTimer;
-        float[] AudioData;
+
         WASAPIPROC BassProcess;
-        Series BeatZoneSeries;
-        bool BassFirst;
+
+        Task VisualizerThread;
+        bool RunVisualizerThread = true;
+
         List<Control> ControlList = new List<Control>();
         Loading LoadingForm;
         Point DragStart = new Point(0,0);
@@ -150,6 +150,12 @@ namespace ArduLEDNameSpace
             SpectrumChart.ChartAreas[0].AxisY.Minimum = 0;
             WaveChart.ChartAreas[0].AxisY.Minimum = 0;
 
+            BeatZoneChart.ChartAreas[0].AxisX.Minimum = 0;
+            SpectrumChart.ChartAreas[0].AxisX.Minimum = 0;
+            WaveChart.ChartAreas[0].AxisX.Minimum = 0;
+            BeatZoneChart.ChartAreas[0].AxisX.Maximum = BeatZoneToTrackBar.Maximum;
+            SpectrumChart.ChartAreas[0].AxisX.Maximum = BeatZoneToTrackBar.Maximum;
+
             SetLoadingLabelTo("Presetting Combobox indexes");
 
             ModeSelectrionComboBox.Items.Add(" ");
@@ -181,7 +187,7 @@ namespace ArduLEDNameSpace
 
             AmbiLightModeScreenIDNumericUpDown.Maximum = SystemInformation.MonitorCount - 1;
 
-            SetLoadingLabelTo("Ambilight Thread");
+            SetLoadingLabelTo("Threads");
 
             Task AmbilightTask = new Task(delegate { AmbilightThread(); });
             AmbilightTask.Start();
@@ -1721,7 +1727,6 @@ namespace ArduLEDNameSpace
         private void SampleTimeTrackBar_ValueChanged(object sender, EventArgs e)
         {
             SampleTimeLabel.Text = SampleTimeTrackBar.Value.ToString();
-            EnableBASS(true);
         }
 
         private void SensitivityTrackBar_ValueChanged(object sender, EventArgs e)
@@ -1736,8 +1741,8 @@ namespace ArduLEDNameSpace
 
         private void BeatZoneFromTrackBar_Scroll(object sender, EventArgs e)
         {
-            if (BeatZoneToTrackBar.Value < BeatZoneFromTrackBar.Value)
-                BeatZoneToTrackBar.Value = BeatZoneFromTrackBar.Value + 1;
+            if (BeatZoneFromTrackBar.Value < BeatZoneFromTrackBar.Value)
+                BeatZoneFromTrackBar.Value = BeatZoneFromTrackBar.Value + 1;
             FormatCustomText(BeatZoneFromTrackBar.Value, BeatZoneFromLabel, "");
         }
 
@@ -1749,12 +1754,27 @@ namespace ArduLEDNameSpace
             FormatCustomText(BeatZoneToTrackBar.Value, BeatZoneToLabel, "");
         }
 
+        private void TrackBarUpdateBASSKey(object sender, KeyEventArgs e)
+        {
+            EnableBASS(true);
+        }
+
+        private void TrackBarUpdateBASSMouse(object sender, MouseEventArgs e)
+        {
+            EnableBASS(true);
+        }
+
         private void VisualSamplesNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
             BeatZoneFromTrackBar.Maximum = (int)VisualSamplesNumericUpDown.Value;
             BeatZoneToTrackBar.Maximum = (int)VisualSamplesNumericUpDown.Value;
             UpdateSpectrumChart(SpectrumChart, SpectrumRedTextBox.Text, SpectrumGreenTextBox.Text, SpectrumBlueTextBox.Text, (int)VisualSamplesNumericUpDown.Value, SpectrumAutoScaleValuesCheckBox.Checked);
             UpdateSpectrumChart(WaveChart, WaveRedTextBox.Text, WaveGreenTextBox.Text, WaveBlueTextBox.Text, 255 * 3, WaveAutoScaleValuesCheckBox.Checked);
+            BeatZoneChart.ChartAreas[0].AxisX.Minimum = 0;
+            SpectrumChart.ChartAreas[0].AxisX.Minimum = 0;
+            WaveChart.ChartAreas[0].AxisX.Minimum = 0;
+            BeatZoneChart.ChartAreas[0].AxisX.Maximum = BeatZoneToTrackBar.Maximum;
+            SpectrumChart.ChartAreas[0].AxisX.Maximum = BeatZoneToTrackBar.Maximum;
         }
 
         private void VisualizationTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -1775,6 +1795,13 @@ namespace ArduLEDNameSpace
             {
                 FullSpectrumPanel.Enabled = true;
             }
+
+            EnableBASS(true);
+        }
+
+        private void AudioSampleRateComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            EnableBASS(true);
         }
 
         private void UpdateSpectrumButton_Click(object sender, EventArgs e)
@@ -1783,6 +1810,8 @@ namespace ArduLEDNameSpace
             {
                 UpdateSpectrumChart(SpectrumChart, SpectrumRedTextBox.Text, SpectrumGreenTextBox.Text, SpectrumBlueTextBox.Text, (int)VisualSamplesNumericUpDown.Value, SpectrumAutoScaleValuesCheckBox.Checked);
             }
+
+            EnableBASS(true);
         }
 
         private void UpdateWaveButton_Click(object sender, EventArgs e)
@@ -1791,6 +1820,8 @@ namespace ArduLEDNameSpace
             {
                 UpdateSpectrumChart(WaveChart, WaveRedTextBox.Text, WaveGreenTextBox.Text, WaveBlueTextBox.Text, 255 * 3, WaveAutoScaleValuesCheckBox.Checked);
             }
+
+            EnableBASS(true);
         }
 
         void UpdateSpectrumChart(Chart _Chart, string _Red, string _Green, string _Blue, int _XValues, bool _AutoScale)
@@ -2017,27 +2048,18 @@ namespace ArduLEDNameSpace
                 BassWasapi.BASS_WASAPI_Free();
                 Bass.BASS_Free();
 
-                BassFirst = true;
-
-                if (AudioDataTimer != null)
-                    AudioDataTimer.IsEnabled = false;
-
-                AudioData = new float[Int32.Parse(AudioSampleRateComboBox.SelectedItem.ToString())];
-                BassProcess = new WASAPIPROC(Process);
-                for (int i = 0; i < VisualSamplesNumericUpDown.Value; i++)
-                    AudioDataPointStore.Add(new List<int>(new int[SmoothnessTrackBar.Value]));
-                AudioDataTimer = new DispatcherTimer();
-                AudioDataTimer.Tick += AudioDataTimer_Tick;
-                AudioDataTimer.Interval = TimeSpan.FromMilliseconds(SampleTimeTrackBar.Value);
-
-                BeatZoneSeries = new Series
+                if (VisualizerThread != null)
                 {
-                    IsVisibleInLegend = false,
-                    IsXValueIndexed = false,
-                    ChartType = SeriesChartType.Column,
-                };
+                    RunVisualizerThread = false;
+                    while (VisualizerThread.Status == TaskStatus.Running)
+                    {
+                        Thread.Sleep(5);
+                        Application.DoEvents();
+                    }
+                }
 
-                BassWasapi.BASS_WASAPI_Stop(true);
+                BassProcess = new WASAPIPROC(Process);
+
                 var array = (AudioSourceComboBox.Items[AudioSourceComboBox.SelectedIndex] as string).Split(' ');
                 int devindex = Convert.ToInt32(array[0]);
                 Bass.BASS_SetConfig(BASSConfig.BASS_CONFIG_UPDATETHREADS, false);
@@ -2049,17 +2071,24 @@ namespace ArduLEDNameSpace
                     MessageBox.Show(error.ToString());
                 }
 
-                BeatZoneChart.Series.Clear();
-                BeatZoneChart.Series.Add(BeatZoneSeries);
-
-                AudioDataTimer.IsEnabled = true;
-
                 BassWasapi.BASS_WASAPI_Start();
+
+                RunVisualizerThread = true;
+
+                VisualizerThread = new Task(delegate { AudioDataThread(); });
+                VisualizerThread.Start();
             }
             else
             {
-                if (AudioDataTimer != null)
-                    AudioDataTimer.IsEnabled = false;
+                if (VisualizerThread != null)
+                {
+                    RunVisualizerThread = false;
+                    while (VisualizerThread.Status == TaskStatus.Running)
+                    {
+                        Thread.Sleep(5);
+                        Application.DoEvents();
+                    }
+                }
 
                 if (BassWasapi.BASS_WASAPI_IsStarted())
                     BassWasapi.BASS_WASAPI_Stop(true);
@@ -2074,229 +2103,279 @@ namespace ArduLEDNameSpace
             return length;
         }
 
-        private void AudioDataTimer_Tick(object sender, EventArgs e)
+        void AudioDataThread()
         {
-            if (VisualSamplesNumericUpDown.Value != BeatZoneSeries.Points.Count)
-            {
-                BeatZoneSeries.Points.Clear();
-                BassFirst = true;
-                AudioDataPointStore.Clear();
+            DateTime VisualizerRPSCounter = new DateTime();
+            DateTime CalibrateRefreshRate = new DateTime();
+            int VisualizerUpdatesCounter = 0;
+            List<List<int>> AudioDataPointStore = new List<List<int>>();
+            float[] AudioData = { };
+
+            int VisualSamles = 0;
+            int Smoothness = 0;
+            int Sensitivity = 0;
+            int BASSDataRate = 0;
+            int BeatZoneFrom = 0;
+            int BeatZoneTo = 0;
+            int SelectedIndex = 0;
+            int TriggerHeight = 0;
+            int SpectrumSplit = 0;
+            int RefreshTime = 0;
+            Chart SpectrumChartInner = new Chart();
+            Chart WaveChartInner = new Chart();
+
+            VisualizerPanel.Invoke((MethodInvoker)delegate {
+                VisualSamles = (int)VisualSamplesNumericUpDown.Value;
+                Smoothness = SmoothnessTrackBar.Value;
+                Sensitivity = SensitivityTrackBar.Value;
+                BASSDataRate = Int32.Parse(AudioSampleRateComboBox.SelectedItem.ToString());
+                BeatZoneFrom = BeatZoneFromTrackBar.Value;
+                BeatZoneTo = BeatZoneToTrackBar.Value;
+                AudioData = new float[Int32.Parse(AudioSampleRateComboBox.SelectedItem.ToString())];
+                SelectedIndex = VisualizationTypeComboBox.SelectedIndex;
+                TriggerHeight = BeatZoneTriggerHeight.Value;
+                SpectrumChartInner = SpectrumChart;
+                WaveChartInner = WaveChart;
+                RefreshTime = SampleTimeTrackBar.Value;
+                SpectrumSplit = (int)FullSpectrumNumericUpDown.Value;
                 for (int i = 0; i < VisualSamplesNumericUpDown.Value; i++)
-                    AudioDataPointStore.Add(new List<int>(new int[SmoothnessTrackBar.Value]));
-            }
-            if (AudioDataPointStore.Count != VisualSamplesNumericUpDown.Value | AudioDataPointStore[0].Count != SmoothnessTrackBar.Value)
+                    AudioDataPointStore.Add(new List<int>(new int[Smoothness]));
+            });
+
+            while (RunVisualizerThread)
             {
-                AudioDataPointStore.Clear();
-                for (int i = 0; i < VisualSamplesNumericUpDown.Value; i++)
-                    AudioDataPointStore.Add(new List<int>(new int[SmoothnessTrackBar.Value]));
-            }
+                CalibrateRefreshRate = DateTime.Now;
 
-            int ReturnValue = BassWasapi.BASS_WASAPI_GetData(AudioData, (int)(BASSData)Enum.Parse(typeof(BASSData), "BASS_DATA_FFT" + Int32.Parse(AudioSampleRateComboBox.SelectedItem.ToString())));
-            if (ReturnValue < -1) return;
-            int X, Y;
-            int B0 = 0;
-            for (X = 0; X < VisualSamplesNumericUpDown.Value; X++)
-            {
-                float Peak = 0;
-                int B1 = (int)Math.Pow(2, X * 10.0 / ((int)VisualSamplesNumericUpDown.Value - 1));
-                if (B1 > 1023) B1 = 1023;
-                if (B1 <= B0) B1 = B0 + 1;
-                for (; B0 < B1; B0++)
-                {
-                    if (Peak < AudioData[1 + B0]) Peak = AudioData[1 + B0];
-                }
-                Y = (int)(Math.Sqrt(Peak) * SensitivityTrackBar.Value * 255 - 4);
-                if (Y > 255) Y = 255;
-                if (Y < 1) Y = 1;
+                BeatZoneTriggerHeight.Invoke((MethodInvoker)delegate { TriggerHeight = BeatZoneTriggerHeight.Value; });
 
-                if (AudioDataPointStore[0].Count != SmoothnessTrackBar.Value)
-                    break;
-                if (AudioDataPointStore.Count != VisualSamplesNumericUpDown.Value)
-                    break;
+                Series BeatZoneSeries = new Series
+                {
+                    IsVisibleInLegend = false,
+                    IsXValueIndexed = false,
+                    ChartType = SeriesChartType.Column,
+                    Color = Color.FromArgb(0, 122, 217)
+                };
 
-                AudioDataPointStore[X].Add((byte)Y);
-                while (AudioDataPointStore[X].Count > SmoothnessTrackBar.Value)
-                    AudioDataPointStore[X].RemoveAt(0);
+                int ReturnValue = BassWasapi.BASS_WASAPI_GetData(AudioData, (int)(BASSData)Enum.Parse(typeof(BASSData), "BASS_DATA_FFT" + BASSDataRate));
+                if (ReturnValue < -1) return;
 
-                int AverageValue = 0;
-                for (int s = 0; s < SmoothnessTrackBar.Value; s++)
+                int X, Y;
+                int B0 = 0;
+                for (X = BeatZoneFrom; X < BeatZoneTo; X++)
                 {
-                    AverageValue += AudioDataPointStore[X][s];
-                }
-                AverageValue = AverageValue / SmoothnessTrackBar.Value;
-                if (AverageValue > 255)
-                    AverageValue = 255;
-                if (AverageValue < 0)
-                    AverageValue = 0;
-                if (BassFirst)
-                {
-                    BeatZoneSeries.Points.AddXY(X, AverageValue);
-                }
-                else
-                {
-                    BeatZoneSeries.Points.FindByValue(X, "X").YValues[0] = AverageValue;
-                }
-                BeatZoneSeries.Points.FindByValue(X, "X").Color = Color.FromArgb(0, 0, 0, 0);
-                if (X >= BeatZoneFromTrackBar.Value && X <= BeatZoneToTrackBar.Value && BeatZoneSeries.Points[X].YValues[0] >= BeatZoneTriggerHeight.Value)
-                {
-                    BeatZoneSeries.Points.FindByValue(X, "X").Color = Color.FromArgb(255, 255 - AverageValue, 255 - AverageValue);
-                }
-                else
-                {
-                    BeatZoneSeries.Points.FindByValue(X, "X").Color = Color.FromArgb(0, 0, 0);
-                }
-            }
-            if (BassFirst)
-                BassFirst = false;
-
-            if (VisualizationTypeComboBox.SelectedIndex == 0)
-            {
-                double Hit = 0;
-                for (int i = BeatZoneFromTrackBar.Value; i < BeatZoneToTrackBar.Value; i++)
-                {
-                    if (BeatZoneSeries.Points[i].YValues[0] >= BeatZoneTriggerHeight.Value)
-                        Hit++;
-                }
-                double OutValue = Math.Round(Math.Round((Hit / ((double)BeatZoneToTrackBar.Value - (double)BeatZoneFromTrackBar.Value)), 2) * 100, 0);
-                AutoTrigger((OutValue / 100) * (255 * 3));
-                string SerialOut = "2;" + OutValue.ToString().Replace(',', '.');
-                SendDataBySerial(SerialOut);
-            }
-            if (VisualizationTypeComboBox.SelectedIndex == 1 | VisualizationTypeComboBox.SelectedIndex == 2)
-            {
-                double EndR = 0;
-                double EndG = 0;
-                double EndB = 0;
-                int CountR = 0;
-                int CountG = 0;
-                int CountB = 0;
-                int Hit = 0;
-                for (int i = BeatZoneFromTrackBar.Value; i < BeatZoneToTrackBar.Value; i++)
-                {
-                    if (BeatZoneSeries.Points[i].YValues[0] >= BeatZoneTriggerHeight.Value)
+                    float Peak = 0;
+                    int B1 = (int)Math.Pow(2, X * 10.0 / ((int)VisualSamles - 1));
+                    if (B1 > 1023) B1 = 1023;
+                    if (B1 <= B0) B1 = B0 + 1;
+                    for (; B0 < B1; B0++)
                     {
-                        if (SpectrumChart.Series[0].Points[i].YValues[0] <= 255)
+                        if (Peak < AudioData[1 + B0]) Peak = AudioData[1 + B0];
+                    }
+                    Y = (int)(Math.Sqrt(Peak) * Sensitivity * 255 - 4);
+                    if (Y > 255) Y = 255;
+                    if (Y < 1) Y = 1;
+
+                    if (X >= BeatZoneFrom)
+                    {
+                        if (X <= BeatZoneTo)
                         {
-                            if (SpectrumChart.Series[0].Points[i].YValues[0] >= 0)
+
+                            AudioDataPointStore[X].Add((byte)Y);
+                            while (AudioDataPointStore[X].Count > Smoothness)
+                                AudioDataPointStore[X].RemoveAt(0);
+
+                            int AverageValue = 0;
+                            if (Smoothness > 1)
                             {
-                                EndR += SpectrumChart.Series[0].Points[i].YValues[0];
-                                CountR++;
+                                for (int s = 0; s < Smoothness; s++)
+                                {
+                                    AverageValue += AudioDataPointStore[X][s];
+                                }
+                                AverageValue = AverageValue / Smoothness;
                             }
-                        }
-                        if (SpectrumChart.Series[1].Points[i].YValues[0] <= 255)
-                        {
-                            if (SpectrumChart.Series[1].Points[i].YValues[0] >= 0)
+                            else
                             {
-                                EndG += SpectrumChart.Series[1].Points[i].YValues[0];
-                                CountG++;
+                                AverageValue = AudioDataPointStore[X][0];
                             }
+                            if (AverageValue > 255)
+                                AverageValue = 255;
+                            if (AverageValue < 0)
+                                AverageValue = 0;
+
+                            BeatZoneSeries.Points.AddXY(X, AverageValue);
                         }
-                        if (SpectrumChart.Series[2].Points[i].YValues[0] <= 255)
-                        {
-                            if (SpectrumChart.Series[2].Points[i].YValues[0] >= 0)
-                            {
-                                EndB += SpectrumChart.Series[2].Points[i].YValues[0];
-                                CountB++;
-                            }
-                        }
-                        Hit++;
                     }
                 }
 
-                AutoTrigger(((float)Hit / ((float)BeatZoneToTrackBar.Value - (float)BeatZoneFromTrackBar.Value)) * (255 * 3));
-
-                if (CountR > 0)
+                if (SelectedIndex == 0)
                 {
-                    EndR = EndR / CountR;
-                }
-                if (CountG > 0)
-                {
-                    EndG = EndG / CountG;
-                }
-                if (CountB > 0)
-                {
-                    EndB = EndB / CountB;
-                }
-
-                string SerialOut = "";
-                if (VisualizationTypeComboBox.SelectedIndex == 1)
-                    SerialOut = "1;" + Math.Round(EndR, 0) + ";" + Math.Round(EndG, 0) + ";" + Math.Round(EndB, 0) + ";0;0";
-                if (VisualizationTypeComboBox.SelectedIndex == 2)
-                    SerialOut = "3;" + Math.Round(EndR, 0) + ";" + Math.Round(EndG, 0) + ";" + Math.Round(EndB, 0);
-                SendDataBySerial(SerialOut);
-            }
-            if (VisualizationTypeComboBox.SelectedIndex == 3 | VisualizationTypeComboBox.SelectedIndex == 4)
-            {
-                int EndR = 0;
-                int EndG = 0;
-                int EndB = 0;
-                int Hit = 0;
-
-                for (int i = BeatZoneFromTrackBar.Value; i < BeatZoneToTrackBar.Value; i++)
-                {
-                    if (BeatZoneSeries.Points[i].YValues[0] >= BeatZoneTriggerHeight.Value)
+                    double Hit = 0;
+                    for (int i = 0; i < BeatZoneSeries.Points.Count; i++)
                     {
-                        Hit++;
+                        if (BeatZoneSeries.Points[i].YValues[0] >= TriggerHeight)
+                            Hit++;
                     }
+                    double OutValue = Math.Round(Math.Round((Hit / ((double)BeatZoneTo - (double)BeatZoneFrom)), 2) * 100, 0);
+                    AutoTrigger((OutValue / 100) * (255 * 3));
+                    string SerialOut = "2;" + OutValue.ToString().Replace(',', '.');
+                    SendDataBySerial(SerialOut);
                 }
-
-                int EndValue = (int)(((float)255 * (float)3) * ((float)Hit / ((float)BeatZoneToTrackBar.Value - (float)BeatZoneFromTrackBar.Value)));
-                if (EndValue >= 765)
-                    EndValue = 764;
-                if (EndValue < 0)
-                    EndValue = 0;
-
-                BeatWaveProgressBar.Value = EndValue;
-
-                EndR = (int)WaveChart.Series[0].Points[EndValue].YValues[0];
-                EndG = (int)WaveChart.Series[1].Points[EndValue].YValues[0];
-                EndB = (int)WaveChart.Series[2].Points[EndValue].YValues[0];
-
-                AutoTrigger(((float)Hit / ((float)BeatZoneToTrackBar.Value - (float)BeatZoneFromTrackBar.Value)) * (255 * 3));
-
-                if (EndR > 255)
-                    EndR = 0;
-
-                if (EndG > 255)
-                    EndG = 0;
-
-                if (EndB > 255)
-                    EndB = 0;
-
-                if (EndR < 0)
-                    EndR = 0;
-
-                if (EndG < 0)
-                    EndG = 0;
-
-                if (EndB < 0)
-                    EndB = 0;
-
-                string SerialOut = "";
-                if (VisualizationTypeComboBox.SelectedIndex == 4)
-                    SerialOut = "1;" + EndR + ";" + EndG + ";" + EndB + ";0;0";
-                if (VisualizationTypeComboBox.SelectedIndex == 3)
-                    SerialOut = "3;" + EndR + ";" + EndG + ";" + EndB + "";
-                SendDataBySerial(SerialOut);
-            }
-            if (VisualizationTypeComboBox.SelectedIndex == 5)
-            {
-                int Hit = 0;
-                string SerialOut = "5;" + FullSpectrumNumericUpDown.Value.ToString() + ";";
-                for (int i = BeatZoneFromTrackBar.Value; i < BeatZoneToTrackBar.Value; i++)
+                if (SelectedIndex == 1 | SelectedIndex == 2)
                 {
-                    if (BeatZoneSeries.Points[i].YValues[0] >= BeatZoneTriggerHeight.Value)
+                    double EndR = 0;
+                    double EndG = 0;
+                    double EndB = 0;
+                    int CountR = 0;
+                    int CountG = 0;
+                    int CountB = 0;
+                    int Hit = 0;
+                    for (int i = 0; i < BeatZoneSeries.Points.Count; i++)
                     {
-                        SerialOut += Math.Round((BeatZoneSeries.Points[i].YValues[0] / 255) * (double)FullSpectrumNumericUpDown.Value, 0) + ";";
-                        Hit++;
+                        if (BeatZoneSeries.Points[i].YValues[0] >= TriggerHeight)
+                        {
+                            if (SpectrumChartInner.Series[0].Points[i].YValues[0] <= 255)
+                            {
+                                if (SpectrumChartInner.Series[0].Points[i].YValues[0] >= 0)
+                                {
+                                    EndR += SpectrumChartInner.Series[0].Points[i].YValues[0];
+                                    CountR++;
+                                }
+                            }
+                            if (SpectrumChartInner.Series[1].Points[i].YValues[0] <= 255)
+                            {
+                                if (SpectrumChartInner.Series[1].Points[i].YValues[0] >= 0)
+                                {
+                                    EndG += SpectrumChartInner.Series[1].Points[i].YValues[0];
+                                    CountG++;
+                                }
+                            }
+                            if (SpectrumChartInner.Series[2].Points[i].YValues[0] <= 255)
+                            {
+                                if (SpectrumChartInner.Series[2].Points[i].YValues[0] >= 0)
+                                {
+                                    EndB += SpectrumChartInner.Series[2].Points[i].YValues[0];
+                                    CountB++;
+                                }
+                            }
+                            Hit++;
+                        }
                     }
-                    else
-                        SerialOut += "0;";
+
+                    AutoTrigger(((float)Hit / ((float)BeatZoneTo - (float)BeatZoneFrom)) * (255 * 3));
+
+                    if (CountR > 0)
+                    {
+                        EndR = EndR / CountR;
+                    }
+                    if (CountG > 0)
+                    {
+                        EndG = EndG / CountG;
+                    }
+                    if (CountB > 0)
+                    {
+                        EndB = EndB / CountB;
+                    }
+
+                    string SerialOut = "";
+                    if (SelectedIndex == 1)
+                        SerialOut = "1;" + Math.Round(EndR, 0) + ";" + Math.Round(EndG, 0) + ";" + Math.Round(EndB, 0) + ";0;0";
+                    if (SelectedIndex == 2)
+                        SerialOut = "3;" + Math.Round(EndR, 0) + ";" + Math.Round(EndG, 0) + ";" + Math.Round(EndB, 0);
+                    SendDataBySerial(SerialOut);
+                }
+                if (SelectedIndex == 3 | SelectedIndex == 4)
+                {
+                    int EndR = 0;
+                    int EndG = 0;
+                    int EndB = 0;
+                    int Hit = 0;
+
+                    for (int i = 0; i < BeatZoneSeries.Points.Count; i++)
+                    {
+                        if (BeatZoneSeries.Points[i].YValues[0] >= TriggerHeight)
+                        {
+                            Hit++;
+                        }
+                    }
+
+                    int EndValue = (int)(((float)255 * (float)3) * ((float)Hit / ((float)BeatZoneTo - (float)BeatZoneFrom)));
+                    if (EndValue >= 765)
+                        EndValue = 764;
+                    if (EndValue < 0)
+                        EndValue = 0;
+
+                    BeatWaveProgressBar.Invoke((MethodInvoker)delegate { BeatWaveProgressBar.Value = EndValue; });
+
+                    EndR = (int)WaveChartInner.Series[0].Points[EndValue].YValues[0];
+                    EndG = (int)WaveChartInner.Series[1].Points[EndValue].YValues[0];
+                    EndB = (int)WaveChartInner.Series[2].Points[EndValue].YValues[0];
+
+                    AutoTrigger(((float)Hit / ((float)BeatZoneTo - (float)BeatZoneFrom)) * (255 * 3));
+
+                    if (EndR > 255)
+                        EndR = 0;
+
+                    if (EndG > 255)
+                        EndG = 0;
+
+                    if (EndB > 255)
+                        EndB = 0;
+
+                    if (EndR < 0)
+                        EndR = 0;
+
+                    if (EndG < 0)
+                        EndG = 0;
+
+                    if (EndB < 0)
+                        EndB = 0;
+
+                    string SerialOut = "";
+                    if (SelectedIndex == 4)
+                        SerialOut = "1;" + EndR + ";" + EndG + ";" + EndB + ";0;0";
+                    if (SelectedIndex == 3)
+                        SerialOut = "3;" + EndR + ";" + EndG + ";" + EndB + "";
+                    SendDataBySerial(SerialOut);
+                }
+                if (SelectedIndex == 5)
+                {
+                    int Hit = 0;
+                    string SerialOut = "5;" + SpectrumSplit.ToString() + ";";
+                    for (int i = 0; i < BeatZoneSeries.Points.Count; i++)
+                    {
+                        if (BeatZoneSeries.Points[i].YValues[0] >= TriggerHeight)
+                        {
+                            SerialOut += Math.Round((BeatZoneSeries.Points[i].YValues[0] / 255) * (double)SpectrumSplit, 0) + ";";
+                            Hit++;
+                        }
+                        else
+                            SerialOut += "0;";
+                    }
+
+                    AutoTrigger(((float)Hit / ((float)BeatZoneTo - (float)BeatZoneFrom)) * (255 * 3));
+
+                    SendDataBySerial(SerialOut);
                 }
 
-                AutoTrigger(((float)Hit / ((float)BeatZoneToTrackBar.Value - (float)BeatZoneFromTrackBar.Value)) * (255 * 3));
+                VisualizerUpdatesCounter++;
+                if ((DateTime.Now - VisualizerRPSCounter).TotalSeconds >= 1)
+                {
+                    VisualizerRPSLabel.Invoke((MethodInvoker)delegate { VisualizerRPSLabel.Text = "RPS: " + VisualizerUpdatesCounter; });
+                    VisualizerUpdatesCounter = 0;
+                    VisualizerRPSCounter = DateTime.Now;
+                }
+                BeatZoneChart.Invoke((MethodInvoker)delegate {
+                    BeatZoneChart.Series.Clear();
+                    BeatZoneChart.Series.Add(BeatZoneSeries);
+                });
 
-                SendDataBySerial(SerialOut);
+                int ExectuionTime = (int)(DateTime.Now - CalibrateRefreshRate).TotalMilliseconds;
+                int ActuralRefreshTime = RefreshTime - ExectuionTime;
+
+                if (ActuralRefreshTime < 0)
+                    ActuralRefreshTime = 0;
+
+                Thread.Sleep(ActuralRefreshTime);
             }
         }
 
@@ -2304,22 +2383,24 @@ namespace ArduLEDNameSpace
         {
             if (AutoTriggerCheckBox.Checked)
             {
+                BeatZoneTriggerHeight.Invoke((MethodInvoker)delegate {
                 VisualizerCurrentValueLabel.Text = ((int)(_TriggerValue)).ToString();
-                if (_TriggerValue >= (double)AutoTriggerDecreseAtNumericUpDown.Value)
-                {
-                    if (BeatZoneTriggerHeight.Value < AutoTriggerMaxNumericUpDown.Value)
-                        BeatZoneTriggerHeight.Value = BeatZoneTriggerHeight.Value + 1;
-                }
-                if (_TriggerValue <= (double)AutoTriggerIncreseAtNumericUpDown.Value)
-                {
-                    if (BeatZoneTriggerHeight.Value > AutoTriggerMinNumericUpDown.Value)
-                        BeatZoneTriggerHeight.Value = BeatZoneTriggerHeight.Value - 1;
-                }
+                    if (_TriggerValue >= (double)AutoTriggerDecreseAtNumericUpDown.Value)
+                    {
+                        if (BeatZoneTriggerHeight.Value < AutoTriggerMaxNumericUpDown.Value)
+                            BeatZoneTriggerHeight.Value = BeatZoneTriggerHeight.Value + 1;
+                    }
+                    if (_TriggerValue <= (double)AutoTriggerIncreseAtNumericUpDown.Value)
+                    {
+                        if (BeatZoneTriggerHeight.Value > AutoTriggerMinNumericUpDown.Value)
+                            BeatZoneTriggerHeight.Value = BeatZoneTriggerHeight.Value - 1;
+                    }
 
-                FormatCustomText(BeatZoneTriggerHeight.Value, BeatZoneTriggerHeightLabel, "");
+                    FormatCustomText(BeatZoneTriggerHeight.Value, BeatZoneTriggerHeightLabel, "");
+                });
             }
             else
-                VisualizerCurrentValueLabel.Text = "0";
+                VisualizerCurrentValueLabel.Invoke((MethodInvoker)delegate { VisualizerCurrentValueLabel.Text = "0"; });
         }
 
         void FormatCustomText(int _Value, Control _Control, string _Additional)
@@ -2477,6 +2558,11 @@ namespace ArduLEDNameSpace
 
         void FormatLayout()
         {
+            BeatZoneChart.ChartAreas[0].AxisX.Minimum = 0;
+            SpectrumChart.ChartAreas[0].AxisX.Minimum = 0;
+            BeatZoneChart.ChartAreas[0].AxisX.Maximum = BeatZoneToTrackBar.Maximum;
+            SpectrumChart.ChartAreas[0].AxisX.Maximum = BeatZoneToTrackBar.Maximum;
+
             UpdateSpectrumChart(SpectrumChart, SpectrumRedTextBox.Text, SpectrumGreenTextBox.Text, SpectrumBlueTextBox.Text, (int)VisualSamplesNumericUpDown.Value, SpectrumAutoScaleValuesCheckBox.Checked);
             UpdateSpectrumChart(WaveChart, WaveRedTextBox.Text, WaveGreenTextBox.Text, WaveBlueTextBox.Text, 255 * 3, WaveAutoScaleValuesCheckBox.Checked);
 
@@ -2500,12 +2586,10 @@ namespace ArduLEDNameSpace
 
         private void VisualizerToSeriesIDNumericUpDown_KeyDown(object sender, KeyEventArgs e)
         {
-            AudioDataTimer.Stop();
-            Thread.Sleep(TransferDelay);
+            EnableBASS(false);
             string SerialOut = "6;" + VisualizerFromSeriesIDNumericUpDown.Value + ";" + VisualizerToSeriesIDNumericUpDown.Value;
             SendDataBySerial(SerialOut);
-            Thread.Sleep(TransferDelay);
-            AudioDataTimer.Start();
+            EnableBASS(true);
         }
 
         #endregion

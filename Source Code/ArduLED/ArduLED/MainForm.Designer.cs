@@ -62,6 +62,7 @@
             this.BeatZoneToLabel = new System.Windows.Forms.Label();
             this.BeatZoneTopLabel = new System.Windows.Forms.Label();
             this.VisualizerPanel = new System.Windows.Forms.Panel();
+            this.VisualizerRPSLabel = new System.Windows.Forms.Label();
             this.VisualizerLoadSettingsButton = new System.Windows.Forms.Button();
             this.VisualizerSaveSettingsButton = new System.Windows.Forms.Button();
             this.VisualizerToSeriesIDLabel = new System.Windows.Forms.Label();
@@ -502,6 +503,8 @@
             this.SampleTimeTrackBar.TickFrequency = 10;
             this.SampleTimeTrackBar.Value = 25;
             this.SampleTimeTrackBar.Scroll += new System.EventHandler(this.SampleTimeTrackBar_ValueChanged);
+            this.SampleTimeTrackBar.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TrackBarUpdateBASSKey);
+            this.SampleTimeTrackBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TrackBarUpdateBASSMouse);
             // 
             // SampleTimeTopLabel
             // 
@@ -534,6 +537,7 @@
             this.AudioSampleRateComboBox.Size = new System.Drawing.Size(559, 19);
             this.AudioSampleRateComboBox.TabIndex = 9;
             this.AudioSampleRateComboBox.Tag = "Setting";
+            this.AudioSampleRateComboBox.SelectedIndexChanged += new System.EventHandler(this.AudioSampleRateComboBox_SelectedIndexChanged);
             // 
             // AudioSampleRateLabel
             // 
@@ -576,6 +580,8 @@
             this.SmoothnessTrackBar.Tag = "Setting";
             this.SmoothnessTrackBar.Value = 1;
             this.SmoothnessTrackBar.Scroll += new System.EventHandler(this.SmoothnessTrackBar_ValueChanged);
+            this.SmoothnessTrackBar.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TrackBarUpdateBASSKey);
+            this.SmoothnessTrackBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TrackBarUpdateBASSMouse);
             // 
             // SmoothnessTopLabel
             // 
@@ -597,6 +603,8 @@
             this.SensitivityTrackBar.Tag = "Setting";
             this.SensitivityTrackBar.Value = 3;
             this.SensitivityTrackBar.Scroll += new System.EventHandler(this.SensitivityTrackBar_ValueChanged);
+            this.SensitivityTrackBar.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TrackBarUpdateBASSKey);
+            this.SensitivityTrackBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TrackBarUpdateBASSMouse);
             // 
             // SensitivityTopLabel
             // 
@@ -706,6 +714,7 @@
             chartArea1.BackColor = System.Drawing.Color.Silver;
             chartArea1.Name = "ChartArea1";
             this.BeatZoneChart.ChartAreas.Add(chartArea1);
+            this.BeatZoneChart.Enabled = false;
             this.BeatZoneChart.Location = new System.Drawing.Point(96, 454);
             this.BeatZoneChart.Name = "BeatZoneChart";
             series1.BorderColor = System.Drawing.Color.White;
@@ -728,6 +737,8 @@
             this.BeatZoneFromTrackBar.Tag = "Setting";
             this.BeatZoneFromTrackBar.TickFrequency = 10;
             this.BeatZoneFromTrackBar.Scroll += new System.EventHandler(this.BeatZoneFromTrackBar_Scroll);
+            this.BeatZoneFromTrackBar.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TrackBarUpdateBASSKey);
+            this.BeatZoneFromTrackBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TrackBarUpdateBASSMouse);
             // 
             // BeatZoneToTrackBar
             // 
@@ -740,6 +751,8 @@
             this.BeatZoneToTrackBar.TickFrequency = 10;
             this.BeatZoneToTrackBar.Value = 128;
             this.BeatZoneToTrackBar.Scroll += new System.EventHandler(this.BeatZoneToTrackBar_Scroll);
+            this.BeatZoneToTrackBar.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TrackBarUpdateBASSKey);
+            this.BeatZoneToTrackBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TrackBarUpdateBASSMouse);
             // 
             // BeatZoneFromLabel
             // 
@@ -775,6 +788,7 @@
             // 
             this.VisualizerPanel.BackColor = System.Drawing.Color.DimGray;
             this.VisualizerPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.VisualizerPanel.Controls.Add(this.VisualizerRPSLabel);
             this.VisualizerPanel.Controls.Add(this.VisualizerLoadSettingsButton);
             this.VisualizerPanel.Controls.Add(this.VisualizerSaveSettingsButton);
             this.VisualizerPanel.Controls.Add(this.VisualizerToSeriesIDLabel);
@@ -824,6 +838,16 @@
             this.VisualizerPanel.Size = new System.Drawing.Size(947, 748);
             this.VisualizerPanel.TabIndex = 44;
             this.VisualizerPanel.Visible = false;
+            // 
+            // VisualizerRPSLabel
+            // 
+            this.VisualizerRPSLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VisualizerRPSLabel.Location = new System.Drawing.Point(510, 726);
+            this.VisualizerRPSLabel.Name = "VisualizerRPSLabel";
+            this.VisualizerRPSLabel.Size = new System.Drawing.Size(64, 11);
+            this.VisualizerRPSLabel.TabIndex = 65;
+            this.VisualizerRPSLabel.Text = "RPS: 0";
+            this.VisualizerRPSLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // VisualizerLoadSettingsButton
             // 
@@ -5071,12 +5095,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(1411, 775);
+            this.Controls.Add(this.VisualizerPanel);
             this.Controls.Add(this.MenuPanel);
             this.Controls.Add(this.ConfigureSetupHiddenProgressBar);
             this.Controls.Add(this.MenuButton);
             this.Controls.Add(this.AmbiLightModePanel);
             this.Controls.Add(this.IndividualLEDPanel);
-            this.Controls.Add(this.VisualizerPanel);
             this.Controls.Add(this.ConfigureSetupPanel);
             this.Controls.Add(this.InstructionsPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -5537,6 +5561,7 @@
         private System.Windows.Forms.Button InstructionsAddAmbilightButton;
         private System.Windows.Forms.CheckBox InstructionsAddAmbilightShowHideBlocksCheckBox;
         private System.Windows.Forms.Button AmbiLightModeAutosetOffsets;
+        private System.Windows.Forms.Label VisualizerRPSLabel;
     }
 }
 
