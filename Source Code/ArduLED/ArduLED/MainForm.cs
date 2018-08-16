@@ -405,8 +405,11 @@ namespace ArduLEDNameSpace
                 {
                     Thread.Sleep(1);
                     TimeoutCounter++;
-                    if (TimeoutCounter > 1000)
+                    if (TimeoutCounter > 500)
+                    {
+                        ReadyToRecive = true;
                         break;
+                    }
                 }
             }
             if (ReadyToRecive)
@@ -638,9 +641,42 @@ namespace ArduLEDNameSpace
                     SerialOut = "1;0;0;0;0;0";
                     SendDataBySerial(SerialOut);
                 }
-                SerialOut = "1;" + FadeColorsRedTrackBar.Value + ";" + FadeColorsGreenTrackBar.Value + ";" + FadeColorsBlueTrackBar.Value + ";" + FadeColorsFadeSpeedNumericUpDown.Value + ";" + Math.Round(FadeColorsFadeFactorNumericUpDown.Value * 100, 0);
+
+                Color AfterShuffel = ShuffleColors(Color.FromArgb(FadeColorsRedTrackBar.Value, FadeColorsGreenTrackBar.Value, FadeColorsBlueTrackBar.Value));
+
+                SerialOut = "1;" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B + ";" + FadeColorsFadeSpeedNumericUpDown.Value + ";" + Math.Round(FadeColorsFadeFactorNumericUpDown.Value * 100, 0);
                 SendDataBySerial(SerialOut);
             }
+        }
+
+        Color ShuffleColors(Color _InputColors)
+        {
+            int Red = 0;
+            int Green = 0;
+            int Blue = 0;
+
+            if (ConfigureSetupRGBColorOrderFirstTextbox.Text == "R")
+                Red = _InputColors.R;
+            if (ConfigureSetupRGBColorOrderFirstTextbox.Text == "G")
+                Red = _InputColors.G;
+            if (ConfigureSetupRGBColorOrderFirstTextbox.Text == "B")
+                Red = _InputColors.B;
+
+            if (ConfigureSetupRGBColorOrderSeccondTextbox.Text == "R")
+                Green = _InputColors.R;
+            if (ConfigureSetupRGBColorOrderSeccondTextbox.Text == "G")
+                Green = _InputColors.G;
+            if (ConfigureSetupRGBColorOrderSeccondTextbox.Text == "B")
+                Green = _InputColors.B;
+
+            if (ConfigureSetupRGBColorOrderThirdTextbox.Text == "R")
+                Blue = _InputColors.R;
+            if (ConfigureSetupRGBColorOrderThirdTextbox.Text == "G")
+                Blue = _InputColors.G;
+            if (ConfigureSetupRGBColorOrderThirdTextbox.Text == "B")
+                Blue = _InputColors.B;
+
+            return Color.FromArgb(Red, Green, Blue);
         }
 
         #endregion
@@ -1202,6 +1238,16 @@ namespace ArduLEDNameSpace
             }
         }
 
+        private void ConfigureSetupRGBColorOrderTextboxes_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 'R' | e.KeyChar == 'G' | e.KeyChar == 'B')
+            {
+                TextBox SenderTextbox = sender as TextBox;
+                SenderTextbox.Text = e.KeyChar.ToString();
+            }
+            e.Handled = true;
+        }
+
         #endregion
 
         #region Individual LED Section
@@ -1217,7 +1263,8 @@ namespace ArduLEDNameSpace
             {
                 Point3D[] MomentaryDataTag = (Point3D[])SenderButton.Parent.Tag;
                 SenderButton.BackColor = Color.FromArgb(IndividalLEDRedTrackBar.Value, IndividalLEDGreenTrackBar.Value, IndividalLEDBlueTrackBar.Value);
-                string SerialOut = "4;" + MomentaryDataTag[1].Z + ";" + SenderButton.Text + ";" + IndividalLEDRedTrackBar.Value.ToString() + ";" + IndividalLEDGreenTrackBar.Value.ToString() + ";" + IndividalLEDBlueTrackBar.Value.ToString();
+                Color AfterShuffel = ShuffleColors(Color.FromArgb(IndividalLEDRedTrackBar.Value, IndividalLEDGreenTrackBar.Value, IndividalLEDBlueTrackBar.Value));
+                string SerialOut = "4;" + MomentaryDataTag[1].Z + ";" + SenderButton.Text + ";" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B;
                 SendDataBySerial(SerialOut);
             }
         }
@@ -1238,7 +1285,8 @@ namespace ArduLEDNameSpace
                                     IndividalLEDBlueTrackBar.Invoke((MethodInvoker)delegate {
                                         Point3D[] MomentaryDataTag = (Point3D[])Button.Parent.Tag;
                                         Button.BackColor = Color.FromArgb(IndividalLEDRedTrackBar.Value, IndividalLEDGreenTrackBar.Value, IndividalLEDBlueTrackBar.Value);
-                                        string SerialOut = "4;" + MomentaryDataTag[1].Z + ";" + Button.Text + ";" + IndividalLEDRedTrackBar.Value.ToString() + ";" + IndividalLEDGreenTrackBar.Value.ToString() + ";" + IndividalLEDBlueTrackBar.Value.ToString();
+                                        Color AfterShuffel = ShuffleColors(Color.FromArgb(IndividalLEDRedTrackBar.Value, IndividalLEDGreenTrackBar.Value, IndividalLEDBlueTrackBar.Value));
+                                        string SerialOut = "4;" + MomentaryDataTag[1].Z + ";" + Button.Text + ";" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B;
                                         SendDataBySerial(SerialOut);
                                     });
                                 });
@@ -1625,12 +1673,14 @@ namespace ArduLEDNameSpace
                         {
                             string SerialOut = "6;" + Data[1] + ";" + Data[2];
                             SendDataBySerial(SerialOut);
-                            SerialOut = "1;" + Data[3] + ";" + Data[4] + ";" + Data[5] + ";" + Data[6] + ";" + Math.Round((Convert.ToDecimal(Data[7]) * 100), 0).ToString();
+                            Color AfterShuffel = ShuffleColors(Color.FromArgb(Int32.Parse(Data[3]), Int32.Parse(Data[4]), Int32.Parse(Data[5])));
+                            SerialOut = "1;" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B + ";" + Data[6] + ";" + Math.Round((Convert.ToDecimal(Data[7]) * 100), 0).ToString();
                             SendDataBySerial(SerialOut);
                         }
                         if (Data[0] == "Individual LED")
                         {
-                            string SerialOut = "4;" + Data[1] + ";" + Data[2] + ";" + Data[3] + ";" + Data[4] + ";" + Data[5];
+                            Color AfterShuffel = ShuffleColors(Color.FromArgb(Int32.Parse(Data[3]), Int32.Parse(Data[4]), Int32.Parse(Data[5])));
+                            string SerialOut = "4;" + Data[1] + ";" + Data[2] + ";" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B;
                             SendDataBySerial(SerialOut);
                         }
                         if (Data[0] == "Visualizer")
@@ -2280,11 +2330,13 @@ namespace ArduLEDNameSpace
                         EndB = EndB / CountB;
                     }
 
+                    Color AfterShuffel = ShuffleColors(Color.FromArgb((int)Math.Round(EndR, 0), (int)Math.Round(EndG, 0), (int)Math.Round(EndB, 0)));
+
                     string SerialOut = "";
                     if (SelectedIndex == 1)
-                        SerialOut = "1;" + Math.Round(EndR, 0) + ";" + Math.Round(EndG, 0) + ";" + Math.Round(EndB, 0) + ";0;0";
+                        SerialOut = "1;" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B + ";0;0";
                     if (SelectedIndex == 2)
-                        SerialOut = "3;" + Math.Round(EndR, 0) + ";" + Math.Round(EndG, 0) + ";" + Math.Round(EndB, 0);
+                        SerialOut = "3;" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B;
                     SendDataBySerial(SerialOut);
                 }
                 if (SelectedIndex == 3 | SelectedIndex == 4)
@@ -2334,11 +2386,13 @@ namespace ArduLEDNameSpace
                     if (EndB < 0)
                         EndB = 0;
 
+                    Color AfterShuffel = ShuffleColors(Color.FromArgb(EndR, EndG, EndB));
+
                     string SerialOut = "";
                     if (SelectedIndex == 4)
-                        SerialOut = "1;" + EndR + ";" + EndG + ";" + EndB + ";0;0";
+                        SerialOut = "1;" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B + ";0;0";
                     if (SelectedIndex == 3)
-                        SerialOut = "3;" + EndR + ";" + EndG + ";" + EndB + "";
+                        SerialOut = "3;" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B + "";
                     SendDataBySerial(SerialOut);
                 }
                 if (SelectedIndex == 5)
@@ -2891,7 +2945,8 @@ namespace ArduLEDNameSpace
                                 {
                                     OutPutColor = GammaCorrection(OutPutColor);
                                 }
-                                SerialOutLeft += Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.B + 1)), 0) + ";";
+                                Color AfterShuffel = ShuffleColors(OutPutColor);
+                                SerialOutLeft += Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.B + 1)), 0) + ";";
                                 Count++;
                             }
                             SerialOutLeftReady = true;
@@ -2946,7 +3001,8 @@ namespace ArduLEDNameSpace
                                 {
                                     OutPutColor = GammaCorrection(OutPutColor);
                                 }
-                                SerialOutTop += Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.B + 1)), 0) + ";";
+                                Color AfterShuffel = ShuffleColors(OutPutColor);
+                                SerialOutLeft += Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.B + 1)), 0) + ";";
                                 Count++;
                             }
                             SerialOutTopReady = true;
@@ -3001,7 +3057,8 @@ namespace ArduLEDNameSpace
                                 {
                                     OutPutColor = GammaCorrection(OutPutColor);
                                 }
-                                SerialOutRight += Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.B + 1)), 0) + ";";
+                                Color AfterShuffel = ShuffleColors(OutPutColor);
+                                SerialOutLeft += Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.B + 1)), 0) + ";";
                                 Count++;
                             }
                             SerialOutRightReady = true;
@@ -3056,7 +3113,8 @@ namespace ArduLEDNameSpace
                                 {
                                     OutPutColor = GammaCorrection(OutPutColor);
                                 }
-                                SerialOutBottom += Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.B + 1)), 0) + ";";
+                                Color AfterShuffel = ShuffleColors(OutPutColor);
+                                SerialOutLeft += Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.B + 1)), 0) + ";";
                                 Count++;
                             }
                             SerialOutBottomReady = true;

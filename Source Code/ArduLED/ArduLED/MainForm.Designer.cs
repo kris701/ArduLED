@@ -227,6 +227,14 @@
             this.InstructionsAddDelayNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.InstructionsAddDelayTopLabel = new System.Windows.Forms.Label();
             this.ConfigureSetupPanel = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.ConfigureSetupRGBColorOrderThirdTextbox = new System.Windows.Forms.TextBox();
+            this.ConfigureSetupRGBColorOrderSeccondTextbox = new System.Windows.Forms.TextBox();
+            this.ConfigureSetupRGBColorOrderFirstTextbox = new System.Windows.Forms.TextBox();
+            this.ConfigureSetupRGBColorOrderThirdLabel = new System.Windows.Forms.Label();
+            this.ConfigureSetupRGBColorOrderSeccondLabel = new System.Windows.Forms.Label();
+            this.ConfigureSetupRGBColorOrderFirstLabel = new System.Windows.Forms.Label();
+            this.ConfigureSetupRGBColorOrderLabel = new System.Windows.Forms.Label();
             this.EnableDataCompressionMode = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ConfigureSetupClickToSetupSeriesFromIDLabel = new System.Windows.Forms.Label();
@@ -260,6 +268,8 @@
             this.HideTimer = new System.Windows.Forms.Timer(this.components);
             this.AmbiLightModePanel = new System.Windows.Forms.Panel();
             this.AmbiLightModeWorkingPanel = new System.Windows.Forms.Panel();
+            this.AmbiLightModeGammaFactorLabel = new System.Windows.Forms.Label();
+            this.AmbiLightModeGammaFactorNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.AmbiLightModeAutosetOffsets = new System.Windows.Forms.Button();
             this.AmbilightModeFPSCounterLabel = new System.Windows.Forms.Label();
             this.AmbiLightModeScreenIDLabel = new System.Windows.Forms.Label();
@@ -353,8 +363,6 @@
             this.AmbiLightModeShowHideBlocksButton = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.AmbiLightModeTopLabel = new System.Windows.Forms.Label();
-            this.AmbiLightModeGammaFactorLabel = new System.Windows.Forms.Label();
-            this.AmbiLightModeGammaFactorNumericUpDown = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.SampleTimeTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SmoothnessTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SensitivityTrackBar)).BeginInit();
@@ -415,6 +423,7 @@
             this.InstructionsAddDelayPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddDelayNumericUpDown)).BeginInit();
             this.ConfigureSetupPanel.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown)).BeginInit();
             this.panel20.SuspendLayout();
@@ -425,6 +434,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupAddStripYDir)).BeginInit();
             this.AmbiLightModePanel.SuspendLayout();
             this.AmbiLightModeWorkingPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeGammaFactorNumericUpDown)).BeginInit();
             this.AmbiLightModeLeftPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeLeftLEDsPrBlockNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeLeftBlockWidthNumericUpDown)).BeginInit();
@@ -466,7 +476,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeBottomFromIDNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeBottomBlockOffsetYNumericUpDown)).BeginInit();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeGammaFactorNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // AudioSourceComboBox
@@ -3095,6 +3104,7 @@
             // 
             this.ConfigureSetupPanel.BackColor = System.Drawing.Color.DimGray;
             this.ConfigureSetupPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ConfigureSetupPanel.Controls.Add(this.panel2);
             this.ConfigureSetupPanel.Controls.Add(this.EnableDataCompressionMode);
             this.ConfigureSetupPanel.Controls.Add(this.panel1);
             this.ConfigureSetupPanel.Controls.Add(this.panel20);
@@ -3107,9 +3117,107 @@
             this.ConfigureSetupPanel.Controls.Add(this.ConfigureSetupAutoSendCheckBox);
             this.ConfigureSetupPanel.Location = new System.Drawing.Point(79, 21);
             this.ConfigureSetupPanel.Name = "ConfigureSetupPanel";
-            this.ConfigureSetupPanel.Size = new System.Drawing.Size(871, 687);
+            this.ConfigureSetupPanel.Size = new System.Drawing.Size(871, 715);
             this.ConfigureSetupPanel.TabIndex = 49;
             this.ConfigureSetupPanel.Visible = false;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.Gray;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.ConfigureSetupRGBColorOrderThirdTextbox);
+            this.panel2.Controls.Add(this.ConfigureSetupRGBColorOrderSeccondTextbox);
+            this.panel2.Controls.Add(this.ConfigureSetupRGBColorOrderFirstTextbox);
+            this.panel2.Controls.Add(this.ConfigureSetupRGBColorOrderThirdLabel);
+            this.panel2.Controls.Add(this.ConfigureSetupRGBColorOrderSeccondLabel);
+            this.panel2.Controls.Add(this.ConfigureSetupRGBColorOrderFirstLabel);
+            this.panel2.Controls.Add(this.ConfigureSetupRGBColorOrderLabel);
+            this.panel2.Location = new System.Drawing.Point(20, 661);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(580, 47);
+            this.panel2.TabIndex = 71;
+            // 
+            // ConfigureSetupRGBColorOrderThirdTextbox
+            // 
+            this.ConfigureSetupRGBColorOrderThirdTextbox.BackColor = System.Drawing.Color.DarkGray;
+            this.ConfigureSetupRGBColorOrderThirdTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ConfigureSetupRGBColorOrderThirdTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ConfigureSetupRGBColorOrderThirdTextbox.ForeColor = System.Drawing.Color.White;
+            this.ConfigureSetupRGBColorOrderThirdTextbox.Location = new System.Drawing.Point(493, 25);
+            this.ConfigureSetupRGBColorOrderThirdTextbox.Name = "ConfigureSetupRGBColorOrderThirdTextbox";
+            this.ConfigureSetupRGBColorOrderThirdTextbox.Size = new System.Drawing.Size(69, 13);
+            this.ConfigureSetupRGBColorOrderThirdTextbox.TabIndex = 58;
+            this.ConfigureSetupRGBColorOrderThirdTextbox.Tag = "Setting";
+            this.ConfigureSetupRGBColorOrderThirdTextbox.Text = "B";
+            this.ConfigureSetupRGBColorOrderThirdTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ConfigureSetupRGBColorOrderTextboxes_KeyPress);
+            // 
+            // ConfigureSetupRGBColorOrderSeccondTextbox
+            // 
+            this.ConfigureSetupRGBColorOrderSeccondTextbox.BackColor = System.Drawing.Color.DarkGray;
+            this.ConfigureSetupRGBColorOrderSeccondTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ConfigureSetupRGBColorOrderSeccondTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ConfigureSetupRGBColorOrderSeccondTextbox.ForeColor = System.Drawing.Color.White;
+            this.ConfigureSetupRGBColorOrderSeccondTextbox.Location = new System.Drawing.Point(302, 25);
+            this.ConfigureSetupRGBColorOrderSeccondTextbox.Name = "ConfigureSetupRGBColorOrderSeccondTextbox";
+            this.ConfigureSetupRGBColorOrderSeccondTextbox.Size = new System.Drawing.Size(69, 13);
+            this.ConfigureSetupRGBColorOrderSeccondTextbox.TabIndex = 57;
+            this.ConfigureSetupRGBColorOrderSeccondTextbox.Tag = "Setting";
+            this.ConfigureSetupRGBColorOrderSeccondTextbox.Text = "G";
+            this.ConfigureSetupRGBColorOrderSeccondTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ConfigureSetupRGBColorOrderTextboxes_KeyPress);
+            // 
+            // ConfigureSetupRGBColorOrderFirstTextbox
+            // 
+            this.ConfigureSetupRGBColorOrderFirstTextbox.BackColor = System.Drawing.Color.DarkGray;
+            this.ConfigureSetupRGBColorOrderFirstTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ConfigureSetupRGBColorOrderFirstTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ConfigureSetupRGBColorOrderFirstTextbox.ForeColor = System.Drawing.Color.White;
+            this.ConfigureSetupRGBColorOrderFirstTextbox.Location = new System.Drawing.Point(111, 25);
+            this.ConfigureSetupRGBColorOrderFirstTextbox.Name = "ConfigureSetupRGBColorOrderFirstTextbox";
+            this.ConfigureSetupRGBColorOrderFirstTextbox.Size = new System.Drawing.Size(69, 13);
+            this.ConfigureSetupRGBColorOrderFirstTextbox.TabIndex = 56;
+            this.ConfigureSetupRGBColorOrderFirstTextbox.Tag = "Setting";
+            this.ConfigureSetupRGBColorOrderFirstTextbox.Text = "R";
+            this.ConfigureSetupRGBColorOrderFirstTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ConfigureSetupRGBColorOrderTextboxes_KeyPress);
+            // 
+            // ConfigureSetupRGBColorOrderThirdLabel
+            // 
+            this.ConfigureSetupRGBColorOrderThirdLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ConfigureSetupRGBColorOrderThirdLabel.ForeColor = System.Drawing.Color.White;
+            this.ConfigureSetupRGBColorOrderThirdLabel.Location = new System.Drawing.Point(385, 24);
+            this.ConfigureSetupRGBColorOrderThirdLabel.Name = "ConfigureSetupRGBColorOrderThirdLabel";
+            this.ConfigureSetupRGBColorOrderThirdLabel.Size = new System.Drawing.Size(94, 15);
+            this.ConfigureSetupRGBColorOrderThirdLabel.TabIndex = 55;
+            this.ConfigureSetupRGBColorOrderThirdLabel.Text = "Third:";
+            // 
+            // ConfigureSetupRGBColorOrderSeccondLabel
+            // 
+            this.ConfigureSetupRGBColorOrderSeccondLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ConfigureSetupRGBColorOrderSeccondLabel.ForeColor = System.Drawing.Color.White;
+            this.ConfigureSetupRGBColorOrderSeccondLabel.Location = new System.Drawing.Point(194, 24);
+            this.ConfigureSetupRGBColorOrderSeccondLabel.Name = "ConfigureSetupRGBColorOrderSeccondLabel";
+            this.ConfigureSetupRGBColorOrderSeccondLabel.Size = new System.Drawing.Size(94, 15);
+            this.ConfigureSetupRGBColorOrderSeccondLabel.TabIndex = 54;
+            this.ConfigureSetupRGBColorOrderSeccondLabel.Text = "Seccond:";
+            // 
+            // ConfigureSetupRGBColorOrderFirstLabel
+            // 
+            this.ConfigureSetupRGBColorOrderFirstLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ConfigureSetupRGBColorOrderFirstLabel.ForeColor = System.Drawing.Color.White;
+            this.ConfigureSetupRGBColorOrderFirstLabel.Location = new System.Drawing.Point(3, 24);
+            this.ConfigureSetupRGBColorOrderFirstLabel.Name = "ConfigureSetupRGBColorOrderFirstLabel";
+            this.ConfigureSetupRGBColorOrderFirstLabel.Size = new System.Drawing.Size(94, 15);
+            this.ConfigureSetupRGBColorOrderFirstLabel.TabIndex = 53;
+            this.ConfigureSetupRGBColorOrderFirstLabel.Text = "First:";
+            // 
+            // ConfigureSetupRGBColorOrderLabel
+            // 
+            this.ConfigureSetupRGBColorOrderLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ConfigureSetupRGBColorOrderLabel.ForeColor = System.Drawing.Color.White;
+            this.ConfigureSetupRGBColorOrderLabel.Location = new System.Drawing.Point(3, 3);
+            this.ConfigureSetupRGBColorOrderLabel.Name = "ConfigureSetupRGBColorOrderLabel";
+            this.ConfigureSetupRGBColorOrderLabel.Size = new System.Drawing.Size(297, 15);
+            this.ConfigureSetupRGBColorOrderLabel.TabIndex = 52;
+            this.ConfigureSetupRGBColorOrderLabel.Text = "RGB Color order";
             // 
             // EnableDataCompressionMode
             // 
@@ -3452,9 +3560,9 @@
             // 
             this.ConfigureSetupAutoSendCheckBox.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ConfigureSetupAutoSendCheckBox.ForeColor = System.Drawing.Color.White;
-            this.ConfigureSetupAutoSendCheckBox.Location = new System.Drawing.Point(24, 665);
+            this.ConfigureSetupAutoSendCheckBox.Location = new System.Drawing.Point(609, 670);
             this.ConfigureSetupAutoSendCheckBox.Name = "ConfigureSetupAutoSendCheckBox";
-            this.ConfigureSetupAutoSendCheckBox.Size = new System.Drawing.Size(567, 15);
+            this.ConfigureSetupAutoSendCheckBox.Size = new System.Drawing.Size(240, 36);
             this.ConfigureSetupAutoSendCheckBox.TabIndex = 17;
             this.ConfigureSetupAutoSendCheckBox.Tag = "Setting";
             this.ConfigureSetupAutoSendCheckBox.Text = "Auto send default setup next time";
@@ -3517,6 +3625,44 @@
             this.AmbiLightModeWorkingPanel.Name = "AmbiLightModeWorkingPanel";
             this.AmbiLightModeWorkingPanel.Size = new System.Drawing.Size(654, 570);
             this.AmbiLightModeWorkingPanel.TabIndex = 50;
+            // 
+            // AmbiLightModeGammaFactorLabel
+            // 
+            this.AmbiLightModeGammaFactorLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmbiLightModeGammaFactorLabel.ForeColor = System.Drawing.Color.White;
+            this.AmbiLightModeGammaFactorLabel.Location = new System.Drawing.Point(229, 49);
+            this.AmbiLightModeGammaFactorLabel.Name = "AmbiLightModeGammaFactorLabel";
+            this.AmbiLightModeGammaFactorLabel.Size = new System.Drawing.Size(195, 17);
+            this.AmbiLightModeGammaFactorLabel.TabIndex = 120;
+            this.AmbiLightModeGammaFactorLabel.Text = "Gamma factor";
+            this.AmbiLightModeGammaFactorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // AmbiLightModeGammaFactorNumericUpDown
+            // 
+            this.AmbiLightModeGammaFactorNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
+            this.AmbiLightModeGammaFactorNumericUpDown.DecimalPlaces = 2;
+            this.AmbiLightModeGammaFactorNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmbiLightModeGammaFactorNumericUpDown.ForeColor = System.Drawing.Color.White;
+            this.AmbiLightModeGammaFactorNumericUpDown.Location = new System.Drawing.Point(229, 70);
+            this.AmbiLightModeGammaFactorNumericUpDown.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.AmbiLightModeGammaFactorNumericUpDown.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            -2147483648});
+            this.AmbiLightModeGammaFactorNumericUpDown.Name = "AmbiLightModeGammaFactorNumericUpDown";
+            this.AmbiLightModeGammaFactorNumericUpDown.Size = new System.Drawing.Size(195, 18);
+            this.AmbiLightModeGammaFactorNumericUpDown.TabIndex = 119;
+            this.AmbiLightModeGammaFactorNumericUpDown.Tag = "Setting";
+            this.AmbiLightModeGammaFactorNumericUpDown.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
             // 
             // AmbiLightModeAutosetOffsets
             // 
@@ -5095,44 +5241,6 @@
             this.AmbiLightModeTopLabel.Text = "Ambilight Mode";
             this.AmbiLightModeTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // AmbiLightModeGammaFactorLabel
-            // 
-            this.AmbiLightModeGammaFactorLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AmbiLightModeGammaFactorLabel.ForeColor = System.Drawing.Color.White;
-            this.AmbiLightModeGammaFactorLabel.Location = new System.Drawing.Point(229, 49);
-            this.AmbiLightModeGammaFactorLabel.Name = "AmbiLightModeGammaFactorLabel";
-            this.AmbiLightModeGammaFactorLabel.Size = new System.Drawing.Size(195, 17);
-            this.AmbiLightModeGammaFactorLabel.TabIndex = 120;
-            this.AmbiLightModeGammaFactorLabel.Text = "Gamma factor";
-            this.AmbiLightModeGammaFactorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // AmbiLightModeGammaFactorNumericUpDown
-            // 
-            this.AmbiLightModeGammaFactorNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
-            this.AmbiLightModeGammaFactorNumericUpDown.DecimalPlaces = 2;
-            this.AmbiLightModeGammaFactorNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AmbiLightModeGammaFactorNumericUpDown.ForeColor = System.Drawing.Color.White;
-            this.AmbiLightModeGammaFactorNumericUpDown.Location = new System.Drawing.Point(229, 70);
-            this.AmbiLightModeGammaFactorNumericUpDown.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.AmbiLightModeGammaFactorNumericUpDown.Minimum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            -2147483648});
-            this.AmbiLightModeGammaFactorNumericUpDown.Name = "AmbiLightModeGammaFactorNumericUpDown";
-            this.AmbiLightModeGammaFactorNumericUpDown.Size = new System.Drawing.Size(195, 18);
-            this.AmbiLightModeGammaFactorNumericUpDown.TabIndex = 119;
-            this.AmbiLightModeGammaFactorNumericUpDown.Tag = "Setting";
-            this.AmbiLightModeGammaFactorNumericUpDown.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            -2147418112});
-            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -5141,10 +5249,10 @@
             this.Controls.Add(this.MenuPanel);
             this.Controls.Add(this.ConfigureSetupHiddenProgressBar);
             this.Controls.Add(this.MenuButton);
-            this.Controls.Add(this.AmbiLightModePanel);
-            this.Controls.Add(this.IndividualLEDPanel);
             this.Controls.Add(this.ConfigureSetupPanel);
             this.Controls.Add(this.InstructionsPanel);
+            this.Controls.Add(this.AmbiLightModePanel);
+            this.Controls.Add(this.IndividualLEDPanel);
             this.Controls.Add(this.VisualizerPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -5232,6 +5340,8 @@
             this.InstructionsAddDelayPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddDelayNumericUpDown)).EndInit();
             this.ConfigureSetupPanel.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown)).EndInit();
             this.panel20.ResumeLayout(false);
@@ -5242,6 +5352,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupAddStripYDir)).EndInit();
             this.AmbiLightModePanel.ResumeLayout(false);
             this.AmbiLightModeWorkingPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeGammaFactorNumericUpDown)).EndInit();
             this.AmbiLightModeLeftPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeLeftLEDsPrBlockNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeLeftBlockWidthNumericUpDown)).EndInit();
@@ -5283,7 +5394,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeBottomFromIDNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeBottomBlockOffsetYNumericUpDown)).EndInit();
             this.panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeGammaFactorNumericUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -5608,6 +5718,14 @@
         private System.Windows.Forms.Label VisualizerRPSLabel;
         private System.Windows.Forms.Label AmbiLightModeGammaFactorLabel;
         private System.Windows.Forms.NumericUpDown AmbiLightModeGammaFactorNumericUpDown;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label ConfigureSetupRGBColorOrderLabel;
+        private System.Windows.Forms.Label ConfigureSetupRGBColorOrderThirdLabel;
+        private System.Windows.Forms.Label ConfigureSetupRGBColorOrderSeccondLabel;
+        private System.Windows.Forms.Label ConfigureSetupRGBColorOrderFirstLabel;
+        private System.Windows.Forms.TextBox ConfigureSetupRGBColorOrderThirdTextbox;
+        private System.Windows.Forms.TextBox ConfigureSetupRGBColorOrderSeccondTextbox;
+        private System.Windows.Forms.TextBox ConfigureSetupRGBColorOrderFirstTextbox;
     }
 }
 

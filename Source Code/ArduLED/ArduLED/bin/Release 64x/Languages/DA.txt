@@ -66,6 +66,14 @@ ConfigureSetupClickToSetupSeriesCheckBox;Lucida Console;8;Klik for at opsætte s
 ConfigureSetupClickToSetupSeriesFromIDLabel;Lucida Console;11;Fra ID
 ConfigureSetupClickToSetupSeriesFromIDNumericUpDown;Lucida Console;8;
 
+ConfigureSetupRGBColorOrderLabel;Lucida Console;11;RGB Farve række
+ConfigureSetupRGBColorOrderFirstLabel;Lucida Console;8;Første:
+ConfigureSetupRGBColorOrderFirstTextbox;Lucida Console;8;
+ConfigureSetupRGBColorOrderSeccondLabel;Lucida Console;8;Anden:
+ConfigureSetupRGBColorOrderSeccondTextbox;Lucida Console;8;
+ConfigureSetupRGBColorOrderThirdLabel;Lucida Console;8;Sidste:
+ConfigureSetupRGBColorOrderThirdTextbox;Lucida Console;8;
+
 
 POSSIBLE;InstructionsInstructionPanelRemoveButton;Lucida Console;8;X
 POSSIBLE;InstructionsInstructionPanelMoveUpButton;Lucida Console;8;^
