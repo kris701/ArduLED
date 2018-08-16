@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.AudioSourceComboBox = new System.Windows.Forms.ComboBox();
             this.SampleTimeLabel = new System.Windows.Forms.Label();
@@ -353,6 +353,8 @@
             this.AmbiLightModeShowHideBlocksButton = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.AmbiLightModeTopLabel = new System.Windows.Forms.Label();
+            this.AmbiLightModeGammaFactorLabel = new System.Windows.Forms.Label();
+            this.AmbiLightModeGammaFactorNumericUpDown = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.SampleTimeTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SmoothnessTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SensitivityTrackBar)).BeginInit();
@@ -464,6 +466,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeBottomFromIDNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeBottomBlockOffsetYNumericUpDown)).BeginInit();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeGammaFactorNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // AudioSourceComboBox
@@ -705,24 +708,24 @@
             // BeatZoneChart
             // 
             this.BeatZoneChart.BackColor = System.Drawing.Color.DimGray;
-            chartArea4.AxisX.IsLabelAutoFit = false;
-            chartArea4.AxisX.LabelStyle.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            chartArea4.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
-            chartArea4.AxisY.IsLabelAutoFit = false;
-            chartArea4.AxisY.LabelStyle.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            chartArea4.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
-            chartArea4.BackColor = System.Drawing.Color.Silver;
-            chartArea4.Name = "ChartArea1";
-            this.BeatZoneChart.ChartAreas.Add(chartArea4);
+            chartArea1.AxisX.IsLabelAutoFit = false;
+            chartArea1.AxisX.LabelStyle.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea1.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea1.AxisY.IsLabelAutoFit = false;
+            chartArea1.AxisY.LabelStyle.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea1.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea1.BackColor = System.Drawing.Color.Silver;
+            chartArea1.Name = "ChartArea1";
+            this.BeatZoneChart.ChartAreas.Add(chartArea1);
             this.BeatZoneChart.Enabled = false;
             this.BeatZoneChart.Location = new System.Drawing.Point(96, 454);
             this.BeatZoneChart.Name = "BeatZoneChart";
-            series4.BorderColor = System.Drawing.Color.White;
-            series4.ChartArea = "ChartArea1";
-            series4.Color = System.Drawing.Color.White;
-            series4.IsVisibleInLegend = false;
-            series4.Name = "Series1";
-            this.BeatZoneChart.Series.Add(series4);
+            series1.BorderColor = System.Drawing.Color.White;
+            series1.ChartArea = "ChartArea1";
+            series1.Color = System.Drawing.Color.White;
+            series1.IsVisibleInLegend = false;
+            series1.Name = "Series1";
+            this.BeatZoneChart.Series.Add(series1);
             this.BeatZoneChart.Size = new System.Drawing.Size(475, 154);
             this.BeatZoneChart.TabIndex = 37;
             this.BeatZoneChart.Text = "chart1";
@@ -1237,22 +1240,22 @@
             // WaveChart
             // 
             this.WaveChart.BackColor = System.Drawing.Color.Gray;
-            chartArea5.AxisX.IsLabelAutoFit = false;
-            chartArea5.AxisX.LabelStyle.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            chartArea5.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
-            chartArea5.AxisY.IsLabelAutoFit = false;
-            chartArea5.AxisY.LabelStyle.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            chartArea5.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
-            chartArea5.BackColor = System.Drawing.Color.Silver;
-            chartArea5.Name = "ChartArea1";
-            this.WaveChart.ChartAreas.Add(chartArea5);
+            chartArea2.AxisX.IsLabelAutoFit = false;
+            chartArea2.AxisX.LabelStyle.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea2.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea2.AxisY.IsLabelAutoFit = false;
+            chartArea2.AxisY.LabelStyle.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea2.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea2.BackColor = System.Drawing.Color.Silver;
+            chartArea2.Name = "ChartArea1";
+            this.WaveChart.ChartAreas.Add(chartArea2);
             this.WaveChart.Location = new System.Drawing.Point(0, 21);
             this.WaveChart.Name = "WaveChart";
-            series5.ChartArea = "ChartArea1";
-            series5.Color = System.Drawing.Color.White;
-            series5.IsVisibleInLegend = false;
-            series5.Name = "Series1";
-            this.WaveChart.Series.Add(series5);
+            series2.ChartArea = "ChartArea1";
+            series2.Color = System.Drawing.Color.White;
+            series2.IsVisibleInLegend = false;
+            series2.Name = "Series1";
+            this.WaveChart.Series.Add(series2);
             this.WaveChart.Size = new System.Drawing.Size(353, 154);
             this.WaveChart.TabIndex = 46;
             this.WaveChart.Text = "chart3";
@@ -1386,22 +1389,22 @@
             // SpectrumChart
             // 
             this.SpectrumChart.BackColor = System.Drawing.Color.Gray;
-            chartArea6.AxisX.IsLabelAutoFit = false;
-            chartArea6.AxisX.LabelStyle.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            chartArea6.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
-            chartArea6.AxisY.IsLabelAutoFit = false;
-            chartArea6.AxisY.LabelStyle.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            chartArea6.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
-            chartArea6.BackColor = System.Drawing.Color.Silver;
-            chartArea6.Name = "ChartArea1";
-            this.SpectrumChart.ChartAreas.Add(chartArea6);
+            chartArea3.AxisX.IsLabelAutoFit = false;
+            chartArea3.AxisX.LabelStyle.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea3.AxisX.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea3.AxisY.IsLabelAutoFit = false;
+            chartArea3.AxisY.LabelStyle.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea3.AxisY.LabelStyle.ForeColor = System.Drawing.Color.White;
+            chartArea3.BackColor = System.Drawing.Color.Silver;
+            chartArea3.Name = "ChartArea1";
+            this.SpectrumChart.ChartAreas.Add(chartArea3);
             this.SpectrumChart.Location = new System.Drawing.Point(0, 15);
             this.SpectrumChart.Name = "SpectrumChart";
-            series6.ChartArea = "ChartArea1";
-            series6.Color = System.Drawing.Color.White;
-            series6.IsVisibleInLegend = false;
-            series6.Name = "Series1";
-            this.SpectrumChart.Series.Add(series6);
+            series3.ChartArea = "ChartArea1";
+            series3.Color = System.Drawing.Color.White;
+            series3.IsVisibleInLegend = false;
+            series3.Name = "Series1";
+            this.SpectrumChart.Series.Add(series3);
             this.SpectrumChart.Size = new System.Drawing.Size(353, 154);
             this.SpectrumChart.TabIndex = 46;
             this.SpectrumChart.Text = "chart2";
@@ -3488,6 +3491,8 @@
             // 
             // AmbiLightModeWorkingPanel
             // 
+            this.AmbiLightModeWorkingPanel.Controls.Add(this.AmbiLightModeGammaFactorLabel);
+            this.AmbiLightModeWorkingPanel.Controls.Add(this.AmbiLightModeGammaFactorNumericUpDown);
             this.AmbiLightModeWorkingPanel.Controls.Add(this.AmbiLightModeAutosetOffsets);
             this.AmbiLightModeWorkingPanel.Controls.Add(this.AmbilightModeFPSCounterLabel);
             this.AmbiLightModeWorkingPanel.Controls.Add(this.AmbiLightModeScreenIDLabel);
@@ -3520,9 +3525,9 @@
             this.AmbiLightModeAutosetOffsets.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AmbiLightModeAutosetOffsets.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AmbiLightModeAutosetOffsets.ForeColor = System.Drawing.Color.White;
-            this.AmbiLightModeAutosetOffsets.Location = new System.Drawing.Point(229, 68);
+            this.AmbiLightModeAutosetOffsets.Location = new System.Drawing.Point(5, 70);
             this.AmbiLightModeAutosetOffsets.Name = "AmbiLightModeAutosetOffsets";
-            this.AmbiLightModeAutosetOffsets.Size = new System.Drawing.Size(195, 22);
+            this.AmbiLightModeAutosetOffsets.Size = new System.Drawing.Size(195, 18);
             this.AmbiLightModeAutosetOffsets.TabIndex = 118;
             this.AmbiLightModeAutosetOffsets.Text = "Autoset Offsets";
             this.AmbiLightModeAutosetOffsets.UseVisualStyleBackColor = false;
@@ -3530,9 +3535,9 @@
             // 
             // AmbilightModeFPSCounterLabel
             // 
-            this.AmbilightModeFPSCounterLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmbilightModeFPSCounterLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AmbilightModeFPSCounterLabel.ForeColor = System.Drawing.Color.White;
-            this.AmbilightModeFPSCounterLabel.Location = new System.Drawing.Point(5, 71);
+            this.AmbilightModeFPSCounterLabel.Location = new System.Drawing.Point(5, 49);
             this.AmbilightModeFPSCounterLabel.Name = "AmbilightModeFPSCounterLabel";
             this.AmbilightModeFPSCounterLabel.Size = new System.Drawing.Size(195, 17);
             this.AmbilightModeFPSCounterLabel.TabIndex = 117;
@@ -5090,6 +5095,44 @@
             this.AmbiLightModeTopLabel.Text = "Ambilight Mode";
             this.AmbiLightModeTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // AmbiLightModeGammaFactorLabel
+            // 
+            this.AmbiLightModeGammaFactorLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmbiLightModeGammaFactorLabel.ForeColor = System.Drawing.Color.White;
+            this.AmbiLightModeGammaFactorLabel.Location = new System.Drawing.Point(229, 49);
+            this.AmbiLightModeGammaFactorLabel.Name = "AmbiLightModeGammaFactorLabel";
+            this.AmbiLightModeGammaFactorLabel.Size = new System.Drawing.Size(195, 17);
+            this.AmbiLightModeGammaFactorLabel.TabIndex = 120;
+            this.AmbiLightModeGammaFactorLabel.Text = "Gamma factor";
+            this.AmbiLightModeGammaFactorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // AmbiLightModeGammaFactorNumericUpDown
+            // 
+            this.AmbiLightModeGammaFactorNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
+            this.AmbiLightModeGammaFactorNumericUpDown.DecimalPlaces = 2;
+            this.AmbiLightModeGammaFactorNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmbiLightModeGammaFactorNumericUpDown.ForeColor = System.Drawing.Color.White;
+            this.AmbiLightModeGammaFactorNumericUpDown.Location = new System.Drawing.Point(229, 70);
+            this.AmbiLightModeGammaFactorNumericUpDown.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.AmbiLightModeGammaFactorNumericUpDown.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            -2147483648});
+            this.AmbiLightModeGammaFactorNumericUpDown.Name = "AmbiLightModeGammaFactorNumericUpDown";
+            this.AmbiLightModeGammaFactorNumericUpDown.Size = new System.Drawing.Size(195, 18);
+            this.AmbiLightModeGammaFactorNumericUpDown.TabIndex = 119;
+            this.AmbiLightModeGammaFactorNumericUpDown.Tag = "Setting";
+            this.AmbiLightModeGammaFactorNumericUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147418112});
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -5240,6 +5283,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeBottomFromIDNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeBottomBlockOffsetYNumericUpDown)).EndInit();
             this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeGammaFactorNumericUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -5562,6 +5606,8 @@
         private System.Windows.Forms.CheckBox InstructionsAddAmbilightShowHideBlocksCheckBox;
         private System.Windows.Forms.Button AmbiLightModeAutosetOffsets;
         private System.Windows.Forms.Label VisualizerRPSLabel;
+        private System.Windows.Forms.Label AmbiLightModeGammaFactorLabel;
+        private System.Windows.Forms.NumericUpDown AmbiLightModeGammaFactorNumericUpDown;
     }
 }
 

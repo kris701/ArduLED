@@ -2885,12 +2885,13 @@ namespace ArduLEDNameSpace
                                         if (AmbilightColorStore[0][Count][2] < 0)
                                             AmbilightColorStore[0][Count][2] = 0;
                                     }
-                                    SerialOutLeft += Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[0][Count][0] + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[0][Count][1] + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[0][Count][2] + 1)), 0) + ";";
+                                    OutPutColor = GammaCorrection(Color.FromArgb(AmbilightColorStore[0][Count][0], AmbilightColorStore[0][Count][1], AmbilightColorStore[0][Count][2]));
                                 }
                                 else
                                 {
-                                    SerialOutLeft += Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.B + 1)), 0) + ";";
+                                    OutPutColor = GammaCorrection(OutPutColor);
                                 }
+                                SerialOutLeft += Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.B + 1)), 0) + ";";
                                 Count++;
                             }
                             SerialOutLeftReady = true;
@@ -2939,12 +2940,13 @@ namespace ArduLEDNameSpace
                                         if (AmbilightColorStore[1][Count][2] < 0)
                                             AmbilightColorStore[1][Count][2] = 0;
                                     }
-                                    SerialOutTop += Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[1][Count][0] + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[1][Count][1] + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[1][Count][2] + 1)), 0) + ";";
+                                    OutPutColor = GammaCorrection(Color.FromArgb(AmbilightColorStore[1][Count][0], AmbilightColorStore[1][Count][1], AmbilightColorStore[1][Count][2]));
                                 }
                                 else
                                 {
-                                    SerialOutTop += Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.B + 1)), 0) + ";";
+                                    OutPutColor = GammaCorrection(OutPutColor);
                                 }
+                                SerialOutTop += Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.B + 1)), 0) + ";";
                                 Count++;
                             }
                             SerialOutTopReady = true;
@@ -2993,12 +2995,13 @@ namespace ArduLEDNameSpace
                                         if (AmbilightColorStore[2][Count][2] < 0)
                                             AmbilightColorStore[2][Count][2] = 0;
                                     }
-                                    SerialOutRight += Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[2][Count][0] + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[2][Count][1] + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[2][Count][2] + 1)), 0) + ";";
+                                    OutPutColor = GammaCorrection(Color.FromArgb(AmbilightColorStore[2][Count][0], AmbilightColorStore[2][Count][1], AmbilightColorStore[2][Count][2]));
                                 }
                                 else
                                 {
-                                    SerialOutRight += Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.B + 1)), 0) + ";";
+                                    OutPutColor = GammaCorrection(OutPutColor);
                                 }
+                                SerialOutRight += Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.B + 1)), 0) + ";";
                                 Count++;
                             }
                             SerialOutRightReady = true;
@@ -3047,12 +3050,13 @@ namespace ArduLEDNameSpace
                                         if (AmbilightColorStore[3][Count][2] < 0)
                                             AmbilightColorStore[3][Count][2] = 0;
                                     }
-                                    SerialOutBottom += Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[3][Count][0] + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[3][Count][1] + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / ((decimal)AmbilightColorStore[3][Count][2] + 1)), 0) + ";";
+                                    OutPutColor = GammaCorrection(Color.FromArgb(AmbilightColorStore[3][Count][0], AmbilightColorStore[3][Count][1], AmbilightColorStore[3][Count][2]));
                                 }
                                 else
                                 {
-                                    SerialOutBottom += Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.B + 1)), 0) + ";";
+                                    OutPutColor = GammaCorrection(OutPutColor);
                                 }
+                                SerialOutBottom += Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (OutPutColor.B + 1)), 0) + ";";
                                 Count++;
                             }
                             SerialOutBottomReady = true;
@@ -3116,7 +3120,7 @@ namespace ArduLEDNameSpace
             }
         }
 
-        Color GetColorOfSection(Bitmap ImageWindow, int _Width, int _Height, int _Xpos, int _Ypos)
+        Color GetColorOfSection(Bitmap _InputImage, int _Width, int _Height, int _Xpos, int _Ypos)
         {
             int Count = 0;
             int AvgR = 0;
@@ -3127,7 +3131,7 @@ namespace ArduLEDNameSpace
             {
                 for (int x = _Xpos; x < _Xpos + _Width; x += (int)AmbiLightModeBlockSampleSplitNumericUpDown.Value)
                 {
-                    Color Pixel = ImageWindow.GetPixel(x, y);
+                    Color Pixel = _InputImage.GetPixel(x, y);
                     AvgR += Pixel.R;
                     AvgG += Pixel.G;
                     AvgB += Pixel.B;
@@ -3160,6 +3164,29 @@ namespace ArduLEDNameSpace
 
             if (AmbiLightModeBottomCheckBox.Checked)
                 AmbiLightModeBottomPanel.Enabled = true;
+        }
+
+        Color GammaCorrection(Color _InputColor)
+        {
+            int OutColorR = (int)(Math.Pow((float)_InputColor.R / (float)255, (double)AmbiLightModeGammaFactorNumericUpDown.Value) * 255 + 0.5);
+            if (OutColorR > 255)
+                OutColorR = 0;
+            if (OutColorR < 0)
+                OutColorR = 0;
+
+            int OutColorG = (int)(Math.Pow((float)_InputColor.G / (float)255, (double)AmbiLightModeGammaFactorNumericUpDown.Value) * 255 + 0.5);
+            if (OutColorG > 255)
+                OutColorG = 0;
+            if (OutColorG < 0)
+                OutColorG = 0;
+
+            int OutColorB = (int)(Math.Pow((float)_InputColor.B / (float)255, (double)AmbiLightModeGammaFactorNumericUpDown.Value) * 255 + 0.5);
+            if (OutColorB > 255)
+                OutColorB = 0;
+            if (OutColorB < 0)
+                OutColorB = 0;
+
+            return Color.FromArgb(OutColorR, OutColorG, OutColorB);
         }
 
         private void LoadAAmbilightSetup(object sender, EventArgs e)

@@ -236,8 +236,10 @@ AmbiLightModeSaveSetup;Lucida Console;8;Gem nuværende opsætning
 AmbiLightModeLoadSetup;Lucida Console;8;Åben en opsætning
 AmbiLightModeFadeFactorLabel;Lucida Console;8;Falme faktor
 AmbiLightModeFadeFactorNumericUpDown;Lucida Console;8;
-AmbilightModeFPSCounterLabel;Lucida Console;12;FPS:
+AmbilightModeFPSCounterLabel;Lucida Console;8;FPS:
 AmbiLightModeAutosetOffsets;Lucida Console;8;Autosæt forskydninger
+AmbiLightModeGammaFactorLabel;Lucida Console;8;Gamma Faktor
+AmbiLightModeGammaFactorNumericUpDown;Lucida Console;8;
 
 AmbiLightModeRefreshRateLabel;Lucida Console;8;Minimum opdaterings hastighed
 AmbiLightModeRefreshRateNumericUpDown;Lucida Console;8;
