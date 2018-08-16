@@ -3002,7 +3002,7 @@ namespace ArduLEDNameSpace
                                     OutPutColor = GammaCorrection(OutPutColor);
                                 }
                                 Color AfterShuffel = ShuffleColors(OutPutColor);
-                                SerialOutLeft += Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.B + 1)), 0) + ";";
+                                SerialOutTop += Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.B + 1)), 0) + ";";
                                 Count++;
                             }
                             SerialOutTopReady = true;
@@ -3058,7 +3058,7 @@ namespace ArduLEDNameSpace
                                     OutPutColor = GammaCorrection(OutPutColor);
                                 }
                                 Color AfterShuffel = ShuffleColors(OutPutColor);
-                                SerialOutLeft += Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.B + 1)), 0) + ";";
+                                SerialOutRight += Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.B + 1)), 0) + ";";
                                 Count++;
                             }
                             SerialOutRightReady = true;
@@ -3114,7 +3114,7 @@ namespace ArduLEDNameSpace
                                     OutPutColor = GammaCorrection(OutPutColor);
                                 }
                                 Color AfterShuffel = ShuffleColors(OutPutColor);
-                                SerialOutLeft += Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.B + 1)), 0) + ";";
+                                SerialOutBottom += Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.B + 1)), 0) + ";";
                                 Count++;
                             }
                             SerialOutBottomReady = true;
