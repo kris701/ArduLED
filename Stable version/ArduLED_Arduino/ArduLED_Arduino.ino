@@ -36,11 +36,13 @@ void setup()
 			{
 				NumberOfPixels[Split[2]] = Split[1];
 				PixelType[Split[2]] = PixelTypes[Split[3]] + PixelBitrates[Split[4]];
+				Serial.write("0");
 			}
 			else
 				break;
 		}
 	}
+	Serial.write("0");
 
 	while (true)
 	{
@@ -71,6 +73,7 @@ void setup()
 				else
 					break;
 			}
+			Serial.write("1");
 		}
 	}
 
@@ -103,6 +106,8 @@ void setup()
 	}
 
 	ColorEntireStripFromTo(0, TotalLEDCount, 255, 255, 255, 5, UsesCompression, LEDStrips, SeriesIndex, Series, SeriesID, TotalLEDCount, -2, SeriesIndex, 0);
+
+	Serial.write("2");
 
 	Run(LEDStrips, &Split[0], PreviousColor, SeriesIndex, Series, SeriesID, UsesCompression, TotalLEDCount);
 }
@@ -145,6 +150,7 @@ void Run(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint8_t
 				Mode_A(_LEDStrips, _Split, _SeriesIndex, _Series, _SeriesID, _UsesCompression, _TotalLEDCount, FromID, ToID, DiscardFromIndex, DiscardToIndex, CountFromID, ShowFromPin, ShowToPin);
 				break;
 			}
+			Serial.write("3");
 		}
 	}
 }
@@ -644,7 +650,6 @@ bool ReadSerial(short *_Split)
 				}
 			}
 		}
-
 		return true;
 	}
 	return false;
