@@ -26,7 +26,6 @@ namespace ArduLEDNameSpace
         const int ScroolBarWidth = 25;
         const int Sizex = 1411;
         const int Sizey = 775;
-        const int TransferDelay = 25;
 
         List<string> IntructionsList = new List<string>();
         bool ContinueInstructionsLoop = false;
@@ -401,17 +400,24 @@ namespace ArduLEDNameSpace
         {
             if (UnitReady)
             {
+                int TimeoutCounter = 0;
                 while (!ReadyToRecive)
                 {
                     Thread.Sleep(1);
+                    TimeoutCounter++;
+                    if (TimeoutCounter > 1000)
+                        break;
                 }
             }
-            try
+            if (ReadyToRecive)
             {
-                SerialPort1.WriteLine(";" + _Input + ";-10;");
+                try
+                {
+                    SerialPort1.WriteLine(";" + _Input + ";-10;");
+                }
+                catch { }
+                ReadyToRecive = false;
             }
-            catch { }
-            ReadyToRecive = false;
         }
 
         private async void HideTimer_Tick(object sender, EventArgs e)
@@ -556,10 +562,8 @@ namespace ArduLEDNameSpace
                 VisualizerPanel.BringToFront();
                 if (!ContinueInstructionsLoop)
                 {
-                    Thread.Sleep(TransferDelay);
                     string SerialOut = "6;" + VisualizerFromSeriesIDNumericUpDown.Value + ";" + VisualizerToSeriesIDNumericUpDown.Value;
                     SendDataBySerial(SerialOut);
-                    Thread.Sleep(TransferDelay);
                     EnableBASS(true);
                 }
             }
@@ -628,13 +632,11 @@ namespace ArduLEDNameSpace
                 string SerialOut;
                 SerialOut = "6;" + FadeLEDPanelFromIDNumericUpDown.Value + ";" + FadeLEDPanelToIDNumericUpDown.Value;
                 SendDataBySerial(SerialOut);
-                Thread.Sleep(TransferDelay);
 
                 if (_FromZero)
                 {
                     SerialOut = "1;0;0;0;0;0";
                     SendDataBySerial(SerialOut);
-                    Thread.Sleep(TransferDelay);
                 }
                 SerialOut = "1;" + FadeColorsRedTrackBar.Value + ";" + FadeColorsGreenTrackBar.Value + ";" + FadeColorsBlueTrackBar.Value + ";" + FadeColorsFadeSpeedNumericUpDown.Value + ";" + Math.Round(FadeColorsFadeFactorNumericUpDown.Value * 100, 0);
                 SendDataBySerial(SerialOut);
@@ -1064,7 +1066,6 @@ namespace ArduLEDNameSpace
                     }
 
                     SendDataBySerial("-1;8888");
-                    await Task.Delay(TransferDelay * 2);
 
                     int PanelNumber = 0;
                     for (int i = 0; i < ConfigureSetupWorkingPanel.Controls.Count; i++)
@@ -1091,11 +1092,9 @@ namespace ArduLEDNameSpace
 
                         string SerialOut = "-1;" + UpOrDownFrom[SeriesData[i]] + ";" + UpOrDownTo[SeriesData[i]] + ";" + InternalPins[SeriesData[i]];
                         SendDataBySerial(SerialOut);
-                        await Task.Delay(TransferDelay);
                     }
 
                     SendDataBySerial("-1;9999;");
-                    await Task.Delay(TransferDelay * 2);
                 }
                 else
                 {
@@ -1122,7 +1121,6 @@ namespace ArduLEDNameSpace
                                             Point3D[] MomentaryDataTag = (Point3D[])c.Controls[j].Parent.Tag;
                                             string SerialOut = "-1;" + c.Controls[j - 1].Text + ";" + MomentaryDataTag[1].Z;
                                             SendDataBySerial(SerialOut);
-                                            await Task.Delay(TransferDelay);
                                         }
                                     }
                                 }
@@ -1627,7 +1625,6 @@ namespace ArduLEDNameSpace
                         {
                             string SerialOut = "6;" + Data[1] + ";" + Data[2];
                             SendDataBySerial(SerialOut);
-                            await Task.Delay(TransferDelay);
                             SerialOut = "1;" + Data[3] + ";" + Data[4] + ";" + Data[5] + ";" + Data[6] + ";" + Math.Round((Convert.ToDecimal(Data[7]) * 100), 0).ToString();
                             SendDataBySerial(SerialOut);
                         }
@@ -1654,7 +1651,6 @@ namespace ArduLEDNameSpace
                                     });
                                 });
                                 SendDataBySerial(SerialOut);
-                                await Task.Delay(TransferDelay);
                                 VisualizerPanel.Invoke((MethodInvoker)delegate {
                                     EnableBASS(true);
                                 });
@@ -2798,7 +2794,6 @@ namespace ArduLEDNameSpace
 
             string SerialOut = "6;" + Lowest + ";" + Highest;
             SendDataBySerial(SerialOut);
-            Thread.Sleep(TransferDelay);
 
             ImageWindowLeft = new Bitmap((int)AmbiLightModeLeftBlockWidthNumericUpDown.Value, Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height, PixelFormat.Format24bppRgb);
             ImageWindowTop = new Bitmap(Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width, (int)AmbiLightModeTopBlockHeightNumericUpDown.Value, PixelFormat.Format24bppRgb);
