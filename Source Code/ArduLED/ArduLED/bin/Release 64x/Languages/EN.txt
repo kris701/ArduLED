@@ -249,7 +249,7 @@ AmbiLightModeAutosetOffsets;Lucida Console;8;Autoset Offsets
 AmbiLightModeGammaFactorLabel;Lucida Console;8;Gamma Factor
 AmbiLightModeGammaFactorNumericUpDown;Lucida Console;8;
 
-AmbiLightModeRefreshRateLabel;Lucida Console;8;Minimum refresh rate
+AmbiLightModeRefreshRateLabel;Lucida Console;8;Minimum refresh rate (ms)
 AmbiLightModeRefreshRateNumericUpDown;Lucida Console;8;
 AmbiLightModeBlockSampleSplitLabel;Lucida Console;8;Block Sample Split
 AmbiLightModeBlockSampleSplitNumericUpDown;Lucida Console;8;

@@ -249,7 +249,7 @@ AmbiLightModeAutosetOffsets;Lucida Console;8;Autosæt forskydninger
 AmbiLightModeGammaFactorLabel;Lucida Console;8;Gamma Faktor
 AmbiLightModeGammaFactorNumericUpDown;Lucida Console;8;
 
-AmbiLightModeRefreshRateLabel;Lucida Console;8;Minimum opdaterings hastighed
+AmbiLightModeRefreshRateLabel;Lucida Console;8;Minimum opdaterings hastighed (ms)
 AmbiLightModeRefreshRateNumericUpDown;Lucida Console;8;
 AmbiLightModeBlockSampleSplitLabel;Lucida Console;8;Blok samlings opdeling
 AmbiLightModeBlockSampleSplitNumericUpDown;Lucida Console;8;

@@ -34,6 +34,7 @@ namespace ArduLEDNameSpace
         bool ShowLoadingScreen = true;
         bool UnitReady = false;
         bool ReadyToRecive = false;
+        int UnitTimeoutCounter = 0;
 
         WASAPIPROC BassProcess;
 
@@ -407,10 +408,19 @@ namespace ArduLEDNameSpace
                     TimeoutCounter++;
                     if (TimeoutCounter > 500)
                     {
+                        UnitTimeoutCounter++;
+                        if (UnitTimeoutCounter > 20)
+                        {
+                            MessageBox.Show("Connection to Unit failed!");
+                            EnableBASS(false);
+                            StopAmbilight();
+                            ModeSelectrionComboBox.SelectedIndex = 0;
+                        }
                         ReadyToRecive = true;
                         break;
                     }
                 }
+                UnitTimeoutCounter = 0;
             }
             if (ReadyToRecive)
             {
