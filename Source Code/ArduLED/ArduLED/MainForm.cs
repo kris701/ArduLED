@@ -2831,6 +2831,22 @@ namespace ArduLEDNameSpace
                     Lowest = (int)AmbiLightModeBottomFromIDNumericUpDown.Value;
 
             if (AmbiLightModeLeftCheckBox.Checked)
+                if (AmbiLightModeLeftToIDNumericUpDown.Value < Lowest)
+                    Lowest = (int)AmbiLightModeLeftToIDNumericUpDown.Value;
+
+            if (AmbiLightModeTopCheckBox.Checked)
+                if (AmbiLightModeTopToIDNumericUpDown.Value < Lowest)
+                    Lowest = (int)AmbiLightModeTopToIDNumericUpDown.Value;
+
+            if (AmbiLightModeRightCheckBox.Checked)
+                if (AmbiLightModeRightToIDNumericUpDown.Value < Lowest)
+                    Lowest = (int)AmbiLightModeRightToIDNumericUpDown.Value;
+
+            if (AmbiLightModeBottomCheckBox.Checked)
+                if (AmbiLightModeBottomToIDNumericUpDown.Value < Lowest)
+                    Lowest = (int)AmbiLightModeBottomToIDNumericUpDown.Value;
+
+            if (AmbiLightModeLeftCheckBox.Checked)
                 if (AmbiLightModeLeftToIDNumericUpDown.Value > Highest)
                     Highest = (int)AmbiLightModeLeftToIDNumericUpDown.Value;
 
@@ -2845,6 +2861,22 @@ namespace ArduLEDNameSpace
             if (AmbiLightModeBottomCheckBox.Checked)
                 if (AmbiLightModeBottomToIDNumericUpDown.Value > Highest)
                     Highest = (int)AmbiLightModeBottomToIDNumericUpDown.Value;
+
+            if (AmbiLightModeLeftCheckBox.Checked)
+                if (AmbiLightModeLeftFromIDNumericUpDown.Value > Highest)
+                    Highest = (int)AmbiLightModeLeftFromIDNumericUpDown.Value;
+
+            if (AmbiLightModeTopCheckBox.Checked)
+                if (AmbiLightModeTopFromIDNumericUpDown.Value > Highest)
+                    Highest = (int)AmbiLightModeTopFromIDNumericUpDown.Value;
+
+            if (AmbiLightModeRightCheckBox.Checked)
+                if (AmbiLightModeRightFromIDNumericUpDown.Value > Highest)
+                    Highest = (int)AmbiLightModeRightFromIDNumericUpDown.Value;
+
+            if (AmbiLightModeBottomCheckBox.Checked)
+                if (AmbiLightModeBottomFromIDNumericUpDown.Value > Highest)
+                    Highest = (int)AmbiLightModeBottomFromIDNumericUpDown.Value;
 
             string SerialOut = "6;" + Lowest + ";" + Highest;
             SendDataBySerial(SerialOut);
