@@ -497,17 +497,6 @@ void Mode_A(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], shor
 		short Count = 4;
 		short CurrentIndex = _CountFromID - (abs(_Series[_DiscardFromIndex] - _Series[_DiscardFromIndex + 1]) + 1);;
 
-		if (_CountFromID == 0)
-		{
-			pinMode(13,OUTPUT);
-			digitalWrite(13,1);
-		}
-		else
-		{
-			pinMode(13, OUTPUT);
-			digitalWrite(13, 0);
-		}
-
 		for (short j = _DiscardFromIndex; j <= _DiscardToIndex; j += 2)
 		{
 			if (_Series[j + 1] > _Series[j])
