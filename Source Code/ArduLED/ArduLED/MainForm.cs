@@ -2717,7 +2717,7 @@ namespace ArduLEDNameSpace
                         NewBlock.Show();
                         NewBlock.Width = (int)AmbiLightModeBottomBlockWidthNumericUpDown.Value;
                         NewBlock.Height = (int)AmbiLightModeBottomBlockHeightNumericUpDown.Value;
-                        NewBlock.Location = new Point(Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.X + i, Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Y + Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height - (int)AmbiLightModeBottomBlockOffsetYNumericUpDown.Value - (int)AmbiLightModeBottomBlockHeightNumericUpDown.Value);
+                        NewBlock.Location = new Point(Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.X + i, Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Y + Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height + (int)AmbiLightModeBottomBlockOffsetYNumericUpDown.Value - (int)AmbiLightModeBottomBlockHeightNumericUpDown.Value);
                         BlockList.Add(NewBlock);
                     }
                 }
@@ -3115,7 +3115,7 @@ namespace ArduLEDNameSpace
                         {
                             using (GFXScreenshotBottom = Graphics.FromImage(ImageWindowBottom))
                             {
-                                GFXScreenshotBottom.CopyFromScreen(Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.X + (int)AmbiLightModeBottomBlockOffsetXNumericUpDown.Value, (Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Y + Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height - (int)AmbiLightModeBottomBlockWidthNumericUpDown.Value) + (int)AmbiLightModeBottomBlockOffsetYNumericUpDown.Value, 0, 0, new Size(Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width, (int)AmbiLightModeBottomBlockHeightNumericUpDown.Value), CopyPixelOperation.SourceCopy);
+                                GFXScreenshotBottom.CopyFromScreen(Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.X + (int)AmbiLightModeBottomBlockOffsetXNumericUpDown.Value, (Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Y + Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height - (int)AmbiLightModeBottomBlockHeightNumericUpDown.Value) + (int)AmbiLightModeBottomBlockOffsetYNumericUpDown.Value, 0, 0, new Size(Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width, (int)AmbiLightModeBottomBlockHeightNumericUpDown.Value), CopyPixelOperation.SourceCopy);
                             }
                             int Count = 0;
                             SerialOutBottom = "7;" + AmbiLightModeBottomFromIDNumericUpDown.Value + ";" + AmbiLightModeBottomToIDNumericUpDown.Value + ";" + AmbiLightModeBottomLEDsPrBlockNumericUpDown.Value + ";";
