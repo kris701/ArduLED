@@ -1,3 +1,1 @@
-ArduLED: 1.0
-ArduLED (Arduino): 1.0
-Language Packs: 1.0
+1.0
