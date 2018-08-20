@@ -116,6 +116,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Loading";
             this.Opacity = 0D;
+            this.Tag = "0";
             this.Text = "Loading";
             this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Loading_FormClosing);

@@ -7,11 +7,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-using System.Windows.Threading;
 using Un4seen.Bass;
 using Un4seen.BassWasapi;
 using System.Drawing.Imaging;
-using System.Reflection;
 
 namespace ArduLEDNameSpace
 {
@@ -250,14 +248,20 @@ namespace ArduLEDNameSpace
                     Application.DoEvents();
                     Thread.Sleep(10);
                 }
-                while (ShowLoadingScreen) { Application.DoEvents(); Thread.Sleep(10); }
+
+                while (ShowLoadingScreen) {
+                    Application.DoEvents();
+                    if (LoadingForm.Name == "Closing")
+                        Environment.Exit(0);
+                    Thread.Sleep(10);
+                }
+
                 for (double i = 100; i >= 0; i -= 4)
                 {
                     LoadingForm.Opacity = i / 100;
                     Application.DoEvents();
                     Thread.Sleep(10);
                 }
-                LoadingForm.Dispose();
                 LoadingForm.Dispose();
             });
         }
@@ -388,7 +392,8 @@ namespace ArduLEDNameSpace
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            AutoSaveAllSettings();
+            if (LoadingForm.Name != "Closing")
+                AutoSaveAllSettings();
         }
 
         private void ResetToDefaultPosition(object sender, EventArgs e)
@@ -415,6 +420,8 @@ namespace ArduLEDNameSpace
                             EnableBASS(false);
                             StopAmbilight();
                             ModeSelectrionComboBox.SelectedIndex = 0;
+                            UnitTimeoutCounter = 0;
+                            break;
                         }
                         ReadyToRecive = true;
                         break;
@@ -445,6 +452,10 @@ namespace ArduLEDNameSpace
 
         private async void MainForm_Activated(object sender, EventArgs e)
         {
+            if (Opacity != 1)
+            {
+                Opacity = 1;
+            }
             if (MenuAutoHideCheckBox.Checked)
             {
                 if (!MenuPanel.Visible)

@@ -18,7 +18,7 @@ namespace ArduLEDNameSpace
 
         private void Loading_FormClosing(object sender, FormClosingEventArgs e)
         {
-            e.Cancel = true;
+            Name = "Closing";
         }
     }
 }
