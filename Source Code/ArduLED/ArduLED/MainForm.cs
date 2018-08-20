@@ -41,6 +41,7 @@ namespace ArduLEDNameSpace
 
         List<Control> ControlList = new List<Control>();
         Loading LoadingForm;
+        Update UpdateForm;
         Point DragStart = new Point(0,0);
         List<Block> BlockList = new List<Block>();
 
@@ -82,6 +83,36 @@ namespace ArduLEDNameSpace
 
             while (LoadingForm == null) { }
             while (!LoadingForm.Visible) { }
+
+            SetLoadingLabelTo("Checking for new version");
+
+            if (File.Exists(Directory.GetCurrentDirectory() + "\\Temp.txt"))
+                File.Delete(Directory.GetCurrentDirectory() + "\\Temp.txt");
+
+            DownloadFile("https://raw.githubusercontent.com/kris701/ArduLED/master/Stable%20version/ArduLED/Version.txt", Directory.GetCurrentDirectory() + "\\Temp.txt");
+
+            string NewVersion = File.ReadAllLines(Directory.GetCurrentDirectory() + "\\Temp.txt")[0];
+            string CurrentVersion = File.ReadAllLines(Directory.GetCurrentDirectory() + "\\Version.txt")[0];
+
+            if (CurrentVersion != NewVersion)
+            {
+                LoadingForm.Name = "DoHide";
+                UpdateForm = new Update();
+                UpdateForm.Show();
+                while (UpdateForm.Visible) { UpdateForm.Refresh(); await Task.Delay(10); }
+                if (UpdateForm.Name == "PerformUpdate")
+                {
+                    System.Diagnostics.Process.Start("https://github.com/kris701/ArduLED");
+                    Environment.Exit(0);
+                }
+                UpdateForm.Dispose();
+                LoadingForm.Name = "DoShow";
+            }
+
+            if (File.Exists(Directory.GetCurrentDirectory() + "\\Temp.txt"))
+                File.Delete(Directory.GetCurrentDirectory() + "\\Temp.txt");
+
+            SetLoadingLabelTo("Serial port settings");
 
             SerialPort1.Encoding = System.Text.Encoding.ASCII;
             SerialPort1.NewLine = "\n";
@@ -213,6 +244,7 @@ namespace ArduLEDNameSpace
             SetLoadingLabelTo("Complete!");
 
             ShowLoadingScreen = false;
+
             for (double i = 0; i <= 100; i += 2)
             {
                 Opacity = i / 100;
@@ -253,6 +285,16 @@ namespace ArduLEDNameSpace
                     Application.DoEvents();
                     if (LoadingForm.Name == "Closing")
                         Environment.Exit(0);
+                    if (LoadingForm.Name == "DoHide")
+                    {
+                        LoadingForm.Hide();
+                        LoadingForm.Name = "";
+                    }
+                    if (LoadingForm.Name == "DoShow")
+                    {
+                        LoadingForm.Show();
+                        LoadingForm.Name = "";
+                    }
                     Thread.Sleep(10);
                 }
 
@@ -268,50 +310,28 @@ namespace ArduLEDNameSpace
 
         void SetLoadingLabelTo(string _Input)
         {
+            if (LoadingForm.Name == "Closing")
+                Environment.Exit(0);
+
             LoadingForm.LoadingScreenLabel.Invoke((MethodInvoker)delegate { LoadingForm.LoadingScreenLabel.Text = "Loading: " + _Input; });
         }
 
-        public static void DownloadFile(string sourceURL, string destinationPath)
+        public static void DownloadFile(string _SourceURL, string _DestinationPath)
         {
-            long fileSize = 0;
-            int bufferSize = 1024;
-            bufferSize *= 1000;
-            long existLen = 0;
-
-            System.IO.FileStream saveFileStream;
-            if (System.IO.File.Exists(destinationPath))
+            try
             {
-                System.IO.FileInfo destinationFileInfo = new System.IO.FileInfo(destinationPath);
-                existLen = destinationFileInfo.Length;
+                if (File.Exists(_DestinationPath))
+                    File.Delete(_DestinationPath);
+
+                using (var Client = new System.Net.WebClient())
+                {
+                    Client.Headers.Add("user-agent", "Anything");
+                    Client.DownloadFile(_SourceURL, _DestinationPath);
+                }
             }
-
-            if (existLen > 0)
-                saveFileStream = new System.IO.FileStream(destinationPath,
-                                                          System.IO.FileMode.Append,
-                                                          System.IO.FileAccess.Write,
-                                                          System.IO.FileShare.ReadWrite);
-            else
-                saveFileStream = new System.IO.FileStream(destinationPath,
-                                                          System.IO.FileMode.Create,
-                                                          System.IO.FileAccess.Write,
-                                                          System.IO.FileShare.ReadWrite);
-
-            System.Net.HttpWebRequest httpReq;
-            System.Net.HttpWebResponse httpRes;
-            httpReq = (System.Net.HttpWebRequest)System.Net.HttpWebRequest.Create(sourceURL);
-            httpReq.AddRange((int)existLen);
-            System.IO.Stream resStream;
-            httpRes = (System.Net.HttpWebResponse)httpReq.GetResponse();
-            resStream = httpRes.GetResponseStream();
-
-            fileSize = httpRes.ContentLength;
-
-            int byteSize;
-            byte[] downBuffer = new byte[bufferSize];
-
-            while ((byteSize = resStream.Read(downBuffer, 0, downBuffer.Length)) > 0)
+            catch
             {
-                saveFileStream.Write(downBuffer, 0, byteSize);
+                MessageBox.Show("Error Connecting To servers!");
             }
         }
 
@@ -438,6 +458,8 @@ namespace ArduLEDNameSpace
         {
             if (LoadingForm.Name != "Closing")
                 AutoSaveAllSettings();
+            if (File.Exists(Directory.GetCurrentDirectory() + "\\Temp.txt"))
+                File.Delete(Directory.GetCurrentDirectory() + "\\Temp.txt");
         }
 
         private void ResetToDefaultPosition(object sender, EventArgs e)
