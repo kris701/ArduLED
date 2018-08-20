@@ -110,6 +110,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Update";
             this.Text = "Update";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.Update_Load);
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();

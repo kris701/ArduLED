@@ -86,31 +86,41 @@ namespace ArduLEDNameSpace
 
             SetLoadingLabelTo("Checking for new version");
 
-            if (File.Exists(Directory.GetCurrentDirectory() + "\\Temp.txt"))
-                File.Delete(Directory.GetCurrentDirectory() + "\\Temp.txt");
-
-            DownloadFile("https://raw.githubusercontent.com/kris701/ArduLED/master/Stable%20version/ArduLED/Version.txt", Directory.GetCurrentDirectory() + "\\Temp.txt");
-
-            string NewVersion = File.ReadAllLines(Directory.GetCurrentDirectory() + "\\Temp.txt")[0];
-            string CurrentVersion = File.ReadAllLines(Directory.GetCurrentDirectory() + "\\Version.txt")[0];
-
-            if (CurrentVersion != NewVersion)
+            if (File.Exists(Directory.GetCurrentDirectory() + "\\Version.txt"))
             {
-                LoadingForm.Name = "DoHide";
-                UpdateForm = new Update();
-                UpdateForm.Show();
-                while (UpdateForm.Visible) { UpdateForm.Refresh(); await Task.Delay(10); }
-                if (UpdateForm.Name == "PerformUpdate")
-                {
-                    System.Diagnostics.Process.Start("https://github.com/kris701/ArduLED");
-                    Environment.Exit(0);
-                }
-                UpdateForm.Dispose();
-                LoadingForm.Name = "DoShow";
-            }
 
-            if (File.Exists(Directory.GetCurrentDirectory() + "\\Temp.txt"))
-                File.Delete(Directory.GetCurrentDirectory() + "\\Temp.txt");
+                if (File.Exists(Directory.GetCurrentDirectory() + "\\Temp.txt"))
+                    File.Delete(Directory.GetCurrentDirectory() + "\\Temp.txt");
+
+                DownloadFile("https://raw.githubusercontent.com/kris701/ArduLED/master/Stable%20version/ArduLED/Version.txt", Directory.GetCurrentDirectory() + "\\Temp.txt");
+
+                string NewVersion = File.ReadAllLines(Directory.GetCurrentDirectory() + "\\Temp.txt")[0];
+                string CurrentVersion = File.ReadAllLines(Directory.GetCurrentDirectory() + "\\Version.txt")[0];
+
+                if (CurrentVersion != NewVersion)
+                {
+                    LoadingForm.Name = "DoHide";
+                    UpdateForm = new Update();
+                    UpdateForm.Show();
+                    while (UpdateForm.Visible) { UpdateForm.Refresh(); await Task.Delay(10); }
+                    if (UpdateForm.Name == "PerformUpdate")
+                    {
+                        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("cmd", $"/c start www.github.com/kris701/ArduLED") { CreateNoWindow = true, UseShellExecute = true, WorkingDirectory = "C:\\" });
+                        if (File.Exists(Directory.GetCurrentDirectory() + "\\Temp.txt"))
+                            File.Delete(Directory.GetCurrentDirectory() + "\\Temp.txt");
+                        Environment.Exit(0);
+                    }
+                    UpdateForm.Dispose();
+                    LoadingForm.Name = "DoShow";
+                }
+
+                if (File.Exists(Directory.GetCurrentDirectory() + "\\Temp.txt"))
+                    File.Delete(Directory.GetCurrentDirectory() + "\\Temp.txt");
+            }
+            else
+            {
+                MessageBox.Show("Warning, could not find Version.txt, consider reinstalling ArduLED.");
+            }
 
             SetLoadingLabelTo("Serial port settings");
 
