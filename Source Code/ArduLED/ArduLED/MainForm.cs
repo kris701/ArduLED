@@ -2770,6 +2770,18 @@ namespace ArduLEDNameSpace
                         NewBlock.Height = (int)AmbiLightModeLeftBlockHeightNumericUpDown.Value;
                         NewBlock.Location = new Point(Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.X + (int)AmbiLightModeLeftBlockOffsetXNumericUpDown.Value, Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Y + i);
                         BlockList.Add(NewBlock);
+                        for (int j = 0; j < NewBlock.Width; j += (int)AmbiLightModeBlockSampleSplitNumericUpDown.Value)
+                        {
+                            for (int l = 0; l < NewBlock.Height; l += (int)AmbiLightModeBlockSampleSplitNumericUpDown.Value)
+                            {
+                                Panel Pixel = new Panel();
+                                Pixel.BackColor = Color.Black;
+                                Pixel.Width = 1;
+                                Pixel.Height = 1;
+                                Pixel.Location = new Point(j, l);
+                                NewBlock.Controls.Add(Pixel);
+                            }
+                        }
                     }
                 }
                 if (AmbiLightModeTopCheckBox.Checked)
@@ -2782,6 +2794,18 @@ namespace ArduLEDNameSpace
                         NewBlock.Height = (int)AmbiLightModeTopBlockHeightNumericUpDown.Value;
                         NewBlock.Location = new Point(Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.X + i, Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Y + (int)AmbiLightModeTopBlockOffsetYNumericUpDown.Value);
                         BlockList.Add(NewBlock);
+                        for (int j = 0; j < NewBlock.Width; j += (int)AmbiLightModeBlockSampleSplitNumericUpDown.Value)
+                        {
+                            for (int l = 0; l < NewBlock.Height; l += (int)AmbiLightModeBlockSampleSplitNumericUpDown.Value)
+                            {
+                                Panel Pixel = new Panel();
+                                Pixel.BackColor = Color.Black;
+                                Pixel.Width = 1;
+                                Pixel.Height = 1;
+                                Pixel.Location = new Point(j, l);
+                                NewBlock.Controls.Add(Pixel);
+                            }
+                        }
                     }
                 }
                 if (AmbiLightModeRightCheckBox.Checked)
@@ -2794,6 +2818,18 @@ namespace ArduLEDNameSpace
                         NewBlock.Height = (int)AmbiLightModeRightBlockHeightNumericUpDown.Value;
                         NewBlock.Location = new Point(Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.X + Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width - (int)AmbiLightModeRightBlockOffsetXNumericUpDown.Value - (int)AmbiLightModeRightBlockWidthNumericUpDown.Value, Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Y + i);
                         BlockList.Add(NewBlock);
+                        for (int j = 0; j < NewBlock.Width; j += (int)AmbiLightModeBlockSampleSplitNumericUpDown.Value)
+                        {
+                            for (int l = 0; l < NewBlock.Height; l += (int)AmbiLightModeBlockSampleSplitNumericUpDown.Value)
+                            {
+                                Panel Pixel = new Panel();
+                                Pixel.BackColor = Color.Black;
+                                Pixel.Width = 1;
+                                Pixel.Height = 1;
+                                Pixel.Location = new Point(j, l);
+                                NewBlock.Controls.Add(Pixel);
+                            }
+                        }
                     }
                 }
                 if (AmbiLightModeBottomCheckBox.Checked)
@@ -2806,6 +2842,18 @@ namespace ArduLEDNameSpace
                         NewBlock.Height = (int)AmbiLightModeBottomBlockHeightNumericUpDown.Value;
                         NewBlock.Location = new Point(Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.X + i, Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Y + Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height + (int)AmbiLightModeBottomBlockOffsetYNumericUpDown.Value - (int)AmbiLightModeBottomBlockHeightNumericUpDown.Value);
                         BlockList.Add(NewBlock);
+                        for (int j = 0; j < NewBlock.Width; j += (int)AmbiLightModeBlockSampleSplitNumericUpDown.Value)
+                        {
+                            for (int l = 0; l < NewBlock.Height; l += (int)AmbiLightModeBlockSampleSplitNumericUpDown.Value)
+                            {
+                                Panel Pixel = new Panel();
+                                Pixel.BackColor = Color.Black;
+                                Pixel.Width = 1;
+                                Pixel.Height = 1;
+                                Pixel.Location = new Point(j, l);
+                                NewBlock.Controls.Add(Pixel);
+                            }
+                        }
                     }
                 }
             }

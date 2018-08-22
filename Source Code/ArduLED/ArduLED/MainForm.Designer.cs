@@ -4398,10 +4398,10 @@
             this.AmbiLightModeFadeFactorNumericUpDown.TabIndex = 115;
             this.AmbiLightModeFadeFactorNumericUpDown.Tag = "Setting";
             this.AmbiLightModeFadeFactorNumericUpDown.Value = new decimal(new int[] {
-            1,
+            20,
             0,
             0,
-            0});
+            131072});
             // 
             // AmbiLightModeBlockSampleSplitNumericUpDown
             // 
@@ -4415,7 +4415,7 @@
             0,
             0});
             this.AmbiLightModeBlockSampleSplitNumericUpDown.Minimum = new decimal(new int[] {
-            1,
+            5,
             0,
             0,
             0});
@@ -4449,7 +4449,7 @@
             this.AmbiLightModeRefreshRateLabel.Name = "AmbiLightModeRefreshRateLabel";
             this.AmbiLightModeRefreshRateLabel.Size = new System.Drawing.Size(195, 15);
             this.AmbiLightModeRefreshRateLabel.TabIndex = 103;
-            this.AmbiLightModeRefreshRateLabel.Text = "Minimum refresh rate";
+            this.AmbiLightModeRefreshRateLabel.Text = "Minimum refresh rate (ms)";
             this.AmbiLightModeRefreshRateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // AmbiLightModeRefreshRateNumericUpDown
@@ -5163,7 +5163,7 @@
             100,
             0,
             0,
-            0});
+            -2147483648});
             // 
             // AmbiLightModeBottomBlockOffsetYLabel
             // 
@@ -5249,11 +5249,11 @@
             this.Controls.Add(this.MenuPanel);
             this.Controls.Add(this.ConfigureSetupHiddenProgressBar);
             this.Controls.Add(this.MenuButton);
-            this.Controls.Add(this.ConfigureSetupPanel);
-            this.Controls.Add(this.InstructionsPanel);
             this.Controls.Add(this.AmbiLightModePanel);
             this.Controls.Add(this.IndividualLEDPanel);
             this.Controls.Add(this.VisualizerPanel);
+            this.Controls.Add(this.ConfigureSetupPanel);
+            this.Controls.Add(this.InstructionsPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
