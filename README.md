@@ -19,7 +19,17 @@ This project is open source, so all the Visual Studio files comes with the proje
 
 ## How to use
 
-Please do take a look at the [Wiki](https://github.com/kris701/ArduLED/wiki) too see how the program works and how to set it up.
+- [**Home**](https://github.com/kris701/ArduLED/wiki)
+- [**Requirements and Setup**](https://github.com/kris701/ArduLED/wiki/Requirements-and-setup)
+- [**First Startup**](https://github.com/kris701/ArduLED/wiki/First-Startup)
+- **How to use**
+  - [Main Menu](https://github.com/kris701/ArduLED/wiki/Main-Menu)
+  - [Fade Colors](https://github.com/kris701/ArduLED/wiki/Fade-Colors)
+  - [The Visualizer](https://github.com/kris701/ArduLED/wiki/The-Visualizer)
+  - [Individual LED Control](https://github.com/kris701/ArduLED/wiki/Individual-LED-Control)
+  - [Instructions Mode](https://github.com/kris701/ArduLED/wiki/Instructions-Mode)
+  - [Ambilight Mode](https://github.com/kris701/ArduLED/wiki/Ambilight-Mode)
+  - [Configure Setup](https://github.com/kris701/ArduLED/wiki/Configure-Setup)
 
  ![Error Loading Image](https://2ar6kq.db.files.1drv.com/y4mJmTUzQuhQ4HxCBJNVtMBwT4NKl8VFImfG7AsaESwZP0f_hF35M6pKuxWg305abgShxsAMfI9yA5U_Zxwdb02-Lv4Qw2RrMvXbWi7-sVv95W24ukcjd89boB_wVU-Kk49aUmesvZj1imHzRILTWueeKcXuPN7TXhJdMNhbAtZItQtrW31V0_V5QIIAcOKITuXrHLD4pUmmWSg4FaaMP8rAg/fadecolorssample_reduced_optim_small.gif?psid=1?width=150&height=85&cropmode=none)
  ![Error Loading Image](https://2ar5kq.db.files.1drv.com/y4m_WcbV3auLJoFqobeJmR9yHAKosaUjoMYTEplHlzmzpq1T3YFsCAFF9uzqnJlGieosuVGNqHkzhvzvSUGbBpfaTPe-bSrZdOI46SNZePdtUhh5-xNPHo4YhinNzAdya1662vYdM6Yp2FbhXMkcBtc6FlsWWx2FXSrku3rMhMxYhq10N8Gz07-WgZ34NQGHnHxZ9u6kvafIEITlBi-Q3ni9w/frontpage1optim3_small.gif?psid=1?width=150&height=85&cropmode=none)
