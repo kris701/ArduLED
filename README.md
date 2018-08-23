@@ -6,11 +6,11 @@ Welcome, to the ArduLED project. What is this? you may ask, this is a program, b
  
  - Supports up to 8 LED strips with a total of 128 LEDs (on a standard Arduino with 2kb of memory, in normal mode, up to 250 have been tested in compression mode)
  - Dynamic setup from the computer, there is no need to change the code for the Arduino if changes to your setup are made
- - BASS.NET powered visualizer, with a lot of diffrent options (Very fast, ~100 RPS on 135 LEDs)
+ - [BASS.NET](http://bass.radio42.com/) powered visualizer, with a lot of diffrent options (Very fast, ~100 RPS on 135 LEDs)
  - Fading colors
  - Instructions mode, setup a set of instructions that the LED will follow
  - Ambilight feature (~20 15-20 FPS on 4k screen with 50 LEDs)
- - Very easy use
+ - Very easy to use
  - Supports multiple languages
  
  <p align="center">
