@@ -5249,11 +5249,11 @@
             this.Controls.Add(this.MenuPanel);
             this.Controls.Add(this.ConfigureSetupHiddenProgressBar);
             this.Controls.Add(this.MenuButton);
+            this.Controls.Add(this.ConfigureSetupPanel);
+            this.Controls.Add(this.InstructionsPanel);
             this.Controls.Add(this.AmbiLightModePanel);
             this.Controls.Add(this.IndividualLEDPanel);
             this.Controls.Add(this.VisualizerPanel);
-            this.Controls.Add(this.ConfigureSetupPanel);
-            this.Controls.Add(this.InstructionsPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
