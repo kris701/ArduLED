@@ -9,7 +9,7 @@ Welcome, to the ArduLED project. What is this? you may ask, this is a program, b
  - BASS.NET powered visualizer, with a lot of diffrent options (Very fast, ~100 RPS on 135 LEDs)
  - Fading colors
  - Instructions mode, setup a set of instructions that the LED will follow
- - Ambilight feature
+ - Ambilight feature (~20 15-20 FPS on 4k screen with 50 LEDs)
  - Very easy use
  - Supports multiple languages
 
