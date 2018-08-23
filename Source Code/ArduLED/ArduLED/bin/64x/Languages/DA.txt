@@ -40,7 +40,6 @@ POSSIBLE;MakeLEDPanelStripLEDIDButton;Lucida Console;5;
 SaveSetupButton;Lucida Console;8;Gem Opsætning
 LoadSetupButton;Lucida Console;8;Indlæs en Opsætning
 SendSetupButton;Lucida Console;8;Send Opsætning
-EnableDataCompressionMode;Lucida Console;8;Aktiver data-kompressions tilstand
 
 ConfigureSetupAddStripXDirLabel;Lucida Console;11;X
 ConfigureSetupAddStripXDir;Lucida Console;8;0

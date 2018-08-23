@@ -859,29 +859,58 @@ namespace ArduLEDNameSpace
                                 NewButton.Location = new Point(Margins + ButtonWidth * i, Margins + (ButtonHeight * 2) * j + (Margins + ButtonHeight));
                         }
 
-                        TextBox NewTextBox = new TextBox();
-                        NewTextBox.Width = ButtonWidth;
-                        NewTextBox.Height = ButtonHeight;
-                        NewTextBox.Click += ClickToSetSeries;
-                        if (UseDefaultText)
+                        if (i == 0 && j == 0)
                         {
-                            NewTextBox.Text = "0";
+                            TextBox NewTextBox = new TextBox();
+                            NewTextBox.Width = ButtonWidth;
+                            NewTextBox.Height = ButtonHeight;
+                            NewTextBox.Click += ClickToSetSeries;
+                            if (UseDefaultText)
+                            {
+                                NewTextBox.Text = "0";
+                            }
+                            else
+                            {
+                                NewTextBox.Text = InputTextDataSplit[0];
+                            }
+                            NewTextBox.Font = new Font(BackPanel.Font.FontFamily, 7);
+                            NewTextBox.TextChanged += ChangeSeries;
+                            NewTextBox.Location = new Point(NewButton.Location.X, NewButton.Location.Y + ButtonHeight);
+                            NewTextBox.Parent = BackPanel;
+                            NewTextBox.BorderStyle = BorderStyle.None;
+                            NewTextBox.BackColor = Color.DarkGray;
+                            NewTextBox.ForeColor = Color.White;
+                            NewTextBox.Name = "MakeLEDPanelStripSeriesIDLabelFrom";
+
+                            BackPanel.Controls.Add(NewTextBox);
                         }
-                        else
+                        if (i == _XLEDAmount - 1 && j == _YLEDAmount - 1)
                         {
-                            NewTextBox.Text = InputTextDataSplit[BoxNumber];
+                            TextBox NewTextBox = new TextBox();
+                            NewTextBox.Width = ButtonWidth;
+                            NewTextBox.Height = ButtonHeight;
+                            NewTextBox.Click += ClickToSetSeries;
+                            if (UseDefaultText)
+                            {
+                                NewTextBox.Text = "0";
+                            }
+                            else
+                            {
+                                NewTextBox.Text = InputTextDataSplit[1];
+                            }
+                            NewTextBox.Font = new Font(BackPanel.Font.FontFamily, 7);
+                            NewTextBox.TextChanged += ChangeSeries;
+                            NewTextBox.Location = new Point(NewButton.Location.X, NewButton.Location.Y + ButtonHeight);
+                            NewTextBox.Parent = BackPanel;
+                            NewTextBox.BorderStyle = BorderStyle.None;
+                            NewTextBox.BackColor = Color.DarkGray;
+                            NewTextBox.ForeColor = Color.White;
+                            NewTextBox.Name = "MakeLEDPanelStripSeriesIDLabelTo";
+
+                            BackPanel.Controls.Add(NewTextBox);
                         }
-                        NewTextBox.Font = new Font(BackPanel.Font.FontFamily, 7);
-                        NewTextBox.TextChanged += FormatText;
-                        NewTextBox.Location = new Point(NewButton.Location.X, NewButton.Location.Y + ButtonHeight);
-                        NewTextBox.Parent = BackPanel;
-                        NewTextBox.BorderStyle = BorderStyle.None;
-                        NewTextBox.BackColor = Color.DarkGray;
-                        NewTextBox.ForeColor = Color.White;
-                        NewTextBox.Name = "MakeLEDPanelStripSeriesIDLabel";
 
                         BackPanel.Controls.Add(NewButton);
-                        BackPanel.Controls.Add(NewTextBox);
                     }
                     else
                     {
@@ -952,13 +981,66 @@ namespace ArduLEDNameSpace
             return true;
         }
 
+        private void ChangeSeries(object sender, EventArgs e)
+        {
+            TextBox SenderTextBox = sender as TextBox;
+            Panel ParentPanel = SenderTextBox.Parent as Panel;
+
+            if (SenderTextBox.Name == "MakeLEDPanelStripSeriesIDLabelFrom")
+            {
+                TextBox Textbox2 = ParentPanel.Controls.Find("MakeLEDPanelStripSeriesIDLabelTo", false)[0] as TextBox;
+                SenderTextBox.TextChanged -= ChangeSeries;
+                Textbox2.TextChanged -= ChangeSeries;
+                string Value1 = (Int32.Parse(SenderTextBox.Text) + ParentPanel.Controls.Count - 5).ToString();
+                ParentPanel.Controls.Find("MakeLEDPanelStripSeriesIDLabelTo", false)[0].Text = Value1;
+                SenderTextBox.TextChanged += ChangeSeries;
+                Textbox2.TextChanged += ChangeSeries;
+            }
+            else
+            {
+                TextBox Textbox2 = ParentPanel.Controls.Find("MakeLEDPanelStripSeriesIDLabelFrom", false)[0] as TextBox;
+                SenderTextBox.TextChanged -= ChangeSeries;
+                Textbox2.TextChanged -= ChangeSeries;
+                string Value1 = (Int32.Parse(SenderTextBox.Text) + ParentPanel.Controls.Count - 5).ToString();
+                ParentPanel.Controls.Find("MakeLEDPanelStripSeriesIDLabelFrom", false)[0].Text = Value1;
+                SenderTextBox.TextChanged += ChangeSeries;
+                Textbox2.TextChanged += ChangeSeries;
+            }
+        }
+
         private void ClickToSetSeries(object sender, EventArgs e)
         {
             if (ConfigureSetupClickToSetupSeriesCheckBox.Checked)
             {
                 TextBox SenderTextBox = sender as TextBox;
-                SenderTextBox.Text = ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.Value.ToString();
-                ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.Value++;
+                Panel ParentPanel = SenderTextBox.Parent as Panel;
+
+                if (SenderTextBox.Name == "MakeLEDPanelStripSeriesIDLabelFrom")
+                {
+                    TextBox Textbox2 = ParentPanel.Controls.Find("MakeLEDPanelStripSeriesIDLabelTo", false)[0] as TextBox;
+                    SenderTextBox.TextChanged -= ChangeSeries;
+                    Textbox2.TextChanged -= ChangeSeries;
+                    int IncrementValue = (int)ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.Value + ParentPanel.Controls.Count - 5;
+                    SenderTextBox.Text = ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.Value.ToString();
+                    string Value1 = IncrementValue.ToString();
+                    ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.Value = IncrementValue + 1;
+                    ParentPanel.Controls.Find("MakeLEDPanelStripSeriesIDLabelTo", false)[0].Text = Value1;
+                    SenderTextBox.TextChanged += ChangeSeries;
+                    Textbox2.TextChanged += ChangeSeries;
+                }
+                else
+                {
+                    TextBox Textbox2 = ParentPanel.Controls.Find("MakeLEDPanelStripSeriesIDLabelFrom", false)[0] as TextBox;
+                    SenderTextBox.TextChanged -= ChangeSeries;
+                    Textbox2.TextChanged -= ChangeSeries;
+                    int IncrementValue = (int)ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.Value + ParentPanel.Controls.Count - 5;
+                    SenderTextBox.Text = ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.Value.ToString();
+                    string Value1 = IncrementValue.ToString();
+                    ConfigureSetupClickToSetupSeriesFromIDNumericUpDown.Value = IncrementValue + 1;
+                    ParentPanel.Controls.Find("MakeLEDPanelStripSeriesIDLabelFrom", false)[0].Text = Value1;
+                    SenderTextBox.TextChanged += ChangeSeries;
+                    Textbox2.TextChanged += ChangeSeries;
+                }
             }
         }
 
@@ -1033,13 +1115,8 @@ namespace ArduLEDNameSpace
                         AutoSaveFile.WriteLine(SerialOut);
 
                         SerialOut = "";
-                        for (int j = 0; j < c.Controls.Count; j++)
-                        {
-                            if (c.Controls[j].Name == "MakeLEDPanelStripSeriesIDLabel")
-                            {
-                                SerialOut += c.Controls[j].Text + ";";
-                            }
-                        }
+                        SerialOut += (c.Controls.Find("MakeLEDPanelStripSeriesIDLabelFrom", true)[0] as TextBox).Text + ";";
+                        SerialOut += (c.Controls.Find("MakeLEDPanelStripSeriesIDLabelTo", true)[0] as TextBox).Text + ";";
 
                         SaveFile.WriteLine(SerialOut);
                         AutoSaveFile.WriteLine(SerialOut);
@@ -1142,116 +1219,80 @@ namespace ArduLEDNameSpace
                 foreach (int i in LEDCount)
                     TotalLEDs += i;
 
-                if (EnableDataCompressionMode.Checked)
+                SendSetupProgressBar.Invoke((MethodInvoker)delegate { SendSetupProgressBar.Maximum = ConfigureSetupWorkingPanel.Controls.Count; });
+                if (ConfigureSetupAutoSendCheckBox.Checked)
+                    ConfigureSetupHiddenProgressBar.Invoke((MethodInvoker)delegate { ConfigureSetupHiddenProgressBar.Maximum = ConfigureSetupWorkingPanel.Controls.Count; });
+
+                List<int> UpOrDownFrom = new List<int>();
+                List<int> UpOrDownTo = new List<int>();
+                List<int> InternalPins = new List<int>();
+                List<int> SeriesData = new List<int>();
+
+                foreach (Control c in ConfigureSetupWorkingPanel.Controls)
                 {
-                    SendSetupProgressBar.Invoke((MethodInvoker)delegate { SendSetupProgressBar.Maximum = ConfigureSetupWorkingPanel.Controls.Count; });
-                    if (ConfigureSetupAutoSendCheckBox.Checked)
-                        ConfigureSetupHiddenProgressBar.Invoke((MethodInvoker)delegate { ConfigureSetupHiddenProgressBar.Maximum = ConfigureSetupWorkingPanel.Controls.Count; });
+                    Point3D[] MomentaryDataTag = (Point3D[])c.Tag;
+                    InternalPins.Add((int)MomentaryDataTag[1].Z);
 
-                    List<int> UpOrDownFrom = new List<int>();
-                    List<int> UpOrDownTo = new List<int>();
-                    List<int> InternalPins = new List<int>();
-                    List<int> SeriesData = new List<int>();
-
-                    foreach (Control c in ConfigureSetupWorkingPanel.Controls)
+                    int Lowest = 999999;
+                    int Highest = 0;
+                    foreach (Control g in c.Controls)
                     {
-                        Point3D[] MomentaryDataTag = (Point3D[])c.Tag;
-                        InternalPins.Add((int)MomentaryDataTag[1].Z);
-
-                        int Lowest = 999999;
-                        int Highest = 0;
-                        foreach (Control g in c.Controls)
+                        if (g is TextBox)
                         {
-                            if (g is TextBox)
+                            if (!g.Enabled)
                             {
-                                if (!g.Enabled)
-                                {
-                                    int Value = Int32.Parse(g.Text);
-                                    if (Value > Highest)
-                                        Highest = Value;
-                                    if (Value < Lowest)
-                                        Lowest = Value;
-                                }
+                                int Value = Int32.Parse(g.Text);
+                                if (Value > Highest)
+                                    Highest = Value;
+                                if (Value < Lowest)
+                                    Lowest = Value;
                             }
-                        }
-                        int UpDownValue = Int32.Parse(c.Controls[c.Controls.Count - 1].Text) - Int32.Parse(c.Controls[c.Controls.Count - 3].Text);
-                        if (UpDownValue < 0)
-                            UpDownValue = 0;
-                        if (UpDownValue > 0)
-                        {
-                            UpOrDownFrom.Add(Lowest);
-                            UpOrDownTo.Add(Highest);
-                        }
-                        else
-                        {
-                            UpOrDownFrom.Add(Highest);
-                            UpOrDownTo.Add(Lowest);
                         }
                     }
 
-                    SendDataBySerial("-1;8888");
-
-                    int PanelNumber = 0;
-                    for (int i = 0; i < ConfigureSetupWorkingPanel.Controls.Count; i++)
+                    int UpDownValue = Int32.Parse(c.Controls.Find("MakeLEDPanelStripSeriesIDLabelTo", true)[0].Text) - Int32.Parse(c.Controls.Find("MakeLEDPanelStripSeriesIDLabelFrom", true)[0].Text);
+                    if (UpDownValue < 0)
+                        UpDownValue = 0;
+                    if (UpDownValue > 0)
                     {
-                        int Position = SeriesData.Count;
-                        for (int j = 0; j < SeriesData.Count; j++)
-                        {
-                            int ValueA = Int32.Parse(ConfigureSetupWorkingPanel.Controls[i].Controls[ConfigureSetupWorkingPanel.Controls[i].Controls.Count - 1].Text);
-                            int ValueB = Int32.Parse(ConfigureSetupWorkingPanel.Controls[j].Controls[ConfigureSetupWorkingPanel.Controls[j].Controls.Count - 1].Text);
-                            if (ValueA < ValueB)
-                            {
-                                Position--;
-                            }
-                        }
-                        SeriesData.Insert(Position, PanelNumber);
-                        PanelNumber++;
+                        UpOrDownFrom.Add(Lowest);
+                        UpOrDownTo.Add(Highest);
                     }
-
-                    for (int i = 0; i < InternalPins.Count; i++)
+                    else
                     {
-                        SendSetupProgressBar.Invoke((MethodInvoker)delegate { SendSetupProgressBar.Value = i; });
-                        if (ConfigureSetupAutoSendCheckBox.Checked)
-                            ConfigureSetupHiddenProgressBar.Invoke((MethodInvoker)delegate { ConfigureSetupHiddenProgressBar.Value = i; });
-
-                        string SerialOut = "-1;" + UpOrDownFrom[SeriesData[i]] + ";" + UpOrDownTo[SeriesData[i]] + ";" + InternalPins[SeriesData[i]];
-                        SendDataBySerial(SerialOut);
-                    }
-
-                    SendDataBySerial("-1;9999;");
-                }
-                else
-                {
-                    SendSetupProgressBar.Invoke((MethodInvoker)delegate { SendSetupProgressBar.Maximum = TotalLEDs; });
-                    if (ConfigureSetupAutoSendCheckBox.Checked)
-                        ConfigureSetupHiddenProgressBar.Invoke((MethodInvoker)delegate { ConfigureSetupHiddenProgressBar.Maximum = TotalLEDs; });
-
-                    for (int i = 0; i < TotalLEDs; i++)
-                    {
-                        SendSetupProgressBar.Invoke((MethodInvoker)delegate { SendSetupProgressBar.Value = i; });
-                        if (ConfigureSetupAutoSendCheckBox.Checked)
-                            ConfigureSetupHiddenProgressBar.Invoke((MethodInvoker)delegate { ConfigureSetupHiddenProgressBar.Value = i; });
-                        foreach (Control c in ConfigureSetupWorkingPanel.Controls)
-                        {
-                            for (int j = 0; j < c.Controls.Count; j++)
-                            {
-                                if (c.Controls[j] is TextBox)
-                                {
-                                    if (c.Controls[j].Enabled)
-                                    {
-                                        TextBox LEDTextBox = c.Controls[j] as TextBox;
-                                        if (c.Controls[j].Text == i.ToString())
-                                        {
-                                            Point3D[] MomentaryDataTag = (Point3D[])c.Controls[j].Parent.Tag;
-                                            string SerialOut = "-1;" + c.Controls[j - 1].Text + ";" + MomentaryDataTag[1].Z;
-                                            SendDataBySerial(SerialOut);
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        UpOrDownFrom.Add(Highest);
+                        UpOrDownTo.Add(Lowest);
                     }
                 }
+
+                int PanelNumber = 0;
+                for (int i = 0; i < ConfigureSetupWorkingPanel.Controls.Count; i++)
+                {
+                    int Position = SeriesData.Count;
+                    for (int j = 0; j < SeriesData.Count; j++)
+                    {
+                        int ValueA = Int32.Parse(ConfigureSetupWorkingPanel.Controls[i].Controls.Find("MakeLEDPanelStripSeriesIDLabelFrom", true)[0].Text);
+                        int ValueB = Int32.Parse(ConfigureSetupWorkingPanel.Controls[j].Controls.Find("MakeLEDPanelStripSeriesIDLabelFrom", true)[0].Text);
+                        if (ValueA < ValueB)
+                        {
+                            Position--;
+                        }
+                    }
+                    SeriesData.Insert(Position, PanelNumber);
+                    PanelNumber++;
+                }
+
+                for (int i = 0; i < InternalPins.Count; i++)
+                {
+                    SendSetupProgressBar.Invoke((MethodInvoker)delegate { SendSetupProgressBar.Value = i; });
+                    if (ConfigureSetupAutoSendCheckBox.Checked)
+                        ConfigureSetupHiddenProgressBar.Invoke((MethodInvoker)delegate { ConfigureSetupHiddenProgressBar.Value = i; });
+
+                    string SerialOut = "-1;" + UpOrDownFrom[SeriesData[i]] + ";" + UpOrDownTo[SeriesData[i]] + ";" + InternalPins[SeriesData[i]];
+                    SendDataBySerial(SerialOut);
+                }
+
+                SendDataBySerial("-1;9999;");
 
                 SendSetupProgressBar.Invoke((MethodInvoker)delegate { SendSetupProgressBar.Value = 0; });
                 if (ConfigureSetupAutoSendCheckBox.Checked)
@@ -3056,7 +3097,6 @@ namespace ArduLEDNameSpace
         void AmbilightThread()
         {
             DateTime CalibrateRefreshRate = new DateTime();
-            int AmbilightSendingStep = 0;
             int SerialOutLeftSection = 0;
             int SerialOutTopSection = 0;
             int SerialOutRightSection = 0;

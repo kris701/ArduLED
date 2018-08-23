@@ -235,7 +235,6 @@
             this.ConfigureSetupRGBColorOrderSeccondLabel = new System.Windows.Forms.Label();
             this.ConfigureSetupRGBColorOrderFirstLabel = new System.Windows.Forms.Label();
             this.ConfigureSetupRGBColorOrderLabel = new System.Windows.Forms.Label();
-            this.EnableDataCompressionMode = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ConfigureSetupClickToSetupSeriesFromIDLabel = new System.Windows.Forms.Label();
             this.ConfigureSetupClickToSetupSeriesCheckBox = new System.Windows.Forms.CheckBox();
@@ -3105,7 +3104,6 @@
             this.ConfigureSetupPanel.BackColor = System.Drawing.Color.DimGray;
             this.ConfigureSetupPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ConfigureSetupPanel.Controls.Add(this.panel2);
-            this.ConfigureSetupPanel.Controls.Add(this.EnableDataCompressionMode);
             this.ConfigureSetupPanel.Controls.Add(this.panel1);
             this.ConfigureSetupPanel.Controls.Add(this.panel20);
             this.ConfigureSetupPanel.Controls.Add(this.SendSetupProgressBar);
@@ -3218,18 +3216,6 @@
             this.ConfigureSetupRGBColorOrderLabel.Size = new System.Drawing.Size(297, 15);
             this.ConfigureSetupRGBColorOrderLabel.TabIndex = 52;
             this.ConfigureSetupRGBColorOrderLabel.Text = "RGB Color order";
-            // 
-            // EnableDataCompressionMode
-            // 
-            this.EnableDataCompressionMode.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EnableDataCompressionMode.ForeColor = System.Drawing.Color.White;
-            this.EnableDataCompressionMode.Location = new System.Drawing.Point(609, 651);
-            this.EnableDataCompressionMode.Name = "EnableDataCompressionMode";
-            this.EnableDataCompressionMode.Size = new System.Drawing.Size(240, 15);
-            this.EnableDataCompressionMode.TabIndex = 70;
-            this.EnableDataCompressionMode.Tag = "Setting";
-            this.EnableDataCompressionMode.Text = "Enable data compression mode";
-            this.EnableDataCompressionMode.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -3560,7 +3546,7 @@
             // 
             this.ConfigureSetupAutoSendCheckBox.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ConfigureSetupAutoSendCheckBox.ForeColor = System.Drawing.Color.White;
-            this.ConfigureSetupAutoSendCheckBox.Location = new System.Drawing.Point(609, 670);
+            this.ConfigureSetupAutoSendCheckBox.Location = new System.Drawing.Point(609, 648);
             this.ConfigureSetupAutoSendCheckBox.Name = "ConfigureSetupAutoSendCheckBox";
             this.ConfigureSetupAutoSendCheckBox.Size = new System.Drawing.Size(240, 36);
             this.ConfigureSetupAutoSendCheckBox.TabIndex = 17;
@@ -5584,7 +5570,6 @@
         private System.Windows.Forms.Button VisualizerSaveSettingsButton;
         private System.Windows.Forms.Timer HideTimer;
         private System.Windows.Forms.CheckBox MenuAutoHideCheckBox;
-        private System.Windows.Forms.CheckBox EnableDataCompressionMode;
         private System.Windows.Forms.Panel AmbiLightModePanel;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label AmbiLightModeTopLabel;
