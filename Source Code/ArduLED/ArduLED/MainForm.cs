@@ -45,19 +45,15 @@ namespace ArduLEDNameSpace
         Point DragStart = new Point(0,0);
         List<Block> BlockList = new List<Block>();
 
-        Bitmap ImageWindowLeft = new Bitmap(50, 50, PixelFormat.Format32bppRgb);
-        Bitmap ImageWindowTop = new Bitmap(50, 50, PixelFormat.Format32bppRgb);
-        Bitmap ImageWindowRight = new Bitmap(50, 50, PixelFormat.Format32bppRgb);
-        Bitmap ImageWindowBottom = new Bitmap(50, 50, PixelFormat.Format32bppRgb);
-        Graphics GFXScreenshotLeft;
-        Graphics GFXScreenshotTop;
-        Graphics GFXScreenshotRight;
-        Graphics GFXScreenshotBottom;
         List<List<List<int>>> AmbilightColorStore = new List<List<List<int>>>();
         bool RunAmbilight = false;
         DateTime AmbilightFPSCounter;
         int AmbilightFPSCounterFramesRendered;
         Task AmbilightTask;
+                    string[] InnerSerialOutLeft = { "", "", "", "", "" };
+            string[] InnerSerialOutTop = { "", "", "", "", "" };
+            string[] InnerSerialOutRight = { "", "", "", "", "" };
+            string[] InnerSerialOutBottom = { "", "", "", "", "" };
 
         #endregion
 
@@ -2794,99 +2790,63 @@ namespace ArduLEDNameSpace
             {
                 if (AmbiLightModeLeftCheckBox.Checked)
                 {
-                    for (int i = (Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height - (int)AmbiLightModeLeftBlockHeightNumericUpDown.Value + (int)AmbiLightModeLeftBlockOffsetYNumericUpDown.Value); i > (int)AmbiLightModeLeftBlockOffsetYNumericUpDown.Value; i -= (int)(AmbiLightModeLeftBlockHeightNumericUpDown.Value + AmbiLightModeLeftBlockSpacingNumericUpDown.Value))
-                    {
-                        Block NewBlock = new Block();
-                        NewBlock.Show();
-                        NewBlock.Width = (int)AmbiLightModeLeftBlockWidthNumericUpDown.Value;
-                        NewBlock.Height = (int)AmbiLightModeLeftBlockHeightNumericUpDown.Value;
-                        NewBlock.Location = new Point(Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.X + (int)AmbiLightModeLeftBlockOffsetXNumericUpDown.Value, Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Y + i);
-                        BlockList.Add(NewBlock);
-                        for (int j = 0; j < NewBlock.Width; j += (int)AmbiLightModeBlockSampleSplitNumericUpDown.Value)
-                        {
-                            for (int l = 0; l < NewBlock.Height; l += (int)AmbiLightModeBlockSampleSplitNumericUpDown.Value)
-                            {
-                                Panel Pixel = new Panel();
-                                Pixel.BackColor = Color.Black;
-                                Pixel.Width = 1;
-                                Pixel.Height = 1;
-                                Pixel.Location = new Point(j, l);
-                                NewBlock.Controls.Add(Pixel);
-                            }
-                        }
-                    }
+                    MakeNewBlock(
+                        (Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height - (int)AmbiLightModeLeftBlockHeightNumericUpDown.Value + (int)AmbiLightModeLeftBlockOffsetYNumericUpDown.Value),
+                        (int)AmbiLightModeLeftBlockOffsetYNumericUpDown.Value,
+                        (int)(AmbiLightModeLeftBlockHeightNumericUpDown.Value + AmbiLightModeLeftBlockSpacingNumericUpDown.Value),
+                        true,
+                        (int)AmbiLightModeLeftBlockWidthNumericUpDown.Value,
+                        (int)AmbiLightModeLeftBlockHeightNumericUpDown.Value,
+                        false,
+                        Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.X + (int)AmbiLightModeLeftBlockOffsetXNumericUpDown.Value,
+                        Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Y,
+                        (int)AmbiLightModeBlockSampleSplitNumericUpDown.Value
+                        );
                 }
                 if (AmbiLightModeTopCheckBox.Checked)
                 {
-                    for (int i = (int)AmbiLightModeTopBlockOffsetXNumericUpDown.Value; i < (Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width - (int)AmbiLightModeTopBlockWidthNumericUpDown.Value); i += (int)(AmbiLightModeTopBlockWidthNumericUpDown.Value + AmbiLightModeTopBlockSpacingNumericUpDown.Value))
-                    {
-                        Block NewBlock = new Block();
-                        NewBlock.Show();
-                        NewBlock.Width = (int)AmbiLightModeTopBlockWidthNumericUpDown.Value;
-                        NewBlock.Height = (int)AmbiLightModeTopBlockHeightNumericUpDown.Value;
-                        NewBlock.Location = new Point(Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.X + i, Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Y + (int)AmbiLightModeTopBlockOffsetYNumericUpDown.Value);
-                        BlockList.Add(NewBlock);
-                        for (int j = 0; j < NewBlock.Width; j += (int)AmbiLightModeBlockSampleSplitNumericUpDown.Value)
-                        {
-                            for (int l = 0; l < NewBlock.Height; l += (int)AmbiLightModeBlockSampleSplitNumericUpDown.Value)
-                            {
-                                Panel Pixel = new Panel();
-                                Pixel.BackColor = Color.Black;
-                                Pixel.Width = 1;
-                                Pixel.Height = 1;
-                                Pixel.Location = new Point(j, l);
-                                NewBlock.Controls.Add(Pixel);
-                            }
-                        }
-                    }
+                    MakeNewBlock(
+                        (int)AmbiLightModeTopBlockOffsetXNumericUpDown.Value,
+                        (Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width - (int)AmbiLightModeTopBlockWidthNumericUpDown.Value),
+                        (int)(AmbiLightModeTopBlockWidthNumericUpDown.Value + AmbiLightModeTopBlockSpacingNumericUpDown.Value),
+                        false,
+                        (int)AmbiLightModeTopBlockWidthNumericUpDown.Value,
+                        (int)AmbiLightModeTopBlockHeightNumericUpDown.Value,
+                        true,
+                        Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.X,
+                        Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Y + (int)AmbiLightModeTopBlockOffsetYNumericUpDown.Value,
+                        (int)AmbiLightModeBlockSampleSplitNumericUpDown.Value
+                        );
                 }
                 if (AmbiLightModeRightCheckBox.Checked)
                 {
-                    for (int i = (int)AmbiLightModeRightBlockOffsetYNumericUpDown.Value; i < Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height - (int)AmbiLightModeRightBlockHeightNumericUpDown.Value; i += (int)(AmbiLightModeRightBlockHeightNumericUpDown.Value + AmbiLightModeRightBlockSpacingNumericUpDown.Value))
-                    {
-                        Block NewBlock = new Block();
-                        NewBlock.Show();
-                        NewBlock.Width = (int)AmbiLightModeRightBlockWidthNumericUpDown.Value;
-                        NewBlock.Height = (int)AmbiLightModeRightBlockHeightNumericUpDown.Value;
-                        NewBlock.Location = new Point(Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.X + Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width - (int)AmbiLightModeRightBlockOffsetXNumericUpDown.Value - (int)AmbiLightModeRightBlockWidthNumericUpDown.Value, Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Y + i);
-                        BlockList.Add(NewBlock);
-                        for (int j = 0; j < NewBlock.Width; j += (int)AmbiLightModeBlockSampleSplitNumericUpDown.Value)
-                        {
-                            for (int l = 0; l < NewBlock.Height; l += (int)AmbiLightModeBlockSampleSplitNumericUpDown.Value)
-                            {
-                                Panel Pixel = new Panel();
-                                Pixel.BackColor = Color.Black;
-                                Pixel.Width = 1;
-                                Pixel.Height = 1;
-                                Pixel.Location = new Point(j, l);
-                                NewBlock.Controls.Add(Pixel);
-                            }
-                        }
-                    }
+                    MakeNewBlock(
+                        (int)AmbiLightModeRightBlockOffsetYNumericUpDown.Value,
+                        Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height - (int)AmbiLightModeRightBlockHeightNumericUpDown.Value,
+                        (int)(AmbiLightModeRightBlockHeightNumericUpDown.Value + AmbiLightModeRightBlockSpacingNumericUpDown.Value),
+                        false,
+                        (int)AmbiLightModeRightBlockWidthNumericUpDown.Value,
+                        (int)AmbiLightModeRightBlockHeightNumericUpDown.Value,
+                        false,
+                        Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.X + Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width - (int)AmbiLightModeRightBlockOffsetXNumericUpDown.Value - (int)AmbiLightModeRightBlockWidthNumericUpDown.Value,
+                        Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Y,
+                        (int)AmbiLightModeBlockSampleSplitNumericUpDown.Value
+                        );
                 }
                 if (AmbiLightModeBottomCheckBox.Checked)
                 {
-                    for (int i = (Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width - (int)AmbiLightModeBottomBlockWidthNumericUpDown.Value) + (int)AmbiLightModeBottomBlockOffsetXNumericUpDown.Value; i > (int)AmbiLightModeBottomBlockWidthNumericUpDown.Value; i -= (int)(AmbiLightModeBottomBlockWidthNumericUpDown.Value + AmbiLightModeBottomBlockSpacingNumericUpDown.Value))
-                    {
-                        Block NewBlock = new Block();
-                        NewBlock.Show();
-                        NewBlock.Width = (int)AmbiLightModeBottomBlockWidthNumericUpDown.Value;
-                        NewBlock.Height = (int)AmbiLightModeBottomBlockHeightNumericUpDown.Value;
-                        NewBlock.Location = new Point(Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.X + i, Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Y + Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height + (int)AmbiLightModeBottomBlockOffsetYNumericUpDown.Value - (int)AmbiLightModeBottomBlockHeightNumericUpDown.Value);
-                        BlockList.Add(NewBlock);
-                        for (int j = 0; j < NewBlock.Width; j += (int)AmbiLightModeBlockSampleSplitNumericUpDown.Value)
-                        {
-                            for (int l = 0; l < NewBlock.Height; l += (int)AmbiLightModeBlockSampleSplitNumericUpDown.Value)
-                            {
-                                Panel Pixel = new Panel();
-                                Pixel.BackColor = Color.Black;
-                                Pixel.Width = 1;
-                                Pixel.Height = 1;
-                                Pixel.Location = new Point(j, l);
-                                NewBlock.Controls.Add(Pixel);
-                            }
-                        }
-                    }
+                    MakeNewBlock(
+                        (Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width - (int)AmbiLightModeBottomBlockWidthNumericUpDown.Value) + (int)AmbiLightModeBottomBlockOffsetXNumericUpDown.Value,
+                        (int)AmbiLightModeBottomBlockWidthNumericUpDown.Value,
+                        (int)(AmbiLightModeBottomBlockWidthNumericUpDown.Value + AmbiLightModeBottomBlockSpacingNumericUpDown.Value),
+                        true,
+                        (int)AmbiLightModeBottomBlockWidthNumericUpDown.Value,
+                        (int)AmbiLightModeBottomBlockHeightNumericUpDown.Value,
+                        true,
+                        Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.X,
+                        Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Y + Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height + (int)AmbiLightModeBottomBlockOffsetYNumericUpDown.Value - (int)AmbiLightModeBottomBlockHeightNumericUpDown.Value,
+                        (int)AmbiLightModeBlockSampleSplitNumericUpDown.Value
+                        );
                 }
             }
             else
@@ -2894,6 +2854,65 @@ namespace ArduLEDNameSpace
                 foreach (Block b in BlockList)
                     b.Close();
                 BlockList.Clear();
+            }
+        }
+
+        void MakeNewBlock(int _FromI, int _UntilI, int _AddWith, bool _UntilILarger, int _BoxWidth, int _BoxHeight, bool _LocOfI, int _XOffset, int _YOffset, int _PixelSpread)
+        {
+            if (_UntilILarger)
+            {
+                for (int i = _FromI; i > _UntilI; i -= _AddWith)
+                {
+                    MakeNewBoxInner(
+                        _BoxWidth,
+                        _BoxHeight,
+                        _LocOfI,
+                        i,
+                        _XOffset,
+                        _YOffset,
+                        _PixelSpread
+                        );
+                }
+            }
+            else
+            {
+                for (int i = _FromI; i < _UntilI; i += _AddWith)
+                {
+                    MakeNewBoxInner(
+                        _BoxWidth,
+                        _BoxHeight,
+                        _LocOfI,
+                        i,
+                        _XOffset,
+                        _YOffset,
+                        _PixelSpread
+                        );
+                }
+            }
+        }
+
+        void MakeNewBoxInner(int _BoxWidth, int _BoxHeight, bool _LocOfI, int _i, int _XOffset, int _YOffset, int _PixelSpread)
+        {
+            Block NewBlock = new Block();
+            NewBlock.Show();
+            NewBlock.Width = _BoxWidth;
+            NewBlock.Height = _BoxHeight;
+            if (_LocOfI)
+                NewBlock.Location = new Point(_XOffset + _i, _YOffset);
+            else
+                NewBlock.Location = new Point(_XOffset, _YOffset + _i);
+            BlockList.Add(NewBlock);
+            for (int j = 0; j < _BoxWidth; j += _PixelSpread)
+            {
+                for (int l = 0; l < _BoxHeight; l += _PixelSpread)
+                {
+                    Panel Pixel = new Panel();
+                    Pixel.BackColor = Color.Black;
+                    Pixel.Width = 1;
+                    Pixel.Height = 1;
+                    Pixel.Location = new Point(j, l);
+                    NewBlock.Controls.Add(Pixel);
+                }
             }
         }
 
@@ -2924,54 +2943,54 @@ namespace ArduLEDNameSpace
 
             if (AmbiLightModeLeftCheckBox.Checked)
             {
-                for (int i = 0; i < Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width / 2; i++)
-                {
-                    Color Pixel = Screenshot.GetPixel(i, Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height / 2);
-                    if (Convert.ToInt32(Pixel.R > 5) + Convert.ToInt32(Pixel.G > 5) + Convert.ToInt32(Pixel.B > 5) > 0)
-                    {
-                        AmbiLightModeLeftBlockOffsetXNumericUpDown.Value = i;
-                        break;
-                    }
-                }
+                AmbiLightModeLeftBlockOffsetXNumericUpDown.Value = FindFirstLightPixel(
+                    0,
+                    Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width / 2,
+                    false,
+                    true,
+                    0,
+                    Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height / 2,
+                    Screenshot
+                    );
             }
 
             if (AmbiLightModeTopCheckBox.Checked)
             {
-                for (int i = 0; i < Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height / 2; i++)
-                {
-                    Color Pixel = Screenshot.GetPixel(Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width / 2, i);
-                    if (Convert.ToInt32(Pixel.R > 5) + Convert.ToInt32(Pixel.G > 5) + Convert.ToInt32(Pixel.B > 5) > 0)
-                    {
-                        AmbiLightModeTopBlockOffsetYNumericUpDown.Value = i;
-                        break;
-                    }
-                }
+                AmbiLightModeTopBlockOffsetYNumericUpDown.Value = FindFirstLightPixel(
+                    0,
+                    Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height / 2,
+                    false,
+                    false,
+                    Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width / 2,
+                    0,
+                    Screenshot
+                    );
             }
 
             if (AmbiLightModeRightCheckBox.Checked)
             {
-                for (int i = Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width - 1; i > Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width / 2; i--)
-                {
-                    Color Pixel = Screenshot.GetPixel(i, Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height / 2);
-                    if (Convert.ToInt32(Pixel.R > 5) + Convert.ToInt32(Pixel.G > 25) + Convert.ToInt32(Pixel.B > 5) > 0)
-                    {
-                        AmbiLightModeRightBlockOffsetXNumericUpDown.Value = Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width - i;
-                        break;
-                    }
-                }
+                AmbiLightModeRightBlockOffsetXNumericUpDown.Value = Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width - FindFirstLightPixel(
+                    Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width - 1,
+                    Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width / 2,
+                    true,
+                    true,
+                    0,
+                    Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height / 2,
+                    Screenshot
+                    );
             }
 
             if (AmbiLightModeBottomCheckBox.Checked)
             {
-                for (int i = Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height - 1; i > Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height / 2; i--)
-                {
-                    Color Pixel = Screenshot.GetPixel(Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width / 2, i);
-                    if (Convert.ToInt32(Pixel.R > 5) + Convert.ToInt32(Pixel.G > 25) + Convert.ToInt32(Pixel.B > 5) > 0)
-                    {
-                        AmbiLightModeBottomBlockOffsetYNumericUpDown.Value = Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height - i;
-                        break;
-                    }
-                }
+                AmbiLightModeBottomBlockOffsetYNumericUpDown.Value = Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height - FindFirstLightPixel(
+                    Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height - 1,
+                    Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height / 2,
+                    true,
+                    false,
+                    Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width / 2,
+                    0,
+                    Screenshot
+                    );
             }
             Screenshot.Dispose();
 
@@ -2980,6 +2999,41 @@ namespace ArduLEDNameSpace
             Thread.Sleep(1000);
 
             ShowOrHideBlocks();
+        }
+
+        int FindFirstLightPixel(int _FromI, int _UntilI, bool _UntilILarger, bool _ILoc, int _XOffset, int _YOffset, Bitmap _ScreenShot)
+        {
+            if (_UntilILarger)
+            {
+                for (int i = _FromI; i > _UntilI; i--)
+                {
+                    Color Pixel;
+                    if (_ILoc)
+                        Pixel = _ScreenShot.GetPixel(_XOffset + i, _YOffset);
+                    else
+                        Pixel = _ScreenShot.GetPixel(_XOffset, _YOffset + i);
+                    if (Convert.ToInt32(Pixel.R > 5) + Convert.ToInt32(Pixel.G > 5) + Convert.ToInt32(Pixel.B > 5) > 0)
+                    {
+                        return i;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = _FromI; i < _UntilI; i++)
+                {
+                    Color Pixel;
+                    if (_ILoc)
+                        Pixel = _ScreenShot.GetPixel(_XOffset + i, _YOffset);
+                    else
+                        Pixel = _ScreenShot.GetPixel(_XOffset, _YOffset + i);
+                    if (Convert.ToInt32(Pixel.R > 5) + Convert.ToInt32(Pixel.G > 5) + Convert.ToInt32(Pixel.B > 5) > 0)
+                    {
+                        return i;
+                    }
+                }
+            }
+            return 0;
         }
 
         void StartAmbilight()
@@ -3058,11 +3112,6 @@ namespace ArduLEDNameSpace
             string SerialOut = "6;" + Lowest + ";" + Highest;
             SendDataBySerial(SerialOut);
 
-            ImageWindowLeft = new Bitmap((int)AmbiLightModeLeftBlockWidthNumericUpDown.Value, Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height, PixelFormat.Format24bppRgb);
-            ImageWindowTop = new Bitmap(Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width, (int)AmbiLightModeTopBlockHeightNumericUpDown.Value, PixelFormat.Format24bppRgb);
-            ImageWindowRight = new Bitmap((int)AmbiLightModeRightBlockWidthNumericUpDown.Value, Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height, PixelFormat.Format24bppRgb);
-            ImageWindowBottom = new Bitmap(Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width, (int)AmbiLightModeBottomBlockHeightNumericUpDown.Value, PixelFormat.Format24bppRgb);
-
             if (AmbilightColorStore.Count != 4)
             {
                 AmbilightColorStore.Clear();
@@ -3105,10 +3154,6 @@ namespace ArduLEDNameSpace
             string[] SerialOutTop = { "", "", "", "", "" };
             string[] SerialOutRight = { "", "", "", "", "" };
             string[] SerialOutBottom = { "", "", "", "", "" };
-            string[] InnerSerialOutLeft = { "", "", "", "", "" };
-            string[] InnerSerialOutTop = { "", "", "", "", "" };
-            string[] InnerSerialOutRight = { "", "", "", "", "" };
-            string[] InnerSerialOutBottom = { "", "", "", "", "" };
             bool SerialOutLeftReady = false;
             bool SerialOutTopReady = false;
             bool SerialOutRightReady = false;
@@ -3116,6 +3161,15 @@ namespace ArduLEDNameSpace
             bool AllSendt = true;
             bool ProcessingDone = true;
             bool ProcessingDoneInnerFlip = true;
+            Bitmap ImageWindowLeft = new Bitmap((int)AmbiLightModeLeftBlockWidthNumericUpDown.Value, Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height, PixelFormat.Format24bppRgb);
+            Bitmap ImageWindowTop = new Bitmap(Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width, (int)AmbiLightModeTopBlockHeightNumericUpDown.Value, PixelFormat.Format24bppRgb);
+            Bitmap ImageWindowRight = new Bitmap((int)AmbiLightModeRightBlockWidthNumericUpDown.Value, Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height, PixelFormat.Format24bppRgb);
+            Bitmap ImageWindowBottom = new Bitmap(Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width, (int)AmbiLightModeBottomBlockHeightNumericUpDown.Value, PixelFormat.Format24bppRgb);
+
+            Graphics GFXScreenshotLeft = CreateGraphics();
+            Graphics GFXScreenshotTop = CreateGraphics();
+            Graphics GFXScreenshotRight = CreateGraphics();
+            Graphics GFXScreenshotBottom = CreateGraphics();
             while (RunAmbilight)
             {
                 if (ProcessingDone && ProcessingDoneInnerFlip)
@@ -3139,75 +3193,29 @@ namespace ArduLEDNameSpace
                     {
                         Task.Run(() =>
                         {
-                            using (GFXScreenshotLeft = Graphics.FromImage(ImageWindowLeft))
-                            {
-                                GFXScreenshotLeft.CopyFromScreen(Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.X + (int)AmbiLightModeLeftBlockOffsetXNumericUpDown.Value, Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Y + (int)AmbiLightModeLeftBlockOffsetYNumericUpDown.Value, 0, 0, new Size((int)AmbiLightModeLeftBlockWidthNumericUpDown.Value, Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height), CopyPixelOperation.SourceCopy);
-                            }
-                            int Count = 0;
-                            InnerSerialOutLeft[SerialOutLeftSection] = "7;" + AmbiLightModeLeftFromIDNumericUpDown.Value + ";" + AmbiLightModeLeftToIDNumericUpDown.Value + ";" + AmbiLightModeLeftLEDsPrBlockNumericUpDown.Value + ";";
-                            for (int i = Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height - (int)AmbiLightModeLeftBlockHeightNumericUpDown.Value; i > 0; i -= (int)(AmbiLightModeLeftBlockHeightNumericUpDown.Value + AmbiLightModeLeftBlockSpacingNumericUpDown.Value))
-                            {
-                                Color OutPutColor = GetColorOfSection(ImageWindowLeft, (int)AmbiLightModeLeftBlockWidthNumericUpDown.Value, (int)AmbiLightModeLeftBlockHeightNumericUpDown.Value, 0, i);
-                                if (AmbiLightModeFadeFactorNumericUpDown.Value != 0)
-                                {
-                                    if (AmbilightColorStore[0].Count == Count)
-                                    {
-                                        AmbilightColorStore[0].Add(new List<int>());
-                                        AmbilightColorStore[0][Count].Add(OutPutColor.R);
-                                        AmbilightColorStore[0][Count].Add(OutPutColor.G);
-                                        AmbilightColorStore[0][Count].Add(OutPutColor.B);
-                                    }
-                                    else
-                                    {
-                                        AmbilightColorStore[0][Count][0] = AmbilightColorStore[0][Count][0] + (int)(((double)OutPutColor.R - (double)AmbilightColorStore[0][Count][0]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
-                                        if (AmbilightColorStore[0][Count][0] > 255)
-                                            AmbilightColorStore[0][Count][0] = 255;
-                                        if (AmbilightColorStore[0][Count][0] < 0)
-                                            AmbilightColorStore[0][Count][0] = 0;
-                                        AmbilightColorStore[0][Count][1] = AmbilightColorStore[0][Count][1] + (int)(((double)OutPutColor.G - (double)AmbilightColorStore[0][Count][1]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
-                                        if (AmbilightColorStore[0][Count][1] > 255)
-                                            AmbilightColorStore[0][Count][1] = 255;
-                                        if (AmbilightColorStore[0][Count][1] < 0)
-                                            AmbilightColorStore[0][Count][1] = 0;
-                                        AmbilightColorStore[0][Count][2] = AmbilightColorStore[0][Count][2] + (int)(((double)OutPutColor.B - (double)AmbilightColorStore[0][Count][2]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
-                                        if (AmbilightColorStore[0][Count][2] > 255)
-                                            AmbilightColorStore[0][Count][2] = 255;
-                                        if (AmbilightColorStore[0][Count][2] < 0)
-                                            AmbilightColorStore[0][Count][2] = 0;
-                                    }
-                                    OutPutColor = GammaCorrection(Color.FromArgb(AmbilightColorStore[0][Count][0], AmbilightColorStore[0][Count][1], AmbilightColorStore[0][Count][2]));
-                                }
-                                else
-                                {
-                                    OutPutColor = GammaCorrection(OutPutColor);
-                                }
-                                Color AfterShuffel = ShuffleColors(OutPutColor);
-                                string AddString = Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.B + 1)), 0) + ";";
-                                if (AddString.Length + InnerSerialOutLeft[SerialOutLeftSection].Length * 2 > 120)
-                                {
-                                    string[] ChangeToIDString = InnerSerialOutLeft[SerialOutLeftSection].Split(';');
-                                    if (AmbiLightModeLeftFromIDNumericUpDown.Value < AmbiLightModeLeftToIDNumericUpDown.Value)
-                                        ChangeToIDString[2] = (AmbiLightModeLeftFromIDNumericUpDown.Value + Count).ToString();
-                                    else
-                                        ChangeToIDString[2] = (AmbiLightModeLeftFromIDNumericUpDown.Value - Count).ToString();
-
-                                    InnerSerialOutLeft[SerialOutLeftSection] = "";
-
-                                    foreach (String Out in ChangeToIDString)
-                                    {
-                                        InnerSerialOutLeft[SerialOutLeftSection] += Out + ";";
-                                    }
-
-                                    SerialOutLeftSection++;
-                                    if (AmbiLightModeLeftFromIDNumericUpDown.Value < AmbiLightModeLeftToIDNumericUpDown.Value)
-                                        InnerSerialOutLeft[SerialOutLeftSection] = "7;" + (AmbiLightModeLeftFromIDNumericUpDown.Value + Count) + ";" + AmbiLightModeLeftToIDNumericUpDown.Value + ";" + AmbiLightModeLeftLEDsPrBlockNumericUpDown.Value + ";";
-                                    else
-                                        InnerSerialOutLeft[SerialOutLeftSection] = "7;" + (AmbiLightModeLeftFromIDNumericUpDown.Value - Count) + ";" + AmbiLightModeLeftToIDNumericUpDown.Value + ";" + AmbiLightModeLeftLEDsPrBlockNumericUpDown.Value + ";";
-                                }
-                                InnerSerialOutLeft[SerialOutLeftSection] += AddString;
-                                Count++;
-                            }
-                            SerialOutLeftReady = true;
+                            SerialOutLeftReady = ProcessSection(
+                                GFXScreenshotLeft,
+                                ImageWindowLeft,
+                                SerialOutLeftSection,
+                                Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.X + (int)AmbiLightModeLeftBlockOffsetXNumericUpDown.Value,
+                                Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Y + (int)AmbiLightModeLeftBlockOffsetYNumericUpDown.Value,
+                                (int)AmbiLightModeLeftBlockWidthNumericUpDown.Value,
+                                Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height,
+                                (int)AmbiLightModeLeftFromIDNumericUpDown.Value,
+                                (int)AmbiLightModeLeftToIDNumericUpDown.Value,
+                                (int)AmbiLightModeLeftLEDsPrBlockNumericUpDown.Value,
+                                Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height - (int)AmbiLightModeLeftBlockHeightNumericUpDown.Value,
+                                0,
+                                (int)(AmbiLightModeLeftBlockHeightNumericUpDown.Value + AmbiLightModeLeftBlockSpacingNumericUpDown.Value),
+                                true,
+                                (int)AmbiLightModeLeftBlockWidthNumericUpDown.Value,
+                                (int)AmbiLightModeLeftBlockHeightNumericUpDown.Value,
+                                0,
+                                0,
+                                false,
+                                0,
+                                (double)AmbiLightModeFadeFactorNumericUpDown.Value
+                                );
                         });
                     }
                     else
@@ -3217,76 +3225,29 @@ namespace ArduLEDNameSpace
                     {
                         Task.Run(() =>
                         {
-                            using (GFXScreenshotTop = Graphics.FromImage(ImageWindowTop))
-                            {
-                                GFXScreenshotTop.CopyFromScreen(Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.X + (int)AmbiLightModeTopBlockOffsetXNumericUpDown.Value, Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Y + (int)AmbiLightModeTopBlockOffsetYNumericUpDown.Value, 0, 0, new Size(Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width, (int)AmbiLightModeTopBlockHeightNumericUpDown.Value), CopyPixelOperation.SourceCopy);
-                            }
-                            int Count = 0;
-                            InnerSerialOutTop[SerialOutTopSection] = "7;" + AmbiLightModeTopFromIDNumericUpDown.Value + ";" + AmbiLightModeTopToIDNumericUpDown.Value + ";" + AmbiLightModeTopLEDsPrBlockNumericUpDown.Value + ";";
-                            for (int i = 0; i < (Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width - (int)AmbiLightModeTopBlockWidthNumericUpDown.Value); i += (int)(AmbiLightModeTopBlockWidthNumericUpDown.Value + AmbiLightModeTopBlockSpacingNumericUpDown.Value))
-                            {
-                                Color OutPutColor = GetColorOfSection(ImageWindowTop, (int)AmbiLightModeTopBlockWidthNumericUpDown.Value, (int)AmbiLightModeTopBlockHeightNumericUpDown.Value, i, 0);
-                                if (AmbiLightModeFadeFactorNumericUpDown.Value != 0)
-                                {
-                                    if (AmbilightColorStore[1].Count <= Count)
-                                    {
-                                        AmbilightColorStore[1].Add(new List<int>());
-                                        AmbilightColorStore[1][Count].Add(OutPutColor.R);
-                                        AmbilightColorStore[1][Count].Add(OutPutColor.G);
-                                        AmbilightColorStore[1][Count].Add(OutPutColor.B);
-                                    }
-                                    else
-                                    {
-                                        AmbilightColorStore[1][Count][0] = AmbilightColorStore[1][Count][0] + (int)(((double)OutPutColor.R - (double)AmbilightColorStore[1][Count][0]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
-                                        if (AmbilightColorStore[1][Count][0] > 255)
-                                            AmbilightColorStore[1][Count][0] = 255;
-                                        if (AmbilightColorStore[1][Count][0] < 0)
-                                            AmbilightColorStore[1][Count][0] = 0;
-                                        AmbilightColorStore[1][Count][1] = AmbilightColorStore[1][Count][1] + (int)(((double)OutPutColor.G - (double)AmbilightColorStore[1][Count][1]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
-                                        if (AmbilightColorStore[1][Count][1] > 255)
-                                            AmbilightColorStore[1][Count][1] = 255;
-                                        if (AmbilightColorStore[1][Count][1] < 0)
-                                            AmbilightColorStore[1][Count][1] = 0;
-                                        AmbilightColorStore[1][Count][2] = AmbilightColorStore[1][Count][2] + (int)(((double)OutPutColor.B - (double)AmbilightColorStore[1][Count][2]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
-                                        if (AmbilightColorStore[1][Count][2] > 255)
-                                            AmbilightColorStore[1][Count][2] = 255;
-                                        if (AmbilightColorStore[1][Count][2] < 0)
-                                            AmbilightColorStore[1][Count][2] = 0;
-                                    }
-                                    OutPutColor = GammaCorrection(Color.FromArgb(AmbilightColorStore[1][Count][0], AmbilightColorStore[1][Count][1], AmbilightColorStore[1][Count][2]));
-                                }
-                                else
-                                {
-                                    OutPutColor = GammaCorrection(OutPutColor);
-                                }
-                                Color AfterShuffel = ShuffleColors(OutPutColor);
-
-                                string AddString = Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.B + 1)), 0) + ";";
-                                if (AddString.Length + InnerSerialOutTop[SerialOutTopSection].Length * 2 > 120)
-                                {
-                                    string[] ChangeToIDString = InnerSerialOutTop[SerialOutTopSection].Split(';');
-                                    if (AmbiLightModeTopFromIDNumericUpDown.Value < AmbiLightModeTopToIDNumericUpDown.Value)
-                                        ChangeToIDString[2] = (AmbiLightModeTopFromIDNumericUpDown.Value + Count).ToString();
-                                    else
-                                        ChangeToIDString[2] = (AmbiLightModeTopFromIDNumericUpDown.Value - Count).ToString();
-
-                                    InnerSerialOutTop[SerialOutTopSection] = "";
-
-                                    foreach (String Out in ChangeToIDString)
-                                    {
-                                        InnerSerialOutTop[SerialOutTopSection] += Out + ";";
-                                    }
-
-                                    SerialOutTopSection++;
-                                    if (AmbiLightModeTopFromIDNumericUpDown.Value < AmbiLightModeTopToIDNumericUpDown.Value)
-                                        InnerSerialOutTop[SerialOutTopSection] = "7;" + (AmbiLightModeTopFromIDNumericUpDown.Value + Count) + ";" + AmbiLightModeTopToIDNumericUpDown.Value + ";" + AmbiLightModeTopLEDsPrBlockNumericUpDown.Value + ";";
-                                    else
-                                        InnerSerialOutTop[SerialOutTopSection] = "7;" + (AmbiLightModeTopFromIDNumericUpDown.Value - Count) + ";" + AmbiLightModeTopToIDNumericUpDown.Value + ";" + AmbiLightModeTopLEDsPrBlockNumericUpDown.Value + ";";
-                                }
-                                InnerSerialOutTop[SerialOutTopSection] += AddString;
-                                Count++;
-                            }
-                            SerialOutTopReady = true;
+                            SerialOutTopReady = ProcessSection(
+                                GFXScreenshotTop,
+                                ImageWindowTop,
+                                SerialOutTopSection,
+                                Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.X + (int)AmbiLightModeTopBlockOffsetXNumericUpDown.Value,
+                                Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Y + (int)AmbiLightModeTopBlockOffsetYNumericUpDown.Value,
+                                Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width,
+                                (int)AmbiLightModeTopBlockHeightNumericUpDown.Value,
+                                (int)AmbiLightModeTopFromIDNumericUpDown.Value,
+                                (int)AmbiLightModeTopToIDNumericUpDown.Value,
+                                (int)AmbiLightModeTopLEDsPrBlockNumericUpDown.Value,
+                                0,
+                                (Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width - (int)AmbiLightModeTopBlockWidthNumericUpDown.Value),
+                                (int)(AmbiLightModeTopBlockWidthNumericUpDown.Value + AmbiLightModeTopBlockSpacingNumericUpDown.Value),
+                                false,
+                                (int)AmbiLightModeTopBlockWidthNumericUpDown.Value,
+                                (int)AmbiLightModeTopBlockHeightNumericUpDown.Value,
+                                0,
+                                0,
+                                true,
+                                1,
+                                (double)AmbiLightModeFadeFactorNumericUpDown.Value
+                                );
                         });
                     }
                     else
@@ -3296,77 +3257,29 @@ namespace ArduLEDNameSpace
                     {
                         Task.Run(() =>
                         {
-                            using (GFXScreenshotRight = Graphics.FromImage(ImageWindowRight))
-                            {
-                                GFXScreenshotRight.CopyFromScreen((Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.X + Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width - (int)AmbiLightModeRightBlockWidthNumericUpDown.Value) + (int)AmbiLightModeRightBlockOffsetXNumericUpDown.Value, Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Y + (int)AmbiLightModeRightBlockOffsetYNumericUpDown.Value, 0, 0, new Size((int)AmbiLightModeRightBlockWidthNumericUpDown.Value, Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height), CopyPixelOperation.SourceCopy);
-                            }
-                            int Count = 0;
-                            InnerSerialOutRight[SerialOutRightSection] = "7;" + AmbiLightModeRightFromIDNumericUpDown.Value + ";" + AmbiLightModeRightToIDNumericUpDown.Value + ";" + AmbiLightModeRightLEDsPrBlockNumericUpDown.Value + ";";
-                            for (int i = 0; i < Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height - (int)AmbiLightModeRightBlockHeightNumericUpDown.Value; i += (int)(AmbiLightModeRightBlockHeightNumericUpDown.Value + AmbiLightModeRightBlockSpacingNumericUpDown.Value))
-                            {
-                                Color OutPutColor = GetColorOfSection(ImageWindowRight, (int)AmbiLightModeRightBlockWidthNumericUpDown.Value, (int)AmbiLightModeRightBlockHeightNumericUpDown.Value, 0, i);
-                                if (AmbiLightModeFadeFactorNumericUpDown.Value != 0)
-                                {
-                                    if (AmbilightColorStore[2].Count <= Count)
-                                    {
-                                        AmbilightColorStore[2].Add(new List<int>());
-                                        AmbilightColorStore[2][Count].Add(OutPutColor.R);
-                                        AmbilightColorStore[2][Count].Add(OutPutColor.G);
-                                        AmbilightColorStore[2][Count].Add(OutPutColor.B);
-                                    }
-                                    else
-                                    {
-                                        AmbilightColorStore[2][Count][0] = AmbilightColorStore[2][Count][0] + (int)(((double)OutPutColor.R - (double)AmbilightColorStore[2][Count][0]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
-                                        if (AmbilightColorStore[2][Count][0] > 255)
-                                            AmbilightColorStore[2][Count][0] = 255;
-                                        if (AmbilightColorStore[2][Count][0] < 0)
-                                            AmbilightColorStore[2][Count][0] = 0;
-                                        AmbilightColorStore[2][Count][1] = AmbilightColorStore[2][Count][1] + (int)(((double)OutPutColor.G - (double)AmbilightColorStore[2][Count][1]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
-                                        if (AmbilightColorStore[2][Count][1] > 255)
-                                            AmbilightColorStore[2][Count][1] = 255;
-                                        if (AmbilightColorStore[2][Count][1] < 0)
-                                            AmbilightColorStore[2][Count][1] = 0;
-                                        AmbilightColorStore[2][Count][2] = AmbilightColorStore[2][Count][2] + (int)(((double)OutPutColor.B - (double)AmbilightColorStore[2][Count][2]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
-                                        if (AmbilightColorStore[2][Count][2] > 255)
-                                            AmbilightColorStore[2][Count][2] = 255;
-                                        if (AmbilightColorStore[2][Count][2] < 0)
-                                            AmbilightColorStore[2][Count][2] = 0;
-                                    }
-                                    OutPutColor = GammaCorrection(Color.FromArgb(AmbilightColorStore[2][Count][0], AmbilightColorStore[2][Count][1], AmbilightColorStore[2][Count][2]));
-                                }
-                                else
-                                {
-                                    OutPutColor = GammaCorrection(OutPutColor);
-                                }
-                                Color AfterShuffel = ShuffleColors(OutPutColor);
-
-                                string AddString = Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.B + 1)), 0) + ";";
-                                if (AddString.Length + InnerSerialOutRight[SerialOutRightSection].Length * 2 > 120)
-                                {
-                                    string[] ChangeToIDString = InnerSerialOutRight[SerialOutRightSection].Split(';');
-                                    if (AmbiLightModeRightFromIDNumericUpDown.Value < AmbiLightModeRightToIDNumericUpDown.Value)
-                                        ChangeToIDString[2] = (AmbiLightModeRightFromIDNumericUpDown.Value + Count).ToString();
-                                    else
-                                        ChangeToIDString[2] = (AmbiLightModeRightFromIDNumericUpDown.Value - Count).ToString();
-
-                                    InnerSerialOutRight[SerialOutRightSection] = "";
-
-                                    foreach (String Out in ChangeToIDString)
-                                    {
-                                        InnerSerialOutRight[SerialOutRightSection] += Out + ";";
-                                    }
-
-                                    SerialOutRightSection++;
-                                    if (AmbiLightModeRightFromIDNumericUpDown.Value < AmbiLightModeRightToIDNumericUpDown.Value)
-                                        InnerSerialOutRight[SerialOutRightSection] = "7;" + (AmbiLightModeRightFromIDNumericUpDown.Value + Count) + ";" + AmbiLightModeRightToIDNumericUpDown.Value + ";" + AmbiLightModeRightLEDsPrBlockNumericUpDown.Value + ";";
-                                    else
-                                        InnerSerialOutRight[SerialOutRightSection] = "7;" + (AmbiLightModeRightFromIDNumericUpDown.Value - Count) + ";" + AmbiLightModeRightToIDNumericUpDown.Value + ";" + AmbiLightModeRightLEDsPrBlockNumericUpDown.Value + ";";
-                                }
-                                InnerSerialOutRight[SerialOutRightSection] += AddString;
-
-                                Count++;
-                            }
-                            SerialOutRightReady = true;
+                            SerialOutRightReady = ProcessSection(
+                                GFXScreenshotRight,
+                                ImageWindowRight,
+                                SerialOutRightSection,
+                                (Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.X + Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width - (int)AmbiLightModeRightBlockWidthNumericUpDown.Value) + (int)AmbiLightModeRightBlockOffsetXNumericUpDown.Value,
+                                Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Y + (int)AmbiLightModeRightBlockOffsetYNumericUpDown.Value,
+                                (int)AmbiLightModeRightBlockWidthNumericUpDown.Value,
+                                Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height,
+                                (int)AmbiLightModeRightFromIDNumericUpDown.Value,
+                                (int)AmbiLightModeRightToIDNumericUpDown.Value,
+                                (int)AmbiLightModeRightLEDsPrBlockNumericUpDown.Value,
+                                0,
+                                Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height - (int)AmbiLightModeRightBlockHeightNumericUpDown.Value,
+                                (int)(AmbiLightModeRightBlockHeightNumericUpDown.Value + AmbiLightModeRightBlockSpacingNumericUpDown.Value),
+                                false,
+                                (int)AmbiLightModeRightBlockWidthNumericUpDown.Value,
+                                (int)AmbiLightModeRightBlockHeightNumericUpDown.Value,
+                                0,
+                                0,
+                                false,
+                                2,
+                                (double)AmbiLightModeFadeFactorNumericUpDown.Value
+                                );
                         });
                     }
                     else
@@ -3376,75 +3289,29 @@ namespace ArduLEDNameSpace
                     {
                         Task.Run(() =>
                         {
-                            using (GFXScreenshotBottom = Graphics.FromImage(ImageWindowBottom))
-                            {
-                                GFXScreenshotBottom.CopyFromScreen(Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.X + (int)AmbiLightModeBottomBlockOffsetXNumericUpDown.Value, (Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Y + Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height - (int)AmbiLightModeBottomBlockHeightNumericUpDown.Value) + (int)AmbiLightModeBottomBlockOffsetYNumericUpDown.Value, 0, 0, new Size(Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width, (int)AmbiLightModeBottomBlockHeightNumericUpDown.Value), CopyPixelOperation.SourceCopy);
-                            }
-                            int Count = 0;
-                            InnerSerialOutBottom[SerialOutBottomSection] = "7;" + AmbiLightModeBottomFromIDNumericUpDown.Value + ";" + AmbiLightModeBottomToIDNumericUpDown.Value + ";" + AmbiLightModeBottomLEDsPrBlockNumericUpDown.Value + ";";
-                            for (int i = (Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width - (int)AmbiLightModeBottomBlockWidthNumericUpDown.Value); i > (int)AmbiLightModeBottomBlockWidthNumericUpDown.Value; i -= (int)(AmbiLightModeBottomBlockWidthNumericUpDown.Value + AmbiLightModeBottomBlockSpacingNumericUpDown.Value))
-                            {
-                                Color OutPutColor = GetColorOfSection(ImageWindowBottom, (int)AmbiLightModeBottomBlockWidthNumericUpDown.Value, (int)AmbiLightModeBottomBlockHeightNumericUpDown.Value, i, 0);
-                                if (AmbiLightModeFadeFactorNumericUpDown.Value != 0)
-                                {
-                                    if (AmbilightColorStore[3].Count <= Count)
-                                    {
-                                        AmbilightColorStore[3].Add(new List<int>());
-                                        AmbilightColorStore[3][Count].Add(OutPutColor.R);
-                                        AmbilightColorStore[3][Count].Add(OutPutColor.G);
-                                        AmbilightColorStore[3][Count].Add(OutPutColor.B);
-                                    }
-                                    else
-                                    {
-                                        AmbilightColorStore[3][Count][0] = AmbilightColorStore[3][Count][0] + (int)(((double)OutPutColor.R - (double)AmbilightColorStore[3][Count][0]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
-                                        if (AmbilightColorStore[3][Count][0] > 255)
-                                            AmbilightColorStore[3][Count][0] = 255;
-                                        if (AmbilightColorStore[3][Count][0] < 0)
-                                            AmbilightColorStore[3][Count][0] = 0;
-                                        AmbilightColorStore[3][Count][1] = AmbilightColorStore[3][Count][1] + (int)(((double)OutPutColor.G - (double)AmbilightColorStore[3][Count][1]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
-                                        if (AmbilightColorStore[3][Count][1] > 255)
-                                            AmbilightColorStore[3][Count][1] = 255;
-                                        if (AmbilightColorStore[3][Count][1] < 0)
-                                            AmbilightColorStore[3][Count][1] = 0;
-                                        AmbilightColorStore[3][Count][2] = AmbilightColorStore[3][Count][2] + (int)(((double)OutPutColor.B - (double)AmbilightColorStore[3][Count][2]) * (double)AmbiLightModeFadeFactorNumericUpDown.Value);
-                                        if (AmbilightColorStore[3][Count][2] > 255)
-                                            AmbilightColorStore[3][Count][2] = 255;
-                                        if (AmbilightColorStore[3][Count][2] < 0)
-                                            AmbilightColorStore[3][Count][2] = 0;
-                                    }
-                                    OutPutColor = GammaCorrection(Color.FromArgb(AmbilightColorStore[3][Count][0], AmbilightColorStore[3][Count][1], AmbilightColorStore[3][Count][2]));
-                                }
-                                else
-                                {
-                                    OutPutColor = GammaCorrection(OutPutColor);
-                                }
-                                Color AfterShuffel = ShuffleColors(OutPutColor);
-                                string AddString = Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.B + 1)), 0) + ";";
-                                if (AddString.Length + InnerSerialOutBottom[SerialOutBottomSection].Length * 2 > 120)
-                                {
-                                    string[] ChangeToIDString = InnerSerialOutBottom[SerialOutBottomSection].Split(';');
-                                    if (AmbiLightModeBottomFromIDNumericUpDown.Value < AmbiLightModeBottomToIDNumericUpDown.Value)
-                                        ChangeToIDString[2] = (AmbiLightModeBottomFromIDNumericUpDown.Value + Count).ToString();
-                                    else
-                                        ChangeToIDString[2] = (AmbiLightModeBottomFromIDNumericUpDown.Value - Count).ToString();
-
-                                    InnerSerialOutBottom[SerialOutBottomSection] = "";
-
-                                    foreach (String Out in ChangeToIDString)
-                                    {
-                                        InnerSerialOutBottom[SerialOutBottomSection] += Out + ";";
-                                    }
-
-                                    SerialOutBottomSection++;
-                                    if (AmbiLightModeBottomFromIDNumericUpDown.Value < AmbiLightModeBottomToIDNumericUpDown.Value)
-                                        InnerSerialOutBottom[SerialOutBottomSection] = "7;" + (AmbiLightModeBottomFromIDNumericUpDown.Value + Count) + ";" + AmbiLightModeBottomToIDNumericUpDown.Value + ";" + AmbiLightModeBottomLEDsPrBlockNumericUpDown.Value + ";";
-                                    else
-                                        InnerSerialOutBottom[SerialOutBottomSection] = "7;" + (AmbiLightModeBottomFromIDNumericUpDown.Value - Count) + ";" + AmbiLightModeBottomToIDNumericUpDown.Value + ";" + AmbiLightModeBottomLEDsPrBlockNumericUpDown.Value + ";";
-                                }
-                                InnerSerialOutBottom[SerialOutBottomSection] += AddString;
-                                Count++;
-                            }
-                            SerialOutBottomReady = true;
+                            SerialOutBottomReady = ProcessSection(
+                                GFXScreenshotBottom,
+                                ImageWindowBottom,
+                                SerialOutBottomSection,
+                                Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.X + (int)AmbiLightModeBottomBlockOffsetXNumericUpDown.Value,
+                                (Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Y + Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height - (int)AmbiLightModeBottomBlockHeightNumericUpDown.Value) + (int)AmbiLightModeBottomBlockOffsetYNumericUpDown.Value,
+                                Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width,
+                                (int)AmbiLightModeBottomBlockHeightNumericUpDown.Value,
+                                (int)AmbiLightModeBottomFromIDNumericUpDown.Value,
+                                (int)AmbiLightModeBottomToIDNumericUpDown.Value,
+                                (int)AmbiLightModeBottomLEDsPrBlockNumericUpDown.Value,
+                                0,
+                                Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height - (int)AmbiLightModeRightBlockHeightNumericUpDown.Value,
+                                (int)(AmbiLightModeRightBlockHeightNumericUpDown.Value + AmbiLightModeRightBlockSpacingNumericUpDown.Value),
+                                false,
+                                (int)AmbiLightModeRightBlockWidthNumericUpDown.Value,
+                                (int)AmbiLightModeRightBlockHeightNumericUpDown.Value,
+                                0,
+                                0,
+                                true,
+                                3,
+                                (double)AmbiLightModeFadeFactorNumericUpDown.Value
+                                );
                         });
                     }
                     else
@@ -3541,6 +3408,204 @@ namespace ArduLEDNameSpace
             AvgB = AvgB / Count;
 
             return Color.FromArgb(AvgR, AvgG, AvgB);
+        }
+
+        bool ProcessSection(
+            Graphics _GFXScreenShot,
+            Bitmap _ImageWindow,
+            int _SectionIndex,
+            int _CaptureX,
+            int _CaptureY,
+            int _CaptureWidth,
+            int _CaptureHeight,
+            int _FromID,
+            int _ToID,
+            int _PixelsPrBlock,
+            int _FromI,
+            int _UntilI,
+            int _AddToI,
+            bool _WhileILarger,
+            int _ProcessColorWidth,
+            int _ProcessColorHeight,
+            int _OffSetX,
+            int _OffSetY,
+            bool _ILoc,
+            int _SideID,
+            double _FadeFactor
+            )
+        {
+            string[] _InnerSerialOut = { "","","","","" };
+
+            using (_GFXScreenShot = Graphics.FromImage(_ImageWindow))
+            {
+                _GFXScreenShot.CopyFromScreen(_CaptureX, _CaptureY, 0, 0, new Size(_CaptureWidth, _CaptureHeight), CopyPixelOperation.SourceCopy);
+            }
+            int Count = 0;
+            _InnerSerialOut[_SectionIndex] = "7;" + _FromID + ";" + _ToID + ";" + _PixelsPrBlock + ";";
+            if (_WhileILarger)
+            {
+                for (int i = _FromI; i > _UntilI; i -= _AddToI)
+                {
+                    _SectionIndex = ProcessSectionInner(
+                        _ILoc,
+                        _ImageWindow,
+                        _ProcessColorWidth,
+                        _ProcessColorHeight,
+                        _OffSetX,
+                        _OffSetY,
+                        i,
+                        _SideID,
+                        Count,
+                        _InnerSerialOut,
+                        _SectionIndex,
+                        _FromID,
+                        _ToID,
+                        _PixelsPrBlock,
+                        _FadeFactor
+                        );
+                    Count++;
+                }
+            }
+            else
+            {
+                for (int i = _FromI; i < _UntilI; i += _AddToI)
+                {
+                    _SectionIndex = ProcessSectionInner(
+                        _ILoc,
+                        _ImageWindow,
+                        _ProcessColorWidth,
+                        _ProcessColorHeight,
+                        _OffSetX,
+                        _OffSetY,
+                        i,
+                        _SideID,
+                        Count,
+                        _InnerSerialOut,
+                        _SectionIndex,
+                        _FromID,
+                        _ToID,
+                        _PixelsPrBlock,
+                        _FadeFactor
+                        );
+                    Count++;
+                }
+            }
+            if (_SideID == 0)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    InnerSerialOutLeft[i] = _InnerSerialOut[i];
+                }
+            }
+            if (_SideID == 1)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    InnerSerialOutTop[i] = _InnerSerialOut[i];
+                }
+            }
+            if (_SideID == 2)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    InnerSerialOutRight[i] = _InnerSerialOut[i];
+                }
+            }
+            if (_SideID == 3)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    InnerSerialOutBottom[i] = _InnerSerialOut[i];
+                }
+            }
+
+            return true;
+        }
+
+        int ProcessSectionInner(
+            bool _ILoc,
+            Bitmap _ImageWindow,
+            int _ProcessColorWidth,
+            int _ProcessColorHeight,
+            int _OffSetX,
+            int _OffSetY,
+            int _i,
+            int _SideID,
+            int _Count,
+            string[] _InnerSerialOut,
+            int _SectionIndex,
+            int _FromID,
+            int _ToID,
+            int _PixelsPrBlock,
+            double _FadeFactor
+            )
+        {
+            Color OutPutColor;
+            if (_ILoc)
+                OutPutColor = GetColorOfSection(_ImageWindow, _ProcessColorWidth, _ProcessColorHeight, _OffSetX + _i, _OffSetY);
+            else
+                OutPutColor = GetColorOfSection(_ImageWindow, _ProcessColorWidth, _ProcessColorHeight, _OffSetX, _OffSetY + _i);
+            if (AmbiLightModeFadeFactorNumericUpDown.Value != 0)
+            {
+                if (AmbilightColorStore[_SideID].Count == _Count)
+                {
+                    AmbilightColorStore[_SideID].Add(new List<int>());
+                    AmbilightColorStore[_SideID][_Count].Add(OutPutColor.R);
+                    AmbilightColorStore[_SideID][_Count].Add(OutPutColor.G);
+                    AmbilightColorStore[_SideID][_Count].Add(OutPutColor.B);
+                }
+                else
+                {
+                    AmbilightColorStore[_SideID][_Count][0] = AmbilightColorStore[_SideID][_Count][0] + (int)(((double)OutPutColor.R - (double)AmbilightColorStore[_SideID][_Count][0]) * _FadeFactor);
+                    if (AmbilightColorStore[_SideID][_Count][0] > 255)
+                        AmbilightColorStore[_SideID][_Count][0] = 255;
+                    if (AmbilightColorStore[_SideID][_Count][0] < 0)
+                        AmbilightColorStore[_SideID][_Count][0] = 0;
+                    AmbilightColorStore[_SideID][_Count][1] = AmbilightColorStore[_SideID][_Count][1] + (int)(((double)OutPutColor.G - (double)AmbilightColorStore[_SideID][_Count][1]) * _FadeFactor);
+                    if (AmbilightColorStore[_SideID][_Count][1] > 255)
+                        AmbilightColorStore[_SideID][_Count][1] = 255;
+                    if (AmbilightColorStore[_SideID][_Count][1] < 0)
+                        AmbilightColorStore[_SideID][_Count][1] = 0;
+                    AmbilightColorStore[_SideID][_Count][2] = AmbilightColorStore[_SideID][_Count][2] + (int)(((double)OutPutColor.B - (double)AmbilightColorStore[_SideID][_Count][2]) * _FadeFactor);
+                    if (AmbilightColorStore[_SideID][_Count][2] > 255)
+                        AmbilightColorStore[_SideID][_Count][2] = 255;
+                    if (AmbilightColorStore[_SideID][_Count][2] < 0)
+                        AmbilightColorStore[_SideID][_Count][2] = 0;
+                }
+                OutPutColor = GammaCorrection(Color.FromArgb(AmbilightColorStore[_SideID][_Count][0], AmbilightColorStore[_SideID][_Count][1], AmbilightColorStore[_SideID][_Count][2]));
+            }
+            else
+            {
+                OutPutColor = GammaCorrection(OutPutColor);
+            }
+            Color AfterShuffel = ShuffleColors(OutPutColor);
+
+            string AddString = Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.B + 1)), 0) + ";";
+
+            if (AddString.Length + _InnerSerialOut[_SectionIndex].Length * 2 > 120)
+            {
+                string[] ChangeToIDString = _InnerSerialOut[_SectionIndex].Split(';');
+                if (_FromID < _ToID)
+                    ChangeToIDString[2] = (_FromID + _Count).ToString();
+                else
+                    ChangeToIDString[2] = (_FromID - _Count).ToString();
+
+                _InnerSerialOut[_SectionIndex] = "";
+
+                foreach (String Out in ChangeToIDString)
+                {
+                    _InnerSerialOut[_SectionIndex] += Out + ";";
+                }
+
+                _SectionIndex++;
+
+                if (_FromID < _ToID)
+                    _InnerSerialOut[_SectionIndex] = "7;" + (_FromID + _Count) + ";" + _ToID + ";" + _PixelsPrBlock + ";";
+                else
+                    _InnerSerialOut[_SectionIndex] = "7;" + (_FromID - _Count) + ";" + _ToID + ";" + _PixelsPrBlock + ";";
+            }
+            _InnerSerialOut[_SectionIndex] += AddString;
+            return _SectionIndex;
         }
 
         private void AmbiLightModeCheckBox_CheckedChanged(object sender, EventArgs e)
