@@ -4,9 +4,9 @@
 
 Welcome, to the ArduLED project. What is this? you may ask, this is a program, both one for an Arduino and one for a computer, together makes it posable to control Neopixels (ws2812b). It features easy-to-do setup, that does not require much work. A list of features can be made:
  
- - Supports up to 8 LED strips with a total of 128 LEDs (on a standard Arduino with 2kb of memory, in normal mode, up to 250 have been tested in compression mode)
+ - Supports up to 8 LED strips with a total of over 200 LEDs (Testet up to 200, can go higher)
  - Dynamic setup from the computer, there is no need to change the code for the Arduino if changes to your setup are made
- - [BASS.NET](http://bass.radio42.com/) powered visualizer, with a lot of diffrent options (Very fast, ~100 RPS on 135 LEDs)
+ - [BASS.NET](http://bass.radio42.com/) powered visualizer, with a lot of diffrent options (Very fast, ~100 RPS on 135 LEDs on Beat Wave)
  - Fading colors
  - Instructions mode, setup a set of instructions that the LED will follow
  - Ambilight feature (~20 15-20 FPS on 4k screen with 50 LEDs)
