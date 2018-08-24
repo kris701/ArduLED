@@ -7,7 +7,7 @@ LanguageComboBox;Lucida Console;8;
 MenuAutoHideCheckBox;Lucida Console;8;Gør automatisk usynlig
 
 ModeSelectrionComboBox;Lucida Console;8;
-INDEXNAMES;ModeSelectrionComboBox;Falme Farver;Visualizer;Individuelle Farver;Instruktioner;Ambilight;Opsætning
+INDEXNAMES;ModeSelectrionComboBox;Falme Farver;Visualizer;Individuelle Farver;Instruktioner;Server Opsætning;Ambilight;Opsætning
 
 FadeColorsRedTopLabel;Lucida Console;11;Rød
 FadeColorsGreenTopLabel;Lucida Console;11;Grøn
@@ -330,3 +330,15 @@ AmbiLightModeBottomFromIDLabel;Lucida Console;8;Fra serie ID
 AmbiLightModeBottomFromIDNumericUpDown;Lucida Console;8;
 AmbiLightModeBottomToIDLabel;Lucida Console;8;Til serie ID
 AmbiLightModeBottomToIDNumericUpDown;Lucida Console;8;
+
+
+ServerSettingsTopLabel;Lucida Console;16;Server Indstillinger
+ServerSettingsConsoleTextBox;Lucida Console;8;
+ConfigureSetupEnableServerMode;Lucida Console;8;Start server med programmet
+ServerSettingsClearConsoleButton;Lucida Console;8;Tøm konsollen
+ServerSettingsStopServerButton;Lucida Console;8;Stop Server
+ServerSettingsStartServerButton;Lucida Console;8;Start Server
+ServerSettingsIPAddressLabel;Lucida Console;10;IP Addresse
+ServerSettingsIPAddressTextBox;Lucida Console;10;
+ServerSettingsPortLabel;Lucida Console;10;Port
+ServerSettingsPortTextBox;Lucida Console;10;

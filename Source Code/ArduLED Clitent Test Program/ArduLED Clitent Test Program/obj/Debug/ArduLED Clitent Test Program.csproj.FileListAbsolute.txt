@@ -1,0 +1,10 @@
+C:\Users\kris7\OneDrive\Programming stuff\C#\Finished Projects\_GitHub_\ArduLED (GitHub)\ArduLED Clitent Test Program\ArduLED Clitent Test Program\bin\Debug\ArduLED Clitent Test Program.exe.config
+C:\Users\kris7\OneDrive\Programming stuff\C#\Finished Projects\_GitHub_\ArduLED (GitHub)\ArduLED Clitent Test Program\ArduLED Clitent Test Program\bin\Debug\ArduLED Clitent Test Program.exe
+C:\Users\kris7\OneDrive\Programming stuff\C#\Finished Projects\_GitHub_\ArduLED (GitHub)\ArduLED Clitent Test Program\ArduLED Clitent Test Program\bin\Debug\ArduLED Clitent Test Program.pdb
+C:\Users\kris7\OneDrive\Programming stuff\C#\Finished Projects\_GitHub_\ArduLED (GitHub)\ArduLED Clitent Test Program\ArduLED Clitent Test Program\obj\Debug\ArduLED Clitent Test Program.csprojAssemblyReference.cache
+C:\Users\kris7\OneDrive\Programming stuff\C#\Finished Projects\_GitHub_\ArduLED (GitHub)\ArduLED Clitent Test Program\ArduLED Clitent Test Program\obj\Debug\ArduLED_Clitent_Test_Program.Properties.Resources.resources
+C:\Users\kris7\OneDrive\Programming stuff\C#\Finished Projects\_GitHub_\ArduLED (GitHub)\ArduLED Clitent Test Program\ArduLED Clitent Test Program\obj\Debug\ArduLED Clitent Test Program.csproj.GenerateResource.cache
+C:\Users\kris7\OneDrive\Programming stuff\C#\Finished Projects\_GitHub_\ArduLED (GitHub)\ArduLED Clitent Test Program\ArduLED Clitent Test Program\obj\Debug\ArduLED Clitent Test Program.csproj.CoreCompileInputs.cache
+C:\Users\kris7\OneDrive\Programming stuff\C#\Finished Projects\_GitHub_\ArduLED (GitHub)\ArduLED Clitent Test Program\ArduLED Clitent Test Program\obj\Debug\ArduLED Clitent Test Program.exe
+C:\Users\kris7\OneDrive\Programming stuff\C#\Finished Projects\_GitHub_\ArduLED (GitHub)\ArduLED Clitent Test Program\ArduLED Clitent Test Program\obj\Debug\ArduLED Clitent Test Program.pdb
+C:\Users\kris7\OneDrive\Programming stuff\C#\Finished Projects\_GitHub_\ArduLED (GitHub)\ArduLED Clitent Test Program\ArduLED Clitent Test Program\obj\Debug\ArduLED_Clitent_Test_Program.MainForm.resources

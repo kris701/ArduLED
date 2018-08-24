@@ -7,7 +7,7 @@ LanguageComboBox;Lucida Console;8;
 MenuAutoHideCheckBox;Lucida Console;8;Auto Hide
 
 ModeSelectrionComboBox;Lucida Console;8;
-INDEXNAMES;ModeSelectrionComboBox;Fade Colors;Visualizer;Individual Colors;Indstructions Mode;Ambilight Mode;Configure Setup
+INDEXNAMES;ModeSelectrionComboBox;Fade Colors;Visualizer;Individual Colors;Indstructions Mode;Ambilight Mode;Server Settings;Configure Setup
 
 FadeColorsRedTopLabel;Lucida Console;11;Red
 FadeColorsGreenTopLabel;Lucida Console;11;Green
@@ -330,3 +330,14 @@ AmbiLightModeBottomFromIDLabel;Lucida Console;8;From Series ID
 AmbiLightModeBottomFromIDNumericUpDown;Lucida Console;8;
 AmbiLightModeBottomToIDLabel;Lucida Console;8;To Series ID
 AmbiLightModeBottomToIDNumericUpDown;Lucida Console;8;
+
+ServerSettingsTopLabel;Lucida Console;16;Server Settings
+ServerSettingsConsoleTextBox;Lucida Console;8;
+ConfigureSetupEnableServerMode;Lucida Console;8;Enable Server at Startup
+ServerSettingsClearConsoleButton;Lucida Console;8;Clear Console
+ServerSettingsStopServerButton;Lucida Console;8;Stop Server
+ServerSettingsStartServerButton;Lucida Console;8;Start Server
+ServerSettingsIPAddressLabel;Lucida Console;10;IP Address
+ServerSettingsIPAddressTextBox;Lucida Console;10;
+ServerSettingsPortLabel;Lucida Console;10;Port
+ServerSettingsPortTextBox;Lucida Console;10;

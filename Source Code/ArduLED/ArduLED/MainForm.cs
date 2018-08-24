@@ -10,6 +10,8 @@ using System.Windows.Forms.DataVisualization.Charting;
 using Un4seen.Bass;
 using Un4seen.BassWasapi;
 using System.Drawing.Imaging;
+using System.Net;
+using System.Net.Sockets;
 
 namespace ArduLEDNameSpace
 {
@@ -50,10 +52,14 @@ namespace ArduLEDNameSpace
         DateTime AmbilightFPSCounter;
         int AmbilightFPSCounterFramesRendered;
         Task AmbilightTask;
-                    string[] InnerSerialOutLeft = { "", "", "", "", "" };
-            string[] InnerSerialOutTop = { "", "", "", "", "" };
-            string[] InnerSerialOutRight = { "", "", "", "", "" };
-            string[] InnerSerialOutBottom = { "", "", "", "", "" };
+        string[] InnerSerialOutLeft = { "", "", "", "", "" };
+        string[] InnerSerialOutTop = { "", "", "", "", "" };
+        string[] InnerSerialOutRight = { "", "", "", "", "" };
+        string[] InnerSerialOutBottom = { "", "", "", "", "" };
+
+        bool ServerRunning = false;
+        TcpListener ServerListener;
+        TcpClient ClientSocket;
 
         #endregion
 
@@ -192,6 +198,7 @@ namespace ArduLEDNameSpace
             ModeSelectrionComboBox.Items.Add(" ");
             ModeSelectrionComboBox.Items.Add(" ");
             ModeSelectrionComboBox.Items.Add(" ");
+            ModeSelectrionComboBox.Items.Add(" ");
             VisualizationTypeComboBox.Items.Add(" ");
             VisualizationTypeComboBox.Items.Add(" ");
             VisualizationTypeComboBox.Items.Add(" ");
@@ -233,6 +240,14 @@ namespace ArduLEDNameSpace
             SetLoadingLabelTo("Previus settings");
 
             AutoLoadAllSettings();
+
+            if (ConfigureSetupEnableServerMode.Checked)
+            {
+                SetLoadingLabelTo("Server Thread");
+
+                Thread ThreadingServer = new Thread(StartServer);
+                ThreadingServer.Start();
+            }
 
             SetLoadingLabelTo("Formating layout");
 
@@ -436,7 +451,8 @@ namespace ArduLEDNameSpace
         {
             GetAllControls(this);
 
-            SaveSettings(Directory.GetCurrentDirectory() + "\\cfg.txt", "SERIALPORT;" + SerialPort1.BaudRate);
+            SaveSettings(Directory.GetCurrentDirectory() + "\\cfg.txt", 
+                "SERIALPORT;" + SerialPort1.BaudRate + Environment.NewLine);
         }
 
         void GetAllControls(Control _InputControl)
@@ -590,7 +606,7 @@ namespace ArduLEDNameSpace
                 {
                     ModeSelectrionComboBox.Enabled = true;
                     if (!ConfigureSetupAutoSendCheckBox.Checked)
-                        ModeSelectrionComboBox.SelectedIndex = 5;
+                        ModeSelectrionComboBox.SelectedIndex = 6;
                     else
                         await SendSetup();
                 }
@@ -607,6 +623,7 @@ namespace ArduLEDNameSpace
                 ConfigureSetupPanel.Visible = false;
                 InstructionsPanel.Visible = false;
                 AmbiLightModePanel.Visible = false;
+                ServerSettingsPanel.Visible = false;
                 AutoSaveAllSettings();
                 if (MenuAutoHideCheckBox.Checked)
                     HideTimer.Start();
@@ -630,6 +647,7 @@ namespace ArduLEDNameSpace
             InstructionsPanel.Visible = false;
             ConfigureSetupPanel.Visible = false;
             AmbiLightModePanel.Visible = false;
+            ServerSettingsPanel.Visible = false;
 
             if (!ContinueInstructionsLoop)
                 EnableBASS(false);
@@ -639,7 +657,16 @@ namespace ArduLEDNameSpace
                 FadeLEDPanel.Enabled = true;
                 FadeLEDPanel.BringToFront();
                 if (!ContinueInstructionsLoop)
-                    FadeColorsSendData(true);
+                {
+                    FadeColorsSendData(
+                        false,
+                        (int)FadeLEDPanelFromIDNumericUpDown.Value,
+                        (int)FadeLEDPanelToIDNumericUpDown.Value,
+                        Color.FromArgb(FadeColorsRedTrackBar.Value, FadeColorsGreenTrackBar.Value, FadeColorsBlueTrackBar.Value),
+                        (int)FadeColorsFadeSpeedNumericUpDown.Value,
+                        (int)Math.Round(FadeColorsFadeFactorNumericUpDown.Value * 100, 0)
+                        );
+                }
             }
             if (ModeSelectrionComboBox.SelectedIndex == 1)
             {
@@ -659,14 +686,32 @@ namespace ArduLEDNameSpace
                 IndividualLEDPanel.Visible = true;
                 IndividualLEDPanel.BringToFront();
                 if (!ContinueInstructionsLoop)
-                    FadeColorsSendData(true);
+                {
+                    FadeColorsSendData(
+                        false,
+                        (int)FadeLEDPanelFromIDNumericUpDown.Value,
+                        (int)FadeLEDPanelToIDNumericUpDown.Value,
+                        Color.FromArgb(FadeColorsRedTrackBar.Value, FadeColorsGreenTrackBar.Value, FadeColorsBlueTrackBar.Value),
+                        (int)FadeColorsFadeSpeedNumericUpDown.Value,
+                        (int)Math.Round(FadeColorsFadeFactorNumericUpDown.Value * 100, 0)
+                        );
+                }
             }
             if (ModeSelectrionComboBox.SelectedIndex == 3)
             {
                 InstructionsPanel.Visible = true;
                 InstructionsPanel.BringToFront();
                 if (!ContinueInstructionsLoop)
-                    FadeColorsSendData(true);
+                {
+                    FadeColorsSendData(
+                        false,
+                        (int)FadeLEDPanelFromIDNumericUpDown.Value,
+                        (int)FadeLEDPanelToIDNumericUpDown.Value,
+                        Color.FromArgb(FadeColorsRedTrackBar.Value, FadeColorsGreenTrackBar.Value, FadeColorsBlueTrackBar.Value),
+                        (int)FadeColorsFadeSpeedNumericUpDown.Value,
+                        (int)Math.Round(FadeColorsFadeFactorNumericUpDown.Value * 100, 0)
+                        );
+                }
             }
             if (ModeSelectrionComboBox.SelectedIndex == 4)
             {
@@ -674,6 +719,11 @@ namespace ArduLEDNameSpace
                 AmbiLightModePanel.BringToFront();
             }
             if (ModeSelectrionComboBox.SelectedIndex == 5)
+            {
+                ServerSettingsPanel.Visible = true;
+                ServerSettingsPanel.BringToFront();
+            }
+            if (ModeSelectrionComboBox.SelectedIndex == 6)
             {
                 ConfigureSetupPanel.Visible = true;
                 ConfigureSetupPanel.BringToFront();
@@ -709,15 +759,22 @@ namespace ArduLEDNameSpace
 
         private void FadeColors_BeginSendData(object sender, MouseEventArgs e)
         {
-            FadeColorsSendData(false);
+            FadeColorsSendData(
+                false, 
+                (int)FadeLEDPanelFromIDNumericUpDown.Value, 
+                (int)FadeLEDPanelToIDNumericUpDown.Value, 
+                Color.FromArgb(FadeColorsRedTrackBar.Value, FadeColorsGreenTrackBar.Value, FadeColorsBlueTrackBar.Value),
+                (int)FadeColorsFadeSpeedNumericUpDown.Value,
+                (int)Math.Round(FadeColorsFadeFactorNumericUpDown.Value * 100, 0)
+                );
         }
 
-        void FadeColorsSendData(bool _FromZero)
+        void FadeColorsSendData(bool _FromZero, int _FromID, int _ToID, Color _OutputColor, int _FadeSpeed, int _FadeFactor)
         {
             if (SerialPort1.IsOpen)
             {
                 string SerialOut;
-                SerialOut = "6;" + FadeLEDPanelFromIDNumericUpDown.Value + ";" + FadeLEDPanelToIDNumericUpDown.Value;
+                SerialOut = "6;" + _FromID + ";" + _ToID;
                 SendDataBySerial(SerialOut);
 
                 if (_FromZero)
@@ -726,9 +783,9 @@ namespace ArduLEDNameSpace
                     SendDataBySerial(SerialOut);
                 }
 
-                Color AfterShuffel = ShuffleColors(Color.FromArgb(FadeColorsRedTrackBar.Value, FadeColorsGreenTrackBar.Value, FadeColorsBlueTrackBar.Value));
+                Color AfterShuffel = ShuffleColors(_OutputColor);
 
-                SerialOut = "1;" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B + ";" + FadeColorsFadeSpeedNumericUpDown.Value + ";" + Math.Round(FadeColorsFadeFactorNumericUpDown.Value * 100, 0);
+                SerialOut = "1;" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B + ";" + _FadeSpeed + ";" + _FadeFactor;
                 SendDataBySerial(SerialOut);
             }
         }
@@ -2218,44 +2275,41 @@ namespace ArduLEDNameSpace
         {
             if (setto)
             {
-                if (ModeSelectrionComboBox.SelectedIndex == 1)
+                if (BassWasapi.BASS_WASAPI_IsStarted())
+                    BassWasapi.BASS_WASAPI_Stop(true);
+
+                BassWasapi.BASS_WASAPI_Free();
+                Bass.BASS_Free();
+
+                if (VisualizerThread != null)
                 {
-                    if (BassWasapi.BASS_WASAPI_IsStarted())
-                        BassWasapi.BASS_WASAPI_Stop(true);
-
-                    BassWasapi.BASS_WASAPI_Free();
-                    Bass.BASS_Free();
-
-                    if (VisualizerThread != null)
+                    RunVisualizerThread = false;
+                    while (VisualizerThread.Status == TaskStatus.Running)
                     {
-                        RunVisualizerThread = false;
-                        while (VisualizerThread.Status == TaskStatus.Running)
-                        {
-                            Thread.Sleep(5);
-                            Application.DoEvents();
-                        }
+                        Thread.Sleep(5);
+                        Application.DoEvents();
                     }
-
-                    BassProcess = new WASAPIPROC(Process);
-
-                    var array = (AudioSourceComboBox.Items[AudioSourceComboBox.SelectedIndex] as string).Split(' ');
-                    int devindex = Convert.ToInt32(array[0]);
-                    Bass.BASS_SetConfig(BASSConfig.BASS_CONFIG_UPDATETHREADS, false);
-                    Bass.BASS_Init(0, 44100, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);
-                    bool result = BassWasapi.BASS_WASAPI_Init(devindex, 0, 0, BASSWASAPIInit.BASS_WASAPI_BUFFER, 1f, 0.05f, BassProcess, IntPtr.Zero);
-                    if (!result)
-                    {
-                        var error = Bass.BASS_ErrorGetCode();
-                        MessageBox.Show(error.ToString());
-                    }
-
-                    BassWasapi.BASS_WASAPI_Start();
-
-                    RunVisualizerThread = true;
-
-                    VisualizerThread = new Task(delegate { AudioDataThread(); });
-                    VisualizerThread.Start();
                 }
+
+                BassProcess = new WASAPIPROC(Process);
+
+                var array = (AudioSourceComboBox.Items[AudioSourceComboBox.SelectedIndex] as string).Split(' ');
+                int devindex = Convert.ToInt32(array[0]);
+                Bass.BASS_SetConfig(BASSConfig.BASS_CONFIG_UPDATETHREADS, false);
+                Bass.BASS_Init(0, 44100, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);
+                bool result = BassWasapi.BASS_WASAPI_Init(devindex, 0, 0, BASSWASAPIInit.BASS_WASAPI_BUFFER, 1f, 0.05f, BassProcess, IntPtr.Zero);
+                if (!result)
+                {
+                    var error = Bass.BASS_ErrorGetCode();
+                    MessageBox.Show(error.ToString());
+                }
+
+                BassWasapi.BASS_WASAPI_Start();
+
+                RunVisualizerThread = true;
+
+                VisualizerThread = new Task(delegate { AudioDataThread(); });
+                VisualizerThread.Start();
             }
             else
             {
@@ -2640,48 +2694,51 @@ namespace ArduLEDNameSpace
 
         void LoadSettings(string _Location)
         {
-            string[] Lines = File.ReadAllLines(_Location, System.Text.Encoding.UTF8);
-            for (int i = 0; i < Lines.Length; i++)
+            if (File.Exists(_Location))
             {
-                try
+                string[] Lines = File.ReadAllLines(_Location, System.Text.Encoding.UTF8);
+                for (int i = 0; i < Lines.Length; i++)
                 {
-                    string[] Split = Lines[i].Split(';');
-                    if (Split[0] != "")
+                    try
                     {
-                        if (Split[0].ToUpper() == "COMBOBOX")
+                        string[] Split = Lines[i].Split(';');
+                        if (Split[0] != "")
                         {
-                            ComboBox LoadCombobox = Controls.Find(Split[1], true)[0] as ComboBox;
-                            LoadCombobox.SelectedIndex = Int32.Parse(Split[2]);
-                        }
-                        if (Split[0].ToUpper() == "CHECKBOX")
-                        {
-                            CheckBox LoadCheckBox = Controls.Find(Split[1], true)[0] as CheckBox;
-                            LoadCheckBox.Checked = Convert.ToBoolean(Split[2]);
-                        }
-                        if (Split[0].ToUpper() == "TEXTBOX")
-                        {
-                            TextBox LoadTextBox = Controls.Find(Split[1], true)[0] as TextBox;
-                            LoadTextBox.Text = Split[2];
-                        }
-                        if (Split[0].ToUpper() == "NUMERICUPDOWN")
-                        {
-                            NumericUpDown LoadNumericUpDown = Controls.Find(Split[1], true)[0] as NumericUpDown;
-                            LoadNumericUpDown.Value = Convert.ToDecimal(Split[2]);
-                        }
-                        if (Split[0].ToUpper() == "TRACKBAR")
-                        {
-                            TrackBar LoadTrackBar = Controls.Find(Split[1], true)[0] as TrackBar;
-                            LoadTrackBar.Value = Int32.Parse(Split[2]);
-                        }
-                        if (Split[0].ToUpper() == "SERIALPORT")
-                        {
-                            SerialPort1.BaudRate = Int32.Parse(Split[1]);
+                            if (Split[0].ToUpper() == "COMBOBOX")
+                            {
+                                ComboBox LoadCombobox = Controls.Find(Split[1], true)[0] as ComboBox;
+                                LoadCombobox.SelectedIndex = Int32.Parse(Split[2]);
+                            }
+                            if (Split[0].ToUpper() == "CHECKBOX")
+                            {
+                                CheckBox LoadCheckBox = Controls.Find(Split[1], true)[0] as CheckBox;
+                                LoadCheckBox.Checked = Convert.ToBoolean(Split[2]);
+                            }
+                            if (Split[0].ToUpper() == "TEXTBOX")
+                            {
+                                TextBox LoadTextBox = Controls.Find(Split[1], true)[0] as TextBox;
+                                LoadTextBox.Text = Split[2];
+                            }
+                            if (Split[0].ToUpper() == "NUMERICUPDOWN")
+                            {
+                                NumericUpDown LoadNumericUpDown = Controls.Find(Split[1], true)[0] as NumericUpDown;
+                                LoadNumericUpDown.Value = Convert.ToDecimal(Split[2]);
+                            }
+                            if (Split[0].ToUpper() == "TRACKBAR")
+                            {
+                                TrackBar LoadTrackBar = Controls.Find(Split[1], true)[0] as TrackBar;
+                                LoadTrackBar.Value = Int32.Parse(Split[2]);
+                            }
+                            if (Split[0].ToUpper() == "SERIALPORT")
+                            {
+                                SerialPort1.BaudRate = Int32.Parse(Split[1]);
+                            }
                         }
                     }
+                    catch { }
                 }
-                catch { }
+                FormatLayout();
             }
-            FormatLayout();
         }
 
         void SaveSettings(string _Location, string _Additional)
@@ -3671,6 +3728,332 @@ namespace ArduLEDNameSpace
                 SaveSettings(SaveFileDialog.FileName, "");
             }
             SaveFileDialog.InitialDirectory = Directory.GetCurrentDirectory();
+        }
+
+        #endregion
+
+        #region Server Section
+
+        private void StartServer()
+        {
+            try
+            {
+                ClientSocket = null;
+                ServerListener = null;
+                IPAddress ServerIP = IPAddress.None;
+                int ServerPort = 0;
+                ServerSettingsIPAddressTextBox.Invoke((MethodInvoker)delegate { ServerIP = IPAddress.Parse(ServerSettingsIPAddressTextBox.Text); });
+                ServerSettingsPortTextBox.Invoke((MethodInvoker)delegate { ServerPort = Int32.Parse(ServerSettingsPortTextBox.Text); });
+                ServerListener = new TcpListener(ServerIP, ServerPort);
+                ClientSocket = default(TcpClient);
+
+                ServerListener.Start();
+                ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { ServerSettingsConsoleTextBox.Text += "Server waiting connections!" + Environment.NewLine; });
+                ClientSocket = ServerListener.AcceptTcpClient();
+                ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { ServerSettingsConsoleTextBox.Text += "Server Connected!" + Environment.NewLine; });
+
+                ServerRunning = true;
+            }
+            catch
+            {
+                MessageBox.Show("Error with Server Settings");
+                ServerRunning = false;
+            }
+
+            while (ServerRunning)
+            {
+                
+                try
+                {
+                    if (ClientSocket.Client.Poll(0, SelectMode.SelectRead))
+                    {
+                        try
+                        {
+                            byte[] PeekBuffer = new byte[1];
+                            ClientSocket.Client.Receive(PeekBuffer, SocketFlags.Peek);
+                        }
+                        catch
+                        {
+                            ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { ServerSettingsConsoleTextBox.Text += "Client Disconnected!" + Environment.NewLine; });
+                            ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { ServerSettingsConsoleTextBox.Text += "Server waiting connections!" + Environment.NewLine; });
+                            ClientSocket = ServerListener.AcceptTcpClient();
+                            ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { ServerSettingsConsoleTextBox.Text += "Server Connected!" + Environment.NewLine; });
+                        }
+                    }
+                    if (ClientSocket.Available == 0)
+                    {
+                        Thread.Sleep(100);
+                        continue;
+                    }
+                    NetworkStream DataStream = ClientSocket.GetStream();
+                    byte[] ReadBytes = new byte[1024];
+                    DataStream.Read(ReadBytes, 0, 1024);
+                    string ClientData = System.Text.Encoding.ASCII.GetString(ReadBytes);
+                    ClientData = ClientData.Substring(0, ClientData.IndexOf("$"));
+
+                    ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { ServerSettingsConsoleTextBox.Text += "Server Recieved: " + ClientData + Environment.NewLine; });
+
+                    string Out = ArduLEDServerAPI(ClientData);
+                    if (Out != "")
+                    {
+                        Byte[] SendBytes = System.Text.Encoding.ASCII.GetBytes(Out);
+                        DataStream.Write(SendBytes, 0, SendBytes.Length);
+                        DataStream.Flush();
+                    }
+                    if (Out != "N")
+                        ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { ServerSettingsConsoleTextBox.Text += " Command Done!" + Environment.NewLine; });
+                    else
+                        ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { ServerSettingsConsoleTextBox.Text += " Bad Input!!" + Environment.NewLine; });
+                }
+                catch
+                {
+                    ServerListener.Stop();
+                    ServerListener.Start();
+                    ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { ServerSettingsConsoleTextBox.Text += "Server waiting connections!" + Environment.NewLine; });
+                    ClientSocket = ServerListener.AcceptTcpClient();
+                    ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { ServerSettingsConsoleTextBox.Text += "Server Connected!" + Environment.NewLine; });
+                }
+            }
+            ServerListener.Stop();
+            ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { ServerSettingsConsoleTextBox.Text += "Server Disconnected!" + Environment.NewLine; });
+        }
+
+        string ArduLEDServerAPI(string _Input)
+        {
+            try
+            {
+                string[] InputSplit = _Input.Split(',');
+
+                ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { ServerSettingsConsoleTextBox.Text += "     Running Command: " + InputSplit[0].ToUpper().Split('(')[0] + " ... "; });
+
+                //FADECOLOR(True,0,-1,255,0,255,20,10)
+
+                if (InputSplit[0].Replace(InputSplit[0].Replace("FADECOLOR(", ""), "").ToUpper() == "FADECOLOR(")
+                {
+                    InputSplit[0] = InputSplit[0].Replace("FADECOLOR(", "");
+                    InputSplit[InputSplit.Length - 1] = InputSplit[InputSplit.Length - 1].Replace(")", "");
+
+                    FadeColorsSendData(
+                        Convert.ToBoolean(InputSplit[0]),
+                        Int32.Parse(InputSplit[1]),
+                        Int32.Parse(InputSplit[2]),
+                        Color.FromArgb(Int32.Parse(InputSplit[3]), Int32.Parse(InputSplit[4]), Int32.Parse(InputSplit[5])),
+                        Int32.Parse(InputSplit[6]),
+                        Int32.Parse(InputSplit[7])
+                        );
+                }
+
+                //INDIVIDUALCOLOR(3,40,0,255,255)
+
+                if (InputSplit[0].Replace(InputSplit[0].Replace("INDIVIDUALCOLOR(", ""), "").ToUpper() == "INDIVIDUALCOLOR(")
+                {
+                    InputSplit[0] = InputSplit[0].Replace("FADECOLOR(", "");
+                    InputSplit[InputSplit.Length - 1] = InputSplit[InputSplit.Length - 1].Replace(")", "");
+
+                    string SerialOut = "4;" + InputSplit[0] + ";" + InputSplit[1] + ";" + InputSplit[2] + ";" + InputSplit[3] + ";" + InputSplit[4];
+                    SendDataBySerial(SerialOut);
+                }
+
+                //VISUALIZER(False,test.txt)
+
+                if (InputSplit[0].Replace(InputSplit[0].Replace("VISUALIZER(", ""), "").ToUpper() == "VISUALIZER(")
+                {
+                    InputSplit[0] = InputSplit[0].Replace("VISUALIZER(", "");
+                    InputSplit[InputSplit.Length - 1] = InputSplit[InputSplit.Length - 1].Replace(")", "");
+
+                    if (InputSplit[0] == "True")
+                    {
+                        EnableBASS(false);
+                    }
+                    else
+                    {
+                        try
+                        {
+                            string SerialOut = "";
+                            VisualizerPanel.Invoke((MethodInvoker)delegate
+                            {
+                                LoadSettings(Directory.GetCurrentDirectory() + "\\VisualizerSettings\\" + InputSplit[1]);
+                            });
+                            VisualizerFromSeriesIDNumericUpDown.Invoke((MethodInvoker)delegate
+                            {
+                                VisualizerToSeriesIDNumericUpDown.Invoke((MethodInvoker)delegate
+                                {
+                                    SerialOut = "6;" + VisualizerFromSeriesIDNumericUpDown.Value + ";" + VisualizerToSeriesIDNumericUpDown.Value;
+                                });
+                            });
+                            SendDataBySerial(SerialOut);
+                            VisualizerPanel.Invoke((MethodInvoker)delegate
+                            {
+                                EnableBASS(true);
+                            });
+                        }
+                        catch (Exception E)
+                        {
+                            ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { ServerSettingsConsoleTextBox.Text += "     " + E.ToString() + Environment.NewLine; });
+                        }
+                    }
+                }
+
+                //AMBILIGHT(False,True,False,wew5.txt)
+
+                if (InputSplit[0].Replace(InputSplit[0].Replace("AMBILIGHT(", ""), "").ToUpper() == "AMBILIGHT(")
+                {
+                    InputSplit[0] = InputSplit[0].Replace("AMBILIGHT(", "");
+                    InputSplit[InputSplit.Length - 1] = InputSplit[InputSplit.Length - 1].Replace(")", "");
+
+                    if (InputSplit[0] == "True")
+                    {
+                        AmbiLightModePanel.Invoke((MethodInvoker)delegate {
+                            StopAmbilight();
+                        });
+                    }
+                    else
+                    {
+                        if (InputSplit[1] == "True")
+                        {
+                            AmbiLightModePanel.Invoke((MethodInvoker)delegate {
+                                ShowOrHideBlocks();
+                            });
+                        }
+                        else
+                        {
+                            if (InputSplit[2] == "True")
+                            {
+                                AmbiLightModePanel.Invoke((MethodInvoker)delegate {
+                                    AutoSetOffsets();
+                                });
+                            }
+                            else
+                            {
+                                AmbiLightModePanel.Invoke((MethodInvoker)delegate {
+                                    LoadSettings(Directory.GetCurrentDirectory() + "\\AmbilightSettings\\" + InputSplit[3]);
+                                    StartAmbilight();
+                                });
+                            }
+                        }
+                    }
+                }
+
+                //CLICKBUTTON(ServerSettingsClearConsoleButton,0)
+
+                if (InputSplit[0].Replace(InputSplit[0].Replace("CLICKBUTTON(", ""), "").ToUpper() == "CLICKBUTTON(")
+                {
+                    InputSplit[0] = InputSplit[0].Replace("CLICKBUTTON(", "");
+                    InputSplit[InputSplit.Length - 1] = InputSplit[InputSplit.Length - 1].Replace(")", "");
+
+                    try
+                    {
+                        Button CallControl = Controls.Find(InputSplit[0], true)[Int32.Parse(InputSplit[1])] as Button;
+                        CallControl.Invoke((MethodInvoker)delegate { CallControl.PerformClick(); });
+                    }
+                    catch (Exception E)
+                    {
+                        ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { ServerSettingsConsoleTextBox.Text += "     " + E.ToString() + Environment.NewLine; });
+                    }
+                }
+
+                //SETTEXTCONTROL(ServerSettingsConsoleTextBox,0,wew lad)
+
+                if (InputSplit[0].Replace(InputSplit[0].Replace("SETTEXTCONTROL(", ""), "").ToUpper() == "SETTEXTCONTROL(")
+                {
+                    InputSplit[0] = InputSplit[0].Replace("SETTEXTCONTROL(", "");
+                    InputSplit[InputSplit.Length - 1] = InputSplit[InputSplit.Length - 1].Replace(")", "");
+
+                    try
+                    {
+                        TextBox CallControl = Controls.Find(InputSplit[0], true)[Int32.Parse(InputSplit[1])] as TextBox;
+                        CallControl.Invoke((MethodInvoker)delegate { CallControl.Text = InputSplit[2]; });
+                    }
+                    catch (Exception E)
+                    {
+                        ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { ServerSettingsConsoleTextBox.Text += "     " + E.ToString() + Environment.NewLine; });
+                    }
+                }
+
+                //SETTACKBARCONTROL(SampleTimeTrackBar,0,20)
+
+                if (InputSplit[0].Replace(InputSplit[0].Replace("SETTACKBARCONTROL(", ""), "").ToUpper() == "SETTACKBARCONTROL(")
+                {
+                    InputSplit[0] = InputSplit[0].Replace("SETTACKBARCONTROL(", "");
+                    InputSplit[InputSplit.Length - 1] = InputSplit[InputSplit.Length - 1].Replace(")", "");
+
+                    try
+                    {
+                        TrackBar CallControl = Controls.Find(InputSplit[0], true)[Int32.Parse(InputSplit[1])] as TrackBar;
+                        CallControl.Invoke((MethodInvoker)delegate { CallControl.Value = Int32.Parse(InputSplit[2]); });
+                    }
+                    catch (Exception E)
+                    {
+                        ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { ServerSettingsConsoleTextBox.Text += "     " + E.ToString() + Environment.NewLine; });
+                    }
+                }
+
+                //SETNUMERICCONTROL(AutoTriggerMinNumericUpDown,0,20)
+
+                if (InputSplit[0].Replace(InputSplit[0].Replace("SETNUMERICCONTROL(", ""), "").ToUpper() == "SETNUMERICCONTROL(")
+                {
+                    InputSplit[0] = InputSplit[0].Replace("SETNUMERICCONTROL(", "");
+                    InputSplit[InputSplit.Length - 1] = InputSplit[InputSplit.Length - 1].Replace(")", "");
+
+                    try
+                    {
+                        NumericUpDown CallControl = Controls.Find(InputSplit[0], true)[Int32.Parse(InputSplit[1])] as NumericUpDown;
+                        CallControl.Invoke((MethodInvoker)delegate { CallControl.Value = Int32.Parse(InputSplit[2]); });
+                    }
+                    catch (Exception E)
+                    {
+                        ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { ServerSettingsConsoleTextBox.Text += "     " + E.ToString() + Environment.NewLine; });
+                    }
+                }
+
+                //SETCOMBOBOXINDEXCONTROL(LanguageComboBox,0,1)
+
+                if (InputSplit[0].Replace(InputSplit[0].Replace("SETCOMBOBOXINDEXCONTROL(", ""), "").ToUpper() == "SETCOMBOBOXINDEXCONTROL(")
+                {
+                    InputSplit[0] = InputSplit[0].Replace("SETCOMBOBOXINDEXCONTROL(", "");
+                    InputSplit[InputSplit.Length - 1] = InputSplit[InputSplit.Length - 1].Replace(")", "");
+
+                    try
+                    {
+                        ComboBox CallControl = Controls.Find(InputSplit[0], true)[Int32.Parse(InputSplit[1])] as ComboBox;
+                        CallControl.Invoke((MethodInvoker)delegate { CallControl.SelectedIndex = Int32.Parse(InputSplit[2]); });
+                    }
+                    catch (Exception E)
+                    {
+                        ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { ServerSettingsConsoleTextBox.Text += "     " + E.ToString() + Environment.NewLine; });
+                    }
+                }
+
+                return "G";
+            }
+            catch
+            { MessageBox.Show("Error processing client input!"); }
+            return "F";
+        }
+
+        private void ServerSettingsStartServerButton_Click(object sender, EventArgs e)
+        {
+            if (ServerRunning)
+            {
+                ServerListener.Stop();
+                ServerRunning = false;
+            }
+            Thread ThreadingServer = new Thread(StartServer);
+            ThreadingServer.Start();
+        }
+
+        private void ServerSettingsStopServerButton_Click(object sender, EventArgs e)
+        {
+            if (ServerRunning)
+            {
+                ServerListener.Stop();
+                ServerRunning = false;
+            }
+        }
+
+        private void ServerSettingsClearConsoleButton_Click(object sender, EventArgs e)
+        {
+            ServerSettingsConsoleTextBox.Text = "";
         }
 
         #endregion

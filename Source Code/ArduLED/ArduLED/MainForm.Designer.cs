@@ -362,6 +362,19 @@
             this.AmbiLightModeShowHideBlocksButton = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.AmbiLightModeTopLabel = new System.Windows.Forms.Label();
+            this.ServerSettingsConsoleTextBox = new System.Windows.Forms.TextBox();
+            this.ServerSettingsPanel = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.ServerSettingsClearConsoleButton = new System.Windows.Forms.Button();
+            this.ServerSettingsStopServerButton = new System.Windows.Forms.Button();
+            this.ServerSettingsStartServerButton = new System.Windows.Forms.Button();
+            this.ServerSettingsPortTextBox = new System.Windows.Forms.TextBox();
+            this.ConfigureSetupEnableServerMode = new System.Windows.Forms.CheckBox();
+            this.ServerSettingsIPAddressTextBox = new System.Windows.Forms.TextBox();
+            this.ServerSettingsPortLabel = new System.Windows.Forms.Label();
+            this.ServerSettingsIPAddressLabel = new System.Windows.Forms.Label();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.ServerSettingsTopLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.SampleTimeTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SmoothnessTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SensitivityTrackBar)).BeginInit();
@@ -475,6 +488,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeBottomFromIDNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeBottomBlockOffsetYNumericUpDown)).BeginInit();
             this.panel3.SuspendLayout();
+            this.ServerSettingsPanel.SuspendLayout();
+            this.panel6.SuspendLayout();
+            this.panel9.SuspendLayout();
             this.SuspendLayout();
             // 
             // AudioSourceComboBox
@@ -5227,11 +5243,177 @@
             this.AmbiLightModeTopLabel.Text = "Ambilight Mode";
             this.AmbiLightModeTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // ServerSettingsConsoleTextBox
+            // 
+            this.ServerSettingsConsoleTextBox.BackColor = System.Drawing.Color.Silver;
+            this.ServerSettingsConsoleTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ServerSettingsConsoleTextBox.ForeColor = System.Drawing.Color.Black;
+            this.ServerSettingsConsoleTextBox.Location = new System.Drawing.Point(12, 75);
+            this.ServerSettingsConsoleTextBox.Multiline = true;
+            this.ServerSettingsConsoleTextBox.Name = "ServerSettingsConsoleTextBox";
+            this.ServerSettingsConsoleTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.ServerSettingsConsoleTextBox.Size = new System.Drawing.Size(842, 474);
+            this.ServerSettingsConsoleTextBox.TabIndex = 70;
+            // 
+            // ServerSettingsPanel
+            // 
+            this.ServerSettingsPanel.BackColor = System.Drawing.Color.DimGray;
+            this.ServerSettingsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ServerSettingsPanel.Controls.Add(this.panel6);
+            this.ServerSettingsPanel.Controls.Add(this.ServerSettingsConsoleTextBox);
+            this.ServerSettingsPanel.Controls.Add(this.panel9);
+            this.ServerSettingsPanel.Location = new System.Drawing.Point(80, 21);
+            this.ServerSettingsPanel.Name = "ServerSettingsPanel";
+            this.ServerSettingsPanel.Size = new System.Drawing.Size(871, 616);
+            this.ServerSettingsPanel.TabIndex = 71;
+            this.ServerSettingsPanel.Visible = false;
+            // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.Color.Gray;
+            this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel6.Controls.Add(this.ServerSettingsClearConsoleButton);
+            this.panel6.Controls.Add(this.ServerSettingsStopServerButton);
+            this.panel6.Controls.Add(this.ServerSettingsStartServerButton);
+            this.panel6.Controls.Add(this.ServerSettingsPortTextBox);
+            this.panel6.Controls.Add(this.ConfigureSetupEnableServerMode);
+            this.panel6.Controls.Add(this.ServerSettingsIPAddressTextBox);
+            this.panel6.Controls.Add(this.ServerSettingsPortLabel);
+            this.panel6.Controls.Add(this.ServerSettingsIPAddressLabel);
+            this.panel6.Location = new System.Drawing.Point(12, 556);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(842, 47);
+            this.panel6.TabIndex = 73;
+            // 
+            // ServerSettingsClearConsoleButton
+            // 
+            this.ServerSettingsClearConsoleButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
+            this.ServerSettingsClearConsoleButton.FlatAppearance.BorderSize = 0;
+            this.ServerSettingsClearConsoleButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ServerSettingsClearConsoleButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ServerSettingsClearConsoleButton.ForeColor = System.Drawing.Color.White;
+            this.ServerSettingsClearConsoleButton.Location = new System.Drawing.Point(586, 23);
+            this.ServerSettingsClearConsoleButton.Name = "ServerSettingsClearConsoleButton";
+            this.ServerSettingsClearConsoleButton.Size = new System.Drawing.Size(240, 19);
+            this.ServerSettingsClearConsoleButton.TabIndex = 75;
+            this.ServerSettingsClearConsoleButton.Text = "Clear Console";
+            this.ServerSettingsClearConsoleButton.UseVisualStyleBackColor = false;
+            this.ServerSettingsClearConsoleButton.Click += new System.EventHandler(this.ServerSettingsClearConsoleButton_Click);
+            // 
+            // ServerSettingsStopServerButton
+            // 
+            this.ServerSettingsStopServerButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
+            this.ServerSettingsStopServerButton.FlatAppearance.BorderSize = 0;
+            this.ServerSettingsStopServerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ServerSettingsStopServerButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ServerSettingsStopServerButton.ForeColor = System.Drawing.Color.White;
+            this.ServerSettingsStopServerButton.Location = new System.Drawing.Point(436, 3);
+            this.ServerSettingsStopServerButton.Name = "ServerSettingsStopServerButton";
+            this.ServerSettingsStopServerButton.Size = new System.Drawing.Size(120, 38);
+            this.ServerSettingsStopServerButton.TabIndex = 74;
+            this.ServerSettingsStopServerButton.Text = "Stop Server";
+            this.ServerSettingsStopServerButton.UseVisualStyleBackColor = false;
+            this.ServerSettingsStopServerButton.Click += new System.EventHandler(this.ServerSettingsStopServerButton_Click);
+            // 
+            // ServerSettingsStartServerButton
+            // 
+            this.ServerSettingsStartServerButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
+            this.ServerSettingsStartServerButton.FlatAppearance.BorderSize = 0;
+            this.ServerSettingsStartServerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ServerSettingsStartServerButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ServerSettingsStartServerButton.ForeColor = System.Drawing.Color.White;
+            this.ServerSettingsStartServerButton.Location = new System.Drawing.Point(291, 3);
+            this.ServerSettingsStartServerButton.Name = "ServerSettingsStartServerButton";
+            this.ServerSettingsStartServerButton.Size = new System.Drawing.Size(120, 38);
+            this.ServerSettingsStartServerButton.TabIndex = 73;
+            this.ServerSettingsStartServerButton.Text = "Start Server";
+            this.ServerSettingsStartServerButton.UseVisualStyleBackColor = false;
+            this.ServerSettingsStartServerButton.Click += new System.EventHandler(this.ServerSettingsStartServerButton_Click);
+            // 
+            // ServerSettingsPortTextBox
+            // 
+            this.ServerSettingsPortTextBox.BackColor = System.Drawing.Color.DarkGray;
+            this.ServerSettingsPortTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ServerSettingsPortTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ServerSettingsPortTextBox.ForeColor = System.Drawing.Color.White;
+            this.ServerSettingsPortTextBox.Location = new System.Drawing.Point(155, 25);
+            this.ServerSettingsPortTextBox.Name = "ServerSettingsPortTextBox";
+            this.ServerSettingsPortTextBox.Size = new System.Drawing.Size(126, 15);
+            this.ServerSettingsPortTextBox.TabIndex = 57;
+            this.ServerSettingsPortTextBox.Tag = "Setting";
+            this.ServerSettingsPortTextBox.Text = "8888";
+            // 
+            // ConfigureSetupEnableServerMode
+            // 
+            this.ConfigureSetupEnableServerMode.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ConfigureSetupEnableServerMode.ForeColor = System.Drawing.Color.White;
+            this.ConfigureSetupEnableServerMode.Location = new System.Drawing.Point(586, 2);
+            this.ConfigureSetupEnableServerMode.Name = "ConfigureSetupEnableServerMode";
+            this.ConfigureSetupEnableServerMode.Size = new System.Drawing.Size(240, 20);
+            this.ConfigureSetupEnableServerMode.TabIndex = 72;
+            this.ConfigureSetupEnableServerMode.Tag = "Setting";
+            this.ConfigureSetupEnableServerMode.Text = "Enable Server at Startup";
+            this.ConfigureSetupEnableServerMode.UseVisualStyleBackColor = true;
+            // 
+            // ServerSettingsIPAddressTextBox
+            // 
+            this.ServerSettingsIPAddressTextBox.BackColor = System.Drawing.Color.DarkGray;
+            this.ServerSettingsIPAddressTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ServerSettingsIPAddressTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ServerSettingsIPAddressTextBox.ForeColor = System.Drawing.Color.White;
+            this.ServerSettingsIPAddressTextBox.Location = new System.Drawing.Point(155, 4);
+            this.ServerSettingsIPAddressTextBox.Name = "ServerSettingsIPAddressTextBox";
+            this.ServerSettingsIPAddressTextBox.Size = new System.Drawing.Size(126, 15);
+            this.ServerSettingsIPAddressTextBox.TabIndex = 56;
+            this.ServerSettingsIPAddressTextBox.Tag = "Setting";
+            this.ServerSettingsIPAddressTextBox.Text = "127.0.0.1";
+            // 
+            // ServerSettingsPortLabel
+            // 
+            this.ServerSettingsPortLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ServerSettingsPortLabel.ForeColor = System.Drawing.Color.White;
+            this.ServerSettingsPortLabel.Location = new System.Drawing.Point(3, 25);
+            this.ServerSettingsPortLabel.Name = "ServerSettingsPortLabel";
+            this.ServerSettingsPortLabel.Size = new System.Drawing.Size(148, 15);
+            this.ServerSettingsPortLabel.TabIndex = 54;
+            this.ServerSettingsPortLabel.Text = "Port";
+            // 
+            // ServerSettingsIPAddressLabel
+            // 
+            this.ServerSettingsIPAddressLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ServerSettingsIPAddressLabel.ForeColor = System.Drawing.Color.White;
+            this.ServerSettingsIPAddressLabel.Location = new System.Drawing.Point(3, 4);
+            this.ServerSettingsIPAddressLabel.Name = "ServerSettingsIPAddressLabel";
+            this.ServerSettingsIPAddressLabel.Size = new System.Drawing.Size(148, 15);
+            this.ServerSettingsIPAddressLabel.TabIndex = 53;
+            this.ServerSettingsIPAddressLabel.Text = "IP Address";
+            // 
+            // panel9
+            // 
+            this.panel9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.panel9.Controls.Add(this.ServerSettingsTopLabel);
+            this.panel9.Location = new System.Drawing.Point(0, 0);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(871, 63);
+            this.panel9.TabIndex = 68;
+            // 
+            // ServerSettingsTopLabel
+            // 
+            this.ServerSettingsTopLabel.Font = new System.Drawing.Font("Lucida Console", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ServerSettingsTopLabel.ForeColor = System.Drawing.Color.White;
+            this.ServerSettingsTopLabel.Location = new System.Drawing.Point(0, 0);
+            this.ServerSettingsTopLabel.Name = "ServerSettingsTopLabel";
+            this.ServerSettingsTopLabel.Size = new System.Drawing.Size(871, 63);
+            this.ServerSettingsTopLabel.TabIndex = 10;
+            this.ServerSettingsTopLabel.Text = "Server Settings";
+            this.ServerSettingsTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(1411, 775);
+            this.Controls.Add(this.ServerSettingsPanel);
             this.Controls.Add(this.MenuPanel);
             this.Controls.Add(this.ConfigureSetupHiddenProgressBar);
             this.Controls.Add(this.MenuButton);
@@ -5380,6 +5562,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeBottomFromIDNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeBottomBlockOffsetYNumericUpDown)).EndInit();
             this.panel3.ResumeLayout(false);
+            this.ServerSettingsPanel.ResumeLayout(false);
+            this.ServerSettingsPanel.PerformLayout();
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
+            this.panel9.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -5711,6 +5898,19 @@
         private System.Windows.Forms.TextBox ConfigureSetupRGBColorOrderThirdTextbox;
         private System.Windows.Forms.TextBox ConfigureSetupRGBColorOrderSeccondTextbox;
         private System.Windows.Forms.TextBox ConfigureSetupRGBColorOrderFirstTextbox;
+        private System.Windows.Forms.TextBox ServerSettingsConsoleTextBox;
+        private System.Windows.Forms.Panel ServerSettingsPanel;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.TextBox ServerSettingsPortTextBox;
+        private System.Windows.Forms.CheckBox ConfigureSetupEnableServerMode;
+        private System.Windows.Forms.TextBox ServerSettingsIPAddressTextBox;
+        private System.Windows.Forms.Label ServerSettingsPortLabel;
+        private System.Windows.Forms.Label ServerSettingsIPAddressLabel;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Label ServerSettingsTopLabel;
+        private System.Windows.Forms.Button ServerSettingsStopServerButton;
+        private System.Windows.Forms.Button ServerSettingsStartServerButton;
+        private System.Windows.Forms.Button ServerSettingsClearConsoleButton;
     }
 }
 
