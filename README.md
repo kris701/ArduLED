@@ -42,6 +42,7 @@ This project is open source, so all the Visual Studio files comes with the proje
   - [Individual LED Control](https://github.com/kris701/ArduLED/wiki/Individual-LED-Control)
   - [Instructions Mode](https://github.com/kris701/ArduLED/wiki/Instructions-Mode)
   - [Ambilight Mode](https://github.com/kris701/ArduLED/wiki/Ambilight-Mode)
+  - [Server API](https://github.com/kris701/ArduLED/wiki/Server-API)
   - [Configure Setup](https://github.com/kris701/ArduLED/wiki/Configure-Setup)
 
 Feel free to support us via patreon: https://www.patreon.com/ArduLed I means alot! 
