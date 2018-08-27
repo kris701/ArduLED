@@ -47,5 +47,6 @@ This project is open source, so all the Visual Studio files comes with the proje
 - [**Version History**](https://github.com/kris701/ArduLED/wiki/Version-History)
 - **Performance**
   - [Visualizer](https://github.com/kris701/ArduLED/wiki/Performance-of-Visualizer)
+  - [Ambilight](https://github.com/kris701/ArduLED/wiki/Performance-of-Ambilight)
 
 Feel free to support us via patreon: https://www.patreon.com/ArduLed I means alot! 
