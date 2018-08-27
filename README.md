@@ -44,5 +44,6 @@ This project is open source, so all the Visual Studio files comes with the proje
   - [Ambilight Mode](https://github.com/kris701/ArduLED/wiki/Ambilight-Mode)
   - [Server API](https://github.com/kris701/ArduLED/wiki/Server-API)
   - [Configure Setup](https://github.com/kris701/ArduLED/wiki/Configure-Setup)
+- [**Version History**](https://github.com/kris701/ArduLED/wiki/Version-History)
 
 Feel free to support us via patreon: https://www.patreon.com/ArduLed I means alot! 
