@@ -53,12 +53,13 @@ void setup()
 				Series[SeriesIndex + 1] = Split[2];
 				SeriesID[SeriesIndex / 2] = Split[3];
 				SeriesIndex += 2;
+				Serial.write("1");
 			}
 			else
 				break;
-			Serial.write("1");
 		}
 	}
+	Serial.write("1");
 
 	Adafruit_NeoPixel LEDStrips[LEDStripsS] = {
 		Adafruit_NeoPixel(NumberOfPixels[0], 0, PixelType[0]),
@@ -222,6 +223,8 @@ void Mode_W(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], shor
 							else
 								_LEDStrips[_SeriesID[i / 2]].setPixelColor(j, _LEDStrips[_SeriesID[i / 2]].getPixelColor(j - 1));
 						}
+						else
+							break;
 					}
 				}
 			}
@@ -246,6 +249,8 @@ void Mode_W(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], shor
 							else
 								_LEDStrips[_SeriesID[i / 2]].setPixelColor(j, _LEDStrips[_SeriesID[i / 2]].getPixelColor(j + 1));
 						}
+						else
+							break;
 					}
 				}
 			}
@@ -362,23 +367,14 @@ void Mode_R(short *_DiscardFromIndex, short *_DiscardToIndex, short *_CountFromI
 	*_ShowFromPin = 8;
 	*_ShowToPin = 0;
 
-	if (_Split[1] > 0)
+	if (_Split[1] >= 0)
 		if (_Split[1] < _TotalLEDCount)
 			*_FromID = _Split[1];
-	if (_Split[2] >= 0)
+	if (_Split[2] > 0)
 		if (_Split[2] <= _TotalLEDCount)
 			*_ToID = _Split[2];
-
-	for (short i = _SeriesIndex - 2; i >= 0; i -= 2)
-	{
-		*_CountToID -= abs(_Series[i] - _Series[i + 1]) + 1;
-		if (*_CountToID <= *_ToID - 1)
-		{
-			*_CountToID += abs(_Series[i] - _Series[i + 1]) + 1;
-			*_DiscardToIndex = i;
-			break;
-		}
-	}
+	if (_Split[2] == -1)
+		*_ToID = _TotalLEDCount;
 
 	for (short i = 0; i <= _SeriesIndex - 2; i += 2)
 	{
@@ -390,6 +386,17 @@ void Mode_R(short *_DiscardFromIndex, short *_DiscardToIndex, short *_CountFromI
 		}
 	}
 
+	for (short i = _SeriesIndex - 2; i >= 0; i -= 2)
+	{
+		*_CountToID -= abs(_Series[i] - _Series[i + 1]) + 1;
+		if (*_CountToID <= *_ToID - 1)
+		{
+			*_CountToID += abs(_Series[i] - _Series[i + 1]) + 1;
+			*_DiscardToIndex = i;
+			break;
+		}
+	}
+	
 	for (short i = *_DiscardFromIndex; i <= *_DiscardToIndex; i += 2)
 	{
 		if (_SeriesID[i / 2] < *_ShowFromPin)
@@ -418,9 +425,9 @@ void Mode_A(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], shor
 						{
 							for (int l = i; l < i + _Split[3]; l++)
 							{
-								_LEDStrips[_SeriesID[j / 2]].setPixelColor(l, ((255 / 9) * (_Split[Count])), ((255 / 9) * (_Split[Count + 1])), ((255 / 9) * (_Split[Count + 2])));
+								_LEDStrips[_SeriesID[j / 2]].setPixelColor(l, ((255 / 9) * ((_Split[Count] / 100) % 10)), ((255 / 9) * ((_Split[Count] / 10) % 10)), ((255 / 9) * (_Split[Count] % 10)));
 							}
-							Count += 3;
+							Count++;
 							i += _Split[3] - 1;
 						}
 						else
@@ -440,9 +447,9 @@ void Mode_A(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], shor
 						{
 							for (int l = i; l > i - _Split[3]; l--)
 							{
-								_LEDStrips[_SeriesID[j / 2]].setPixelColor(l, ((255 / 9) * (_Split[Count])), ((255 / 9) * (_Split[Count + 1])), ((255 / 9) * (_Split[Count + 2])));
+								_LEDStrips[_SeriesID[j / 2]].setPixelColor(l, ((255 / 9) * ((_Split[Count] / 100) % 10)), ((255 / 9) * ((_Split[Count] / 10) % 10)), ((255 / 9) * (_Split[Count] % 10)));
 							}
-							Count += 3;
+							Count++;
 							i -= _Split[3] - 1;
 						}
 						else
@@ -465,9 +472,9 @@ void Mode_A(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], shor
 						{
 							for (int l = i; l > i - _Split[3]; l--)
 							{
-								_LEDStrips[_SeriesID[j / 2]].setPixelColor(l, ((255 / 9) * (_Split[Count])), ((255 / 9) * (_Split[Count + 1])), ((255 / 9) * (_Split[Count + 2])));
+								_LEDStrips[_SeriesID[j / 2]].setPixelColor(l, ((255 / 9) * ((_Split[Count] / 100) % 10)), ((255 / 9) * ((_Split[Count] / 10) % 10)), ((255 / 9) * (_Split[Count] % 10)));
 							}
-							Count += 3;
+							Count++;
 							i -= _Split[3] - 1;
 						}
 						else
@@ -487,9 +494,9 @@ void Mode_A(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], shor
 						{
 							for (int l = i; l < i + _Split[3]; l++)
 							{
-								_LEDStrips[_SeriesID[j / 2]].setPixelColor(l, ((255 / 9) * (_Split[Count])), ((255 / 9) * (_Split[Count + 1])), ((255 / 9) * (_Split[Count + 2])));
+								_LEDStrips[_SeriesID[j / 2]].setPixelColor(l, ((255 / 9) * ((_Split[Count] / 100) % 10)), ((255 / 9) * ((_Split[Count] / 10) % 10)), ((255 / 9) * (_Split[Count] % 10)));
 							}
-							Count += 3;
+							Count++;
 							i += _Split[3] - 1;
 						}
 						else
@@ -566,10 +573,10 @@ bool ReadSerial(short *_Split)
 
 		while (true)
 		{
-			if (Serial.available() > 4)
+			if (Serial.available() > 2)
 			{
 				int Value = Serial.parseInt();
-				if (Value == -10)
+				if (Value == -1)
 				{
 					Serial.read();
 					break;

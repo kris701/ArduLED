@@ -15,6 +15,36 @@ using System.Net.Sockets;
 
 namespace ArduLEDNameSpace
 {
+    public struct WorkingPanelBox
+    {
+        public int XLoc;
+        public int YLoc;
+        public bool Moving;
+        public int XLEDCount;
+        public int YLEDCount;
+        public int PinID;
+        public bool InvertXDir;
+        public bool InvertYDir;
+        public int FromLEDID;
+        public int PixelTypeIndex;
+        public int PixelBitstreamIndex;
+
+        public WorkingPanelBox(int _XLoc, int _YLoc, bool _Moving, int _XLEDCount, int _YLEDCount, int _PinID, bool _InvertXDir, bool _InvertYDir, int _FromLEDID, int _PixelTypeIndex, int _PixelBitstreamIndex)
+        {
+            XLoc = _XLoc;
+            YLoc = _YLoc;
+            Moving = _Moving;
+            XLEDCount = _XLEDCount;
+            YLEDCount = _YLEDCount;
+            PinID = _PinID;
+            InvertXDir = _InvertXDir;
+            InvertYDir = _InvertYDir;
+            FromLEDID = _FromLEDID;
+            PixelTypeIndex = _PixelTypeIndex;
+            PixelBitstreamIndex = _PixelBitstreamIndex;
+        }
+    }
+
     public partial class MainForm : Form
     {
         #region Variabels
@@ -35,7 +65,7 @@ namespace ArduLEDNameSpace
         bool UnitReady = false;
         bool ReadyToRecive = false;
         int UnitTimeoutCounter = 0;
-
+        
         WASAPIPROC BassProcess;
 
         Task VisualizerThread;
@@ -52,11 +82,7 @@ namespace ArduLEDNameSpace
         DateTime AmbilightFPSCounter;
         int AmbilightFPSCounterFramesRendered;
         Task AmbilightTask;
-        string[] InnerSerialOutLeft = { "", "", "", "", "" };
-        string[] InnerSerialOutTop = { "", "", "", "", "" };
-        string[] InnerSerialOutRight = { "", "", "", "", "" };
-        string[] InnerSerialOutBottom = { "", "", "", "", "" };
-
+        
         bool ServerRunning = false;
         TcpListener ServerListener;
         TcpClient ClientSocket;
@@ -512,7 +538,7 @@ namespace ArduLEDNameSpace
             {
                 try
                 {
-                    SerialPort1.WriteLine(";" + _Input + ";-10;");
+                    SerialPort1.WriteLine(";" + _Input + ";-1;");
                 }
                 catch { }
                 ReadyToRecive = false;
@@ -1002,7 +1028,8 @@ namespace ArduLEDNameSpace
                 }
             }
 
-            Point3D[] TagData = { new Point3D(_XLocation, _YLocation, 0), new Point3D(_XLEDAmount, _YLEDAmount, _PinID), new Point3D(Convert.ToInt32(_InvertXDir), Convert.ToInt32(_InvertYDir), _FromLEDID), new Point3D(_PixelTypeIndex, _PixelBitstreamIndex, 0) };
+            WorkingPanelBox TagData = new WorkingPanelBox(_XLocation, _YLocation,false, _XLEDAmount, _YLEDAmount, _PinID, _InvertXDir, _InvertYDir, _FromLEDID, _PixelTypeIndex, _PixelBitstreamIndex);
+
             BackPanel.Tag = TagData;
 
             if (_IsIndividualLEDs)
@@ -1100,10 +1127,10 @@ namespace ArduLEDNameSpace
         private void MoveLEDStrip(object sender, MouseEventArgs e)
         {
             Panel SenderPanel = sender as Panel;
-            Point3D[] MomentaryDataTag = (Point3D[])SenderPanel.Tag;
-            if (MomentaryDataTag[0].Z == 1)
+            WorkingPanelBox MomentaryDataTag = (WorkingPanelBox)SenderPanel.Tag;
+            if (MomentaryDataTag.Moving == true)
             {
-                SenderPanel.Location = new Point((int)MomentaryDataTag[0].X + (MousePosition.X - DragStart.X), (int)MomentaryDataTag[0].Y + (MousePosition.Y - DragStart.Y));
+                SenderPanel.Location = new Point(MomentaryDataTag.XLoc + (MousePosition.X - DragStart.X), MomentaryDataTag.YLoc + (MousePosition.Y - DragStart.Y));
             }
         }
 
@@ -1118,8 +1145,10 @@ namespace ArduLEDNameSpace
                     InnerInnerControl.Visible = false;
                 }
             }
-            Point3D[] MomentaryDataTag = (Point3D[])SenderPanel.Tag;
-            MomentaryDataTag[0] = new Point3D(SenderPanel.Location.X, SenderPanel.Location.Y, 1);
+            WorkingPanelBox MomentaryDataTag = (WorkingPanelBox)SenderPanel.Tag;
+            MomentaryDataTag.XLoc = SenderPanel.Location.X;
+            MomentaryDataTag.YLoc = SenderPanel.Location.Y;
+            MomentaryDataTag.Moving = true;
             SenderPanel.Tag = MomentaryDataTag;
         }
 
@@ -1133,8 +1162,10 @@ namespace ArduLEDNameSpace
                     InnerInnerControl.Visible = true;
                 }
             }
-            Point3D[] MomentaryDataTag = (Point3D[])SenderPanel.Tag;
-            MomentaryDataTag[0] = new Point3D(SenderPanel.Location.X, SenderPanel.Location.Y, 0);
+            WorkingPanelBox MomentaryDataTag = (WorkingPanelBox)SenderPanel.Tag;
+            MomentaryDataTag.XLoc = SenderPanel.Location.X;
+            MomentaryDataTag.YLoc = SenderPanel.Location.Y;
+            MomentaryDataTag.Moving = false;
             SenderPanel.Tag = MomentaryDataTag;
         }
 
@@ -1162,8 +1193,8 @@ namespace ArduLEDNameSpace
                 {
                     foreach (Control c in ConfigureSetupWorkingPanel.Controls)
                     {
-                        Point3D[] MomentaryDataTag = (Point3D[])c.Tag;
-                        string SerialOut = c.Location.X + ";" + c.Location.Y + ";" + MomentaryDataTag[2].Z + ";" + Convert.ToBoolean(MomentaryDataTag[2].X) + ";" + Convert.ToBoolean(MomentaryDataTag[2].Y) + ";" + MomentaryDataTag[1].X + ";" + MomentaryDataTag[1].Y + ";" + MomentaryDataTag[1].Z + ";" + MomentaryDataTag[3].X + ";" + MomentaryDataTag[3].Y;
+                        WorkingPanelBox MomentaryDataTag = (WorkingPanelBox)c.Tag;
+                        string SerialOut = MomentaryDataTag.XLoc + ";" + MomentaryDataTag.YLoc + ";" + MomentaryDataTag.FromLEDID + ";" + MomentaryDataTag.InvertXDir + ";" + MomentaryDataTag.InvertYDir + ";" + MomentaryDataTag.XLEDCount + ";" + MomentaryDataTag.YLEDCount + ";" + MomentaryDataTag.PinID + ";" + MomentaryDataTag.PixelTypeIndex + ";" + MomentaryDataTag.PixelBitstreamIndex;
                         SaveFile.WriteLine(SerialOut);
                         AutoSaveFile.WriteLine(SerialOut);
 
@@ -1227,8 +1258,8 @@ namespace ArduLEDNameSpace
 
             foreach (Control InnerControl in ConfigureSetupWorkingPanel.Controls)
             {
-                Point3D[] MomentaryDataTag = (Point3D[])InnerControl.Tag;
-                MakeLEDStrip((int)MomentaryDataTag[0].X, (int)MomentaryDataTag[0].Y, (int)MomentaryDataTag[2].Z, Convert.ToBoolean(MomentaryDataTag[2].X), Convert.ToBoolean(MomentaryDataTag[2].Y), (int)MomentaryDataTag[1].X, (int)MomentaryDataTag[1].Y, (int)MomentaryDataTag[1].Z, "", true, (int)MomentaryDataTag[3].X, (int)MomentaryDataTag[3].Y);
+                WorkingPanelBox MomentaryDataTag = (WorkingPanelBox)InnerControl.Tag;
+                MakeLEDStrip(MomentaryDataTag.XLoc, MomentaryDataTag.YLoc, MomentaryDataTag.FromLEDID, MomentaryDataTag.InvertXDir, MomentaryDataTag.InvertYDir, MomentaryDataTag.XLEDCount, MomentaryDataTag.YLEDCount, MomentaryDataTag.PinID, "", true, MomentaryDataTag.PixelTypeIndex, MomentaryDataTag.PixelBitstreamIndex);
             }
 
             await SendSetup();
@@ -1245,28 +1276,28 @@ namespace ArduLEDNameSpace
 
                 foreach (Control c in ConfigureSetupWorkingPanel.Controls)
                 {
-                    Point3D[] MomentaryDataTag = (Point3D[])c.Tag;
-                    if (!Pins.Contains((int)MomentaryDataTag[1].Z))
+                    WorkingPanelBox MomentaryDataTag = (WorkingPanelBox)c.Tag;
+                    if (!Pins.Contains(MomentaryDataTag.PinID))
                     {
-                        Pins.Add((int)MomentaryDataTag[1].Z);
-                        LEDCount.Add(((int)MomentaryDataTag[1].X * (int)MomentaryDataTag[1].Y));
-                        PixelTypesIndexs.Add((int)MomentaryDataTag[3].X);
-                        PixelBitrateIndexs.Add((int)MomentaryDataTag[3].Y);
+                        Pins.Add(MomentaryDataTag.PinID);
+                        LEDCount.Add(MomentaryDataTag.XLEDCount * MomentaryDataTag.YLEDCount);
+                        PixelTypesIndexs.Add(MomentaryDataTag.PixelTypeIndex);
+                        PixelBitrateIndexs.Add(MomentaryDataTag.PixelBitstreamIndex);
                     }
                     else
                     {
-                        int Index = Pins.FindIndex(x => x == (int)MomentaryDataTag[1].Z);
-                        LEDCount[Index] += ((int)MomentaryDataTag[1].X * (int)MomentaryDataTag[1].Y);
+                        int Index = Pins.FindIndex(x => x == MomentaryDataTag.PinID);
+                        LEDCount[Index] += (MomentaryDataTag.XLEDCount * MomentaryDataTag.YLEDCount);
                     }
                 }
 
                 for (int i = 0; i < Pins.Count; i++)
                 {
-                    string SerialOut = "-1;" + LEDCount[i] + ";" + Pins[i] + ";" + PixelTypesIndexs[i] + ";" + PixelBitrateIndexs[i];
+                    string SerialOut = "0;" + LEDCount[i] + ";" + Pins[i] + ";" + PixelTypesIndexs[i] + ";" + PixelBitrateIndexs[i];
                     SendDataBySerial(SerialOut);
                 }
 
-                SendDataBySerial("-1;9999");
+                SendDataBySerial("0;9999");
 
                 int TotalLEDs = 0;
                 foreach (int i in LEDCount)
@@ -1283,8 +1314,8 @@ namespace ArduLEDNameSpace
 
                 foreach (Control c in ConfigureSetupWorkingPanel.Controls)
                 {
-                    Point3D[] MomentaryDataTag = (Point3D[])c.Tag;
-                    InternalPins.Add((int)MomentaryDataTag[1].Z);
+                    WorkingPanelBox MomentaryDataTag = (WorkingPanelBox)c.Tag;
+                    InternalPins.Add(MomentaryDataTag.PinID);
 
                     int Lowest = 999999;
                     int Highest = 0;
@@ -1324,7 +1355,7 @@ namespace ArduLEDNameSpace
                     int Position = SeriesData.Count;
                     for (int j = 0; j < SeriesData.Count; j++)
                     {
-                        int ValueA = Int32.Parse(ConfigureSetupWorkingPanel.Controls[i].Controls.Find("MakeLEDPanelStripSeriesIDLabelFrom", true)[0].Text);
+                        int ValueA = Int32.Parse(ConfigureSetupWorkingPanel.Controls[i].Controls.Find("MakeLEDPanelStripSeriesIDLabelTo", true)[0].Text);
                         int ValueB = Int32.Parse(ConfigureSetupWorkingPanel.Controls[j].Controls.Find("MakeLEDPanelStripSeriesIDLabelFrom", true)[0].Text);
                         if (ValueA < ValueB)
                         {
@@ -1341,11 +1372,11 @@ namespace ArduLEDNameSpace
                     if (ConfigureSetupAutoSendCheckBox.Checked)
                         ConfigureSetupHiddenProgressBar.Invoke((MethodInvoker)delegate { ConfigureSetupHiddenProgressBar.Value = i; });
 
-                    string SerialOut = "-1;" + UpOrDownFrom[SeriesData[i]] + ";" + UpOrDownTo[SeriesData[i]] + ";" + InternalPins[SeriesData[i]];
+                    string SerialOut = "0;" + UpOrDownFrom[SeriesData[i]] + ";" + UpOrDownTo[SeriesData[i]] + ";" + InternalPins[SeriesData[i]] + ";";
                     SendDataBySerial(SerialOut);
                 }
 
-                SendDataBySerial("-1;9999;");
+                SendDataBySerial("0;9999;");
 
                 SendSetupProgressBar.Invoke((MethodInvoker)delegate { SendSetupProgressBar.Value = 0; });
                 if (ConfigureSetupAutoSendCheckBox.Checked)
@@ -1359,7 +1390,7 @@ namespace ArduLEDNameSpace
                     ConfigureSetupAutoSendCheckBox.Invoke((MethodInvoker)delegate { ConfigureSetupAutoSendCheckBox.Enabled = true; });
                 }
 
-                SendDataBySerial("-1;9999");
+                SendDataBySerial("0;9999");
             });
         }
 
@@ -1388,8 +1419,10 @@ namespace ArduLEDNameSpace
                 {
                     InnerInnerControl.Visible = false;
                 }
-                Point3D[] MomentaryDataTag = (Point3D[])InnerControl.Tag;
-                MomentaryDataTag[0] = new Point3D(InnerControl.Location.X, InnerControl.Location.Y, 1);
+                WorkingPanelBox MomentaryDataTag = (WorkingPanelBox)InnerControl.Tag;
+                MomentaryDataTag.XLoc = InnerControl.Location.X;
+                MomentaryDataTag.YLoc = InnerControl.Location.Y;
+                MomentaryDataTag.Moving = true;
                 InnerControl.Tag = MomentaryDataTag;
             }
         }
@@ -1402,8 +1435,10 @@ namespace ArduLEDNameSpace
                 {
                     InnerInnerControl.Visible = true;
                 }
-                Point3D[] MomentaryDataTag = (Point3D[])InnerControl.Tag;
-                MomentaryDataTag[0] = new Point3D(InnerControl.Location.X, InnerControl.Location.Y, 0);
+                WorkingPanelBox MomentaryDataTag = (WorkingPanelBox)InnerControl.Tag;
+                MomentaryDataTag.XLoc = InnerControl.Location.X;
+                MomentaryDataTag.YLoc = InnerControl.Location.Y;
+                MomentaryDataTag.Moving = false;
                 InnerControl.Tag = MomentaryDataTag;
             }
         }
@@ -1412,10 +1447,10 @@ namespace ArduLEDNameSpace
             Panel SenderPanel = _Sender as Panel;
             foreach (Control InnerControl in SenderPanel.Controls)
             {
-                Point3D[] MomentaryDataTag = (Point3D[])InnerControl.Tag;
-                if (MomentaryDataTag[0].Z == 1)
+                WorkingPanelBox MomentaryDataTag = (WorkingPanelBox)InnerControl.Tag;
+                if (MomentaryDataTag.Moving)
                 {
-                    InnerControl.Location = new Point((int)MomentaryDataTag[0].X + (MousePosition.X - DragStart.X), (int)MomentaryDataTag[0].Y + (MousePosition.Y - DragStart.Y));
+                    InnerControl.Location = new Point(MomentaryDataTag.XLoc + (MousePosition.X - DragStart.X), MomentaryDataTag.YLoc + (MousePosition.Y - DragStart.Y));
                 }
             }
         }
@@ -1443,10 +1478,10 @@ namespace ArduLEDNameSpace
             }
             else
             {
-                Point3D[] MomentaryDataTag = (Point3D[])SenderButton.Parent.Tag;
+                WorkingPanelBox MomentaryDataTag = (WorkingPanelBox)SenderButton.Parent.Tag;
                 SenderButton.BackColor = Color.FromArgb(IndividalLEDRedTrackBar.Value, IndividalLEDGreenTrackBar.Value, IndividalLEDBlueTrackBar.Value);
                 Color AfterShuffel = ShuffleColors(Color.FromArgb(IndividalLEDRedTrackBar.Value, IndividalLEDGreenTrackBar.Value, IndividalLEDBlueTrackBar.Value));
-                string SerialOut = "4;" + MomentaryDataTag[1].Z + ";" + SenderButton.Text + ";" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B;
+                string SerialOut = "4;" + MomentaryDataTag.PinID + ";" + SenderButton.Text + ";" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B;
                 SendDataBySerial(SerialOut);
             }
         }
@@ -1465,10 +1500,10 @@ namespace ArduLEDNameSpace
                             IndividalLEDRedTrackBar.Invoke((MethodInvoker)delegate {
                                 IndividalLEDGreenTrackBar.Invoke((MethodInvoker)delegate {
                                     IndividalLEDBlueTrackBar.Invoke((MethodInvoker)delegate {
-                                        Point3D[] MomentaryDataTag = (Point3D[])Button.Parent.Tag;
+                                        WorkingPanelBox MomentaryDataTag = (WorkingPanelBox)Button.Parent.Tag;
                                         Button.BackColor = Color.FromArgb(IndividalLEDRedTrackBar.Value, IndividalLEDGreenTrackBar.Value, IndividalLEDBlueTrackBar.Value);
                                         Color AfterShuffel = ShuffleColors(Color.FromArgb(IndividalLEDRedTrackBar.Value, IndividalLEDGreenTrackBar.Value, IndividalLEDBlueTrackBar.Value));
-                                        string SerialOut = "4;" + MomentaryDataTag[1].Z + ";" + Button.Text + ";" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B;
+                                        string SerialOut = "4;" + MomentaryDataTag.PinID + ";" + Button.Text + ";" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B;
                                         SendDataBySerial(SerialOut);
                                     });
                                 });
@@ -2154,73 +2189,73 @@ namespace ArduLEDNameSpace
 
         double TransformToPoint(string _InputEquation, int _XValue)
         {
-            string TransformedInputString = _InputEquation.ToLower().Replace("x", _XValue.ToString()).Replace(".", ",").Replace(" ", "");
-            string[] Split = System.Text.RegularExpressions.Regex.Split(TransformedInputString, @"(?<=[()^*/+-])");
-
-            List<string> EquationParts = new List<string>();
-            foreach(string s in Split)
-            {
-                EquationParts.Add(s);
-            }
-
-            if (EquationParts[0] == "-")
-            {
-                EquationParts[0] = "-" + EquationParts[1];
-                EquationParts.RemoveAt(1);
-            }
-            if (EquationParts[0] == "+")
-            {
-                EquationParts.RemoveAt(0);
-            }
-
-            for (int i = 0; i < EquationParts.Count; i++)
-            {
-                if (EquationParts[i].Contains("(") && EquationParts[i].Length > 1)
-                {
-                    EquationParts.Insert(i + 1, EquationParts[i].Replace(EquationParts[i].Replace("(", ""), ""));
-                    EquationParts[i] = EquationParts[i].Replace("(", "");
-                    i = 0;
-                }
-                if (EquationParts[i].Contains(")") && EquationParts[i].Length > 1)
-                {
-                    EquationParts.Insert(i + 1, EquationParts[i].Replace(EquationParts[i].Replace(")", ""), ""));
-                    EquationParts[i] = EquationParts[i].Replace(")", "");
-                    i = 0;
-                }
-                if (EquationParts[i].Contains("^") && EquationParts[i].Length > 1)
-                {
-                    EquationParts.Insert(i + 1, EquationParts[i].Replace(EquationParts[i].Replace("^", ""), ""));
-                    EquationParts[i] = EquationParts[i].Replace("^", "");
-                    i = 0;
-                }
-                if (EquationParts[i].Contains("*") && EquationParts[i].Length > 1)
-                {
-                    EquationParts.Insert(i + 1, EquationParts[i].Replace(EquationParts[i].Replace("*", ""), ""));
-                    EquationParts[i] = EquationParts[i].Replace("*", "");
-                    i = 0;
-                }
-                if (EquationParts[i].Contains("/") && EquationParts[i].Length > 1)
-                {
-                    EquationParts.Insert(i + 1, EquationParts[i].Replace(EquationParts[i].Replace("/", ""), ""));
-                    EquationParts[i] = EquationParts[i].Replace("/", "");
-                    i = 0;
-                }
-                if (EquationParts[i].Contains("+") && EquationParts[i].Length > 1)
-                {
-                    EquationParts.Insert(i + 1, EquationParts[i].Replace(EquationParts[i].Replace("+", ""), ""));
-                    EquationParts[i] = EquationParts[i].Replace("+", "");
-                    i = 0;
-                }
-                if (EquationParts[i].Contains("-") && EquationParts[i].Length > 1 && EquationParts[i].IndexOf('-') != 0)
-                {
-                    EquationParts.Insert(i + 1, EquationParts[i].Replace(EquationParts[i].Replace("-", ""), ""));
-                    EquationParts[i] = EquationParts[i].Replace("-", "");
-                    i = 0;
-                }
-            }
-
             try
             {
+                string TransformedInputString = _InputEquation.ToLower().Replace("x", _XValue.ToString()).Replace(".", ",").Replace(" ", "");
+                string[] Split = System.Text.RegularExpressions.Regex.Split(TransformedInputString, @"(?<=[()^*/+-])");
+
+                List<string> EquationParts = new List<string>();
+                foreach(string s in Split)
+                {
+                    EquationParts.Add(s);
+                }
+
+                if (EquationParts[0] == "-")
+                {
+                    EquationParts[0] = "-" + EquationParts[1];
+                    EquationParts.RemoveAt(1);
+                }
+                if (EquationParts[0] == "+")
+                {
+                    EquationParts.RemoveAt(0);
+                }
+
+                for (int i = 0; i < EquationParts.Count; i++)
+                {
+                    if (EquationParts[i].Contains("(") && EquationParts[i].Length > 1)
+                    {
+                        EquationParts.Insert(i + 1, EquationParts[i].Replace(EquationParts[i].Replace("(", ""), ""));
+                        EquationParts[i] = EquationParts[i].Replace("(", "");
+                        i = 0;
+                    }
+                    if (EquationParts[i].Contains(")") && EquationParts[i].Length > 1)
+                    {
+                        EquationParts.Insert(i + 1, EquationParts[i].Replace(EquationParts[i].Replace(")", ""), ""));
+                        EquationParts[i] = EquationParts[i].Replace(")", "");
+                        i = 0;
+                    }
+                    if (EquationParts[i].Contains("^") && EquationParts[i].Length > 1)
+                    {
+                        EquationParts.Insert(i + 1, EquationParts[i].Replace(EquationParts[i].Replace("^", ""), ""));
+                        EquationParts[i] = EquationParts[i].Replace("^", "");
+                        i = 0;
+                    }
+                    if (EquationParts[i].Contains("*") && EquationParts[i].Length > 1)
+                    {
+                        EquationParts.Insert(i + 1, EquationParts[i].Replace(EquationParts[i].Replace("*", ""), ""));
+                        EquationParts[i] = EquationParts[i].Replace("*", "");
+                        i = 0;
+                    }
+                    if (EquationParts[i].Contains("/") && EquationParts[i].Length > 1)
+                    {
+                        EquationParts.Insert(i + 1, EquationParts[i].Replace(EquationParts[i].Replace("/", ""), ""));
+                        EquationParts[i] = EquationParts[i].Replace("/", "");
+                        i = 0;
+                    }
+                    if (EquationParts[i].Contains("+") && EquationParts[i].Length > 1)
+                    {
+                        EquationParts.Insert(i + 1, EquationParts[i].Replace(EquationParts[i].Replace("+", ""), ""));
+                        EquationParts[i] = EquationParts[i].Replace("+", "");
+                        i = 0;
+                    }
+                    if (EquationParts[i].Contains("-") && EquationParts[i].Length > 1 && EquationParts[i].IndexOf('-') != 0)
+                    {
+                        EquationParts.Insert(i + 1, EquationParts[i].Replace(EquationParts[i].Replace("-", ""), ""));
+                        EquationParts[i] = EquationParts[i].Replace("-", "");
+                        i = 0;
+                    }
+                }
+
                 while (EquationParts.Contains("("))
                 {
                     int StartIndex = EquationParts.FindIndex(s => s.Equals("("));
@@ -2360,8 +2395,6 @@ namespace ArduLEDNameSpace
             int TriggerHeight = 0;
             int SpectrumSplit = 0;
             int RefreshTime = 0;
-            Chart SpectrumChartInner = new Chart();
-            Chart WaveChartInner = new Chart();
 
             VisualizerPanel.Invoke((MethodInvoker)delegate {
                 VisualSamles = (int)VisualSamplesNumericUpDown.Value;
@@ -2373,8 +2406,6 @@ namespace ArduLEDNameSpace
                 AudioData = new float[Int32.Parse(AudioSampleRateComboBox.SelectedItem.ToString())];
                 SelectedIndex = VisualizationTypeComboBox.SelectedIndex;
                 TriggerHeight = BeatZoneTriggerHeight.Value;
-                SpectrumChartInner = SpectrumChart;
-                WaveChartInner = WaveChart;
                 RefreshTime = SampleTimeTrackBar.Value;
                 SpectrumSplit = (int)FullSpectrumNumericUpDown.Value;
                 for (int i = 0; i < VisualSamplesNumericUpDown.Value; i++)
@@ -2472,27 +2503,27 @@ namespace ArduLEDNameSpace
                     {
                         if (BeatZoneSeries.Points[i].YValues[0] >= TriggerHeight)
                         {
-                            if (SpectrumChartInner.Series[0].Points[i].YValues[0] <= 255)
+                            if (SpectrumChart.Series[0].Points[i].YValues[0] <= 255)
                             {
-                                if (SpectrumChartInner.Series[0].Points[i].YValues[0] >= 0)
+                                if (SpectrumChart.Series[0].Points[i].YValues[0] >= 0)
                                 {
-                                    EndR += SpectrumChartInner.Series[0].Points[i].YValues[0];
+                                    EndR += SpectrumChart.Series[0].Points[i].YValues[0];
                                     CountR++;
                                 }
                             }
-                            if (SpectrumChartInner.Series[1].Points[i].YValues[0] <= 255)
+                            if (SpectrumChart.Series[1].Points[i].YValues[0] <= 255)
                             {
-                                if (SpectrumChartInner.Series[1].Points[i].YValues[0] >= 0)
+                                if (SpectrumChart.Series[1].Points[i].YValues[0] >= 0)
                                 {
-                                    EndG += SpectrumChartInner.Series[1].Points[i].YValues[0];
+                                    EndG += SpectrumChart.Series[1].Points[i].YValues[0];
                                     CountG++;
                                 }
                             }
-                            if (SpectrumChartInner.Series[2].Points[i].YValues[0] <= 255)
+                            if (SpectrumChart.Series[2].Points[i].YValues[0] <= 255)
                             {
-                                if (SpectrumChartInner.Series[2].Points[i].YValues[0] >= 0)
+                                if (SpectrumChart.Series[2].Points[i].YValues[0] >= 0)
                                 {
-                                    EndB += SpectrumChartInner.Series[2].Points[i].YValues[0];
+                                    EndB += SpectrumChart.Series[2].Points[i].YValues[0];
                                     CountB++;
                                 }
                             }
@@ -2547,9 +2578,9 @@ namespace ArduLEDNameSpace
 
                     BeatWaveProgressBar.Invoke((MethodInvoker)delegate { BeatWaveProgressBar.Value = EndValue; });
 
-                    EndR = (int)WaveChartInner.Series[0].Points[EndValue].YValues[0];
-                    EndG = (int)WaveChartInner.Series[1].Points[EndValue].YValues[0];
-                    EndB = (int)WaveChartInner.Series[2].Points[EndValue].YValues[0];
+                    EndR = (int)WaveChart.Series[0].Points[EndValue].YValues[0];
+                    EndG = (int)WaveChart.Series[1].Points[EndValue].YValues[0];
+                    EndB = (int)WaveChart.Series[2].Points[EndValue].YValues[0];
 
                     AutoTrigger(((float)Hit / ((float)BeatZoneTo - (float)BeatZoneFrom)) * (255 * 3));
 
@@ -2607,7 +2638,8 @@ namespace ArduLEDNameSpace
                     VisualizerUpdatesCounter = 0;
                     VisualizerRPSCounter = DateTime.Now;
                 }
-                BeatZoneChart.Invoke((MethodInvoker)delegate {
+                BeatZoneChart.Invoke((MethodInvoker)delegate
+                {
                     BeatZoneChart.Series.Clear();
                     BeatZoneChart.Series.Add(BeatZoneSeries);
                 });
@@ -3217,21 +3249,24 @@ namespace ArduLEDNameSpace
             string[] SerialOutTop = { "", "", "", "", "" };
             string[] SerialOutRight = { "", "", "", "", "" };
             string[] SerialOutBottom = { "", "", "", "", "" };
+            string[] InnerSerialOutLeft = { "", "", "", "", "" };
+            string[] InnerSerialOutTop = { "", "", "", "", "" };
+            string[] InnerSerialOutRight = { "", "", "", "", "" };
+            string[] InnerSerialOutBottom = { "", "", "", "", "" };
             bool SerialOutLeftReady = false;
             bool SerialOutTopReady = false;
             bool SerialOutRightReady = false;
             bool SerialOutBottomReady = false;
             bool AllSendt = true;
-            bool ProcessingDone = true;
             bool ProcessingDoneInnerFlip = true;
             Bitmap ImageWindowLeft = new Bitmap((int)AmbiLightModeLeftBlockWidthNumericUpDown.Value, Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height, PixelFormat.Format24bppRgb);
             Bitmap ImageWindowTop = new Bitmap(Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width, (int)AmbiLightModeTopBlockHeightNumericUpDown.Value, PixelFormat.Format24bppRgb);
             Bitmap ImageWindowRight = new Bitmap((int)AmbiLightModeRightBlockWidthNumericUpDown.Value, Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Height, PixelFormat.Format24bppRgb);
             Bitmap ImageWindowBottom = new Bitmap(Screen.AllScreens[(int)AmbiLightModeScreenIDNumericUpDown.Value].Bounds.Width, (int)AmbiLightModeBottomBlockHeightNumericUpDown.Value, PixelFormat.Format24bppRgb);
-            Graphics GFXScreenshotLeft = CreateGraphics();
-            Graphics GFXScreenshotTop = CreateGraphics();
-            Graphics GFXScreenshotRight = CreateGraphics();
-            Graphics GFXScreenshotBottom = CreateGraphics();
+            Graphics GFXScreenshotLeft = Graphics.FromImage(ImageWindowLeft);
+            Graphics GFXScreenshotTop = Graphics.FromImage(ImageWindowTop);
+            Graphics GFXScreenshotRight = Graphics.FromImage(ImageWindowRight);
+            Graphics GFXScreenshotBottom = Graphics.FromImage(ImageWindowBottom);
             int PixelSplitLoopAddBy = (int)AmbiLightModeBlockSampleSplitNumericUpDown.Value;
             int GammaValue = (int)AmbiLightModeGammaFactorNumericUpDown.Value;
             double FadeFactor = (double)AmbiLightModeFadeFactorNumericUpDown.Value;
@@ -3290,10 +3325,9 @@ namespace ArduLEDNameSpace
 
             while (RunAmbilight)
             {
-                if (ProcessingDone && ProcessingDoneInnerFlip)
+                if (ProcessingDoneInnerFlip)
                 {
                     ProcessingDoneInnerFlip = false;
-                    ProcessingDone = false;
 
                     CalibrateRefreshRate = DateTime.Now;
 
@@ -3312,6 +3346,7 @@ namespace ArduLEDNameSpace
                         Task.Run(() =>
                         {
                             SerialOutLeftReady = ProcessSection(
+                                InnerSerialOutLeft,
                                 GFXScreenshotLeft,
                                 ImageWindowLeft,
                                 SerialOutLeftSection,
@@ -3346,6 +3381,7 @@ namespace ArduLEDNameSpace
                         Task.Run(() =>
                         {
                             SerialOutTopReady = ProcessSection(
+                                InnerSerialOutTop,
                                 GFXScreenshotTop,
                                 ImageWindowTop,
                                 SerialOutTopSection,
@@ -3380,6 +3416,7 @@ namespace ArduLEDNameSpace
                         Task.Run(() =>
                         {
                             SerialOutRightReady = ProcessSection(
+                                InnerSerialOutRight,
                                 GFXScreenshotRight,
                                 ImageWindowRight,
                                 SerialOutRightSection,
@@ -3414,6 +3451,7 @@ namespace ArduLEDNameSpace
                         Task.Run(() =>
                         {
                             SerialOutBottomReady = ProcessSection(
+                                InnerSerialOutBottom,
                                 GFXScreenshotBottom,
                                 ImageWindowBottom,
                                 SerialOutBottomSection,
@@ -3443,15 +3481,8 @@ namespace ArduLEDNameSpace
                     else
                         SerialOutBottomReady = true;
                 }
-                if (!ProcessingDone)
-                {
-                    if (Convert.ToInt32(SerialOutLeftReady) + Convert.ToInt32(SerialOutTopReady) + Convert.ToInt32(SerialOutRightReady) + Convert.ToInt32(SerialOutBottomReady) == 4)
-                    {
-                        ProcessingDone = true;
-                    }
-                }
 
-                if (AllSendt && ProcessingDone)
+                if (AllSendt && SerialOutLeftReady && SerialOutTopReady && SerialOutRightReady && SerialOutBottomReady)
                 {
                     AllSendt = false;
                     ProcessingDoneInnerFlip = true;
@@ -3538,6 +3569,7 @@ namespace ArduLEDNameSpace
         }
 
         bool ProcessSection(
+            string[] InnerSerialOut,
             Graphics _GFXScreenShot,
             Bitmap _ImageWindow,
             int _SectionIndex,
@@ -3563,14 +3595,11 @@ namespace ArduLEDNameSpace
             int _GammaValue
             )
         {
-            string[] _InnerSerialOut = { "","","","","" };
 
-            using (_GFXScreenShot = Graphics.FromImage(_ImageWindow))
-            {
-                _GFXScreenShot.CopyFromScreen(_CaptureX, _CaptureY, 0, 0, new Size(_CaptureWidth, _CaptureHeight), CopyPixelOperation.SourceCopy);
-            }
+            _GFXScreenShot.CopyFromScreen(_CaptureX, _CaptureY, 0, 0, new Size(_CaptureWidth, _CaptureHeight), CopyPixelOperation.SourceCopy);
+
             int Count = 0;
-            _InnerSerialOut[_SectionIndex] = "7;" + _FromID + ";" + _ToID + ";" + _PixelsPrBlock + ";";
+            InnerSerialOut[_SectionIndex] = "7;" + _FromID + ";" + _ToID + ";" + _PixelsPrBlock + ";";
             if (_WhileILarger)
             {
                 for (int i = _FromI; i > _UntilI; i -= _AddToI)
@@ -3585,7 +3614,7 @@ namespace ArduLEDNameSpace
                         i,
                         _SideID,
                         Count,
-                        _InnerSerialOut,
+                        InnerSerialOut,
                         _SectionIndex,
                         _FromID,
                         _ToID,
@@ -3611,7 +3640,7 @@ namespace ArduLEDNameSpace
                         i,
                         _SideID,
                         Count,
-                        _InnerSerialOut,
+                        InnerSerialOut,
                         _SectionIndex,
                         _FromID,
                         _ToID,
@@ -3621,34 +3650,6 @@ namespace ArduLEDNameSpace
                         _GammaValue
                         );
                     Count++;
-                }
-            }
-            if (_SideID == 0)
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    InnerSerialOutLeft[i] = _InnerSerialOut[i];
-                }
-            }
-            if (_SideID == 1)
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    InnerSerialOutTop[i] = _InnerSerialOut[i];
-                }
-            }
-            if (_SideID == 2)
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    InnerSerialOutRight[i] = _InnerSerialOut[i];
-                }
-            }
-            if (_SideID == 3)
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    InnerSerialOutBottom[i] = _InnerSerialOut[i];
                 }
             }
 
@@ -3715,7 +3716,7 @@ namespace ArduLEDNameSpace
             }
             Color AfterShuffel = ShuffleColors(OutPutColor);
 
-            string AddString = Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.R + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.G + 1)), 0) + ";" + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.B + 1)), 0) + ";";
+            string AddString = Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.R + 1)), 0).ToString() + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.G + 1)), 0).ToString() + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.B + 1)), 0).ToString() + ";";
 
             if (AddString.Length + _InnerSerialOut[_SectionIndex].Length * 2 > 128)
             {
