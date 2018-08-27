@@ -2445,6 +2445,8 @@ namespace ArduLEDNameSpace
                     if (Y > 255) Y = 255;
                     if (Y < 1) Y = 1;
 
+                    Y = 0;
+
                     if (X >= BeatZoneFrom)
                     {
                         if (X <= BeatZoneTo)

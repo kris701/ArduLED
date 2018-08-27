@@ -197,71 +197,64 @@ void Mode_B(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint
 
 void Mode_W(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], short _TotalLEDCount, short _FromID, short _ToID, short _DiscardFromIndex, short _DiscardToIndex, short _CountFromID, short _CountToID, short _ShowFromPin, short _ShowToPin)
 {
-	if (_ToID > _FromID)
+	short CurrentIndex = _CountToID;
+	for (short i = _DiscardToIndex; i >= _DiscardFromIndex; i -= 2)
 	{
-		short CurrentIndex = _CountToID;
-		for (short i = _DiscardToIndex; i >= _DiscardFromIndex; i -= 2)
+		if (_Series[i + 1] > _Series[i])
 		{
-			if (_Series[i + 1] > _Series[i])
+			for (short j = _Series[i + 1]; j >= _Series[i]; j--)
 			{
-				for (short j = _Series[i + 1]; j >= _Series[i]; j--)
+				if (CurrentIndex - (_Series[i + 1] - j) >= _FromID)
 				{
-					if (CurrentIndex - (_Series[i + 1] - j) >= _FromID)
+					if (CurrentIndex - (_Series[i + 1] - j) <= _ToID)
 					{
-						if (CurrentIndex - (_Series[i + 1] - j) <= _ToID)
+						if (j == _Series[i])
 						{
-							if (j == _Series[i])
+							if (i != 0)
 							{
-								if (i != 0)
-								{
-									if (_Series[(i - 2) + 1] > _Series[i - 2])
-										_LEDStrips[_SeriesID[i / 2]].setPixelColor(j, _LEDStrips[_SeriesID[(i - 2) / 2]].getPixelColor(_Series[(i - 2) + 1]));
-									else
-										_LEDStrips[_SeriesID[i / 2]].setPixelColor(j, _LEDStrips[_SeriesID[(i - 2) / 2]].getPixelColor(_Series[(i - 2) + 1]));
-								}
+								if (_Series[(i - 2) + 1] > _Series[i - 2])
+									_LEDStrips[_SeriesID[i / 2]].setPixelColor(j, _LEDStrips[_SeriesID[(i - 2) / 2]].getPixelColor(_Series[(i - 2) + 1]));
+								else
+									_LEDStrips[_SeriesID[i / 2]].setPixelColor(j, _LEDStrips[_SeriesID[(i - 2) / 2]].getPixelColor(_Series[(i - 2) + 1]));
 							}
-							else
-								_LEDStrips[_SeriesID[i / 2]].setPixelColor(j, _LEDStrips[_SeriesID[i / 2]].getPixelColor(j - 1));
 						}
 						else
-							break;
+							_LEDStrips[_SeriesID[i / 2]].setPixelColor(j, _LEDStrips[_SeriesID[i / 2]].getPixelColor(j - 1));
 					}
 				}
 			}
-			else
-			{
-				for (short j = _Series[i + 1]; j <= _Series[i]; j++)
-				{
-					if (CurrentIndex - (j - _Series[i + 1]) >= _FromID)
-					{
-						if (CurrentIndex - (j - _Series[i + 1]) <= _ToID)
-						{
-							if (j == _Series[i])
-							{
-								if (i != 0)
-								{
-									if (_Series[(i - 2) + 1] > _Series[i - 2])
-										_LEDStrips[_SeriesID[i / 2]].setPixelColor(j, _LEDStrips[_SeriesID[(i - 2) / 2]].getPixelColor(_Series[(i - 2) + 1]));
-									else
-										_LEDStrips[_SeriesID[i / 2]].setPixelColor(j, _LEDStrips[_SeriesID[(i - 2) / 2]].getPixelColor(_Series[(i - 2) + 1]));
-								}
-							}
-							else
-								_LEDStrips[_SeriesID[i / 2]].setPixelColor(j, _LEDStrips[_SeriesID[i / 2]].getPixelColor(j + 1));
-						}
-						else
-							break;
-					}
-				}
-			}
-			CurrentIndex -= abs(_Series[i] - _Series[i + 1]) + 1;
 		}
-
-		if (_Series[_DiscardFromIndex + 1] > _Series[_DiscardFromIndex])
-			_LEDStrips[_SeriesID[_DiscardFromIndex / 2]].setPixelColor(_Series[_DiscardFromIndex] + _FromID - CurrentIndex, _Split[1], _Split[2], _Split[3]);
 		else
-			_LEDStrips[_SeriesID[_DiscardFromIndex / 2]].setPixelColor(_Series[_DiscardFromIndex + 1] + (_CountFromID - _FromID - 1), _Split[1], _Split[2], _Split[3]);
+		{
+			for (short j = _Series[i + 1]; j <= _Series[i]; j++)
+			{
+				if (CurrentIndex - (j - _Series[i + 1]) >= _FromID)
+				{
+					if (CurrentIndex - (j - _Series[i + 1]) <= _ToID)
+					{
+						if (j == _Series[i])
+						{
+							if (i != 0)
+							{
+								if (_Series[(i - 2) + 1] > _Series[i - 2])
+									_LEDStrips[_SeriesID[i / 2]].setPixelColor(j, _LEDStrips[_SeriesID[(i - 2) / 2]].getPixelColor(_Series[(i - 2) + 1]));
+								else
+									_LEDStrips[_SeriesID[i / 2]].setPixelColor(j, _LEDStrips[_SeriesID[(i - 2) / 2]].getPixelColor(_Series[(i - 2) + 1]));
+							}
+						}
+						else
+							_LEDStrips[_SeriesID[i / 2]].setPixelColor(j, _LEDStrips[_SeriesID[i / 2]].getPixelColor(j + 1));
+					}
+				}
+			}
+		}
+		CurrentIndex -= abs(_Series[i] - _Series[i + 1]) + 1;
 	}
+
+	if (_Series[_DiscardFromIndex + 1] > _Series[_DiscardFromIndex])
+		_LEDStrips[_SeriesID[_DiscardFromIndex / 2]].setPixelColor(_Series[_DiscardFromIndex] + _FromID - CurrentIndex, _Split[1], _Split[2], _Split[3]);
+	else
+		_LEDStrips[_SeriesID[_DiscardFromIndex / 2]].setPixelColor(_Series[_DiscardFromIndex + 1] + (_CountFromID - _FromID - 1), _Split[1], _Split[2], _Split[3]);
 
 	for (short i = _ShowFromPin; i <= _ShowToPin; i++)
 	{
