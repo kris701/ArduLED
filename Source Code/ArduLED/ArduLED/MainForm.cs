@@ -3376,6 +3376,11 @@ namespace ArduLEDNameSpace
                     SerialOutRightSection = 0;
                     SerialOutBottomSection = 0;
 
+                    Array.Clear(InnerSerialOutLeft, 0, InnerSerialOutLeft.Length);
+                    Array.Clear(InnerSerialOutTop, 0, InnerSerialOutTop.Length);
+                    Array.Clear(InnerSerialOutRight, 0, InnerSerialOutRight.Length);
+                    Array.Clear(InnerSerialOutBottom, 0, InnerSerialOutBottom.Length);
+
                     if (UseLeft)
                     {
                         Task.Run(() =>
@@ -3516,169 +3521,171 @@ namespace ArduLEDNameSpace
                     else
                         SerialOutBottomReady = true;
 
-                    if (RefreshRate < 50)
+                    if (ProcessingDoneInnerFlip2 && WaitTime != -1)
                     {
-                        if (ProcessingDoneInnerFlip2 && WaitTime != -1)
+                        ProcessingDoneInnerFlip2 = false;
+
+                        SerialOutLeftReady2 = false;
+                        SerialOutTopReady2 = false;
+                        SerialOutRightReady2 = false;
+                        SerialOutBottomReady2 = false;
+
+                        SerialOutLeftSection2 = 0;
+                        SerialOutTopSection2 = 0;
+                        SerialOutRightSection2 = 0;
+                        SerialOutBottomSection2 = 0;
+
+                        Array.Clear(InnerSerialOutLeft2, 0, InnerSerialOutLeft2.Length);
+                        Array.Clear(InnerSerialOutTop2, 0, InnerSerialOutTop2.Length);
+                        Array.Clear(InnerSerialOutRight2, 0, InnerSerialOutRight2.Length);
+                        Array.Clear(InnerSerialOutBottom2, 0, InnerSerialOutBottom2.Length);
+
+                        int WaitTimeInner = WaitTime;
+                        WaitTime = -1;
+
+                        if (UseLeft)
                         {
-                            ProcessingDoneInnerFlip2 = false;
-
-                            SerialOutLeftReady2 = false;
-                            SerialOutTopReady2 = false;
-                            SerialOutRightReady2 = false;
-                            SerialOutBottomReady2 = false;
-
-                            SerialOutLeftSection2 = 0;
-                            SerialOutTopSection2 = 0;
-                            SerialOutRightSection2 = 0;
-                            SerialOutBottomSection2 = 0;
-
-                            int WaitTimeInner = WaitTime;
-                            WaitTime = -1;
-
-                            if (UseLeft)
+                            Task.Run(() =>
                             {
-                                Task.Run(() =>
-                                {
-                                    Thread.Sleep(WaitTimeInner);
-                                    SerialOutLeftReady2 = ProcessSection(
-                                        InnerSerialOutLeft2,
-                                        GFXScreenshotLeft2,
-                                        ImageWindowLeft2,
-                                        SerialOutLeftSection2,
-                                        LeftCaptureX,
-                                        LeftCaptureY,
-                                        LeftCaptureWidth,
-                                        LeftCaptureHeight,
-                                        LeftFromID,
-                                        LeftToID,
-                                        LeftLEDPrBlock,
-                                        LeftFromI,
-                                        0,
-                                        LeftAddIWith,
-                                        true,
-                                        LeftBlockWidth,
-                                        LeftBlockHeight,
-                                        0,
-                                        0,
-                                        false,
-                                        0,
-                                        FadeFactor,
-                                        PixelSplitLoopAddBy,
-                                        GammaValue
-                                        );
-                                });
-                            }
-                            else
-                                SerialOutLeftReady2 = true;
-
-                            if (UseTop)
-                            {
-                                Task.Run(() =>
-                                {
-                                    Thread.Sleep(WaitTimeInner);
-                                    SerialOutTopReady2 = ProcessSection(
-                                        InnerSerialOutTop2,
-                                        GFXScreenshotTop2,
-                                        ImageWindowTop2,
-                                        SerialOutTopSection2,
-                                        TopCaptureX,
-                                        TopCaptureY,
-                                        TopCaptureWidth,
-                                        TopCaptureHeight,
-                                        TopFromID,
-                                        TopToID,
-                                        TopLEDPrBlock,
-                                        0,
-                                        TopUntilI,
-                                        TopAddIWith,
-                                        false,
-                                        TopBlockWidth,
-                                        TopBlockHeight,
-                                        0,
-                                        0,
-                                        true,
-                                        1,
-                                        FadeFactor,
-                                        PixelSplitLoopAddBy,
-                                        GammaValue
-                                        );
-                                });
-                            }
-                            else
-                                SerialOutTopReady2 = true;
-
-                            if (UseRight)
-                            {
-                                Task.Run(() =>
-                                {
-                                    Thread.Sleep(WaitTimeInner);
-                                    SerialOutRightReady2 = ProcessSection(
-                                        InnerSerialOutRight2,
-                                        GFXScreenshotRight2,
-                                        ImageWindowRight2,
-                                        SerialOutRightSection2,
-                                        RightCaptureX,
-                                        RightCaptureY,
-                                        RightCaptureWidth,
-                                        RightCaptureHeight,
-                                        RightFromID,
-                                        RightToID,
-                                        RightLEDPrBlock,
-                                        0,
-                                        RightUntilI,
-                                        RightAddIWith,
-                                        false,
-                                        RightBlockWidth,
-                                        RightBlockHeight,
-                                        0,
-                                        0,
-                                        false,
-                                        2,
-                                        FadeFactor,
-                                        PixelSplitLoopAddBy,
-                                        GammaValue
-                                        );
-                                });
-                            }
-                            else
-                                SerialOutRightReady2 = true;
-
-                            if (UseBottom)
-                            {
-                                Task.Run(() =>
-                                {
-                                    Thread.Sleep(WaitTimeInner);
-                                    SerialOutBottomReady2 = ProcessSection(
-                                        InnerSerialOutBottom2,
-                                        GFXScreenshotBottom2,
-                                        ImageWindowBottom2,
-                                        SerialOutBottomSection2,
-                                        BottomCaptureX,
-                                        BottomCaptureY,
-                                        BottomCaptureWidth,
-                                        BottomCaptureHeight,
-                                        BottomFromID,
-                                        BottomToID,
-                                        BottomLEDPrBlock,
-                                        0,
-                                        BottomUntilI,
-                                        BottomAddIWith,
-                                        false,
-                                        BottomBlockWidth,
-                                        BottomBlockHeight,
-                                        0,
-                                        0,
-                                        true,
-                                        3,
-                                        FadeFactor,
-                                        PixelSplitLoopAddBy,
-                                        GammaValue
-                                        );
-                                });
-                            }
-                            else
-                                SerialOutBottomReady2 = true;
+                                Thread.Sleep(WaitTimeInner);
+                                SerialOutLeftReady2 = ProcessSection(
+                                    InnerSerialOutLeft2,
+                                    GFXScreenshotLeft2,
+                                    ImageWindowLeft2,
+                                    SerialOutLeftSection2,
+                                    LeftCaptureX,
+                                    LeftCaptureY,
+                                    LeftCaptureWidth,
+                                    LeftCaptureHeight,
+                                    LeftFromID,
+                                    LeftToID,
+                                    LeftLEDPrBlock,
+                                    LeftFromI,
+                                    0,
+                                    LeftAddIWith,
+                                    true,
+                                    LeftBlockWidth,
+                                    LeftBlockHeight,
+                                    0,
+                                    0,
+                                    false,
+                                    0,
+                                    FadeFactor,
+                                    PixelSplitLoopAddBy,
+                                    GammaValue
+                                    );
+                            });
                         }
+                        else
+                            SerialOutLeftReady2 = true;
+
+                        if (UseTop)
+                        {
+                            Task.Run(() =>
+                            {
+                                Thread.Sleep(WaitTimeInner);
+                                SerialOutTopReady2 = ProcessSection(
+                                    InnerSerialOutTop2,
+                                    GFXScreenshotTop2,
+                                    ImageWindowTop2,
+                                    SerialOutTopSection2,
+                                    TopCaptureX,
+                                    TopCaptureY,
+                                    TopCaptureWidth,
+                                    TopCaptureHeight,
+                                    TopFromID,
+                                    TopToID,
+                                    TopLEDPrBlock,
+                                    0,
+                                    TopUntilI,
+                                    TopAddIWith,
+                                    false,
+                                    TopBlockWidth,
+                                    TopBlockHeight,
+                                    0,
+                                    0,
+                                    true,
+                                    1,
+                                    FadeFactor,
+                                    PixelSplitLoopAddBy,
+                                    GammaValue
+                                    );
+                            });
+                        }
+                        else
+                            SerialOutTopReady2 = true;
+
+                        if (UseRight)
+                        {
+                            Task.Run(() =>
+                            {
+                                Thread.Sleep(WaitTimeInner);
+                                SerialOutRightReady2 = ProcessSection(
+                                    InnerSerialOutRight2,
+                                    GFXScreenshotRight2,
+                                    ImageWindowRight2,
+                                    SerialOutRightSection2,
+                                    RightCaptureX,
+                                    RightCaptureY,
+                                    RightCaptureWidth,
+                                    RightCaptureHeight,
+                                    RightFromID,
+                                    RightToID,
+                                    RightLEDPrBlock,
+                                    0,
+                                    RightUntilI,
+                                    RightAddIWith,
+                                    false,
+                                    RightBlockWidth,
+                                    RightBlockHeight,
+                                    0,
+                                    0,
+                                    false,
+                                    2,
+                                    FadeFactor,
+                                    PixelSplitLoopAddBy,
+                                    GammaValue
+                                    );
+                            });
+                        }
+                        else
+                            SerialOutRightReady2 = true;
+
+                        if (UseBottom)
+                        {
+                            Task.Run(() =>
+                            {
+                                Thread.Sleep(WaitTimeInner);
+                                SerialOutBottomReady2 = ProcessSection(
+                                    InnerSerialOutBottom2,
+                                    GFXScreenshotBottom2,
+                                    ImageWindowBottom2,
+                                    SerialOutBottomSection2,
+                                    BottomCaptureX,
+                                    BottomCaptureY,
+                                    BottomCaptureWidth,
+                                    BottomCaptureHeight,
+                                    BottomFromID,
+                                    BottomToID,
+                                    BottomLEDPrBlock,
+                                    0,
+                                    BottomUntilI,
+                                    BottomAddIWith,
+                                    false,
+                                    BottomBlockWidth,
+                                    BottomBlockHeight,
+                                    0,
+                                    0,
+                                    true,
+                                    3,
+                                    FadeFactor,
+                                    PixelSplitLoopAddBy,
+                                    GammaValue
+                                    );
+                            });
+                        }
+                        else
+                            SerialOutBottomReady2 = true;
                     }
                 }
 
@@ -3694,12 +3701,9 @@ namespace ArduLEDNameSpace
                     AllSendt = false;
                     if (SerialOutLeftReady && SerialOutTopReady && SerialOutRightReady && SerialOutBottomReady)
                     {
-                        if (RefreshRate < 50)
-                        {
-                            WaitTime = (DateTime.Now.Millisecond - CalibrateRefreshRate.Millisecond) / 2;
-                            if (WaitTime < 0)
-                                WaitTime = 0;
-                        }
+                        WaitTime = (DateTime.Now.Millisecond - CalibrateRefreshRate.Millisecond) / 2;
+                        if (WaitTime < 0)
+                            WaitTime = 0;
                         ProcessingDoneInnerFlip = true;
                         for (int i = 0; i < 5; i++)
                         {
@@ -3726,24 +3730,24 @@ namespace ArduLEDNameSpace
                         if (UseLeft)
                         {
                             for (int i = 0; i < 5; i++)
-                                if (SerialOutLeft[i] != "")
+                                if (SerialOutLeft[i] != null)
                                     SendDataBySerial(SerialOutLeft[i]);
                         }
                         if (UseTop)
                         {
                             for (int i = 0; i < 5; i++)
-                                if (SerialOutTop[i] != "")
+                                if (SerialOutTop[i] != null)
                                     SendDataBySerial(SerialOutTop[i]);
                         }
                         if (UseRight)
                         {
                             for (int i = 0; i < 5; i++)
-                                if (SerialOutRight[i] != "")
+                                if (SerialOutRight[i] != null)
                                     SendDataBySerial(SerialOutRight[i]);
                         }
                         if (UseBottom)
                             for (int i = 0; i < 5; i++)
-                                if (SerialOutBottom[i] != "")
+                                if (SerialOutBottom[i] != null)
                                     SendDataBySerial(SerialOutBottom[i]);
 
                         AllSendt = true;
@@ -3958,7 +3962,27 @@ namespace ArduLEDNameSpace
             }
             Color AfterShuffel = ShuffleColors(OutPutColor);
 
-            string AddString = Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.R + 1)), 0).ToString() + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.G + 1)), 0).ToString() + Math.Round((decimal)9 / ((decimal)255 / (AfterShuffel.B + 1)), 0).ToString() + ";";
+            int RVal = (int)Math.Round((decimal)8 / ((decimal)255 / (AfterShuffel.R + 1)), 0) + 1;
+            int GVal = (int)Math.Round((decimal)8 / ((decimal)255 / (AfterShuffel.G + 1)), 0) + 1;
+            int BVal = (int)Math.Round((decimal)8 / ((decimal)255 / (AfterShuffel.B + 1)), 0) + 1;
+
+            string AddString = "";
+
+            if (RVal == GVal && GVal == BVal)
+            {
+                AddString = RVal.ToString() + ";";
+            }
+            else
+            {
+                if (RVal == GVal && RVal != 0)
+                {
+                    AddString = RVal.ToString() + BVal.ToString() + ";";
+                }
+                else
+                {
+                    AddString = RVal.ToString() + GVal.ToString() + BVal.ToString() + ";";
+                }
+            }
 
             if (AddString.Length + _InnerSerialOut[_SectionIndex].Length * 2 > 128)
             {

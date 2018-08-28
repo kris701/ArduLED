@@ -406,7 +406,8 @@ void Mode_R(short *_DiscardFromIndex, short *_DiscardToIndex, short *_CountFromI
 void Mode_A(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], short _TotalLEDCount, short _FromID, short _ToID, short _DiscardFromIndex, short _DiscardToIndex, short _CountFromID, short _ShowFromPin, short _ShowToPin)
 {
 	short Count = 4;
-	short CurrentIndex = _CountFromID - (abs(_Series[_DiscardFromIndex] - _Series[_DiscardFromIndex + 1]) + 1);;
+	short CurrentIndex = _CountFromID - (abs(_Series[_DiscardFromIndex] - _Series[_DiscardFromIndex + 1]) + 1);
+	short RVal, GVal, BVal;
 
 	for (short j = _DiscardFromIndex; j <= _DiscardToIndex; j += 2)
 	{
@@ -420,9 +421,31 @@ void Mode_A(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], shor
 					{
 						if (CurrentIndex + (i - _Series[j]) + _Split[3] <= _Split[2])
 						{
+							int InputVal = _Split[Count];
+							if (InputVal >= 111)
+							{
+								RVal = ((255 / 8) * (((InputVal / 100) % 10) - 1));
+								GVal = ((255 / 8) * (((InputVal / 10) % 10) - 1));
+								BVal = ((255 / 8) * ((InputVal % 10) - 1));
+							}
+							else
+							{
+								if (InputVal >= 11)
+								{
+									RVal = (255 / 8) * (((InputVal / 10) % 10) - 1);
+									GVal = (255 / 8) * (((InputVal / 10) % 10) - 1);
+									BVal = (255 / 8) * ((InputVal % 10) - 1);
+								}
+								else
+								{
+									RVal = (255 / 8) * (InputVal - 1);
+									GVal = (255 / 8) * (InputVal - 1);
+									BVal = (255 / 8) * (InputVal - 1);
+								}
+							}
 							for (int l = i; l < i + _Split[3]; l++)
 							{
-								_LEDStrips[_SeriesID[j / 2]].setPixelColor(l, ((255 / 9) * ((_Split[Count] / 100) % 10)), ((255 / 9) * ((_Split[Count] / 10) % 10)), ((255 / 9) * (_Split[Count] % 10)));
+								_LEDStrips[_SeriesID[j / 2]].setPixelColor(l, RVal, GVal, BVal);
 							}
 							Count++;
 							i += _Split[3] - 1;
@@ -442,9 +465,31 @@ void Mode_A(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], shor
 					{
 						if (CurrentIndex + (i - _Series[j]) + _Split[3] >= _Split[2])
 						{
+							int InputVal = _Split[Count];
+							if (InputVal >= 111)
+							{
+								RVal = ((255 / 8) * (((InputVal / 100) % 10) - 1));
+								GVal = ((255 / 8) * (((InputVal / 10) % 10) - 1));
+								BVal = ((255 / 8) * ((InputVal % 10) - 1));
+							}
+							else
+							{
+								if (InputVal >= 11)
+								{
+									RVal = (255 / 8) * (((InputVal / 10) % 10) - 1);
+									GVal = (255 / 8) * (((InputVal / 10) % 10) - 1);
+									BVal = (255 / 8) * ((InputVal % 10) - 1);
+								}
+								else
+								{
+									RVal = (255 / 8) * (InputVal - 1);
+									GVal = (255 / 8) * (InputVal - 1);
+									BVal = (255 / 8) * (InputVal - 1);
+								}
+							}
 							for (int l = i; l > i - _Split[3]; l--)
 							{
-								_LEDStrips[_SeriesID[j / 2]].setPixelColor(l, ((255 / 9) * ((_Split[Count] / 100) % 10)), ((255 / 9) * ((_Split[Count] / 10) % 10)), ((255 / 9) * (_Split[Count] % 10)));
+								_LEDStrips[_SeriesID[j / 2]].setPixelColor(l, RVal, GVal, BVal);
 							}
 							Count++;
 							i -= _Split[3] - 1;
@@ -467,9 +512,31 @@ void Mode_A(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], shor
 					{
 						if (CurrentIndex + (_Series[j] - i) + _Split[3] <= _Split[2])
 						{
+							int InputVal = _Split[Count];
+							if (InputVal >= 111)
+							{
+								RVal = ((255 / 8) * (((InputVal / 100) % 10) - 1));
+								GVal = ((255 / 8) * (((InputVal / 10) % 10) - 1));
+								BVal = ((255 / 8) * ((InputVal % 10) - 1));
+							}
+							else
+							{
+								if (InputVal >= 11)
+								{
+									RVal = (255 / 8) * (((InputVal / 10) % 10) - 1);
+									GVal = (255 / 8) * (((InputVal / 10) % 10) - 1);
+									BVal = (255 / 8) * ((InputVal % 10) - 1);
+								}
+								else
+								{
+									RVal = (255 / 8) * (InputVal - 1);
+									GVal = (255 / 8) * (InputVal - 1);
+									BVal = (255 / 8) * (InputVal - 1);
+								}
+							}
 							for (int l = i; l > i - _Split[3]; l--)
 							{
-								_LEDStrips[_SeriesID[j / 2]].setPixelColor(l, ((255 / 9) * ((_Split[Count] / 100) % 10)), ((255 / 9) * ((_Split[Count] / 10) % 10)), ((255 / 9) * (_Split[Count] % 10)));
+								_LEDStrips[_SeriesID[j / 2]].setPixelColor(l, RVal, GVal, BVal);
 							}
 							Count++;
 							i -= _Split[3] - 1;
@@ -489,9 +556,31 @@ void Mode_A(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], shor
 					{
 						if (CurrentIndex + (_Series[j] - i) - _Split[3] >= _Split[2])
 						{
+							int InputVal = _Split[Count];
+							if (InputVal >= 111)
+							{
+								RVal = ((255 / 8) * (((InputVal / 100) % 10) - 1));
+								GVal = ((255 / 8) * (((InputVal / 10) % 10) - 1));
+								BVal = ((255 / 8) * ((InputVal % 10) - 1));
+							}
+							else
+							{
+								if (InputVal >= 11)
+								{
+									RVal = (255 / 8) * (((InputVal / 10) % 10) - 1);
+									GVal = (255 / 8) * (((InputVal / 10) % 10) - 1);
+									BVal = (255 / 8) * ((InputVal % 10) - 1);
+								}
+								else
+								{
+									RVal = (255 / 8) * (InputVal - 1);
+									GVal = (255 / 8) * (InputVal - 1);
+									BVal = (255 / 8) * (InputVal - 1);
+								}
+							}
 							for (int l = i; l < i + _Split[3]; l++)
 							{
-								_LEDStrips[_SeriesID[j / 2]].setPixelColor(l, ((255 / 9) * ((_Split[Count] / 100) % 10)), ((255 / 9) * ((_Split[Count] / 10) % 10)), ((255 / 9) * (_Split[Count] % 10)));
+								_LEDStrips[_SeriesID[j / 2]].setPixelColor(l, RVal, GVal, BVal);
 							}
 							Count++;
 							i += _Split[3] - 1;
