@@ -189,7 +189,7 @@ void Mode_F(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint
 
 void Mode_B(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint8_t _PreviousColor[3], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], short _TotalLEDCount, short _FromID, short _ToID, short _DiscardFromIndex, short _DiscardToIndex, short _CountFromID, short _ShowFromPin, short _ShowToPin)
 {
-	float JumpValue = ((float)_Split[1] / (float)100);
+	float JumpValue = ((float)_Split[1] / (float)99);
 	ColorEntireStripFromTo(_FromID, _ToID, _PreviousColor[0] * JumpValue, _PreviousColor[1] * JumpValue, _PreviousColor[2] * JumpValue, 0, &_LEDStrips[0], _SeriesIndex, &_Series[0], &_SeriesID[0], _TotalLEDCount, _DiscardFromIndex, _DiscardToIndex, _CountFromID);
 
 	for (short i = _ShowFromPin; i <= _ShowToPin; i++)
@@ -561,7 +561,7 @@ void ColorEntireStripFromTo(short _FromID, short _ToID, short _Red, short _Green
 
 bool ReadSerial(short *_Split)
 {
-	if (Serial.available() > 0)
+	if (Serial.available() > 2)
 	{
 		for (short i = 0; i < SplitS; i++)
 			_Split[i] = 0;
@@ -570,7 +570,7 @@ bool ReadSerial(short *_Split)
 
 		while (true)
 		{
-			if (Serial.available() > 2)
+			if (Serial.available() > 0)
 			{
 				int Value = Serial.parseInt();
 				if (Value == -1)
@@ -586,6 +586,8 @@ bool ReadSerial(short *_Split)
 					return false;
 				}
 			}
+			else
+				break;
 		}
 		return true;
 	}
