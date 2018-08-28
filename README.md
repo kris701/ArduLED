@@ -9,7 +9,7 @@ Welcome, to the ArduLED project. What is this? you may ask, this is a program, b
  - [BASS.NET](http://bass.radio42.com/) powered visualizer, with a lot of diffrent options (Very fast, ~100 RPS on 135 LEDs on Beat Wave)
  - Fading colors
  - Instructions mode, setup a set of instructions that the LED will follow
- - Ambilight feature (~20 15-20 FPS on 4k screen with 50 LEDs)
+ - Ambilight feature (~30-40 FPS on 4k screen with 50 LEDs)
  - Very easy to use
  - Supports multiple languages
  - Includes a local Server API, to control ArduLED from your own programs
