@@ -6,8 +6,11 @@
 #define SeriesidS SeriesS / 2
 #define BaudRate 1000000
 
-void setup() 
+void setup()
 {
+	void ColorEntireStripFromTo(short _FromID, short _ToID, short _Red, short _Green, short _Blue, short _Delay, Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], short _TotalLEDCount, short _DiscardFromIndex, short _DiscardToIndex, short _CountFromID);
+	void Run(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint8_t _PreviousColor[3], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], short _TotalLEDCount);
+
 	Serial.begin(BaudRate, SERIAL_8N1);
 
 	short NumberOfPixels[LEDStripsS];
@@ -98,6 +101,14 @@ void setup()
 
 void Run(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint8_t _PreviousColor[3], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], short _TotalLEDCount)
 {
+	void Mode_F(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint8_t _PreviousColor[3], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], short _TotalLEDCount, short _FromID, short _ToID, short _DiscardFromIndex, short _DiscardToIndex, short _CountFromID, short _ShowFromPin, short _ShowToPin);
+	void Mode_B(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint8_t _PreviousColor[3], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], short _TotalLEDCount, short _FromID, short _ToID, short _DiscardFromIndex, short _DiscardToIndex, short _CountFromID, short _ShowFromPin, short _ShowToPin);
+	void Mode_W(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], short _TotalLEDCount, short _FromID, short _ToID, short _DiscardFromIndex, short _DiscardToIndex, short _CountFromID, short _CountToID, short _ShowFromPin, short _ShowToPin);
+	void Mode_I(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS]);
+	void Mode_S(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint8_t _PreviousColor[3], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], short _TotalLEDCount, short _FromID, short _ToID, short _DiscardFromIndex, short _DiscardToIndex, short _CountFromID, short _ShowFromPin, short _ShowToPin);
+	void Mode_R(short *_DiscardFromIndex, short *_DiscardToIndex, short *_CountFromID, short *_CountToID, short _SeriesIndex, Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], short *_FromID, short *_ToID, short _TotalLEDCount, short _Split[SplitS], short *_ShowFromPin, short *_ShowToPin);
+	void Mode_A(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], short _TotalLEDCount, short _FromID, short _ToID, short _DiscardFromIndex, short _DiscardToIndex, short _CountFromID, short _ShowFromPin, short _ShowToPin);
+
 	short FromID = 0;
 	short ToID = _TotalLEDCount;
 	short DiscardFromIndex = 0;
@@ -141,6 +152,8 @@ void Run(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint8_t
 
 void Mode_F(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint8_t _PreviousColor[3], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], short _TotalLEDCount, short _FromID, short _ToID, short _DiscardFromIndex, short _DiscardToIndex, short _CountFromID, short _ShowFromPin, short _ShowToPin)
 {
+	void ColorEntireStripFromTo(short _FromID, short _ToID, short _Red, short _Green, short _Blue, short _Delay, Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], short _TotalLEDCount, short _DiscardFromIndex, short _DiscardToIndex, short _CountFromID);
+
 	float CurrentColor[3] = { 0,0,0 };
 	float CurrentColorJump[3] = { 0,0,0 };
 	float JumpValue = ((float)_Split[5] / (float)100);
@@ -189,6 +202,8 @@ void Mode_F(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint
 
 void Mode_B(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint8_t _PreviousColor[3], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], short _TotalLEDCount, short _FromID, short _ToID, short _DiscardFromIndex, short _DiscardToIndex, short _CountFromID, short _ShowFromPin, short _ShowToPin)
 {
+	void ColorEntireStripFromTo(short _FromID, short _ToID, short _Red, short _Green, short _Blue, short _Delay, Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], short _TotalLEDCount, short _DiscardFromIndex, short _DiscardToIndex, short _CountFromID);
+
 	float JumpValue = ((float)_Split[1] / (float)99);
 	ColorEntireStripFromTo(_FromID, _ToID, _PreviousColor[0] * JumpValue, _PreviousColor[1] * JumpValue, _PreviousColor[2] * JumpValue, 0, &_LEDStrips[0], _SeriesIndex, &_Series[0], &_SeriesID[0], _TotalLEDCount, _DiscardFromIndex, _DiscardToIndex, _CountFromID);
 
@@ -275,6 +290,8 @@ void Mode_I(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS])
 
 void Mode_S(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint8_t _PreviousColor[3], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], short _TotalLEDCount, short _FromID, short _ToID, short _DiscardFromIndex, short _DiscardToIndex, short _CountFromID, short _ShowFromPin, short _ShowToPin)
 {
+	void ColorEntireStripFromTo(short _FromID, short _ToID, short _Red, short _Green, short _Blue, short _Delay, Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _SeriesIndex, short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], short _TotalLEDCount, short _DiscardFromIndex, short _DiscardToIndex, short _CountFromID);
+
 	ColorEntireStripFromTo(_FromID, _ToID, 0, 0, 0, 0, &_LEDStrips[0], _SeriesIndex, &_Series[0], &_SeriesID[0], _TotalLEDCount, _DiscardFromIndex, _DiscardToIndex, _CountFromID);
 
 	short Count = 4 + _DiscardFromIndex;
@@ -393,7 +410,7 @@ void Mode_R(short *_DiscardFromIndex, short *_DiscardToIndex, short *_CountFromI
 			break;
 		}
 	}
-	
+
 	for (short i = *_DiscardFromIndex; i <= *_DiscardToIndex; i += 2)
 	{
 		if (_SeriesID[i / 2] < *_ShowFromPin)
