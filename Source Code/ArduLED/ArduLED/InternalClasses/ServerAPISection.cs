@@ -212,6 +212,7 @@ namespace ArduLEDNameSpace
                         Int32.Parse(InputSplit[6]),
                         Int32.Parse(InputSplit[7])
                         );
+                    return "G";
                 }
 
                 //INDIVIDUALCOLOR(3,40,0,255,255)
@@ -223,6 +224,7 @@ namespace ArduLEDNameSpace
 
                     string SerialOut = "4;" + InputSplit[0] + ";" + InputSplit[1] + ";" + InputSplit[2] + ";" + InputSplit[3] + ";" + InputSplit[4];
                     MainFormClass.SendDataBySerial(SerialOut);
+                    return "G";
                 }
 
                 //VISUALIZER(False,test.txt)
@@ -263,6 +265,7 @@ namespace ArduLEDNameSpace
                             MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "     " + E.ToString() + Environment.NewLine; });
                         }
                     }
+                    return "G";
                 }
 
                 //AMBILIGHT(False,True,False,wew5.txt)
@@ -330,6 +333,7 @@ namespace ArduLEDNameSpace
                             }
                         }
                     }
+                    return "G";
                 }
 
                 //CLICKBUTTON(ServerSettingsClearConsoleButton,0)
@@ -348,6 +352,8 @@ namespace ArduLEDNameSpace
                     {
                         MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "     " + E.ToString() + Environment.NewLine; });
                     }
+
+                    return "G";
                 }
 
                 //SETTEXTCONTROL(ServerSettingsConsoleTextBox,0,wew lad)
@@ -366,6 +372,8 @@ namespace ArduLEDNameSpace
                     {
                         MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "     " + E.ToString() + Environment.NewLine; });
                     }
+
+                    return "G";
                 }
 
                 //SETTACKBARCONTROL(SampleTimeTrackBar,0,20)
@@ -384,6 +392,8 @@ namespace ArduLEDNameSpace
                     {
                         MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "     " + E.ToString() + Environment.NewLine; });
                     }
+
+                    return "G";
                 }
 
                 //SETNUMERICCONTROL(AutoTriggerMinNumericUpDown,0,20)
@@ -402,6 +412,8 @@ namespace ArduLEDNameSpace
                     {
                         MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "     " + E.ToString() + Environment.NewLine; });
                     }
+
+                    return "G";
                 }
 
                 //SETCOMBOBOXINDEXCONTROL(LanguageComboBox,0,1)
@@ -420,13 +432,15 @@ namespace ArduLEDNameSpace
                     {
                         MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "     " + E.ToString() + Environment.NewLine; });
                     }
+
+                    return "G";
                 }
 
-                return "G";
+                return "U";
             }
             catch
             {  }
-            return "F";
+            return "B";
         }
     }
 }

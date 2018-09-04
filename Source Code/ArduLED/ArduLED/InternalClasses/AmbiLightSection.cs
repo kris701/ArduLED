@@ -37,7 +37,13 @@ namespace ArduLEDNameSpace
             {
                 handle.Dispose();
                 if (AmbilightTask != null)
-                    AmbilightTask.Dispose();
+                {
+                    if (AmbilightTask.Status == TaskStatus.Running)
+                    {
+                        StopAmbilight();
+                        AmbilightTask.Dispose();
+                    }
+                }
                 AmbilightColorStore.Clear();
                 BlockList.Clear();
             }
@@ -190,7 +196,7 @@ namespace ArduLEDNameSpace
             }
         }
 
-        public void AutoSetOffsets(AmbilightSide _LeftSide, AmbilightSide _ToptSide, AmbilightSide _RightSide, AmbilightSide _BottomSide, int _ScreenID, int _SampleSplit)
+        public void AutoSetOffsets(AmbilightSide _LeftSide, AmbilightSide _TopSide, AmbilightSide _RightSide, AmbilightSide _BottomSide, int _ScreenID, int _SampleSplit)
         {
             MainFormClass.Opacity = 0;
             Bitmap Screenshot = new Bitmap(Screen.AllScreens[_ScreenID].Bounds.Width, Screen.AllScreens[_ScreenID].Bounds.Height, PixelFormat.Format32bppRgb);
@@ -213,7 +219,7 @@ namespace ArduLEDNameSpace
                     );
             }
 
-            if (_ToptSide.Enabled)
+            if (_TopSide.Enabled)
             {
                 MainFormClass.AmbiLightModeTopBlockOffsetYNumericUpDown.Value = FindFirstLightPixel(
                     0,
@@ -253,7 +259,11 @@ namespace ArduLEDNameSpace
             }
             Screenshot.Dispose();
 
-            ShowBlocks(_LeftSide, _ToptSide, _RightSide, _BottomSide, _ScreenID, _SampleSplit);
+            Application.DoEvents();
+
+            SetSides();
+
+            ShowBlocks(MainFormClass.LeftSide, MainFormClass.TopSide, MainFormClass.RightSide, MainFormClass.BottomSide, _ScreenID, _SampleSplit);
 
             Thread.Sleep(1000);
 
@@ -901,6 +911,8 @@ namespace ArduLEDNameSpace
 
             while(!(SerialOutLeftReady && SerialOutTopReady && SerialOutRightReady && SerialOutBottomReady) && !(SerialOutLeftReady2 && SerialOutTopReady2 && SerialOutRightReady2 && SerialOutBottomReady2))
                 Thread.Sleep(100);
+
+            Thread.Sleep(1000);
 
             GFXScreenshotLeft.Dispose();
             GFXScreenshotTop.Dispose();

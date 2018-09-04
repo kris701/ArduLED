@@ -179,15 +179,6 @@ namespace ArduLEDNameSpace
 
         public void ModeIndexChange()
         {
-            if (!MainFormClass.AmbiLightSectionClass.IsDisposed)
-                MainFormClass.AmbiLightSectionClass.Dispose();
-            if (!MainFormClass.ServerAPISectionClass.IsDisposed)
-                MainFormClass.ServerAPISectionClass.Dispose();
-            if (!MainFormClass.InstructionsSectionClass.IsDisposed)
-                MainFormClass.InstructionsSectionClass.Dispose();
-            if (!MainFormClass.VisualizerSectionClass.IsDisposed)
-                MainFormClass.VisualizerSectionClass.Dispose();
-
             MainFormClass.FadeLEDPanel.Enabled = false;
             MainFormClass.VisualizerPanel.Visible = false;
             MainFormClass.IndividualLEDPanel.Visible = false;
@@ -217,7 +208,6 @@ namespace ArduLEDNameSpace
             }
             if (MainFormClass.ModeSelectrionComboBox.SelectedIndex == 1)
             {
-                MainFormClass.VisualizerSectionClass = new VisualizerSection(MainFormClass);
                 MainFormClass.AmbiLightSectionClass.StopAmbilight();
 
                 MainFormClass.VisualizerPanel.Visible = true;
@@ -247,8 +237,6 @@ namespace ArduLEDNameSpace
             }
             if (MainFormClass.ModeSelectrionComboBox.SelectedIndex == 3)
             {
-                MainFormClass.InstructionsSectionClass = new InstructionsSection(MainFormClass);
-
                 MainFormClass.InstructionsPanel.Visible = true;
                 MainFormClass.InstructionsPanel.BringToFront();
                 if (!MainFormClass.InstructionsSectionClass.ContinueInstructionsLoop)
@@ -265,15 +253,11 @@ namespace ArduLEDNameSpace
             }
             if (MainFormClass.ModeSelectrionComboBox.SelectedIndex == 4)
             {
-                MainFormClass.AmbiLightSectionClass = new AmbiLightSection(MainFormClass);
-
                 MainFormClass.AmbiLightModePanel.Visible = true;
                 MainFormClass.AmbiLightModePanel.BringToFront();
             }
             if (MainFormClass.ModeSelectrionComboBox.SelectedIndex == 5)
             {
-                MainFormClass.ServerAPISectionClass = new ServerAPISection(MainFormClass);
-
                 MainFormClass.ServerSettingsPanel.Visible = true;
                 MainFormClass.ServerSettingsPanel.BringToFront();
             }
