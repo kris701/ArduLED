@@ -7,7 +7,7 @@ LanguageComboBox;Lucida Console;8;
 MenuAutoHideCheckBox;Lucida Console;8;Gør automatisk usynlig
 
 ModeSelectrionComboBox;Lucida Console;8;
-INDEXNAMES;ModeSelectrionComboBox;Falme Farver;Visualizer;Individuelle Farver;Instruktioner;Server Opsætning;Ambilight;Opsætning
+INDEXNAMES;ModeSelectrionComboBox;Falme Farver;Visualizer;Individuelle Farver;Instruktioner;Server Opsætning;Ambilight;Animationer;Opsætning
 
 FadeColorsRedTopLabel;Lucida Console;11;Rød
 FadeColorsGreenTopLabel;Lucida Console;11;Grøn
@@ -342,3 +342,35 @@ ServerSettingsIPAddressLabel;Lucida Console;10;IP Addresse
 ServerSettingsIPAddressTextBox;Lucida Console;10;
 ServerSettingsPortLabel;Lucida Console;10;Port
 ServerSettingsPortTextBox;Lucida Console;10;
+
+AnimationModeTopLabel;Lucida Console;16;Animations tilstand
+AnimationModeLiveViewLabel;Lucida Console;12;Direkte
+AnimationModeAPSLabel;Lucida Console;12;APS:
+AnimationModeAnimationWindowLabel;Lucida Console;12;Animations vindue
+AnimationModeRedLabel;Lucida Console;8;Rød
+AnimationModeRedTrackbarLabel;Lucida Console;8;
+AnimationModeGreenLabel;Lucida Console;8;Grøn
+AnimationModeGreenTrackbarLabel;Lucida Console;8;
+AnimationModeBlueLabel;Lucida Console;8;Blå
+AnimationModeBlueTrackbarLabel;Lucida Console;8;
+AnimationModeColorEntireLineCheckBox;Lucida Console;8;Farv hele linjen
+AnimationModeHighCompressionCheckBox;Lucida Console;8;Kraftig kompression
+AnimationModeLineSpacingLabel;Lucida Console;8;Linje afstand
+AnimationModeLineSpacingNumericUpDown;Lucida Console;8;
+AnimationModeMoveIntervalLabel;Lucida Console;8;Interval (ms)
+AnimationModeMoveIntervalNumericUpDown;Lucida Console;8;
+AnimationModeAddALineButton;Lucida Console;8;Tilføj en linje
+AnimationModeClearButton;Lucida Console;8;Fjern alt
+AnimationModeFromIDLabel;Lucida Console;8;Fra Serie ID
+AnimationModeToIDLabel;Lucida Console;8;Til Series ID
+AnimationModeFromIDNumericUpDown;Lucida Console;8;
+AnimationModeToIDNumericUpDown;Lucida Console;8;
+AnimationModeLoopCheckBox;Lucida Console;8;Loop Animation
+AnimationModeStartButton;Lucida Console;8;Start Animation
+AnimationModeStopButton;Lucida Console;8;Stop Animation
+AnimationModeSaveButton;Lucida Console;8;Gem Animation
+AnimationModeLoadButton;Lucida Console;8;Åben en Animation
+
+POSSIBLE;AnimationPanelRemoveButton;Lucida Console;8;X
+POSSIBLE;AnimationPanelMoveLeftButton;Lucida Console;8;<
+POSSIBLE;AnimationPanelMoveRightButton;Lucida Console;8;>

@@ -24,6 +24,7 @@ namespace ArduLEDNameSpace
         public bool UnitReady = false;
         private bool ReadyToRecive = false;
         private int UnitTimeoutCounter = 0;
+        public bool VisualizerEnabled = false;
 
         public List<Control> ControlList = new List<Control>();
 
@@ -42,6 +43,7 @@ namespace ArduLEDNameSpace
         public FadeColorsSection FadeColorsSectionClass;
         public MenuSection MenuSectionClass;
         public LoadingSection LoadingSectionClass;
+        public AnimationModeSection AnimationModeSectionClass;
         public ServerAPISection ServerAPISectionClass;
 
         #endregion
@@ -178,6 +180,10 @@ namespace ArduLEDNameSpace
             FormatCustomText(BeatZoneTriggerHeight.Value, BeatZoneTriggerHeightLabel, "");
             FormatCustomText(BeatZoneFromTrackBar.Value, BeatZoneFromLabel, "");
             FormatCustomText(BeatZoneToTrackBar.Value, BeatZoneToLabel, "");
+
+            AnimationModeRedTrackbarLabel.Text = AnimationModeRedTrackbar.Value.ToString();
+            AnimationModeGreenTrackbarLabel.Text = AnimationModeGreenTrackbar.Value.ToString();
+            AnimationModeBlueTrackbarLabel.Text = AnimationModeBlueTrackbar.Value.ToString();
         }
 
         public void FormatCustomText(int _Value, Control _Control, string _Additional)
@@ -203,9 +209,15 @@ namespace ArduLEDNameSpace
         {
             if (!UnitReady)
                 UnitReady = true;
-            ReadyToRecive = true;
-            UnitTimeoutCounter = 0;
-            SerialPort1.ReadChar();
+            if (SerialPort1.BytesToRead > 0)
+            {
+                if (!ReadyToRecive)
+                {
+                    ReadyToRecive = true;
+                    UnitTimeoutCounter = 0;
+                }
+                SerialPort1.ReadChar();
+            }
         }
 
         public void SendDataBySerial(string _Input)
@@ -215,6 +227,7 @@ namespace ArduLEDNameSpace
                 int TimeoutCounter = 0;
                 while (!ReadyToRecive)
                 {
+                    Application.DoEvents();
                     Thread.Sleep(1);
                     TimeoutCounter++;
                     if (TimeoutCounter > 250)
@@ -324,6 +337,16 @@ namespace ArduLEDNameSpace
             Location = new Point(Screen.PrimaryScreen.Bounds.Width - Sizex, 0);
         }
 
+        public Stream GenerateStreamFromString(string _Input)
+        {
+            var Stream = new MemoryStream();
+            var Writer = new StreamWriter(Stream);
+            Writer.Write(_Input);
+            Writer.Flush();
+            Stream.Position = 0;
+            return Stream;
+        }
+
         #endregion
 
         #region Loading Section
@@ -343,14 +366,10 @@ namespace ArduLEDNameSpace
             FadeColorsSectionClass = new FadeColorsSection(this);
             MenuSectionClass = new MenuSection(this);
             LoadingSectionClass = new LoadingSection(this);
+            AnimationModeSectionClass = new AnimationModeSection(this);
             ServerAPISectionClass = new ServerAPISection(this);
 
             await LoadingSectionClass.MainLoadingSection();
-
-            AmbiLightSectionClass.Dispose();
-            ServerAPISectionClass.Dispose();
-            InstructionsSectionClass.Dispose();
-            VisualizerSectionClass.Dispose();
         }
 
         #endregion
@@ -743,13 +762,13 @@ namespace ArduLEDNameSpace
 
         private void TrackBarUpdateBASSKey(object sender, KeyEventArgs e)
         {
-            if (UnitReady)
+            if (UnitReady && VisualizerEnabled)
                 VisualizerSectionClass.EnableBASS(true);
         }
 
         private void TrackBarUpdateBASSMouse(object sender, MouseEventArgs e)
         {
-            if (UnitReady)
+            if (UnitReady && VisualizerEnabled)
                 VisualizerSectionClass.EnableBASS(true);
         }
 
@@ -785,13 +804,13 @@ namespace ArduLEDNameSpace
                 FullSpectrumPanel.Enabled = true;
             }
 
-            if (UnitReady)
+            if (UnitReady && VisualizerEnabled)
                 VisualizerSectionClass.EnableBASS(true);
         }
 
         private void AudioSampleRateComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (UnitReady)
+            if (UnitReady && VisualizerEnabled)
                 VisualizerSectionClass.EnableBASS(true);
         }
 
@@ -802,7 +821,7 @@ namespace ArduLEDNameSpace
                 VisualizerSectionClass.UpdateSpectrumChart(SpectrumChart, SpectrumRedTextBox.Text, SpectrumGreenTextBox.Text, SpectrumBlueTextBox.Text, (int)VisualSamplesNumericUpDown.Value, SpectrumAutoScaleValuesCheckBox.Checked);
             }
 
-            if (UnitReady)
+            if (UnitReady && VisualizerEnabled)
                 VisualizerSectionClass.EnableBASS(true);
         }
 
@@ -813,7 +832,7 @@ namespace ArduLEDNameSpace
                 VisualizerSectionClass.UpdateSpectrumChart(WaveChart, WaveRedTextBox.Text, WaveGreenTextBox.Text, WaveBlueTextBox.Text, 255 * 3, WaveAutoScaleValuesCheckBox.Checked);
             }
 
-            if (UnitReady)
+            if (UnitReady && VisualizerEnabled)
                 VisualizerSectionClass.EnableBASS(true);
         }
 
@@ -825,7 +844,8 @@ namespace ArduLEDNameSpace
         private void AudioSourceComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (AudioSourceComboBox.Visible)
-                VisualizerSectionClass.EnableBASS(true);
+                if (UnitReady && VisualizerEnabled)
+                    VisualizerSectionClass.EnableBASS(true);
         }
 
         private void VisualizerSaveSettingsButton_Click(object sender, EventArgs e)
@@ -852,10 +872,13 @@ namespace ArduLEDNameSpace
 
         private void VisualizerToSeriesIDNumericUpDown_KeyDown(object sender, KeyEventArgs e)
         {
-            VisualizerSectionClass.EnableBASS(false);
-            string SerialOut = "6;" + VisualizerFromSeriesIDNumericUpDown.Value + ";" + VisualizerToSeriesIDNumericUpDown.Value;
-            SendDataBySerial(SerialOut);
-            VisualizerSectionClass.EnableBASS(true);
+            if (UnitReady && VisualizerEnabled)
+            {
+                VisualizerSectionClass.EnableBASS(false);
+                string SerialOut = "6;" + VisualizerFromSeriesIDNumericUpDown.Value + ";" + VisualizerToSeriesIDNumericUpDown.Value;
+                SendDataBySerial(SerialOut);
+                VisualizerSectionClass.EnableBASS(true);
+            }
         }
 
         #endregion
@@ -949,6 +972,83 @@ namespace ArduLEDNameSpace
                 (int)AmbiLightModeScreenIDNumericUpDown.Value, 
                 (int)AmbiLightModeBlockSampleSplitNumericUpDown.Value
                 );
+        }
+
+        #endregion
+
+        #region Animation Mode Section
+
+        private void AnimationModeAddALineButton_Click(object sender, EventArgs e)
+        {
+            string SendData = "";
+            for (int i = 0; i < AnimationModeLineSpacingNumericUpDown.Value; i++)
+                SendData += "0.0.0;";
+            AnimationModeSectionClass.AddLine(SendData);
+        }
+
+        private async void AnimationModeStartButton_Click(object sender, EventArgs e)
+        {
+            if (!AnimationModeSectionClass.AnimationRunning)
+            {
+                AnimationModeSectionClass.MoveInterval = (int)AnimationModeMoveIntervalNumericUpDown.Value;
+                AnimationModeSectionClass.ContinueAnimationLoop = true;
+                await AnimationModeSectionClass.RunAnimation();
+            }
+        }
+
+        private void AnimationModeStopButton_Click(object sender, EventArgs e)
+        {
+            if (AnimationModeSectionClass.ContinueAnimationLoop)
+                if (AnimationModeSectionClass.AnimationRunning)
+                    AnimationModeSectionClass.StopAnimationLoop = true;
+        }
+
+        private void AnimationModeSaveButton_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog.InitialDirectory = Directory.GetCurrentDirectory() + "\\Animations";
+            if (SaveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                AnimationModeSectionClass.SaveAnimation();
+            }
+            SaveFileDialog.InitialDirectory = Directory.GetCurrentDirectory();
+        }
+
+        private void AnimationModeLoadButton_Click(object sender, EventArgs e)
+        {
+            LoadFileDialog.InitialDirectory = Directory.GetCurrentDirectory() + "\\Animations";
+            if (LoadFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                AnimationModeSectionClass.LoadAnimation();
+            }
+            LoadFileDialog.InitialDirectory = Directory.GetCurrentDirectory();
+        }
+
+        private void AnimationModeRedTrackbar_Scroll(object sender, EventArgs e)
+        {
+            AnimationModeRedTrackbarLabel.Text = AnimationModeRedTrackbar.Value.ToString();
+        }
+
+        private void AnimationModeGreenTrackbar_Scroll(object sender, EventArgs e)
+        {
+            AnimationModeGreenTrackbarLabel.Text = AnimationModeGreenTrackbar.Value.ToString();
+        }
+
+        private void AnimationModeBlueTrackbar_Scroll(object sender, EventArgs e)
+        {
+            AnimationModeBlueTrackbarLabel.Text = AnimationModeBlueTrackbar.Value.ToString();
+        }
+
+        private void AnimationModeClearButton_Click(object sender, EventArgs e)
+        {
+            AnimationModeSectionClass.AnimationList.Clear();
+            Panel WorkingPanel = (Panel)AnimationModePanel.Controls.Find("AnimationModeAnimationWindowWorkingPanel", true)[0];
+            WorkingPanel.Controls.Clear();
+            AnimationModeLineSpacingNumericUpDown.Enabled = true;
+        }
+
+        private void AnimationModeColorEntireLineCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            AnimationModeSectionClass.ColorEntireLine = AnimationModeColorEntireLineCheckBox.Checked;
         }
 
         #endregion

@@ -55,6 +55,8 @@ namespace ArduLEDNameSpace
                     LoadingForm.Name = "DoShow";
                 }
 
+                LoadingForm.LoadingScreenLoadingLabel.Invoke((MethodInvoker)delegate { LoadingForm.LoadingScreenLoadingLabel.Text = "Your Version: " + CurrentVersion + " Newest Version: " + NewVersion; });
+
                 if (File.Exists(Directory.GetCurrentDirectory() + "\\Temp.txt"))
                     File.Delete(Directory.GetCurrentDirectory() + "\\Temp.txt");
             }
@@ -100,6 +102,13 @@ namespace ArduLEDNameSpace
                 Directory.CreateDirectory(Directory.GetCurrentDirectory() + "\\AmbilightSettings");
             }
 
+            SetLoadingLabelTo("Animations folder");
+
+            if (!Directory.Exists(Directory.GetCurrentDirectory() + "\\Animations"))
+            {
+                Directory.CreateDirectory(Directory.GetCurrentDirectory() + "\\Animations");
+            }
+
             SetLoadingLabelTo("Language Packs");
 
             if (Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Languages").Length > 0)
@@ -134,6 +143,7 @@ namespace ArduLEDNameSpace
             MainFormClass.VisualizerPanel.Location = new Point(4, 21);
             MainFormClass.ConfigureSetupPanel.Location = new Point(79, 21);
             MainFormClass.ServerSettingsPanel.Location = new Point(80, 21);
+            MainFormClass.AnimationModePanel.Location = new Point(80, 21);
 
             SetLoadingLabelTo("Save/Load Mechanisms");
 
@@ -157,6 +167,7 @@ namespace ArduLEDNameSpace
 
             SetLoadingLabelTo("Presetting Combobox indexes");
 
+            MainFormClass.ModeSelectrionComboBox.Items.Add(" ");
             MainFormClass.ModeSelectrionComboBox.Items.Add(" ");
             MainFormClass.ModeSelectrionComboBox.Items.Add(" ");
             MainFormClass.ModeSelectrionComboBox.Items.Add(" ");

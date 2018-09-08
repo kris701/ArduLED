@@ -18,7 +18,7 @@ namespace ArduLEDNameSpace
         SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
         public TcpListener ServerListener;
         public TcpClient ClientSocket;
-        public Thread ThreadingServer;
+        public Thread ServerThread;
         private MainForm MainFormClass;
 
         public void Dispose()
@@ -35,12 +35,18 @@ namespace ArduLEDNameSpace
             if (_Disposing)
             {
                 handle.Dispose();
-                if (ThreadingServer != null)
-                    ThreadingServer.Abort();
                 if (ServerListener != null)
                     ServerListener.Stop();
                 if (ClientSocket != null)
                     ClientSocket.Close();
+                if (ServerRunning)
+                {
+                    ServerRunning = false;
+                }
+                while (!ServerEnded)
+                    Thread.Sleep(100);
+                if (ServerThread != null)
+                    ServerThread.Abort();
             }
 
             IsDisposed = true;
@@ -60,8 +66,8 @@ namespace ArduLEDNameSpace
             while (!ServerEnded)
                 Thread.Sleep(100);
             ServerRunning = true;
-            ThreadingServer = new Thread(RunServer);
-            ThreadingServer.Start();
+            ServerThread = new Thread(RunServer);
+            ServerThread.Start();
         }
 
         public void StopServer()
@@ -69,6 +75,8 @@ namespace ArduLEDNameSpace
             if (ServerRunning)
             {
                 ServerRunning = false;
+                while (!ServerEnded)
+                    Thread.Sleep(100);
                 MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "Server Disconnected!" + Environment.NewLine; });
             }
             else

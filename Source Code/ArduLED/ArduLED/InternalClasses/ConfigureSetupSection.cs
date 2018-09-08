@@ -555,5 +555,24 @@ namespace ArduLEDNameSpace
                 LoadASetup(Directory.GetCurrentDirectory() + "\\Setups\\0.txt");
             }
         }
+
+        public void AutoSave()
+        {
+            using (StreamWriter AutoSaveFile = new StreamWriter(Directory.GetCurrentDirectory() + "\\Setups\\0.txt", false))
+            {
+                foreach (Control c in MainFormClass.ConfigureSetupWorkingPanel.Controls)
+                {
+                    WorkingPanelBox MomentaryDataTag = (WorkingPanelBox)c.Tag;
+                    string SerialOut = MomentaryDataTag.XLoc + ";" + MomentaryDataTag.YLoc + ";" + MomentaryDataTag.FromLEDID + ";" + MomentaryDataTag.InvertXDir + ";" + MomentaryDataTag.InvertYDir + ";" + MomentaryDataTag.XLEDCount + ";" + MomentaryDataTag.YLEDCount + ";" + MomentaryDataTag.PinID + ";" + MomentaryDataTag.PixelTypeIndex + ";" + MomentaryDataTag.PixelBitstreamIndex;
+                    AutoSaveFile.WriteLine(SerialOut);
+
+                    SerialOut = "";
+                    SerialOut += (c.Controls.Find("MakeLEDPanelStripSeriesIDLabelFrom", true)[0] as TextBox).Text + ";";
+                    SerialOut += (c.Controls.Find("MakeLEDPanelStripSeriesIDLabelTo", true)[0] as TextBox).Text + ";";
+
+                    AutoSaveFile.WriteLine(SerialOut);
+                }
+            }
+        }
     }
 }

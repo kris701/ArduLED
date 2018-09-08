@@ -94,6 +94,7 @@
     <Compile Include="Block.Designer.cs">
       <DependentUpon>Block.cs</DependentUpon>
     </Compile>
+    <Compile Include="InternalClasses\AnimationModeSection.cs" />
     <Compile Include="InternalClasses\ConfigureSetupSection.cs" />
     <Compile Include="InternalClasses\FadeColorsSection.cs" />
     <Compile Include="InternalClasses\InstructionsSection.cs" />

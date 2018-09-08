@@ -78,7 +78,7 @@ namespace ArduLEDNameSpace
                 {
                     MainFormClass.ModeSelectrionComboBox.Enabled = true;
                     if (!MainFormClass.ConfigureSetupAutoSendCheckBox.Checked)
-                        MainFormClass.ModeSelectrionComboBox.SelectedIndex = 6;
+                        MainFormClass.ModeSelectrionComboBox.SelectedIndex = 7;
                     else
                         await MainFormClass.ConfigureSetupSectionClass.SendSetup();
                 }
@@ -96,6 +96,7 @@ namespace ArduLEDNameSpace
                 MainFormClass.InstructionsPanel.Visible = false;
                 MainFormClass.AmbiLightModePanel.Visible = false;
                 MainFormClass.ServerSettingsPanel.Visible = false;
+                MainFormClass.AnimationModePanel.Visible = false;
                 MainFormClass.AutoSaveAllSettings();
                 if (MainFormClass.MenuAutoHideCheckBox.Checked)
                     HideTimer.Start();
@@ -186,9 +187,13 @@ namespace ArduLEDNameSpace
             MainFormClass.ConfigureSetupPanel.Visible = false;
             MainFormClass.AmbiLightModePanel.Visible = false;
             MainFormClass.ServerSettingsPanel.Visible = false;
+            MainFormClass.AnimationModePanel.Visible = false;
+            MainFormClass.VisualizerEnabled = false;
+            MainFormClass.VisualizerSectionClass.EnableBASS(false);
 
-            if (!MainFormClass.InstructionsSectionClass.ContinueInstructionsLoop)
-                MainFormClass.VisualizerSectionClass.EnableBASS(false);
+            MainFormClass.AnimationModeSectionClass.AutoSave();
+            MainFormClass.InstructionsSectionClass.AutoSave();
+            MainFormClass.ConfigureSetupSectionClass.AutoSave();
 
             if (MainFormClass.ModeSelectrionComboBox.SelectedIndex == 0)
             {
@@ -216,6 +221,9 @@ namespace ArduLEDNameSpace
                 {
                     string SerialOut = "6;" + MainFormClass.VisualizerFromSeriesIDNumericUpDown.Value + ";" + MainFormClass.VisualizerToSeriesIDNumericUpDown.Value;
                     MainFormClass.SendDataBySerial(SerialOut);
+
+                    MainFormClass.VisualizerEnabled = true;
+
                     MainFormClass.VisualizerSectionClass.EnableBASS(true);
                 }
             }
@@ -262,6 +270,11 @@ namespace ArduLEDNameSpace
                 MainFormClass.ServerSettingsPanel.BringToFront();
             }
             if (MainFormClass.ModeSelectrionComboBox.SelectedIndex == 6)
+            {
+                MainFormClass.AnimationModePanel.Visible = true;
+                MainFormClass.AnimationModePanel.BringToFront();
+            }
+            if (MainFormClass.ModeSelectrionComboBox.SelectedIndex == 7)
             {
                 MainFormClass.ConfigureSetupPanel.Visible = true;
                 MainFormClass.ConfigureSetupPanel.BringToFront();

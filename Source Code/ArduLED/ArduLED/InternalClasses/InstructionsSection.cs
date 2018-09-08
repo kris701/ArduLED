@@ -181,16 +181,6 @@ namespace ArduLEDNameSpace
             }
         }
 
-        public Stream GenerateStreamFromString(string _Input)
-        {
-            var Stream = new MemoryStream();
-            var Writer = new StreamWriter(Stream);
-            Writer.Write(_Input);
-            Writer.Flush();
-            Stream.Position = 0;
-            return Stream;
-        }
-
         public async Task RunInstructions()
         {
             await Task.Run(async () =>
@@ -349,7 +339,7 @@ namespace ArduLEDNameSpace
 
         public void SaveInstructions()
         {
-            using (StreamWriter AutoSaveFile = new StreamWriter(GenerateStreamFromString(Directory.GetCurrentDirectory() + "\\Instructions\\0.txt"), System.Text.Encoding.UTF8))
+            using (StreamWriter AutoSaveFile = new StreamWriter(MainFormClass.GenerateStreamFromString(Directory.GetCurrentDirectory() + "\\Instructions\\0.txt"), System.Text.Encoding.UTF8))
             {
                 using (StreamWriter SaveFile = new StreamWriter(MainFormClass.SaveFileDialog.OpenFile(), System.Text.Encoding.UTF8))
                 {
@@ -368,13 +358,25 @@ namespace ArduLEDNameSpace
             while (MainFormClass.InstructionsWorkingPanel.Controls.Count > 0)
                 MainFormClass.InstructionsWorkingPanel.Controls[0].Dispose();
 
-            MainFormClass.InstructionsSectionClass.IntructionsList.Clear();
+            IntructionsList.Clear();
 
             string[] Lines = File.ReadAllLines(MainFormClass.LoadFileDialog.FileName, System.Text.Encoding.UTF8);
             for (int i = 0; i < Lines.Length; i++)
             {
-                MainFormClass.InstructionsSectionClass.IntructionsList.Add(Lines[i]);
-                MainFormClass.InstructionsSectionClass.MakeInstructionPanel(Lines[i], i);
+                IntructionsList.Add(Lines[i]);
+                MakeInstructionPanel(Lines[i], i);
+            }
+        }
+
+        public void AutoSave()
+        {
+            using (StreamWriter AutoSaveFile = new StreamWriter(MainFormClass.GenerateStreamFromString(Directory.GetCurrentDirectory() + "\\Instructions\\0.txt"), System.Text.Encoding.UTF8))
+            {
+                foreach (string c in IntructionsList)
+                {
+                    string SerialOut = c;
+                    AutoSaveFile.WriteLine(SerialOut);
+                }
             }
         }
     }

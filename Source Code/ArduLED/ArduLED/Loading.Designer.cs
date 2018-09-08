@@ -35,7 +35,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.LoadingScreenLabel = new System.Windows.Forms.Label();
+            this.LoadingScreenLoadingLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -84,6 +86,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.panel1.Controls.Add(this.LoadingScreenLoadingLabel);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(597, 30);
@@ -99,6 +102,17 @@
             this.LoadingScreenLabel.Size = new System.Drawing.Size(95, 9);
             this.LoadingScreenLabel.TabIndex = 7;
             this.LoadingScreenLabel.Text = "Loading: Internals";
+            // 
+            // LoadingScreenLoadingLabel
+            // 
+            this.LoadingScreenLoadingLabel.AutoSize = true;
+            this.LoadingScreenLoadingLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LoadingScreenLoadingLabel.ForeColor = System.Drawing.Color.White;
+            this.LoadingScreenLoadingLabel.Location = new System.Drawing.Point(3, 9);
+            this.LoadingScreenLoadingLabel.Name = "LoadingScreenLoadingLabel";
+            this.LoadingScreenLoadingLabel.Size = new System.Drawing.Size(215, 11);
+            this.LoadingScreenLoadingLabel.TabIndex = 6;
+            this.LoadingScreenLoadingLabel.Text = "Your Version:  Newest Version:";
             // 
             // Loading
             // 
@@ -122,6 +136,8 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Loading_FormClosing);
             this.Load += new System.EventHandler(this.Loading_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -135,5 +151,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel1;
         public System.Windows.Forms.Label LoadingScreenLabel;
+        public System.Windows.Forms.Label LoadingScreenLoadingLabel;
     }
 }

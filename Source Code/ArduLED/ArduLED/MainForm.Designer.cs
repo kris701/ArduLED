@@ -388,6 +388,41 @@
             this.ServerSettingsIPAddressLabel = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
             this.ServerSettingsTopLabel = new System.Windows.Forms.Label();
+            this.AnimationModePanel = new System.Windows.Forms.Panel();
+            this.AnimationModeAPSLabel = new System.Windows.Forms.Label();
+            this.AnimationModeStopButton = new System.Windows.Forms.Button();
+            this.AnimationModeStartButton = new System.Windows.Forms.Button();
+            this.AnimationModeLoopCheckBox = new System.Windows.Forms.CheckBox();
+            this.AnimationModeLiveViewLabel = new System.Windows.Forms.Label();
+            this.AnimationModeAnimationWindowLabel = new System.Windows.Forms.Label();
+            this.AnimationModeLoadButton = new System.Windows.Forms.Button();
+            this.AnimationModeLiveViewWorkingPanel = new System.Windows.Forms.Panel();
+            this.AnimationModeInterfacePanel = new System.Windows.Forms.Panel();
+            this.AnimationModeClearButton = new System.Windows.Forms.Button();
+            this.AnimationModeLineSpacingLabel = new System.Windows.Forms.Label();
+            this.AnimationModeLineSpacingNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.AnimationModeToIDNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.AnimationModeToIDLabel = new System.Windows.Forms.Label();
+            this.AnimationModeAddALineButton = new System.Windows.Forms.Button();
+            this.AnimationModeFromIDNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.AnimationModeMoveIntervalLabel = new System.Windows.Forms.Label();
+            this.AnimationModeMoveIntervalNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.AnimationModeFromIDLabel = new System.Windows.Forms.Label();
+            this.AnimationModeRedLabel = new System.Windows.Forms.Label();
+            this.AnimationModeGreenTrackbar = new System.Windows.Forms.TrackBar();
+            this.AnimationModeBlueTrackbarLabel = new System.Windows.Forms.Label();
+            this.AnimationModeGreenTrackbarLabel = new System.Windows.Forms.Label();
+            this.AnimationModeColorEntireLineCheckBox = new System.Windows.Forms.CheckBox();
+            this.AnimationModeRedTrackbarLabel = new System.Windows.Forms.Label();
+            this.AnimationModeRedTrackbar = new System.Windows.Forms.TrackBar();
+            this.AnimationModeBlueLabel = new System.Windows.Forms.Label();
+            this.AnimationModeBlueTrackbar = new System.Windows.Forms.TrackBar();
+            this.AnimationModeGreenLabel = new System.Windows.Forms.Label();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.AnimationModeTopLabel = new System.Windows.Forms.Label();
+            this.AnimationModeSaveButton = new System.Windows.Forms.Button();
+            this.AnimationModeAnimationWindowWorkingPanel = new System.Windows.Forms.Panel();
+            this.AnimationModeHighCompressionCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.SampleTimeTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SmoothnessTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SensitivityTrackBar)).BeginInit();
@@ -511,6 +546,16 @@
             this.ServerSettingsPanel.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel9.SuspendLayout();
+            this.AnimationModePanel.SuspendLayout();
+            this.AnimationModeInterfacePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.AnimationModeLineSpacingNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AnimationModeToIDNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AnimationModeFromIDNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AnimationModeMoveIntervalNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AnimationModeGreenTrackbar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AnimationModeRedTrackbar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AnimationModeBlueTrackbar)).BeginInit();
+            this.panel8.SuspendLayout();
             this.SuspendLayout();
             // 
             // AudioSourceComboBox
@@ -880,7 +925,7 @@
             this.VisualizerPanel.Controls.Add(this.SampleTimeLabel);
             this.VisualizerPanel.Controls.Add(this.SmoothnessTrackBar);
             this.VisualizerPanel.ForeColor = System.Drawing.Color.White;
-            this.VisualizerPanel.Location = new System.Drawing.Point(822, 733);
+            this.VisualizerPanel.Location = new System.Drawing.Point(2266, 725);
             this.VisualizerPanel.Name = "VisualizerPanel";
             this.VisualizerPanel.Size = new System.Drawing.Size(947, 748);
             this.VisualizerPanel.TabIndex = 44;
@@ -1553,7 +1598,7 @@
             this.MenuButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MenuButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MenuButton.ForeColor = System.Drawing.Color.White;
-            this.MenuButton.Location = new System.Drawing.Point(2862, 20);
+            this.MenuButton.Location = new System.Drawing.Point(4306, 12);
             this.MenuButton.Name = "MenuButton";
             this.MenuButton.Size = new System.Drawing.Size(75, 23);
             this.MenuButton.TabIndex = 0;
@@ -1746,7 +1791,7 @@
             this.MenuPanel.Controls.Add(this.panel7);
             this.MenuPanel.Controls.Add(this.FadeLEDPanel);
             this.MenuPanel.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.MenuPanel.Location = new System.Drawing.Point(2476, 42);
+            this.MenuPanel.Location = new System.Drawing.Point(3920, 34);
             this.MenuPanel.Name = "MenuPanel";
             this.MenuPanel.Size = new System.Drawing.Size(387, 271);
             this.MenuPanel.TabIndex = 46;
@@ -2001,7 +2046,7 @@
             this.IndividualLEDPanel.Controls.Add(this.IndividalLEDGreenTrackBar);
             this.IndividualLEDPanel.Controls.Add(this.IndividalLEDBlueLabel);
             this.IndividualLEDPanel.Controls.Add(this.IndividualLEDWorkingPanel);
-            this.IndividualLEDPanel.Location = new System.Drawing.Point(12, 12);
+            this.IndividualLEDPanel.Location = new System.Drawing.Point(1456, 4);
             this.IndividualLEDPanel.Name = "IndividualLEDPanel";
             this.IndividualLEDPanel.Size = new System.Drawing.Size(870, 591);
             this.IndividualLEDPanel.TabIndex = 47;
@@ -2106,7 +2151,7 @@
             this.IndividalLEDRedLabel.Name = "IndividalLEDRedLabel";
             this.IndividalLEDRedLabel.Size = new System.Drawing.Size(38, 15);
             this.IndividalLEDRedLabel.TabIndex = 60;
-            this.IndividalLEDRedLabel.Tag = "Setting";
+            this.IndividalLEDRedLabel.Tag = "";
             this.IndividalLEDRedLabel.Text = "255";
             this.IndividalLEDRedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -2118,7 +2163,7 @@
             this.IndividalLEDGreenLabel.Name = "IndividalLEDGreenLabel";
             this.IndividalLEDGreenLabel.Size = new System.Drawing.Size(38, 15);
             this.IndividalLEDGreenLabel.TabIndex = 61;
-            this.IndividalLEDGreenLabel.Tag = "Setting";
+            this.IndividalLEDGreenLabel.Tag = "";
             this.IndividalLEDGreenLabel.Text = "255";
             this.IndividalLEDGreenLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -2143,7 +2188,7 @@
             this.IndividalLEDBlueLabel.Name = "IndividalLEDBlueLabel";
             this.IndividalLEDBlueLabel.Size = new System.Drawing.Size(38, 15);
             this.IndividalLEDBlueLabel.TabIndex = 62;
-            this.IndividalLEDBlueLabel.Tag = "Setting";
+            this.IndividalLEDBlueLabel.Tag = "";
             this.IndividalLEDBlueLabel.Text = "255";
             this.IndividalLEDBlueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -2188,7 +2233,7 @@
             this.InstructionsPanel.Controls.Add(this.InstructionsAddDelayPanel);
             this.InstructionsPanel.Controls.Add(this.InstructionsAddFadeColorsPanel);
             this.InstructionsPanel.Controls.Add(this.InstructionsAddIndividualLEDPanel);
-            this.InstructionsPanel.Location = new System.Drawing.Point(1784, 733);
+            this.InstructionsPanel.Location = new System.Drawing.Point(3228, 725);
             this.InstructionsPanel.Name = "InstructionsPanel";
             this.InstructionsPanel.Size = new System.Drawing.Size(1154, 1239);
             this.InstructionsPanel.TabIndex = 48;
@@ -3368,7 +3413,7 @@
             this.ConfigureSetupPanel.Controls.Add(this.panel17);
             this.ConfigureSetupPanel.Controls.Add(this.ConfigureSetupWorkingPanel);
             this.ConfigureSetupPanel.Controls.Add(this.ConfigureSetupAutoSendCheckBox);
-            this.ConfigureSetupPanel.Location = new System.Drawing.Point(898, 12);
+            this.ConfigureSetupPanel.Location = new System.Drawing.Point(2342, 4);
             this.ConfigureSetupPanel.Name = "ConfigureSetupPanel";
             this.ConfigureSetupPanel.Size = new System.Drawing.Size(871, 715);
             this.ConfigureSetupPanel.TabIndex = 49;
@@ -3811,7 +3856,7 @@
             // 
             // ConfigureSetupHiddenProgressBar
             // 
-            this.ConfigureSetupHiddenProgressBar.Location = new System.Drawing.Point(2862, 42);
+            this.ConfigureSetupHiddenProgressBar.Location = new System.Drawing.Point(4306, 34);
             this.ConfigureSetupHiddenProgressBar.Name = "ConfigureSetupHiddenProgressBar";
             this.ConfigureSetupHiddenProgressBar.Size = new System.Drawing.Size(75, 23);
             this.ConfigureSetupHiddenProgressBar.TabIndex = 68;
@@ -3827,7 +3872,7 @@
             this.AmbiLightModePanel.Controls.Add(this.AmbiLightModeStartAmbilightButton);
             this.AmbiLightModePanel.Controls.Add(this.AmbiLightModeShowHideBlocksButton);
             this.AmbiLightModePanel.Controls.Add(this.panel3);
-            this.AmbiLightModePanel.Location = new System.Drawing.Point(1783, 42);
+            this.AmbiLightModePanel.Location = new System.Drawing.Point(3227, 34);
             this.AmbiLightModePanel.Name = "AmbiLightModePanel";
             this.AmbiLightModePanel.Size = new System.Drawing.Size(687, 685);
             this.AmbiLightModePanel.TabIndex = 69;
@@ -5496,7 +5541,7 @@
             this.ServerSettingsPanel.Controls.Add(this.panel6);
             this.ServerSettingsPanel.Controls.Add(this.ServerSettingsConsoleTextBox);
             this.ServerSettingsPanel.Controls.Add(this.panel9);
-            this.ServerSettingsPanel.Location = new System.Drawing.Point(900, 1487);
+            this.ServerSettingsPanel.Location = new System.Drawing.Point(2344, 1479);
             this.ServerSettingsPanel.Name = "ServerSettingsPanel";
             this.ServerSettingsPanel.Size = new System.Drawing.Size(871, 616);
             this.ServerSettingsPanel.TabIndex = 71;
@@ -5642,11 +5687,503 @@
             this.ServerSettingsTopLabel.Text = "Server Settings";
             this.ServerSettingsTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // AnimationModePanel
+            // 
+            this.AnimationModePanel.BackColor = System.Drawing.Color.DimGray;
+            this.AnimationModePanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.AnimationModePanel.Controls.Add(this.AnimationModeAPSLabel);
+            this.AnimationModePanel.Controls.Add(this.AnimationModeStopButton);
+            this.AnimationModePanel.Controls.Add(this.AnimationModeStartButton);
+            this.AnimationModePanel.Controls.Add(this.AnimationModeLoopCheckBox);
+            this.AnimationModePanel.Controls.Add(this.AnimationModeLiveViewLabel);
+            this.AnimationModePanel.Controls.Add(this.AnimationModeAnimationWindowLabel);
+            this.AnimationModePanel.Controls.Add(this.AnimationModeLoadButton);
+            this.AnimationModePanel.Controls.Add(this.AnimationModeLiveViewWorkingPanel);
+            this.AnimationModePanel.Controls.Add(this.AnimationModeInterfacePanel);
+            this.AnimationModePanel.Controls.Add(this.panel8);
+            this.AnimationModePanel.Controls.Add(this.AnimationModeSaveButton);
+            this.AnimationModePanel.Controls.Add(this.AnimationModeAnimationWindowWorkingPanel);
+            this.AnimationModePanel.ForeColor = System.Drawing.Color.White;
+            this.AnimationModePanel.Location = new System.Drawing.Point(1390, 725);
+            this.AnimationModePanel.Name = "AnimationModePanel";
+            this.AnimationModePanel.Size = new System.Drawing.Size(870, 748);
+            this.AnimationModePanel.TabIndex = 72;
+            this.AnimationModePanel.Visible = false;
+            // 
+            // AnimationModeAPSLabel
+            // 
+            this.AnimationModeAPSLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnimationModeAPSLabel.ForeColor = System.Drawing.Color.White;
+            this.AnimationModeAPSLabel.Location = new System.Drawing.Point(715, 73);
+            this.AnimationModeAPSLabel.Name = "AnimationModeAPSLabel";
+            this.AnimationModeAPSLabel.Size = new System.Drawing.Size(140, 15);
+            this.AnimationModeAPSLabel.TabIndex = 82;
+            this.AnimationModeAPSLabel.Text = "APS:";
+            this.AnimationModeAPSLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // AnimationModeStopButton
+            // 
+            this.AnimationModeStopButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
+            this.AnimationModeStopButton.FlatAppearance.BorderSize = 0;
+            this.AnimationModeStopButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AnimationModeStopButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnimationModeStopButton.Location = new System.Drawing.Point(330, 714);
+            this.AnimationModeStopButton.Name = "AnimationModeStopButton";
+            this.AnimationModeStopButton.Size = new System.Drawing.Size(171, 23);
+            this.AnimationModeStopButton.TabIndex = 81;
+            this.AnimationModeStopButton.Text = "Stop Animation";
+            this.AnimationModeStopButton.UseVisualStyleBackColor = false;
+            this.AnimationModeStopButton.Click += new System.EventHandler(this.AnimationModeStopButton_Click);
+            // 
+            // AnimationModeStartButton
+            // 
+            this.AnimationModeStartButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
+            this.AnimationModeStartButton.FlatAppearance.BorderSize = 0;
+            this.AnimationModeStartButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AnimationModeStartButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnimationModeStartButton.Location = new System.Drawing.Point(153, 714);
+            this.AnimationModeStartButton.Name = "AnimationModeStartButton";
+            this.AnimationModeStartButton.Size = new System.Drawing.Size(171, 23);
+            this.AnimationModeStartButton.TabIndex = 80;
+            this.AnimationModeStartButton.Text = "Start Animation";
+            this.AnimationModeStartButton.UseVisualStyleBackColor = false;
+            this.AnimationModeStartButton.Click += new System.EventHandler(this.AnimationModeStartButton_Click);
+            // 
+            // AnimationModeLoopCheckBox
+            // 
+            this.AnimationModeLoopCheckBox.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnimationModeLoopCheckBox.ForeColor = System.Drawing.Color.White;
+            this.AnimationModeLoopCheckBox.Location = new System.Drawing.Point(13, 714);
+            this.AnimationModeLoopCheckBox.Name = "AnimationModeLoopCheckBox";
+            this.AnimationModeLoopCheckBox.Size = new System.Drawing.Size(134, 23);
+            this.AnimationModeLoopCheckBox.TabIndex = 79;
+            this.AnimationModeLoopCheckBox.Text = "Loop Animation";
+            this.AnimationModeLoopCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // AnimationModeLiveViewLabel
+            // 
+            this.AnimationModeLiveViewLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnimationModeLiveViewLabel.ForeColor = System.Drawing.Color.White;
+            this.AnimationModeLiveViewLabel.Location = new System.Drawing.Point(14, 75);
+            this.AnimationModeLiveViewLabel.Name = "AnimationModeLiveViewLabel";
+            this.AnimationModeLiveViewLabel.Size = new System.Drawing.Size(246, 15);
+            this.AnimationModeLiveViewLabel.TabIndex = 77;
+            this.AnimationModeLiveViewLabel.Text = "Live view";
+            this.AnimationModeLiveViewLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // AnimationModeAnimationWindowLabel
+            // 
+            this.AnimationModeAnimationWindowLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnimationModeAnimationWindowLabel.ForeColor = System.Drawing.Color.White;
+            this.AnimationModeAnimationWindowLabel.Location = new System.Drawing.Point(14, 239);
+            this.AnimationModeAnimationWindowLabel.Name = "AnimationModeAnimationWindowLabel";
+            this.AnimationModeAnimationWindowLabel.Size = new System.Drawing.Size(246, 15);
+            this.AnimationModeAnimationWindowLabel.TabIndex = 76;
+            this.AnimationModeAnimationWindowLabel.Text = "Animation Window";
+            this.AnimationModeAnimationWindowLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // AnimationModeLoadButton
+            // 
+            this.AnimationModeLoadButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
+            this.AnimationModeLoadButton.FlatAppearance.BorderSize = 0;
+            this.AnimationModeLoadButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AnimationModeLoadButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnimationModeLoadButton.Location = new System.Drawing.Point(684, 714);
+            this.AnimationModeLoadButton.Name = "AnimationModeLoadButton";
+            this.AnimationModeLoadButton.Size = new System.Drawing.Size(171, 23);
+            this.AnimationModeLoadButton.TabIndex = 66;
+            this.AnimationModeLoadButton.Text = "Load Animation";
+            this.AnimationModeLoadButton.UseVisualStyleBackColor = false;
+            this.AnimationModeLoadButton.Click += new System.EventHandler(this.AnimationModeLoadButton_Click);
+            // 
+            // AnimationModeLiveViewWorkingPanel
+            // 
+            this.AnimationModeLiveViewWorkingPanel.BackColor = System.Drawing.Color.Silver;
+            this.AnimationModeLiveViewWorkingPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.AnimationModeLiveViewWorkingPanel.Location = new System.Drawing.Point(13, 95);
+            this.AnimationModeLiveViewWorkingPanel.Name = "AnimationModeLiveViewWorkingPanel";
+            this.AnimationModeLiveViewWorkingPanel.Size = new System.Drawing.Size(842, 140);
+            this.AnimationModeLiveViewWorkingPanel.TabIndex = 75;
+            // 
+            // AnimationModeInterfacePanel
+            // 
+            this.AnimationModeInterfacePanel.BackColor = System.Drawing.Color.Gray;
+            this.AnimationModeInterfacePanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.AnimationModeInterfacePanel.Controls.Add(this.AnimationModeHighCompressionCheckBox);
+            this.AnimationModeInterfacePanel.Controls.Add(this.AnimationModeClearButton);
+            this.AnimationModeInterfacePanel.Controls.Add(this.AnimationModeLineSpacingLabel);
+            this.AnimationModeInterfacePanel.Controls.Add(this.AnimationModeLineSpacingNumericUpDown);
+            this.AnimationModeInterfacePanel.Controls.Add(this.AnimationModeToIDNumericUpDown);
+            this.AnimationModeInterfacePanel.Controls.Add(this.AnimationModeToIDLabel);
+            this.AnimationModeInterfacePanel.Controls.Add(this.AnimationModeAddALineButton);
+            this.AnimationModeInterfacePanel.Controls.Add(this.AnimationModeFromIDNumericUpDown);
+            this.AnimationModeInterfacePanel.Controls.Add(this.AnimationModeMoveIntervalLabel);
+            this.AnimationModeInterfacePanel.Controls.Add(this.AnimationModeMoveIntervalNumericUpDown);
+            this.AnimationModeInterfacePanel.Controls.Add(this.AnimationModeFromIDLabel);
+            this.AnimationModeInterfacePanel.Controls.Add(this.AnimationModeRedLabel);
+            this.AnimationModeInterfacePanel.Controls.Add(this.AnimationModeGreenTrackbar);
+            this.AnimationModeInterfacePanel.Controls.Add(this.AnimationModeBlueTrackbarLabel);
+            this.AnimationModeInterfacePanel.Controls.Add(this.AnimationModeGreenTrackbarLabel);
+            this.AnimationModeInterfacePanel.Controls.Add(this.AnimationModeColorEntireLineCheckBox);
+            this.AnimationModeInterfacePanel.Controls.Add(this.AnimationModeRedTrackbarLabel);
+            this.AnimationModeInterfacePanel.Controls.Add(this.AnimationModeRedTrackbar);
+            this.AnimationModeInterfacePanel.Controls.Add(this.AnimationModeBlueLabel);
+            this.AnimationModeInterfacePanel.Controls.Add(this.AnimationModeBlueTrackbar);
+            this.AnimationModeInterfacePanel.Controls.Add(this.AnimationModeGreenLabel);
+            this.AnimationModeInterfacePanel.ForeColor = System.Drawing.Color.White;
+            this.AnimationModeInterfacePanel.Location = new System.Drawing.Point(13, 644);
+            this.AnimationModeInterfacePanel.Name = "AnimationModeInterfacePanel";
+            this.AnimationModeInterfacePanel.Size = new System.Drawing.Size(842, 64);
+            this.AnimationModeInterfacePanel.TabIndex = 74;
+            // 
+            // AnimationModeClearButton
+            // 
+            this.AnimationModeClearButton.BackColor = System.Drawing.Color.DarkGray;
+            this.AnimationModeClearButton.FlatAppearance.BorderSize = 0;
+            this.AnimationModeClearButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AnimationModeClearButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnimationModeClearButton.ForeColor = System.Drawing.Color.White;
+            this.AnimationModeClearButton.Location = new System.Drawing.Point(467, 30);
+            this.AnimationModeClearButton.Name = "AnimationModeClearButton";
+            this.AnimationModeClearButton.Size = new System.Drawing.Size(109, 26);
+            this.AnimationModeClearButton.TabIndex = 99;
+            this.AnimationModeClearButton.Text = "Clear";
+            this.AnimationModeClearButton.UseVisualStyleBackColor = false;
+            this.AnimationModeClearButton.Click += new System.EventHandler(this.AnimationModeClearButton_Click);
+            // 
+            // AnimationModeLineSpacingLabel
+            // 
+            this.AnimationModeLineSpacingLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnimationModeLineSpacingLabel.ForeColor = System.Drawing.Color.White;
+            this.AnimationModeLineSpacingLabel.Location = new System.Drawing.Point(174, 44);
+            this.AnimationModeLineSpacingLabel.Name = "AnimationModeLineSpacingLabel";
+            this.AnimationModeLineSpacingLabel.Size = new System.Drawing.Size(117, 15);
+            this.AnimationModeLineSpacingLabel.TabIndex = 98;
+            this.AnimationModeLineSpacingLabel.Text = "Line spacing";
+            this.AnimationModeLineSpacingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // AnimationModeLineSpacingNumericUpDown
+            // 
+            this.AnimationModeLineSpacingNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
+            this.AnimationModeLineSpacingNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.AnimationModeLineSpacingNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnimationModeLineSpacingNumericUpDown.Location = new System.Drawing.Point(297, 45);
+            this.AnimationModeLineSpacingNumericUpDown.Maximum = new decimal(new int[] {
+            999999,
+            0,
+            0,
+            0});
+            this.AnimationModeLineSpacingNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.AnimationModeLineSpacingNumericUpDown.Name = "AnimationModeLineSpacingNumericUpDown";
+            this.AnimationModeLineSpacingNumericUpDown.Size = new System.Drawing.Size(49, 14);
+            this.AnimationModeLineSpacingNumericUpDown.TabIndex = 97;
+            this.AnimationModeLineSpacingNumericUpDown.Tag = "Setting";
+            this.AnimationModeLineSpacingNumericUpDown.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // AnimationModeToIDNumericUpDown
+            // 
+            this.AnimationModeToIDNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
+            this.AnimationModeToIDNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.AnimationModeToIDNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnimationModeToIDNumericUpDown.ForeColor = System.Drawing.Color.White;
+            this.AnimationModeToIDNumericUpDown.Location = new System.Drawing.Point(714, 44);
+            this.AnimationModeToIDNumericUpDown.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.AnimationModeToIDNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            this.AnimationModeToIDNumericUpDown.Name = "AnimationModeToIDNumericUpDown";
+            this.AnimationModeToIDNumericUpDown.Size = new System.Drawing.Size(49, 14);
+            this.AnimationModeToIDNumericUpDown.TabIndex = 94;
+            this.AnimationModeToIDNumericUpDown.Tag = "Setting";
+            this.AnimationModeToIDNumericUpDown.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            -2147483648});
+            // 
+            // AnimationModeToIDLabel
+            // 
+            this.AnimationModeToIDLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnimationModeToIDLabel.ForeColor = System.Drawing.Color.White;
+            this.AnimationModeToIDLabel.Location = new System.Drawing.Point(712, 30);
+            this.AnimationModeToIDLabel.Name = "AnimationModeToIDLabel";
+            this.AnimationModeToIDLabel.Size = new System.Drawing.Size(125, 11);
+            this.AnimationModeToIDLabel.TabIndex = 96;
+            this.AnimationModeToIDLabel.Text = "To Series ID";
+            this.AnimationModeToIDLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // AnimationModeAddALineButton
+            // 
+            this.AnimationModeAddALineButton.BackColor = System.Drawing.Color.DarkGray;
+            this.AnimationModeAddALineButton.FlatAppearance.BorderSize = 0;
+            this.AnimationModeAddALineButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AnimationModeAddALineButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnimationModeAddALineButton.ForeColor = System.Drawing.Color.White;
+            this.AnimationModeAddALineButton.Location = new System.Drawing.Point(352, 30);
+            this.AnimationModeAddALineButton.Name = "AnimationModeAddALineButton";
+            this.AnimationModeAddALineButton.Size = new System.Drawing.Size(109, 26);
+            this.AnimationModeAddALineButton.TabIndex = 69;
+            this.AnimationModeAddALineButton.Text = "Add a line";
+            this.AnimationModeAddALineButton.UseVisualStyleBackColor = false;
+            this.AnimationModeAddALineButton.Click += new System.EventHandler(this.AnimationModeAddALineButton_Click);
+            // 
+            // AnimationModeFromIDNumericUpDown
+            // 
+            this.AnimationModeFromIDNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
+            this.AnimationModeFromIDNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.AnimationModeFromIDNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnimationModeFromIDNumericUpDown.ForeColor = System.Drawing.Color.White;
+            this.AnimationModeFromIDNumericUpDown.Location = new System.Drawing.Point(584, 43);
+            this.AnimationModeFromIDNumericUpDown.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.AnimationModeFromIDNumericUpDown.Name = "AnimationModeFromIDNumericUpDown";
+            this.AnimationModeFromIDNumericUpDown.Size = new System.Drawing.Size(49, 14);
+            this.AnimationModeFromIDNumericUpDown.TabIndex = 93;
+            this.AnimationModeFromIDNumericUpDown.Tag = "Setting";
+            // 
+            // AnimationModeMoveIntervalLabel
+            // 
+            this.AnimationModeMoveIntervalLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnimationModeMoveIntervalLabel.ForeColor = System.Drawing.Color.White;
+            this.AnimationModeMoveIntervalLabel.Location = new System.Drawing.Point(174, 29);
+            this.AnimationModeMoveIntervalLabel.Name = "AnimationModeMoveIntervalLabel";
+            this.AnimationModeMoveIntervalLabel.Size = new System.Drawing.Size(117, 15);
+            this.AnimationModeMoveIntervalLabel.TabIndex = 68;
+            this.AnimationModeMoveIntervalLabel.Text = "Interval (ms)";
+            this.AnimationModeMoveIntervalLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // AnimationModeMoveIntervalNumericUpDown
+            // 
+            this.AnimationModeMoveIntervalNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
+            this.AnimationModeMoveIntervalNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.AnimationModeMoveIntervalNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnimationModeMoveIntervalNumericUpDown.Location = new System.Drawing.Point(297, 30);
+            this.AnimationModeMoveIntervalNumericUpDown.Maximum = new decimal(new int[] {
+            999999,
+            0,
+            0,
+            0});
+            this.AnimationModeMoveIntervalNumericUpDown.Name = "AnimationModeMoveIntervalNumericUpDown";
+            this.AnimationModeMoveIntervalNumericUpDown.Size = new System.Drawing.Size(49, 14);
+            this.AnimationModeMoveIntervalNumericUpDown.TabIndex = 67;
+            this.AnimationModeMoveIntervalNumericUpDown.Tag = "Setting";
+            this.AnimationModeMoveIntervalNumericUpDown.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            // 
+            // AnimationModeFromIDLabel
+            // 
+            this.AnimationModeFromIDLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnimationModeFromIDLabel.ForeColor = System.Drawing.Color.White;
+            this.AnimationModeFromIDLabel.Location = new System.Drawing.Point(582, 29);
+            this.AnimationModeFromIDLabel.Name = "AnimationModeFromIDLabel";
+            this.AnimationModeFromIDLabel.Size = new System.Drawing.Size(125, 11);
+            this.AnimationModeFromIDLabel.TabIndex = 95;
+            this.AnimationModeFromIDLabel.Text = "From Series ID";
+            this.AnimationModeFromIDLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // AnimationModeRedLabel
+            // 
+            this.AnimationModeRedLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnimationModeRedLabel.ForeColor = System.Drawing.Color.White;
+            this.AnimationModeRedLabel.Location = new System.Drawing.Point(1, 4);
+            this.AnimationModeRedLabel.Name = "AnimationModeRedLabel";
+            this.AnimationModeRedLabel.Size = new System.Drawing.Size(75, 15);
+            this.AnimationModeRedLabel.TabIndex = 55;
+            this.AnimationModeRedLabel.Text = "Red";
+            this.AnimationModeRedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // AnimationModeGreenTrackbar
+            // 
+            this.AnimationModeGreenTrackbar.AutoSize = false;
+            this.AnimationModeGreenTrackbar.Location = new System.Drawing.Point(326, 3);
+            this.AnimationModeGreenTrackbar.Maximum = 255;
+            this.AnimationModeGreenTrackbar.Name = "AnimationModeGreenTrackbar";
+            this.AnimationModeGreenTrackbar.Size = new System.Drawing.Size(126, 21);
+            this.AnimationModeGreenTrackbar.TabIndex = 7;
+            this.AnimationModeGreenTrackbar.Tag = "Setting";
+            this.AnimationModeGreenTrackbar.TickFrequency = 10;
+            this.AnimationModeGreenTrackbar.Value = 255;
+            this.AnimationModeGreenTrackbar.Scroll += new System.EventHandler(this.AnimationModeGreenTrackbar_Scroll);
+            // 
+            // AnimationModeBlueTrackbarLabel
+            // 
+            this.AnimationModeBlueTrackbarLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnimationModeBlueTrackbarLabel.ForeColor = System.Drawing.Color.White;
+            this.AnimationModeBlueTrackbarLabel.Location = new System.Drawing.Point(696, 4);
+            this.AnimationModeBlueTrackbarLabel.Name = "AnimationModeBlueTrackbarLabel";
+            this.AnimationModeBlueTrackbarLabel.Size = new System.Drawing.Size(38, 15);
+            this.AnimationModeBlueTrackbarLabel.TabIndex = 62;
+            this.AnimationModeBlueTrackbarLabel.Tag = "";
+            this.AnimationModeBlueTrackbarLabel.Text = "255";
+            this.AnimationModeBlueTrackbarLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // AnimationModeGreenTrackbarLabel
+            // 
+            this.AnimationModeGreenTrackbarLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnimationModeGreenTrackbarLabel.ForeColor = System.Drawing.Color.White;
+            this.AnimationModeGreenTrackbarLabel.Location = new System.Drawing.Point(458, 4);
+            this.AnimationModeGreenTrackbarLabel.Name = "AnimationModeGreenTrackbarLabel";
+            this.AnimationModeGreenTrackbarLabel.Size = new System.Drawing.Size(38, 15);
+            this.AnimationModeGreenTrackbarLabel.TabIndex = 61;
+            this.AnimationModeGreenTrackbarLabel.Tag = "";
+            this.AnimationModeGreenTrackbarLabel.Text = "255";
+            this.AnimationModeGreenTrackbarLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // AnimationModeColorEntireLineCheckBox
+            // 
+            this.AnimationModeColorEntireLineCheckBox.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnimationModeColorEntireLineCheckBox.ForeColor = System.Drawing.Color.White;
+            this.AnimationModeColorEntireLineCheckBox.Location = new System.Drawing.Point(25, 30);
+            this.AnimationModeColorEntireLineCheckBox.Name = "AnimationModeColorEntireLineCheckBox";
+            this.AnimationModeColorEntireLineCheckBox.Size = new System.Drawing.Size(161, 15);
+            this.AnimationModeColorEntireLineCheckBox.TabIndex = 9;
+            this.AnimationModeColorEntireLineCheckBox.Tag = "Setting";
+            this.AnimationModeColorEntireLineCheckBox.Text = "Color entire line";
+            this.AnimationModeColorEntireLineCheckBox.UseVisualStyleBackColor = true;
+            this.AnimationModeColorEntireLineCheckBox.CheckedChanged += new System.EventHandler(this.AnimationModeColorEntireLineCheckBox_CheckedChanged);
+            // 
+            // AnimationModeRedTrackbarLabel
+            // 
+            this.AnimationModeRedTrackbarLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnimationModeRedTrackbarLabel.ForeColor = System.Drawing.Color.White;
+            this.AnimationModeRedTrackbarLabel.Location = new System.Drawing.Point(208, 4);
+            this.AnimationModeRedTrackbarLabel.Name = "AnimationModeRedTrackbarLabel";
+            this.AnimationModeRedTrackbarLabel.Size = new System.Drawing.Size(38, 15);
+            this.AnimationModeRedTrackbarLabel.TabIndex = 60;
+            this.AnimationModeRedTrackbarLabel.Tag = "";
+            this.AnimationModeRedTrackbarLabel.Text = "255";
+            this.AnimationModeRedTrackbarLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // AnimationModeRedTrackbar
+            // 
+            this.AnimationModeRedTrackbar.AutoSize = false;
+            this.AnimationModeRedTrackbar.Location = new System.Drawing.Point(82, 3);
+            this.AnimationModeRedTrackbar.Maximum = 255;
+            this.AnimationModeRedTrackbar.Name = "AnimationModeRedTrackbar";
+            this.AnimationModeRedTrackbar.Size = new System.Drawing.Size(126, 21);
+            this.AnimationModeRedTrackbar.TabIndex = 6;
+            this.AnimationModeRedTrackbar.Tag = "Setting";
+            this.AnimationModeRedTrackbar.TickFrequency = 10;
+            this.AnimationModeRedTrackbar.Value = 255;
+            this.AnimationModeRedTrackbar.Scroll += new System.EventHandler(this.AnimationModeRedTrackbar_Scroll);
+            // 
+            // AnimationModeBlueLabel
+            // 
+            this.AnimationModeBlueLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnimationModeBlueLabel.ForeColor = System.Drawing.Color.White;
+            this.AnimationModeBlueLabel.Location = new System.Drawing.Point(496, 4);
+            this.AnimationModeBlueLabel.Name = "AnimationModeBlueLabel";
+            this.AnimationModeBlueLabel.Size = new System.Drawing.Size(75, 15);
+            this.AnimationModeBlueLabel.TabIndex = 59;
+            this.AnimationModeBlueLabel.Text = "Blue";
+            this.AnimationModeBlueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // AnimationModeBlueTrackbar
+            // 
+            this.AnimationModeBlueTrackbar.AutoSize = false;
+            this.AnimationModeBlueTrackbar.Location = new System.Drawing.Point(564, 3);
+            this.AnimationModeBlueTrackbar.Maximum = 255;
+            this.AnimationModeBlueTrackbar.Name = "AnimationModeBlueTrackbar";
+            this.AnimationModeBlueTrackbar.Size = new System.Drawing.Size(126, 21);
+            this.AnimationModeBlueTrackbar.TabIndex = 8;
+            this.AnimationModeBlueTrackbar.Tag = "Setting";
+            this.AnimationModeBlueTrackbar.TickFrequency = 10;
+            this.AnimationModeBlueTrackbar.Value = 255;
+            this.AnimationModeBlueTrackbar.Scroll += new System.EventHandler(this.AnimationModeBlueTrackbar_Scroll);
+            // 
+            // AnimationModeGreenLabel
+            // 
+            this.AnimationModeGreenLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnimationModeGreenLabel.ForeColor = System.Drawing.Color.White;
+            this.AnimationModeGreenLabel.Location = new System.Drawing.Point(246, 4);
+            this.AnimationModeGreenLabel.Name = "AnimationModeGreenLabel";
+            this.AnimationModeGreenLabel.Size = new System.Drawing.Size(75, 15);
+            this.AnimationModeGreenLabel.TabIndex = 57;
+            this.AnimationModeGreenLabel.Text = "Green";
+            this.AnimationModeGreenLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel8
+            // 
+            this.panel8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.panel8.Controls.Add(this.AnimationModeTopLabel);
+            this.panel8.Location = new System.Drawing.Point(0, 0);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(870, 63);
+            this.panel8.TabIndex = 64;
+            // 
+            // AnimationModeTopLabel
+            // 
+            this.AnimationModeTopLabel.Font = new System.Drawing.Font("Lucida Console", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnimationModeTopLabel.ForeColor = System.Drawing.Color.White;
+            this.AnimationModeTopLabel.Location = new System.Drawing.Point(0, 0);
+            this.AnimationModeTopLabel.Name = "AnimationModeTopLabel";
+            this.AnimationModeTopLabel.Size = new System.Drawing.Size(870, 63);
+            this.AnimationModeTopLabel.TabIndex = 10;
+            this.AnimationModeTopLabel.Text = "Animation mode";
+            this.AnimationModeTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // AnimationModeSaveButton
+            // 
+            this.AnimationModeSaveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
+            this.AnimationModeSaveButton.FlatAppearance.BorderSize = 0;
+            this.AnimationModeSaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AnimationModeSaveButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnimationModeSaveButton.Location = new System.Drawing.Point(507, 714);
+            this.AnimationModeSaveButton.Name = "AnimationModeSaveButton";
+            this.AnimationModeSaveButton.Size = new System.Drawing.Size(171, 23);
+            this.AnimationModeSaveButton.TabIndex = 65;
+            this.AnimationModeSaveButton.Text = "Save Animation";
+            this.AnimationModeSaveButton.UseVisualStyleBackColor = false;
+            this.AnimationModeSaveButton.Click += new System.EventHandler(this.AnimationModeSaveButton_Click);
+            // 
+            // AnimationModeAnimationWindowWorkingPanel
+            // 
+            this.AnimationModeAnimationWindowWorkingPanel.AutoScroll = true;
+            this.AnimationModeAnimationWindowWorkingPanel.BackColor = System.Drawing.Color.Silver;
+            this.AnimationModeAnimationWindowWorkingPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.AnimationModeAnimationWindowWorkingPanel.Location = new System.Drawing.Point(13, 257);
+            this.AnimationModeAnimationWindowWorkingPanel.Name = "AnimationModeAnimationWindowWorkingPanel";
+            this.AnimationModeAnimationWindowWorkingPanel.Size = new System.Drawing.Size(842, 381);
+            this.AnimationModeAnimationWindowWorkingPanel.TabIndex = 10;
+            // 
+            // AnimationModeHighCompressionCheckBox
+            // 
+            this.AnimationModeHighCompressionCheckBox.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnimationModeHighCompressionCheckBox.ForeColor = System.Drawing.Color.White;
+            this.AnimationModeHighCompressionCheckBox.Location = new System.Drawing.Point(25, 45);
+            this.AnimationModeHighCompressionCheckBox.Name = "AnimationModeHighCompressionCheckBox";
+            this.AnimationModeHighCompressionCheckBox.Size = new System.Drawing.Size(161, 15);
+            this.AnimationModeHighCompressionCheckBox.TabIndex = 100;
+            this.AnimationModeHighCompressionCheckBox.Tag = "Setting";
+            this.AnimationModeHighCompressionCheckBox.Text = "High Compression";
+            this.AnimationModeHighCompressionCheckBox.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.ClientSize = new System.Drawing.Size(2980, 2109);
+            this.ClientSize = new System.Drawing.Size(4410, 2109);
+            this.Controls.Add(this.AnimationModePanel);
             this.Controls.Add(this.MenuPanel);
             this.Controls.Add(this.ConfigureSetupHiddenProgressBar);
             this.Controls.Add(this.MenuButton);
@@ -5807,6 +6344,16 @@
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             this.panel9.ResumeLayout(false);
+            this.AnimationModePanel.ResumeLayout(false);
+            this.AnimationModeInterfacePanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.AnimationModeLineSpacingNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AnimationModeToIDNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AnimationModeFromIDNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AnimationModeMoveIntervalNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AnimationModeGreenTrackbar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AnimationModeRedTrackbar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AnimationModeBlueTrackbar)).EndInit();
+            this.panel8.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -6164,6 +6711,41 @@
         public System.Windows.Forms.Label InstructionsAddWaitUntilSelectDataLabel;
         public System.Windows.Forms.Label InstructionsAddWaitUntilSelectDateDDMMYYYYLabel;
         public System.Windows.Forms.Label InstructionsAddWaitUntilSelectTimeHHMMSSLabel;
+        public System.Windows.Forms.Panel AnimationModePanel;
+        public System.Windows.Forms.Panel AnimationModeInterfacePanel;
+        public System.Windows.Forms.Button AnimationModeLoadButton;
+        public System.Windows.Forms.Label AnimationModeRedLabel;
+        public System.Windows.Forms.TrackBar AnimationModeGreenTrackbar;
+        public System.Windows.Forms.Button AnimationModeSaveButton;
+        public System.Windows.Forms.Label AnimationModeBlueTrackbarLabel;
+        public System.Windows.Forms.Label AnimationModeGreenTrackbarLabel;
+        public System.Windows.Forms.CheckBox AnimationModeColorEntireLineCheckBox;
+        public System.Windows.Forms.Label AnimationModeRedTrackbarLabel;
+        public System.Windows.Forms.TrackBar AnimationModeRedTrackbar;
+        public System.Windows.Forms.Label AnimationModeBlueLabel;
+        public System.Windows.Forms.TrackBar AnimationModeBlueTrackbar;
+        public System.Windows.Forms.Label AnimationModeGreenLabel;
+        public System.Windows.Forms.Panel panel8;
+        public System.Windows.Forms.Label AnimationModeTopLabel;
+        public System.Windows.Forms.Panel AnimationModeAnimationWindowWorkingPanel;
+        public System.Windows.Forms.Label AnimationModeLiveViewLabel;
+        public System.Windows.Forms.Label AnimationModeAnimationWindowLabel;
+        public System.Windows.Forms.Panel AnimationModeLiveViewWorkingPanel;
+        public System.Windows.Forms.Label AnimationModeMoveIntervalLabel;
+        public System.Windows.Forms.NumericUpDown AnimationModeMoveIntervalNumericUpDown;
+        public System.Windows.Forms.Button AnimationModeStopButton;
+        public System.Windows.Forms.Button AnimationModeStartButton;
+        public System.Windows.Forms.CheckBox AnimationModeLoopCheckBox;
+        public System.Windows.Forms.Label AnimationModeAPSLabel;
+        public System.Windows.Forms.Button AnimationModeAddALineButton;
+        public System.Windows.Forms.NumericUpDown AnimationModeToIDNumericUpDown;
+        public System.Windows.Forms.Label AnimationModeToIDLabel;
+        public System.Windows.Forms.NumericUpDown AnimationModeFromIDNumericUpDown;
+        public System.Windows.Forms.Label AnimationModeFromIDLabel;
+        public System.Windows.Forms.Label AnimationModeLineSpacingLabel;
+        public System.Windows.Forms.NumericUpDown AnimationModeLineSpacingNumericUpDown;
+        public System.Windows.Forms.Button AnimationModeClearButton;
+        public System.Windows.Forms.CheckBox AnimationModeHighCompressionCheckBox;
     }
 }
 
