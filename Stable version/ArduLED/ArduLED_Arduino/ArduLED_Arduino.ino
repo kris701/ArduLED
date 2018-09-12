@@ -621,7 +621,7 @@ void Mode_A(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], shor
 void Mode_N(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], short _Series[SeriesS], uint8_t _SeriesID[SeriesidS], short _FromID, short _ToID, short _DiscardFromIndex, short _DiscardToIndex, short _CountToID, short _ShowFromPin, short _ShowToPin)
 {
 	short CurrentIndex = _CountToID;
-	short Count = 3;
+	short Count = 4;
 	short RVal, GVal, BVal;
 	
 	for (short i = _DiscardToIndex; i >= _DiscardFromIndex; i -= 2)
@@ -769,10 +769,13 @@ void Mode_N(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], shor
 		CurrentIndex -= (abs(_Series[i] - _Series[i + 1]) + 1);
 	}
 
-	for (short i = _ShowFromPin; i <= _ShowToPin; i++)
+	if (_Split[3] == 1)
 	{
-		if (_LEDStrips[i].numPixels() > 0)
-			_LEDStrips[i].show();
+		for (short i = _ShowFromPin; i <= _ShowToPin; i++)
+		{
+			if (_LEDStrips[i].numPixels() > 0)
+				_LEDStrips[i].show();
+		}
 	}
 }
 

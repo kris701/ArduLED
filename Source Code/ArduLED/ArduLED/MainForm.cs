@@ -25,6 +25,7 @@ namespace ArduLEDNameSpace
         private bool ReadyToRecive = false;
         private int UnitTimeoutCounter = 0;
         public bool VisualizerEnabled = false;
+        public int TotalLEDCount = 0;
 
         public List<Control> ControlList = new List<Control>();
 

@@ -398,6 +398,7 @@
             this.AnimationModeLoadButton = new System.Windows.Forms.Button();
             this.AnimationModeLiveViewWorkingPanel = new System.Windows.Forms.Panel();
             this.AnimationModeInterfacePanel = new System.Windows.Forms.Panel();
+            this.AnimationModeHighCompressionCheckBox = new System.Windows.Forms.CheckBox();
             this.AnimationModeClearButton = new System.Windows.Forms.Button();
             this.AnimationModeLineSpacingLabel = new System.Windows.Forms.Label();
             this.AnimationModeLineSpacingNumericUpDown = new System.Windows.Forms.NumericUpDown();
@@ -422,7 +423,8 @@
             this.AnimationModeTopLabel = new System.Windows.Forms.Label();
             this.AnimationModeSaveButton = new System.Windows.Forms.Button();
             this.AnimationModeAnimationWindowWorkingPanel = new System.Windows.Forms.Panel();
-            this.AnimationModeHighCompressionCheckBox = new System.Windows.Forms.CheckBox();
+            this.ServerSettingsServerNameTextbox = new System.Windows.Forms.TextBox();
+            this.ServerSettingsServerNameLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.SampleTimeTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SmoothnessTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SensitivityTrackBar)).BeginInit();
@@ -5543,7 +5545,7 @@
             this.ServerSettingsPanel.Controls.Add(this.panel9);
             this.ServerSettingsPanel.Location = new System.Drawing.Point(2344, 1479);
             this.ServerSettingsPanel.Name = "ServerSettingsPanel";
-            this.ServerSettingsPanel.Size = new System.Drawing.Size(871, 616);
+            this.ServerSettingsPanel.Size = new System.Drawing.Size(871, 627);
             this.ServerSettingsPanel.TabIndex = 71;
             this.ServerSettingsPanel.Visible = false;
             // 
@@ -5551,6 +5553,8 @@
             // 
             this.panel6.BackColor = System.Drawing.Color.Gray;
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel6.Controls.Add(this.ServerSettingsServerNameTextbox);
+            this.panel6.Controls.Add(this.ServerSettingsServerNameLabel);
             this.panel6.Controls.Add(this.ServerSettingsClearConsoleButton);
             this.panel6.Controls.Add(this.ServerSettingsStopServerButton);
             this.panel6.Controls.Add(this.ServerSettingsStartServerButton);
@@ -5561,7 +5565,7 @@
             this.panel6.Controls.Add(this.ServerSettingsIPAddressLabel);
             this.panel6.Location = new System.Drawing.Point(12, 556);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(842, 47);
+            this.panel6.Size = new System.Drawing.Size(842, 66);
             this.panel6.TabIndex = 73;
             // 
             // ServerSettingsClearConsoleButton
@@ -5835,6 +5839,18 @@
             this.AnimationModeInterfacePanel.Name = "AnimationModeInterfacePanel";
             this.AnimationModeInterfacePanel.Size = new System.Drawing.Size(842, 64);
             this.AnimationModeInterfacePanel.TabIndex = 74;
+            // 
+            // AnimationModeHighCompressionCheckBox
+            // 
+            this.AnimationModeHighCompressionCheckBox.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AnimationModeHighCompressionCheckBox.ForeColor = System.Drawing.Color.White;
+            this.AnimationModeHighCompressionCheckBox.Location = new System.Drawing.Point(25, 45);
+            this.AnimationModeHighCompressionCheckBox.Name = "AnimationModeHighCompressionCheckBox";
+            this.AnimationModeHighCompressionCheckBox.Size = new System.Drawing.Size(161, 15);
+            this.AnimationModeHighCompressionCheckBox.TabIndex = 100;
+            this.AnimationModeHighCompressionCheckBox.Tag = "Setting";
+            this.AnimationModeHighCompressionCheckBox.Text = "High Compression";
+            this.AnimationModeHighCompressionCheckBox.UseVisualStyleBackColor = true;
             // 
             // AnimationModeClearButton
             // 
@@ -6166,17 +6182,28 @@
             this.AnimationModeAnimationWindowWorkingPanel.Size = new System.Drawing.Size(842, 381);
             this.AnimationModeAnimationWindowWorkingPanel.TabIndex = 10;
             // 
-            // AnimationModeHighCompressionCheckBox
+            // ServerSettingsServerNameTextbox
             // 
-            this.AnimationModeHighCompressionCheckBox.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AnimationModeHighCompressionCheckBox.ForeColor = System.Drawing.Color.White;
-            this.AnimationModeHighCompressionCheckBox.Location = new System.Drawing.Point(25, 45);
-            this.AnimationModeHighCompressionCheckBox.Name = "AnimationModeHighCompressionCheckBox";
-            this.AnimationModeHighCompressionCheckBox.Size = new System.Drawing.Size(161, 15);
-            this.AnimationModeHighCompressionCheckBox.TabIndex = 100;
-            this.AnimationModeHighCompressionCheckBox.Tag = "Setting";
-            this.AnimationModeHighCompressionCheckBox.Text = "High Compression";
-            this.AnimationModeHighCompressionCheckBox.UseVisualStyleBackColor = true;
+            this.ServerSettingsServerNameTextbox.BackColor = System.Drawing.Color.DarkGray;
+            this.ServerSettingsServerNameTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ServerSettingsServerNameTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ServerSettingsServerNameTextbox.ForeColor = System.Drawing.Color.White;
+            this.ServerSettingsServerNameTextbox.Location = new System.Drawing.Point(155, 46);
+            this.ServerSettingsServerNameTextbox.Name = "ServerSettingsServerNameTextbox";
+            this.ServerSettingsServerNameTextbox.Size = new System.Drawing.Size(126, 15);
+            this.ServerSettingsServerNameTextbox.TabIndex = 77;
+            this.ServerSettingsServerNameTextbox.Tag = "Setting";
+            this.ServerSettingsServerNameTextbox.Text = "Server";
+            // 
+            // ServerSettingsServerNameLabel
+            // 
+            this.ServerSettingsServerNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ServerSettingsServerNameLabel.ForeColor = System.Drawing.Color.White;
+            this.ServerSettingsServerNameLabel.Location = new System.Drawing.Point(2, 46);
+            this.ServerSettingsServerNameLabel.Name = "ServerSettingsServerNameLabel";
+            this.ServerSettingsServerNameLabel.Size = new System.Drawing.Size(148, 15);
+            this.ServerSettingsServerNameLabel.TabIndex = 76;
+            this.ServerSettingsServerNameLabel.Text = "Server Name";
             // 
             // MainForm
             // 
@@ -6746,6 +6773,8 @@
         public System.Windows.Forms.NumericUpDown AnimationModeLineSpacingNumericUpDown;
         public System.Windows.Forms.Button AnimationModeClearButton;
         public System.Windows.Forms.CheckBox AnimationModeHighCompressionCheckBox;
+        public System.Windows.Forms.TextBox ServerSettingsServerNameTextbox;
+        public System.Windows.Forms.Label ServerSettingsServerNameLabel;
     }
 }
 

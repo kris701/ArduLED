@@ -44,7 +44,10 @@ namespace ArduLEDNameSpace
                     ServerRunning = false;
                 }
                 while (!ServerEnded)
+                {
+                    Application.DoEvents();
                     Thread.Sleep(100);
+                }
                 if (ServerThread != null)
                     ServerThread.Abort();
             }
@@ -64,7 +67,10 @@ namespace ArduLEDNameSpace
                 ServerRunning = false;
             }
             while (!ServerEnded)
+            {
+                Application.DoEvents();
                 Thread.Sleep(100);
+            }
             ServerRunning = true;
             ServerThread = new Thread(RunServer);
             ServerThread.Start();
@@ -76,7 +82,10 @@ namespace ArduLEDNameSpace
             {
                 ServerRunning = false;
                 while (!ServerEnded)
+                {
+                    Application.DoEvents();
                     Thread.Sleep(100);
+                }
                 MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "Server Disconnected!" + Environment.NewLine; });
             }
             else
@@ -98,18 +107,8 @@ namespace ArduLEDNameSpace
                 ClientSocket = default(TcpClient);
 
                 ServerListener.Start();
-                MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "Server waiting connections!" + Environment.NewLine; });
-                while(!ServerListener.Pending())
-                {
-                    if (!ServerRunning)
-                        break;
-                    Thread.Sleep(100);
-                }
-                if (ServerRunning)
-                {
-                    ClientSocket = ServerListener.AcceptTcpClient();
-                    MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "Server Connected!" + Environment.NewLine; });
-                }
+
+                ConnectToClient();
             }
             catch
             {
@@ -121,6 +120,12 @@ namespace ArduLEDNameSpace
             {
                 try
                 {
+                    if (!ClientSocket.Connected)
+                    {
+                        MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "Client Disconnected!" + Environment.NewLine; });
+                        if (!ConnectToClient())
+                            break;
+                    }
                     if (ClientSocket.Client.Poll(0, SelectMode.SelectRead))
                     {
                         try
@@ -131,26 +136,9 @@ namespace ArduLEDNameSpace
                         catch
                         {
                             MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "Client Disconnected!" + Environment.NewLine; });
-                            MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "Server waiting connections!" + Environment.NewLine; });
-                            while (!ServerListener.Pending())
-                            {
-                                if (!ServerRunning)
-                                    break;
-                                Thread.Sleep(100);
-                            }
-                            if (ServerRunning)
-                            {
-                                ClientSocket = ServerListener.AcceptTcpClient();
-                                MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "Server Connected!" + Environment.NewLine; });
-                            }
-                            else
+                            if (!ConnectToClient())
                                 break;
                         }
-                    }
-                    if (ClientSocket.Available == 0)
-                    {
-                        Thread.Sleep(100);
-                        continue;
                     }
                     NetworkStream DataStream = ClientSocket.GetStream();
                     byte[] ReadBytes = new byte[1024];
@@ -176,25 +164,43 @@ namespace ArduLEDNameSpace
                 {
                     ServerListener.Stop();
                     ServerListener.Start();
-                    MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "Server waiting connections!" + Environment.NewLine; });
-                    while (!ServerListener.Pending())
-                    {
-                        if (!ServerRunning)
-                            break;
-                        Thread.Sleep(100);
-                    }
-                    if (ServerRunning)
-                    {
-                        ClientSocket = ServerListener.AcceptTcpClient();
-                        MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "Server Connected!" + Environment.NewLine; });
-                    }
-                    else
+                    if (!ConnectToClient())
                         break;
                 }
             }
             ServerListener.Stop();
             MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "Server Disconnected!" + Environment.NewLine; });
             ServerEnded = true;
+        }
+
+        private bool ConnectToClient()
+        {
+            try
+            {
+                MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "Server waiting connections!" + Environment.NewLine; });
+                while (!ServerListener.Pending())
+                {
+                    if (!ServerRunning)
+                        break;
+                    Thread.Sleep(100);
+                }
+                if (ServerRunning)
+                {
+                    ClientSocket = ServerListener.AcceptTcpClient();
+                    NetworkStream DataStream = ClientSocket.GetStream();
+                    Byte[] SendBytes = System.Text.Encoding.ASCII.GetBytes(MainFormClass.ServerSettingsServerNameTextbox.Text + ";" + MainFormClass.TotalLEDCount);
+                    DataStream.Write(SendBytes, 0, SendBytes.Length);
+                    DataStream.Flush();
+                    MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "Server Connected!" + Environment.NewLine; });
+                    return true;
+                }
+                else
+                    return false;
+            }
+            catch
+            {
+                return true;
+            }
         }
 
         private string ArduLEDServerAPI(string _Input)
@@ -235,25 +241,21 @@ namespace ArduLEDNameSpace
                     return "G";
                 }
 
-                //VISUALIZER(False,test.txt)
+                //VISUALIZER(False,True,test.txt)
 
                 if (InputSplit[0].Replace(InputSplit[0].Replace("VISUALIZER(", ""), "").ToUpper() == "VISUALIZER(")
                 {
                     InputSplit[0] = InputSplit[0].Replace("VISUALIZER(", "");
                     InputSplit[InputSplit.Length - 1] = InputSplit[InputSplit.Length - 1].Replace(")", "");
 
-                    if (InputSplit[0] == "True")
-                    {
-                        MainFormClass.VisualizerSectionClass.EnableBASS(false);
-                    }
-                    else
+                    if (InputSplit[2] != "")
                     {
                         try
                         {
                             string SerialOut = "";
                             MainFormClass.VisualizerPanel.Invoke((MethodInvoker)delegate
                             {
-                                MainFormClass.LoadSettings(Directory.GetCurrentDirectory() + "\\VisualizerSettings\\" + InputSplit[1]);
+                                MainFormClass.LoadSettings(Directory.GetCurrentDirectory() + "\\VisualizerSettings\\" + InputSplit[2]);
                             });
                             MainFormClass.VisualizerFromSeriesIDNumericUpDown.Invoke((MethodInvoker)delegate
                             {
@@ -263,84 +265,134 @@ namespace ArduLEDNameSpace
                                 });
                             });
                             MainFormClass.SendDataBySerial(SerialOut);
-                            MainFormClass.VisualizerPanel.Invoke((MethodInvoker)delegate
-                            {
-                                MainFormClass.VisualizerSectionClass.EnableBASS(true);
-                            });
                         }
                         catch (Exception E)
                         {
                             MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "     " + E.ToString() + Environment.NewLine; });
                         }
                     }
+
+                    if (InputSplit[0] == "True")
+                    {
+                        MainFormClass.VisualizerPanel.Invoke((MethodInvoker)delegate
+                        {
+                            MainFormClass.VisualizerSectionClass.EnableBASS(true);
+                        });
+                    }
+                    if (InputSplit[1] == "True")
+                    {
+                        MainFormClass.VisualizerSectionClass.EnableBASS(false);
+                    }
                     return "G";
                 }
 
-                //AMBILIGHT(False,True,False,wew5.txt)
+                //GETVISUALIZERCONFIGS()
+
+                if (InputSplit[0].Replace(InputSplit[0].Replace("GETVISUALIZERCONFIGS(", ""), "").ToUpper() == "GETVISUALIZERCONFIGS(")
+                {
+                    InputSplit[0] = InputSplit[0].Replace("GETVISUALIZERCONFIGS(", "");
+                    InputSplit[InputSplit.Length - 1] = InputSplit[InputSplit.Length - 1].Replace(")", "");
+
+                    string SendString = "";
+
+                    foreach(string _File in Directory.GetFiles(Directory.GetCurrentDirectory() + "\\VisualizerSettings"))
+                    {
+                        SendString += _File.Split('\\')[_File.Split('\\').Length - 1] + ";";
+                    }
+
+                    NetworkStream DataStream = ClientSocket.GetStream();
+                    Byte[] SendBytes = System.Text.Encoding.ASCII.GetBytes(SendString);
+                    DataStream.Write(SendBytes, 0, SendBytes.Length);
+                    DataStream.Flush();
+                    return "G";
+                }
+
+                //AMBILIGHT(True,False,True,False,wew5.txt)
 
                 if (InputSplit[0].Replace(InputSplit[0].Replace("AMBILIGHT(", ""), "").ToUpper() == "AMBILIGHT(")
                 {
                     InputSplit[0] = InputSplit[0].Replace("AMBILIGHT(", "");
                     InputSplit[InputSplit.Length - 1] = InputSplit[InputSplit.Length - 1].Replace(")", "");
 
+                    if (InputSplit[4] != "")
+                    {
+                        MainFormClass.AmbiLightModePanel.Invoke((MethodInvoker)delegate {
+                            MainFormClass.LoadSettings(Directory.GetCurrentDirectory() + "\\AmbilightSettings\\" + InputSplit[4]);
+                            MainFormClass.AmbiLightSectionClass.SetSides();
+                        });
+                    }
                     if (InputSplit[0] == "True")
                     {
                         MainFormClass.AmbiLightModePanel.Invoke((MethodInvoker)delegate {
-                            MainFormClass.AmbiLightSectionClass.StopAmbilight();
-                        });
-                    }
-                    else
-                    {
-                        if (InputSplit[1] == "True")
-                        {
-                            MainFormClass.AmbiLightModePanel.Invoke((MethodInvoker)delegate {
-                                MainFormClass.AmbiLightSectionClass.SetSides();
-                                MainFormClass.AmbiLightSectionClass.ShowBlocks(
+                            MainFormClass.AmbiLightSectionClass.SetSides();
+                            MainFormClass.AmbiLightSectionClass.StartAmbilight(
                                     MainFormClass.LeftSide,
                                     MainFormClass.TopSide,
                                     MainFormClass.RightSide,
                                     MainFormClass.BottomSide,
                                     (int)MainFormClass.AmbiLightModeScreenIDNumericUpDown.Value,
-                                    (int)MainFormClass.AmbiLightModeBlockSampleSplitNumericUpDown.Value
+                                    (int)MainFormClass.AmbiLightModeBlockSampleSplitNumericUpDown.Value,
+                                    (double)MainFormClass.AmbiLightModeGammaFactorNumericUpDown.Value,
+                                    (double)MainFormClass.AmbiLightModeFadeFactorNumericUpDown.Value,
+                                    (int)MainFormClass.AmbiLightModeRefreshRateNumericUpDown.Value
                                     );
-                            });
-                        }
-                        else
-                        {
-                            if (InputSplit[2] == "True")
-                            {
-                                MainFormClass.AmbiLightModePanel.Invoke((MethodInvoker)delegate {
-                                    MainFormClass.AmbiLightSectionClass.SetSides();
-                                    MainFormClass.AmbiLightSectionClass.AutoSetOffsets(
-                                        MainFormClass.LeftSide,
-                                        MainFormClass.TopSide,
-                                        MainFormClass.RightSide,
-                                        MainFormClass.BottomSide,
-                                        (int)MainFormClass.AmbiLightModeScreenIDNumericUpDown.Value,
-                                        (int)MainFormClass.AmbiLightModeBlockSampleSplitNumericUpDown.Value
-                                        );
-                                });
-                            }
-                            else
-                            {
-                                MainFormClass.AmbiLightModePanel.Invoke((MethodInvoker)delegate {
-                                    MainFormClass.LoadSettings(Directory.GetCurrentDirectory() + "\\AmbilightSettings\\" + InputSplit[3]);
-                                    MainFormClass.AmbiLightSectionClass.SetSides();
-                                    MainFormClass.AmbiLightSectionClass.StartAmbilight(
-                                        MainFormClass.LeftSide,
-                                        MainFormClass.TopSide,
-                                        MainFormClass.RightSide,
-                                        MainFormClass.BottomSide,
-                                        (int)MainFormClass.AmbiLightModeScreenIDNumericUpDown.Value,
-                                        (int)MainFormClass.AmbiLightModeBlockSampleSplitNumericUpDown.Value,
-                                        (double)MainFormClass.AmbiLightModeGammaFactorNumericUpDown.Value,
-                                        (double)MainFormClass.AmbiLightModeFadeFactorNumericUpDown.Value,
-                                        (int)MainFormClass.AmbiLightModeRefreshRateNumericUpDown.Value
-                                        );
-                                });
-                            }
-                        }
+                        });
                     }
+                    if (InputSplit[1] == "True")
+                    {
+                        MainFormClass.AmbiLightModePanel.Invoke((MethodInvoker)delegate {
+                            MainFormClass.AmbiLightSectionClass.StopAmbilight();
+                        });
+                    }
+                    if (InputSplit[2] == "True")
+                    {
+                        MainFormClass.AmbiLightModePanel.Invoke((MethodInvoker)delegate {
+                            MainFormClass.AmbiLightSectionClass.SetSides();
+                            MainFormClass.AmbiLightSectionClass.ShowBlocks(
+                                MainFormClass.LeftSide,
+                                MainFormClass.TopSide,
+                                MainFormClass.RightSide,
+                                MainFormClass.BottomSide,
+                                (int)MainFormClass.AmbiLightModeScreenIDNumericUpDown.Value,
+                                (int)MainFormClass.AmbiLightModeBlockSampleSplitNumericUpDown.Value
+                                );
+                        });
+                    }
+                    if (InputSplit[3] == "True")
+                    {
+                        MainFormClass.AmbiLightModePanel.Invoke((MethodInvoker)delegate {
+                            MainFormClass.AmbiLightSectionClass.SetSides();
+                            MainFormClass.AmbiLightSectionClass.AutoSetOffsets(
+                                MainFormClass.LeftSide,
+                                MainFormClass.TopSide,
+                                MainFormClass.RightSide,
+                                MainFormClass.BottomSide,
+                                (int)MainFormClass.AmbiLightModeScreenIDNumericUpDown.Value,
+                                (int)MainFormClass.AmbiLightModeBlockSampleSplitNumericUpDown.Value
+                                );
+                        });
+                    }
+                    return "G";
+                }
+
+                //GETAMBILIGHTCONFIGS()
+
+                if (InputSplit[0].Replace(InputSplit[0].Replace("GETAMBILIGHTCONFIGS(", ""), "").ToUpper() == "GETAMBILIGHTCONFIGS(")
+                {
+                    InputSplit[0] = InputSplit[0].Replace("GETAMBILIGHTCONFIGS(", "");
+                    InputSplit[InputSplit.Length - 1] = InputSplit[InputSplit.Length - 1].Replace(")", "");
+
+                    string SendString = "";
+
+                    foreach (string _File in Directory.GetFiles(Directory.GetCurrentDirectory() + "\\AmbilightSettings"))
+                    {
+                        SendString += _File.Split('\\')[_File.Split('\\').Length - 1] + ";";
+                    }
+
+                    NetworkStream DataStream = ClientSocket.GetStream();
+                    Byte[] SendBytes = System.Text.Encoding.ASCII.GetBytes(SendString);
+                    DataStream.Write(SendBytes, 0, SendBytes.Length);
+                    DataStream.Flush();
                     return "G";
                 }
 

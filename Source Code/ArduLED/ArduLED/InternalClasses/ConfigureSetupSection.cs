@@ -302,6 +302,8 @@ namespace ArduLEDNameSpace
                 foreach (int i in LEDCount)
                     TotalLEDs += i;
 
+                MainFormClass.TotalLEDCount = TotalLEDs;
+
                 MainFormClass.SendSetupProgressBar.Invoke((MethodInvoker)delegate { MainFormClass.SendSetupProgressBar.Maximum = MainFormClass.ConfigureSetupWorkingPanel.Controls.Count; });
                 if (MainFormClass.ConfigureSetupAutoSendCheckBox.Checked)
                     MainFormClass.ConfigureSetupHiddenProgressBar.Invoke((MethodInvoker)delegate { MainFormClass.ConfigureSetupHiddenProgressBar.Maximum = MainFormClass.ConfigureSetupWorkingPanel.Controls.Count; });

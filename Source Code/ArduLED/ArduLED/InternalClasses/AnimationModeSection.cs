@@ -290,15 +290,15 @@ namespace ArduLEDNameSpace
                             });
                         }
 
-                        SerialOut = "8;" + MainFormClass.AnimationModeLineSpacingNumericUpDown.Value + ";" + Convert.ToInt32(UseCompression) + ";";
+                        SerialOut = "8;" + MainFormClass.AnimationModeLineSpacingNumericUpDown.Value + ";" + Convert.ToInt32(UseCompression) + ";1;";
 
                         int Count = 0;
                         int PreCount = 0;
-                        foreach (string s in AnimationList[i].Split(';'))
+                        for (int j = 0; j < AnimationList[i].Split(';').Length; j++)
                         {
-                            if (s != "")
+                            if (AnimationList[i].Split(';')[j] != "")
                             {
-                                Color AfterShuffel = MainFormClass.ShuffleColors(Color.FromArgb(Int32.Parse(s.Split('.')[0]), Int32.Parse(s.Split('.')[1]), Int32.Parse(s.Split('.')[2])));
+                                Color AfterShuffel = MainFormClass.ShuffleColors(Color.FromArgb(Int32.Parse(AnimationList[i].Split(';')[j].Split('.')[0]), Int32.Parse(AnimationList[i].Split(';')[j].Split('.')[1]), Int32.Parse(AnimationList[i].Split(';')[j].Split('.')[2])));
 
                                 string AddString = "";
 
@@ -333,6 +333,7 @@ namespace ArduLEDNameSpace
                                 {
                                     string[] InnerSerialOutSplit = SerialOut.Split(';');
                                     InnerSerialOutSplit[1] = (Count - PreCount).ToString();
+                                    InnerSerialOutSplit[3] = "0";
 
                                     SerialOut = "";
                                     foreach (string Split in InnerSerialOutSplit)
@@ -342,7 +343,7 @@ namespace ArduLEDNameSpace
 
                                     MainFormClass.SendDataBySerial(SerialOut);
 
-                                    SerialOut = "8;" + (MainFormClass.AnimationModeLineSpacingNumericUpDown.Value - Count).ToString() + ";" + Convert.ToInt32(UseCompression) + ";" + AddString;
+                                    SerialOut = "8;" + (MainFormClass.AnimationModeLineSpacingNumericUpDown.Value - Count).ToString() + ";" + Convert.ToInt32(UseCompression) + ";1;" + AddString;
 
                                     PreCount = Count;
                                 }
