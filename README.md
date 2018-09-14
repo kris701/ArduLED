@@ -44,7 +44,9 @@ This project is open source, so all the Visual Studio files comes with the proje
   - [Ambilight Mode](https://github.com/kris701/ArduLED/wiki/Ambilight-Mode)
   - [Server API](https://github.com/kris701/ArduLED/wiki/Server-API)
   - [Configure Setup](https://github.com/kris701/ArduLED/wiki/Configure-Setup)
+  - [Animation Mode](https://github.com/kris701/ArduLED/wiki/Animation-Mode)
 - [**Version History**](https://github.com/kris701/ArduLED/wiki/Version-History)
+- [**ArduLED Remote**](https://github.com/kris701/ArduLED/wiki/ArduLED-Remote)
 - **Performance**
   - [Visualizer](https://github.com/kris701/ArduLED/wiki/Performance-of-Visualizer)
   - [Ambilight](https://github.com/kris701/ArduLED/wiki/Performance-of-Ambilight)
