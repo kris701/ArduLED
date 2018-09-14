@@ -10,9 +10,11 @@ Welcome, to the ArduLED project. What is this? you may ask, this is a program, b
  - Fading colors
  - Instructions mode, setup a set of instructions that the LED will follow
  - Ambilight feature (~30-40 FPS on 4k screen with 50 LEDs)
+ - You can make animations with your LEDs
  - Very easy to use
  - Supports multiple languages
  - Includes a local Server API, to control ArduLED from your own programs
+ - Now also have an app, to remotely control ArduLED
  
  <p align="center">
  <img src ="https://2ar6kq.db.files.1drv.com/y4mJmTUzQuhQ4HxCBJNVtMBwT4NKl8VFImfG7AsaESwZP0f_hF35M6pKuxWg305abgShxsAMfI9yA5U_Zxwdb02-Lv4Qw2RrMvXbWi7-sVv95W24ukcjd89boB_wVU-Kk49aUmesvZj1imHzRILTWueeKcXuPN7TXhJdMNhbAtZItQtrW31V0_V5QIIAcOKITuXrHLD4pUmmWSg4FaaMP8rAg/fadecolorssample_reduced_optim_small.gif?psid=1?width=150&height=85&cropmode=none" />
