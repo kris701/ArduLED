@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ArduLED_Mobile.InstructionsPage"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="DimGray">
+            <Label Text="Select Config file to use"
+                            VerticalOptions="Start" 
+                            HorizontalOptions="Start"
+                               FontSize="Medium"
+                               TextColor="White"
+                       Margin="10"/>
+            <Picker x:Name="InstructionsConfigNamePicker"
+                                SelectedIndex="0"
+                                HorizontalOptions="FillAndExpand"
+                               VerticalOptions="Start"
+                                WidthRequest="100"
+                                FontSize="Medium"
+                                TextColor="White"
+                        Margin="10"/>
+            <StackLayout BackgroundColor="DimGray" Orientation="Horizontal">
+                <Label Text="Loop"
+                            VerticalOptions="Start" 
+                            HorizontalOptions="Start"
+                               FontSize="Medium"
+                               TextColor="White"
+                       Margin="10"/>
+                <Switch x:Name="InstructionsLoopSwitch"
+                        Toggled="InstructionsLoopSwitch_Switch"/>
+            </StackLayout>
+            <Button Text="Start Instructions" 
+                    Clicked="StartInstructionsButton_Clicked"
+                        FontSize="Medium"
+                        BackgroundColor="DodgerBlue"
+                    TextColor="White"
+                    Margin="10"/>
+            <Button Text="Stop Instructions" 
+                    Clicked="StopInstructionsButton_Clicked"
+                        FontSize="Medium"
+                        BackgroundColor="DodgerBlue"
+                    TextColor="White"
+                    Margin="10"/>
+            <Button Text="Send just config" 
+                    Clicked="SendConfigButton_Clicked"
+                        FontSize="Medium"
+                        BackgroundColor="DodgerBlue"
+                    TextColor="White"
+                    Margin="10"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

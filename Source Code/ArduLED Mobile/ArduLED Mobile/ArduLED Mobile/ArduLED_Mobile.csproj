@@ -19,6 +19,9 @@
     <Compile Update="AmbilightSettingsPage.xaml.cs">
       <DependentUpon>AmbilightSettingsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="AnimationSettingsPage.xaml.cs">
+      <DependentUpon>AnimationSettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="ConnectPage.xaml.cs">
       <DependentUpon>ConnectPage.xaml</DependentUpon>
     </Compile>
@@ -31,6 +34,9 @@
     <EmbeddedResource Update="AmbilightSettingsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="AnimationSettingsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="ConnectPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -38,6 +44,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="IndividualLEDPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="InstructionsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="VisualizerSettingsPage.xaml">

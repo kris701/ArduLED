@@ -330,6 +330,13 @@ namespace ArduLEDNameSpace
             }
             if (File.Exists(Directory.GetCurrentDirectory() + "\\Temp.txt"))
                 File.Delete(Directory.GetCurrentDirectory() + "\\Temp.txt");
+
+            ServerAPISectionClass.Dispose();
+            AmbiLightSectionClass.Dispose();
+            AnimationModeSectionClass.Dispose();
+            InstructionsSectionClass.Dispose();
+            VisualizerSectionClass.Dispose();
+            MenuSectionClass.Dispose();
         }
 
         private void ResetToDefaultPosition(object sender, EventArgs e)
@@ -710,7 +717,7 @@ namespace ArduLEDNameSpace
             LoadFileDialog.InitialDirectory = Directory.GetCurrentDirectory() + "\\Instructions";
             if (LoadFileDialog.ShowDialog() == DialogResult.OK)
             {
-                InstructionsSectionClass.LoadInstructions();
+                InstructionsSectionClass.LoadInstructions(LoadFileDialog.FileName);
             }
             LoadFileDialog.InitialDirectory = Directory.GetCurrentDirectory();
         }
@@ -1019,7 +1026,7 @@ namespace ArduLEDNameSpace
             LoadFileDialog.InitialDirectory = Directory.GetCurrentDirectory() + "\\Animations";
             if (LoadFileDialog.ShowDialog() == DialogResult.OK)
             {
-                AnimationModeSectionClass.LoadAnimation();
+                AnimationModeSectionClass.LoadAnimation(LoadFileDialog.FileName);
             }
             LoadFileDialog.InitialDirectory = Directory.GetCurrentDirectory();
         }

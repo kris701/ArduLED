@@ -4,54 +4,68 @@
              xmlns:local="clr-namespace:ArduLED_Mobile"
              x:Class="ArduLED_Mobile.MainMenuPage"
              NavigationPage.HasNavigationBar="False">
-
-    <StackLayout BackgroundColor="DimGray">
+    <ContentPage.Content>
         <StackLayout BackgroundColor="#404040">
             <Label Text="ArduLED Remote" 
-               HorizontalOptions="Center"
-               VerticalOptions="Start" 
-               Margin="10"
-               FontSize="40"
-                   TextColor="White"/>
+                   HorizontalOptions="Center"
+                   VerticalOptions="Start" 
+                   Margin="10"
+                   FontSize="Large"
+                       TextColor="White"/>
+            <ScrollView VerticalOptions="FillAndExpand" BackgroundColor="DimGray">
+                <StackLayout>
+                    <Label x:Name="ServerIDLabel"
+                       x:FieldModifier="Public"
+                       Text="Connected to server: " 
+                       HorizontalOptions="Center"
+                       VerticalOptions="Start" 
+                       Margin="10"
+                       FontSize="Medium"
+                           TextColor="White"/>
+                    <Button Text="Fade Colors" 
+                            Clicked="FadeColorsButton_Clicked"
+                            FontSize="Medium"
+                            BackgroundColor="DodgerBlue"
+                            TextColor="White"
+                            Margin="10"/>
+                    <Button Text="Visualizer Settings" 
+                            Clicked="VisualizerSettingsButton_Clicked"
+                            FontSize="Medium"
+                            BackgroundColor="DodgerBlue"
+                            TextColor="White"
+                            Margin="10"/>
+                    <Button Text="Individual Colors" 
+                            Clicked="IndividualColorsButton_Clicked"
+                            FontSize="Medium"
+                            BackgroundColor="DodgerBlue"
+                            TextColor="White"
+                            Margin="10"/>
+                    <Button Text="Ambilight Settings" 
+                            Clicked="AmbilightSettingsButton_Clicked"
+                            FontSize="Medium"
+                            BackgroundColor="DodgerBlue"
+                            TextColor="White"
+                            Margin="10"/>
+                    <Button Text="Animations Settings" 
+                            Clicked="AnimationsSettingsButton_Clicked"
+                            FontSize="Medium"
+                            BackgroundColor="DodgerBlue"
+                            TextColor="White"
+                            Margin="10"/>
+                    <Button Text="Instructions Settings" 
+                            Clicked="InstructionsSettingsButton_Clicked"
+                            FontSize="Medium"
+                            BackgroundColor="DodgerBlue"
+                            TextColor="White"
+                            Margin="10"/>
+                    <Button Text="Connection Settings" 
+                            Clicked="ConnectionSettingsButton_Clicked"
+                            FontSize="Medium"
+                            BackgroundColor="DodgerBlue"
+                            TextColor="White"
+                            Margin="10"/>
+                </StackLayout>
+            </ScrollView>
         </StackLayout>
-        <Label x:Name="ServerIDLabel"
-           x:FieldModifier="Public"
-           Text="Connected to server: " 
-           HorizontalOptions="Center"
-           VerticalOptions="Start" 
-           Margin="10"
-           FontSize="20"
-               TextColor="White"/>
-        <Button Text="Fade Colors" 
-                Clicked="FadeColorsButton_Clicked"
-                FontSize="20"
-                BackgroundColor="DodgerBlue"
-                TextColor="White"
-                Margin="10"/>
-        <Button Text="Visualizer Settings" 
-                Clicked="VisualizerSettingsButton_Clicked"
-                FontSize="20"
-                BackgroundColor="DodgerBlue"
-                TextColor="White"
-                Margin="10"/>
-        <Button Text="Individual Colors" 
-                Clicked="IndividualColorsButton_Clicked"
-                FontSize="20"
-                BackgroundColor="DodgerBlue"
-                TextColor="White"
-                Margin="10"/>
-        <Button Text="Ambilight Settings" 
-                Clicked="AmbilightSettingsButton_Clicked"
-                FontSize="20"
-                BackgroundColor="DodgerBlue"
-                TextColor="White"
-                Margin="10"/>
-        <Button Text="Connection Settings" 
-                Clicked="ConnectionSettingsButton_Clicked"
-                FontSize="20"
-                BackgroundColor="DodgerBlue"
-                TextColor="White"
-                Margin="10"/>
-    </StackLayout>
-
+    </ContentPage.Content>
 </ContentPage>

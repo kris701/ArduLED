@@ -63,28 +63,14 @@ namespace ArduLED_Mobile
             {
                 try
                 {
-                    String TextboxString = "FADECOLOR(False, " +
+                    MainMenu.SendData("FADECOLOR(False, " +
                         Math.Round(Convert.ToDecimal(FromIDPicker.SelectedItem), 0) + "," +
                         Math.Round(Convert.ToDecimal(ToIDPicker.SelectedItem), 0) + "," +
                         Math.Round(RedSlider.Value, 0) + "," +
                         Math.Round(GreenSlider.Value, 0) + "," +
                         Math.Round(BlueSlider.Value, 0) + "," +
                         Math.Round(Convert.ToDecimal(FadeSpeedPicker.SelectedItem), 0) + "," +
-                        Math.Round(Convert.ToDecimal(FadeFactorPicker.SelectedItem), 0) + ")$";
-
-                    Stream DataStream = MainMenu.SourceApp.Client.GetStream();
-                    DataStream.ReadTimeout = 1000;
-                    DataStream.WriteTimeout = 1000;
-
-                    ASCIIEncoding Encodings = new ASCIIEncoding();
-                    byte[] WriteBytes = Encodings.GetBytes(TextboxString);
-
-                    DataStream.Write(WriteBytes, 0, WriteBytes.Length);
-
-                    byte[] ReadBytes = new byte[1024];
-                    int Good = DataStream.Read(ReadBytes, 0, 1024);
-
-                    string Response = Encoding.ASCII.GetString(ReadBytes);
+                        Math.Round(Convert.ToDecimal(FadeFactorPicker.SelectedItem), 0) + ")");
                 }
                 catch
                 {

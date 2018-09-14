@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ArduLED_Mobile.AnimationSettingsPage"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="DimGray">
+            <Label Text="Select Config file to use"
+                        VerticalOptions="Start" 
+                        HorizontalOptions="Start"
+                           FontSize="Medium"
+                           TextColor="White"
+                   Margin="10"/>
+            <Picker x:Name="AnimationConfigNamePicker"
+                            SelectedIndex="0"
+                            HorizontalOptions="FillAndExpand"
+                           VerticalOptions="Start"
+                            WidthRequest="100"
+                            FontSize="Medium"
+                            TextColor="White"
+                    Margin="10"/>
+            <StackLayout BackgroundColor="DimGray" Orientation="Horizontal">
+                <Label Text="Loop"
+                            VerticalOptions="Start" 
+                            HorizontalOptions="Start"
+                               FontSize="Medium"
+                               TextColor="White"
+                       Margin="10"/>
+                <Switch x:Name="AnimationLoopSwitch"
+                        Toggled="AnimationLoopSwitch_Switch"/>
+            </StackLayout>
+            <Button Text="Send just config" 
+                Clicked="SendConfigButton_Clicked"
+                    FontSize="Large"
+                    BackgroundColor="DodgerBlue"
+                TextColor="White"
+                Margin="10"/>
+            <Button Text="Start Animation" 
+                Clicked="StartAnimationButton_Clicked"
+                    FontSize="Large"
+                    BackgroundColor="DodgerBlue"
+                TextColor="White"
+                Margin="10"/>
+            <Button Text="Stop Animation" 
+                Clicked="StopAnimationButton_Clicked"
+                    FontSize="Large"
+                    BackgroundColor="DodgerBlue"
+                TextColor="White"
+                Margin="10"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

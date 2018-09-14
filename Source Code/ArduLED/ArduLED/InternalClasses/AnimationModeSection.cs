@@ -290,7 +290,7 @@ namespace ArduLEDNameSpace
                             });
                         }
 
-                        SerialOut = "8;" + MainFormClass.AnimationModeLineSpacingNumericUpDown.Value + ";" + Convert.ToInt32(UseCompression) + ";1;";
+                        SerialOut = "8;" + (AnimationList[i].Split(';').Length - 1) + ";" + Convert.ToInt32(UseCompression) + ";1;";
 
                         int Count = 0;
                         int PreCount = 0;
@@ -339,11 +339,11 @@ namespace ArduLEDNameSpace
                                     foreach (string Split in InnerSerialOutSplit)
                                         SerialOut += Split + ";";
 
-                                    SerialOut = SerialOut.Substring(0, SerialOut.Length - 2);
+                                    SerialOut = SerialOut.Substring(0, SerialOut.Length - 1);
 
                                     MainFormClass.SendDataBySerial(SerialOut);
 
-                                    SerialOut = "8;" + (MainFormClass.AnimationModeLineSpacingNumericUpDown.Value - Count).ToString() + ";" + Convert.ToInt32(UseCompression) + ";1;" + AddString;
+                                    SerialOut = "8;" + ((AnimationList[i].Split(';').Length - 1) - Count).ToString() + ";" + Convert.ToInt32(UseCompression) + ";1;" + AddString;
 
                                     PreCount = Count;
                                 }
@@ -354,6 +354,8 @@ namespace ArduLEDNameSpace
                                 Count++;
                             }
                         }
+
+                        SerialOut = SerialOut.Substring(0, SerialOut.Length - 1);
 
                         MainFormClass.SendDataBySerial(SerialOut);
 
@@ -401,17 +403,19 @@ namespace ArduLEDNameSpace
             {
                 using (StreamWriter SaveFile = new StreamWriter(MainFormClass.SaveFileDialog.OpenFile(), System.Text.Encoding.UTF8))
                 {
+                    string SerialOut = MainFormClass.AnimationModeHighCompressionCheckBox.Checked + ";" + MainFormClass.AnimationModeMoveIntervalNumericUpDown.Value + ";" + MainFormClass.AnimationModeLineSpacingNumericUpDown.Value + ";" + MainFormClass.AnimationModeFromIDNumericUpDown.Value + ";" + MainFormClass.AnimationModeToIDNumericUpDown.Value;
+                    SaveFile.WriteLine(SerialOut);
+                    AutoSaveFile.WriteLine(SerialOut);
                     foreach (string c in AnimationList)
                     {
-                        string SerialOut = c;
-                        SaveFile.WriteLine(SerialOut);
-                        AutoSaveFile.WriteLine(SerialOut);
+                        SaveFile.WriteLine(c);
+                        AutoSaveFile.WriteLine(c);
                     }
                 }
             }
         }
 
-        public void LoadAnimation()
+        public void LoadAnimation(string _FileName)
         {
             Panel WorkingPanel = (Panel)MainFormClass.AnimationModePanel.Controls.Find("AnimationModeAnimationWindowWorkingPanel", true)[0];
             while (WorkingPanel.Controls.Count > 0)
@@ -419,8 +423,17 @@ namespace ArduLEDNameSpace
 
             AnimationList.Clear();
 
-            string[] Lines = File.ReadAllLines(MainFormClass.LoadFileDialog.FileName, System.Text.Encoding.UTF8);
-            for (int i = 0; i < Lines.Length; i++)
+            string[] Lines = File.ReadAllLines(_FileName, System.Text.Encoding.UTF8);
+
+            string[] InnerLines = Lines[0].Split(';');
+
+            MainFormClass.AnimationModeHighCompressionCheckBox.Checked = Convert.ToBoolean(InnerLines[0]);
+            MainFormClass.AnimationModeMoveIntervalNumericUpDown.Value = Convert.ToInt32(InnerLines[1]);
+            MainFormClass.AnimationModeLineSpacingNumericUpDown.Value = Convert.ToInt32(InnerLines[2]);
+            MainFormClass.AnimationModeFromIDNumericUpDown.Value = Convert.ToInt32(InnerLines[3]);
+            MainFormClass.AnimationModeToIDNumericUpDown.Value = Convert.ToInt32(InnerLines[4]);
+
+            for (int i = 1; i < Lines.Length; i++)
             {
                 AnimationList.Add(Lines[i]);
                 MakeNewLinePanel(Lines[i], i, WorkingPanel);
@@ -431,10 +444,11 @@ namespace ArduLEDNameSpace
         {
             using (StreamWriter AutoSaveFile = new StreamWriter(MainFormClass.GenerateStreamFromString(Directory.GetCurrentDirectory() + "\\Animations\\0.txt"), System.Text.Encoding.UTF8))
             {
+                string SerialOut = MainFormClass.AnimationModeHighCompressionCheckBox.Checked + ";" + MainFormClass.AnimationModeMoveIntervalNumericUpDown.Value + ";" + MainFormClass.AnimationModeLineSpacingNumericUpDown.Value + ";" + MainFormClass.AnimationModeFromIDNumericUpDown.Value + ";" + MainFormClass.AnimationModeToIDNumericUpDown.Value;
+                AutoSaveFile.WriteLine(SerialOut);
                 foreach (string c in AnimationList)
                 {
-                    string SerialOut = c;
-                    AutoSaveFile.WriteLine(SerialOut);
+                    AutoSaveFile.WriteLine(c);
                 }
             }
         }

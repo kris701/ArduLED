@@ -17,6 +17,7 @@ namespace ArduLED_Mobile
 		public IndividualLEDPage(MainMenuPage _MainMenu)
 		{
 			InitializeComponent();
+
             MainMenu = _MainMenu;
 
             if (UserSettings.IndividualPinID != -1)
@@ -43,26 +44,12 @@ namespace ArduLED_Mobile
             {
                 try
                 {
-                    String TextboxString = "INDIVIDUALCOLOR(" +
+                    MainMenu.SendData("INDIVIDUALCOLOR(" +
                         Math.Round(Convert.ToDecimal(PinIDEntry.Text), 0) + "," +
                         Math.Round(Convert.ToDecimal(HardwareIDEntry.Text), 0) + "," +
                         Math.Round(SingleRedSlider.Value, 0) + "," +
                         Math.Round(SingleGreenSlider.Value, 0) + "," +
-                        Math.Round(SingleBlueSlider.Value, 0) + ")$";
-
-                    Stream DataStream = MainMenu.SourceApp.Client.GetStream();
-                    DataStream.ReadTimeout = 1000;
-                    DataStream.WriteTimeout = 1000;
-
-                    ASCIIEncoding Encodings = new ASCIIEncoding();
-                    byte[] WriteBytes = Encodings.GetBytes(TextboxString);
-
-                    DataStream.Write(WriteBytes, 0, WriteBytes.Length);
-
-                    byte[] ReadBytes = new byte[1024];
-                    int Good = DataStream.Read(ReadBytes, 0, 1024);
-
-                    string Response = Encoding.ASCII.GetString(ReadBytes);
+                        Math.Round(SingleBlueSlider.Value, 0) + ")");
                 }
                 catch
                 {

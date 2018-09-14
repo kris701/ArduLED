@@ -97,6 +97,10 @@ namespace ArduLEDNameSpace
             ServerEnded = false;
             try
             {
+                if (ServerListener != null)
+                    ServerListener.Stop();
+                if (ClientSocket != null)
+                    ClientSocket.Close();
                 ClientSocket = null;
                 ServerListener = null;
                 IPAddress ServerIP = IPAddress.None;
@@ -110,8 +114,9 @@ namespace ArduLEDNameSpace
 
                 ConnectToClient();
             }
-            catch
+            catch(Exception E)
             {
+                MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += E; });
                 MessageBox.Show("Error with Server Settings");
                 ServerRunning = false;
             }
@@ -126,42 +131,35 @@ namespace ArduLEDNameSpace
                         if (!ConnectToClient())
                             break;
                     }
-                    if (ClientSocket.Client.Poll(0, SelectMode.SelectRead))
-                    {
-                        try
-                        {
-                            byte[] PeekBuffer = new byte[1];
-                            ClientSocket.Client.Receive(PeekBuffer, SocketFlags.Peek);
-                        }
-                        catch
-                        {
-                            MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "Client Disconnected!" + Environment.NewLine; });
-                            if (!ConnectToClient())
-                                break;
-                        }
-                    }
                     NetworkStream DataStream = ClientSocket.GetStream();
                     byte[] ReadBytes = new byte[1024];
                     DataStream.Read(ReadBytes, 0, 1024);
+                    DataStream.Flush();
                     string ClientData = System.Text.Encoding.ASCII.GetString(ReadBytes);
                     ClientData = ClientData.Substring(0, ClientData.IndexOf("$"));
 
                     MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "Server Recieved: " + ClientData + Environment.NewLine; });
 
                     string Out = ArduLEDServerAPI(ClientData);
-                    if (Out != "")
-                    {
-                        Byte[] SendBytes = System.Text.Encoding.ASCII.GetBytes(Out);
-                        DataStream.Write(SendBytes, 0, SendBytes.Length);
-                        DataStream.Flush();
-                    }
+
+                    //Use for debug
+                    //if (Out != "")
+                    //{
+                    //    Byte[] SendBytes = System.Text.Encoding.ASCII.GetBytes(Out);
+                    //    DataStream.Write(SendBytes, 0, SendBytes.Length);
+                    //    DataStream.Flush();
+                    //}
                     if (Out != "N")
                         MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += " Command Done!" + Environment.NewLine; });
                     else
                         MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += " Bad Input!!" + Environment.NewLine; });
+
+                    MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.SelectionStart = MainFormClass.ServerSettingsConsoleTextBox.TextLength - 1; });
+                    MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.ScrollToCaret(); });
                 }
                 catch
                 {
+                    MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "Client Disconnected!" + Environment.NewLine; });
                     ServerListener.Stop();
                     ServerListener.Start();
                     if (!ConnectToClient())
@@ -169,7 +167,7 @@ namespace ArduLEDNameSpace
                 }
             }
             ServerListener.Stop();
-            MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "Server Disconnected!" + Environment.NewLine; });
+            MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "Server Closed!" + Environment.NewLine; });
             ServerEnded = true;
         }
 
@@ -188,7 +186,7 @@ namespace ArduLEDNameSpace
                 {
                     ClientSocket = ServerListener.AcceptTcpClient();
                     NetworkStream DataStream = ClientSocket.GetStream();
-                    Byte[] SendBytes = System.Text.Encoding.ASCII.GetBytes(MainFormClass.ServerSettingsServerNameTextbox.Text + ";" + MainFormClass.TotalLEDCount);
+                    Byte[] SendBytes = System.Text.Encoding.ASCII.GetBytes("G");
                     DataStream.Write(SendBytes, 0, SendBytes.Length);
                     DataStream.Flush();
                     MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "Server Connected!" + Environment.NewLine; });
@@ -210,6 +208,34 @@ namespace ArduLEDNameSpace
                 string[] InputSplit = _Input.Split(',');
 
                 MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "     Running Command: " + InputSplit[0].ToUpper().Split('(')[0] + " ... "; });
+
+                //GETTOTALLEDCOUNT()
+
+                if (InputSplit[0].Replace(InputSplit[0].Replace("GETTOTALLEDCOUNT(", ""), "").ToUpper() == "GETTOTALLEDCOUNT(")
+                {
+                    InputSplit[0] = InputSplit[0].Replace("GETTOTALLEDCOUNT(", "");
+                    InputSplit[InputSplit.Length - 1] = InputSplit[InputSplit.Length - 1].Replace(")", "");
+
+                    NetworkStream DataStream = ClientSocket.GetStream();
+                    Byte[] SendBytes = System.Text.Encoding.ASCII.GetBytes(MainFormClass.TotalLEDCount.ToString());
+                    DataStream.Write(SendBytes, 0, SendBytes.Length);
+                    DataStream.Flush();
+                    return "G";
+                }
+
+                //GETSERVERNAME()
+
+                if (InputSplit[0].Replace(InputSplit[0].Replace("GETSERVERNAME(", ""), "").ToUpper() == "GETSERVERNAME(")
+                {
+                    InputSplit[0] = InputSplit[0].Replace("GETSERVERNAME(", "");
+                    InputSplit[InputSplit.Length - 1] = InputSplit[InputSplit.Length - 1].Replace(")", "");
+
+                    NetworkStream DataStream = ClientSocket.GetStream();
+                    Byte[] SendBytes = System.Text.Encoding.ASCII.GetBytes(MainFormClass.ServerSettingsServerNameTextbox.Text);
+                    DataStream.Write(SendBytes, 0, SendBytes.Length);
+                    DataStream.Flush();
+                    return "G";
+                }
 
                 //FADECOLOR(True,0,-1,255,0,255,20,10)
 
@@ -293,7 +319,7 @@ namespace ArduLEDNameSpace
                     InputSplit[0] = InputSplit[0].Replace("GETVISUALIZERCONFIGS(", "");
                     InputSplit[InputSplit.Length - 1] = InputSplit[InputSplit.Length - 1].Replace(")", "");
 
-                    string SendString = "";
+                    string SendString = " ";
 
                     foreach(string _File in Directory.GetFiles(Directory.GetCurrentDirectory() + "\\VisualizerSettings"))
                     {
@@ -382,9 +408,132 @@ namespace ArduLEDNameSpace
                     InputSplit[0] = InputSplit[0].Replace("GETAMBILIGHTCONFIGS(", "");
                     InputSplit[InputSplit.Length - 1] = InputSplit[InputSplit.Length - 1].Replace(")", "");
 
-                    string SendString = "";
+                    string SendString = " ";
 
                     foreach (string _File in Directory.GetFiles(Directory.GetCurrentDirectory() + "\\AmbilightSettings"))
+                    {
+                        SendString += _File.Split('\\')[_File.Split('\\').Length - 1] + ";";
+                    }
+
+                    NetworkStream DataStream = ClientSocket.GetStream();
+                    Byte[] SendBytes = System.Text.Encoding.ASCII.GetBytes(SendString);
+                    DataStream.Write(SendBytes, 0, SendBytes.Length);
+                    DataStream.Flush();
+                    return "G";
+                }
+
+                //ANIMATION(True,False,True,wew5.txt)
+
+                if (InputSplit[0].Replace(InputSplit[0].Replace("ANIMATION(", ""), "").ToUpper() == "ANIMATION(")
+                {
+                    InputSplit[0] = InputSplit[0].Replace("ANIMATION(", "");
+                    InputSplit[InputSplit.Length - 1] = InputSplit[InputSplit.Length - 1].Replace(")", "");
+
+                    if (InputSplit[3] != "")
+                    {
+                        MainFormClass.AnimationModePanel.Invoke((MethodInvoker)delegate
+                        {
+                            MainFormClass.AnimationModeSectionClass.LoadAnimation(Directory.GetCurrentDirectory() + "\\Animations\\" + InputSplit[3]);
+                        });
+                    }
+                    if (InputSplit[0] == "True")
+                    {
+                        MainFormClass.AnimationModePanel.Invoke((MethodInvoker)delegate
+                        {
+                            if (!MainFormClass.AnimationModeSectionClass.AnimationRunning)
+                            {
+                                MainFormClass.AnimationModeSectionClass.MoveInterval = (int)MainFormClass.AnimationModeMoveIntervalNumericUpDown.Value;
+                                MainFormClass.AnimationModeSectionClass.ContinueAnimationLoop = true;
+                                MainFormClass.AnimationModeSectionClass.RunAnimation();
+                            }
+                        });
+                    }
+                    if (InputSplit[1] == "True")
+                    {
+                        MainFormClass.AnimationModePanel.Invoke((MethodInvoker)delegate
+                        {
+                            if (MainFormClass.AnimationModeSectionClass.ContinueAnimationLoop)
+                                if (MainFormClass.AnimationModeSectionClass.AnimationRunning)
+                                    MainFormClass.AnimationModeSectionClass.StopAnimationLoop = true;
+                        });
+                    }
+                    MainFormClass.AnimationModePanel.Invoke((MethodInvoker)delegate {
+                        MainFormClass.AnimationModeLoopCheckBox.Checked = Convert.ToBoolean(InputSplit[2]);
+                    });
+                    return "G";
+                }
+
+                //GETANIMATIONCONFIGS()
+
+                if (InputSplit[0].Replace(InputSplit[0].Replace("GETANIMATIONCONFIGS(", ""), "").ToUpper() == "GETANIMATIONCONFIGS(")
+                {
+                    InputSplit[0] = InputSplit[0].Replace("GETANIMATIONCONFIGS(", "");
+                    InputSplit[InputSplit.Length - 1] = InputSplit[InputSplit.Length - 1].Replace(")", "");
+
+                    string SendString = " ";
+
+                    foreach (string _File in Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Animations"))
+                    {
+                        SendString += _File.Split('\\')[_File.Split('\\').Length - 1] + ";";
+                    }
+
+                    NetworkStream DataStream = ClientSocket.GetStream();
+                    Byte[] SendBytes = System.Text.Encoding.ASCII.GetBytes(SendString);
+                    DataStream.Write(SendBytes, 0, SendBytes.Length);
+                    DataStream.Flush();
+                    return "G";
+                }
+
+                //INSTRUCTIONS(True,False,True,wew5.txt)
+
+                if (InputSplit[0].Replace(InputSplit[0].Replace("INSTRUCTIONS(", ""), "").ToUpper() == "INSTRUCTIONS(")
+                {
+                    InputSplit[0] = InputSplit[0].Replace("INSTRUCTIONS(", "");
+                    InputSplit[InputSplit.Length - 1] = InputSplit[InputSplit.Length - 1].Replace(")", "");
+
+                    if (InputSplit[3] != "")
+                    {
+                        MainFormClass.InstructionsPanel.Invoke((MethodInvoker)delegate
+                        {
+                            MainFormClass.InstructionsSectionClass.LoadInstructions(Directory.GetCurrentDirectory() + "\\Instructions\\" + InputSplit[3]);
+                        });
+                    }
+                    if (InputSplit[0] == "True")
+                    {
+                        MainFormClass.InstructionsPanel.Invoke((MethodInvoker)delegate
+                        {
+                            if (!MainFormClass.InstructionsSectionClass.InstructionsRunning)
+                            {
+                                MainFormClass.InstructionsSectionClass.ContinueInstructionsLoop = true;
+                                MainFormClass.InstructionsSectionClass.RunInstructions();
+                            }
+                        });
+                    }
+                    if (InputSplit[1] == "True")
+                    {
+                        MainFormClass.InstructionsPanel.Invoke((MethodInvoker)delegate
+                        {
+                            if (MainFormClass.InstructionsSectionClass.ContinueInstructionsLoop)
+                                if (MainFormClass.InstructionsSectionClass.InstructionsRunning)
+                                    MainFormClass.InstructionsSectionClass.StopInstructionsLoop = true;
+                        });
+                    }
+                    MainFormClass.InstructionsPanel.Invoke((MethodInvoker)delegate {
+                        MainFormClass.InstructionsLoopCheckBox.Checked = Convert.ToBoolean(InputSplit[2]);
+                    });
+                    return "G";
+                }
+
+                //GETINSTRUCTIONSCONFIGS()
+
+                if (InputSplit[0].Replace(InputSplit[0].Replace("GETINSTRUCTIONSCONFIGS(", ""), "").ToUpper() == "GETINSTRUCTIONSCONFIGS(")
+                {
+                    InputSplit[0] = InputSplit[0].Replace("GETINSTRUCTIONSCONFIGS(", "");
+                    InputSplit[InputSplit.Length - 1] = InputSplit[InputSplit.Length - 1].Replace(")", "");
+
+                    string SendString = " ";
+
+                    foreach (string _File in Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Instructions"))
                     {
                         SendString += _File.Split('\\')[_File.Split('\\').Length - 1] + ";";
                     }

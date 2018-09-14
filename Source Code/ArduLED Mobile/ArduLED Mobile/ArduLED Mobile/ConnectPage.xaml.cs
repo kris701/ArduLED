@@ -28,9 +28,11 @@ namespace ArduLED_Mobile
             {
                 try
                 {
+                    if (MenuPage.SourceApp.Client.Client.Connected)
+                        MenuPage.SourceApp.Client.Client.Close();
+
                     MenuPage.IPAddress = IPAddress.Parse(IpEntry.Text);
                     MenuPage.PortNumber = Int32.Parse(PortEntry.Text);
-                    MenuPage.SourceApp.Client.Close();
                     MenuPage.SourceApp.Client = new TcpClient();
 
                     var result = MenuPage.SourceApp.Client.BeginConnect(MenuPage.IPAddress, MenuPage.PortNumber, null, null);
@@ -39,25 +41,24 @@ namespace ArduLED_Mobile
 
                     if (!success)
                     {
-                        DisplayAlert("Error","Failed to connect to ip: " + MenuPage.IPAddress + ":" + MenuPage.PortNumber,"OK");
+                        DisplayAlert("Error", "Failed to connect to ip: " + MenuPage.IPAddress + ":" + MenuPage.PortNumber, "OK");
                         throw new Exception("Failed to connect.");
                     }
 
                     MenuPage.SourceApp.Client.EndConnect(result);
 
-                    NetworkStream DataStream = MenuPage.SourceApp.Client.GetStream();
-                    DataStream.ReadTimeout = 1000;
-                    byte[] ReadBytes = new byte[1024];
-                    DataStream.Read(ReadBytes, 0, 1024);
-                    string ClientData = Encoding.ASCII.GetString(ReadBytes);
-
                     UserSettings.ConnectionSettingsDefaultIP = IpEntry.Text;
-                    UserSettings.ConnectionSettingsDefaultPort = MenuPage.PortNumber;
+                    UserSettings.ConnectionSettingsDefaultPort = Int32.Parse(PortEntry.Text);
 
-                    MenuPage.ServerIDLabel.Text = "Connected to server: " + ClientData.Split(';')[0];
-                    MenuPage.TotalLEDCount = Int32.Parse(ClientData.Split(';')[1]);
+                    MenuPage.ReceiveData();
 
-                    Navigation.PopModalAsync();
+                    MenuPage.SendData("GETTOTALLEDCOUNT()");
+                    MenuPage.TotalLEDCount = Int32.Parse(MenuPage.ReceiveData());
+
+                    MenuPage.SendData("GETSERVERNAME()");
+                    MenuPage.ServerIDLabel.Text = "Connected to server: " + MenuPage.ReceiveData();
+
+                    Application.Current.MainPage.Navigation.PopAsync();
                 }
                 catch
                 {

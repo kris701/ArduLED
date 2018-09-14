@@ -6,23 +6,25 @@
     <ContentPage.Content>
         <StackLayout BackgroundColor="DimGray">
             <Entry x:Name="IpEntry"
-               Placeholder="Enter IP"
-                   TextColor="White"
-                   PlaceholderColor="LightGray"
-                   Margin="10"/>
-            <Entry x:Name="PortEntry"
-               Placeholder="Enter Port" 
-               Keyboard="Numeric"
-               Completed="ConnectButtonClicked"
-                   TextColor="White"
-                   PlaceholderColor="LightGray"
-                   Margin="10"/>
-            <Button Text="Connect" 
-                Clicked="ConnectButtonClicked"
-                    FontSize="20"
-                    BackgroundColor="DodgerBlue"
-                TextColor="White"
-                Margin="10"/>
-        </StackLayout>
+                   Placeholder="Enter IP"
+                       TextColor="White"
+                       PlaceholderColor="LightGray"
+                       Margin="10"
+                       FontSize="Medium"/>
+                <Entry x:Name="PortEntry"
+                   Placeholder="Enter Port" 
+                   Keyboard="Numeric"
+                   Completed="ConnectButtonClicked"
+                       TextColor="White"
+                       PlaceholderColor="LightGray"
+                       Margin="10"
+                       FontSize="Medium"/>
+                <Button Text="Connect" 
+                    Clicked="ConnectButtonClicked"
+                        FontSize="Large"
+                        BackgroundColor="DodgerBlue"
+                    TextColor="White"
+                    Margin="10"/>
+            </StackLayout>
     </ContentPage.Content>
 </ContentPage>

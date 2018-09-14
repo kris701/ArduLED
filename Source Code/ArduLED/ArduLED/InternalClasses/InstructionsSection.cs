@@ -353,14 +353,13 @@ namespace ArduLEDNameSpace
             }
         }
 
-        public void LoadInstructions()
+        public void LoadInstructions(string _FileLoc)
         {
             while (MainFormClass.InstructionsWorkingPanel.Controls.Count > 0)
                 MainFormClass.InstructionsWorkingPanel.Controls[0].Dispose();
 
             IntructionsList.Clear();
-
-            string[] Lines = File.ReadAllLines(MainFormClass.LoadFileDialog.FileName, System.Text.Encoding.UTF8);
+            string[] Lines = File.ReadAllLines(_FileLoc, System.Text.Encoding.UTF8);
             for (int i = 0; i < Lines.Length; i++)
             {
                 IntructionsList.Add(Lines[i]);

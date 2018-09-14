@@ -38,6 +38,8 @@ namespace ArduLEDNameSpace
                 string NewVersion = File.ReadAllLines(Directory.GetCurrentDirectory() + "\\Temp.txt")[0];
                 string CurrentVersion = File.ReadAllLines(Directory.GetCurrentDirectory() + "\\Version.txt")[0];
 
+                MainFormClass.Text = "ArduLED " + CurrentVersion;
+
                 if (CurrentVersion != NewVersion)
                 {
                     LoadingForm.Name = "DoHide";
