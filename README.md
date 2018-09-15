@@ -37,7 +37,7 @@ This project is open source, so all the Visual Studio files comes with the proje
 - [**Home**](https://github.com/kris701/ArduLED/wiki)
 - [**Requirements and Setup**](https://github.com/kris701/ArduLED/wiki/Requirements-and-setup)
 - [**First Startup**](https://github.com/kris701/ArduLED/wiki/First-Startup)
-- **How to use**
+- [**How to use**](https://github.com/kris701/ArduLED/wiki/How-to-use)
   - [Main Menu](https://github.com/kris701/ArduLED/wiki/Main-Menu)
   - [Fade Colors](https://github.com/kris701/ArduLED/wiki/Fade-Colors)
   - [The Visualizer](https://github.com/kris701/ArduLED/wiki/The-Visualizer)
@@ -58,7 +58,7 @@ This project is open source, so all the Visual Studio files comes with the proje
     - [_Animations Settings_](https://github.com/kris701/ArduLED/wiki/(Android)-Animations-Settings)
     - [_Instructions Settings_](https://github.com/kris701/ArduLED/wiki/(Android)-Instructions-Settings)
     - [_Connection Settings_](https://github.com/kris701/ArduLED/wiki/(Android)-Connection-Settings)
-- **Performance**
+- [**Performance**](https://github.com/kris701/ArduLED/wiki/Performance)
   - [Visualizer](https://github.com/kris701/ArduLED/wiki/Performance-of-Visualizer)
   - [Ambilight](https://github.com/kris701/ArduLED/wiki/Performance-of-Ambilight)
 
