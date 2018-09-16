@@ -35,7 +35,7 @@
     <OutputPath>bin\Release 64x\</OutputPath>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -162,6 +162,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <Content Include="Resources\icon.ico" />
+    <Content Include="Resources\icon.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\SkinnySeveralAsianlion.gif" />

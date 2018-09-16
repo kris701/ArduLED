@@ -378,6 +378,8 @@
             this.ServerSettingsConsoleTextBox = new System.Windows.Forms.TextBox();
             this.ServerSettingsPanel = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.ServerSettingsServerNameTextbox = new System.Windows.Forms.TextBox();
+            this.ServerSettingsServerNameLabel = new System.Windows.Forms.Label();
             this.ServerSettingsClearConsoleButton = new System.Windows.Forms.Button();
             this.ServerSettingsStopServerButton = new System.Windows.Forms.Button();
             this.ServerSettingsStartServerButton = new System.Windows.Forms.Button();
@@ -423,8 +425,6 @@
             this.AnimationModeTopLabel = new System.Windows.Forms.Label();
             this.AnimationModeSaveButton = new System.Windows.Forms.Button();
             this.AnimationModeAnimationWindowWorkingPanel = new System.Windows.Forms.Panel();
-            this.ServerSettingsServerNameTextbox = new System.Windows.Forms.TextBox();
-            this.ServerSettingsServerNameLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.SampleTimeTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SmoothnessTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SensitivityTrackBar)).BeginInit();
@@ -5568,6 +5568,29 @@
             this.panel6.Size = new System.Drawing.Size(842, 66);
             this.panel6.TabIndex = 73;
             // 
+            // ServerSettingsServerNameTextbox
+            // 
+            this.ServerSettingsServerNameTextbox.BackColor = System.Drawing.Color.DarkGray;
+            this.ServerSettingsServerNameTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ServerSettingsServerNameTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ServerSettingsServerNameTextbox.ForeColor = System.Drawing.Color.White;
+            this.ServerSettingsServerNameTextbox.Location = new System.Drawing.Point(155, 46);
+            this.ServerSettingsServerNameTextbox.Name = "ServerSettingsServerNameTextbox";
+            this.ServerSettingsServerNameTextbox.Size = new System.Drawing.Size(126, 15);
+            this.ServerSettingsServerNameTextbox.TabIndex = 77;
+            this.ServerSettingsServerNameTextbox.Tag = "Setting";
+            this.ServerSettingsServerNameTextbox.Text = "Server";
+            // 
+            // ServerSettingsServerNameLabel
+            // 
+            this.ServerSettingsServerNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ServerSettingsServerNameLabel.ForeColor = System.Drawing.Color.White;
+            this.ServerSettingsServerNameLabel.Location = new System.Drawing.Point(2, 46);
+            this.ServerSettingsServerNameLabel.Name = "ServerSettingsServerNameLabel";
+            this.ServerSettingsServerNameLabel.Size = new System.Drawing.Size(148, 15);
+            this.ServerSettingsServerNameLabel.TabIndex = 76;
+            this.ServerSettingsServerNameLabel.Text = "Server Name";
+            // 
             // ServerSettingsClearConsoleButton
             // 
             this.ServerSettingsClearConsoleButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
@@ -6181,29 +6204,6 @@
             this.AnimationModeAnimationWindowWorkingPanel.Name = "AnimationModeAnimationWindowWorkingPanel";
             this.AnimationModeAnimationWindowWorkingPanel.Size = new System.Drawing.Size(842, 381);
             this.AnimationModeAnimationWindowWorkingPanel.TabIndex = 10;
-            // 
-            // ServerSettingsServerNameTextbox
-            // 
-            this.ServerSettingsServerNameTextbox.BackColor = System.Drawing.Color.DarkGray;
-            this.ServerSettingsServerNameTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ServerSettingsServerNameTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ServerSettingsServerNameTextbox.ForeColor = System.Drawing.Color.White;
-            this.ServerSettingsServerNameTextbox.Location = new System.Drawing.Point(155, 46);
-            this.ServerSettingsServerNameTextbox.Name = "ServerSettingsServerNameTextbox";
-            this.ServerSettingsServerNameTextbox.Size = new System.Drawing.Size(126, 15);
-            this.ServerSettingsServerNameTextbox.TabIndex = 77;
-            this.ServerSettingsServerNameTextbox.Tag = "Setting";
-            this.ServerSettingsServerNameTextbox.Text = "Server";
-            // 
-            // ServerSettingsServerNameLabel
-            // 
-            this.ServerSettingsServerNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ServerSettingsServerNameLabel.ForeColor = System.Drawing.Color.White;
-            this.ServerSettingsServerNameLabel.Location = new System.Drawing.Point(2, 46);
-            this.ServerSettingsServerNameLabel.Name = "ServerSettingsServerNameLabel";
-            this.ServerSettingsServerNameLabel.Size = new System.Drawing.Size(148, 15);
-            this.ServerSettingsServerNameLabel.TabIndex = 76;
-            this.ServerSettingsServerNameLabel.Text = "Server Name";
             // 
             // MainForm
             // 

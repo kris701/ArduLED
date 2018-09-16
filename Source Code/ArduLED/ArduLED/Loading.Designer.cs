@@ -34,8 +34,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.LoadingScreenLabel = new System.Windows.Forms.Label();
             this.LoadingScreenLoadingLabel = new System.Windows.Forms.Label();
+            this.LoadingScreenLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -92,17 +92,6 @@
             this.panel1.Size = new System.Drawing.Size(597, 30);
             this.panel1.TabIndex = 6;
             // 
-            // LoadingScreenLabel
-            // 
-            this.LoadingScreenLabel.AutoSize = true;
-            this.LoadingScreenLabel.Font = new System.Drawing.Font("Lucida Console", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LoadingScreenLabel.ForeColor = System.Drawing.Color.White;
-            this.LoadingScreenLabel.Location = new System.Drawing.Point(215, 154);
-            this.LoadingScreenLabel.Name = "LoadingScreenLabel";
-            this.LoadingScreenLabel.Size = new System.Drawing.Size(95, 9);
-            this.LoadingScreenLabel.TabIndex = 7;
-            this.LoadingScreenLabel.Text = "Loading: Internals";
-            // 
             // LoadingScreenLoadingLabel
             // 
             this.LoadingScreenLoadingLabel.AutoSize = true;
@@ -113,6 +102,17 @@
             this.LoadingScreenLoadingLabel.Size = new System.Drawing.Size(215, 11);
             this.LoadingScreenLoadingLabel.TabIndex = 6;
             this.LoadingScreenLoadingLabel.Text = "Your Version:  Newest Version:";
+            // 
+            // LoadingScreenLabel
+            // 
+            this.LoadingScreenLabel.AutoSize = true;
+            this.LoadingScreenLabel.Font = new System.Drawing.Font("Lucida Console", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LoadingScreenLabel.ForeColor = System.Drawing.Color.White;
+            this.LoadingScreenLabel.Location = new System.Drawing.Point(215, 154);
+            this.LoadingScreenLabel.Name = "LoadingScreenLabel";
+            this.LoadingScreenLabel.Size = new System.Drawing.Size(95, 9);
+            this.LoadingScreenLabel.TabIndex = 7;
+            this.LoadingScreenLabel.Text = "Loading: Internals";
             // 
             // Loading
             // 

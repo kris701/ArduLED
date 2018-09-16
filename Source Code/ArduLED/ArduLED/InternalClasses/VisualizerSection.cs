@@ -7,7 +7,6 @@ using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using Un4seen.Bass;
 using Un4seen.BassWasapi;
-using System.IO.Ports;
 using Microsoft.Win32.SafeHandles;
 using System.Runtime.InteropServices;
 
@@ -632,24 +631,6 @@ namespace ArduLEDNameSpace
             }
             else
                 MainFormClass.VisualizerCurrentValueLabel.Invoke((MethodInvoker)delegate { MainFormClass.VisualizerCurrentValueLabel.Text = "0"; });
-        }
-
-        public void InitializeBass()
-        {
-            MainFormClass.AudioSourceComboBox.Items.Clear();
-            for (int i = 0; i < BassWasapi.BASS_WASAPI_GetDeviceCount(); i++)
-            {
-                var device = BassWasapi.BASS_WASAPI_GetDeviceInfo(i);
-                if (device.IsEnabled && device.IsLoopback)
-                {
-                    MainFormClass.AudioSourceComboBox.Items.Add(string.Format("{0} - {1}", i, device.name));
-                }
-            }
-
-            foreach (string s in SerialPort.GetPortNames())
-            {
-                MainFormClass.ComPortsComboBox.Items.Add(s);
-            }
         }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.IO.Ports;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Un4seen.BassWasapi;
 
 namespace ArduLEDNameSpace
 {
@@ -74,7 +76,7 @@ namespace ArduLEDNameSpace
 
             SetLoadingLabelTo("BASS.NET");
 
-            MainFormClass.VisualizerSectionClass.InitializeBass();
+            InitializeBass();
 
             SetLoadingLabelTo("Instructions folder");
 
@@ -321,6 +323,26 @@ namespace ArduLEDNameSpace
             catch
             {
                 MessageBox.Show("Error Connecting To servers!");
+            }
+        }
+
+        public void InitializeBass()
+        {
+            MainFormClass.AudioSourceComboBox.Items.Clear();
+            int DeviceCount = BassWasapi.BASS_WASAPI_GetDeviceCount();
+            for (int i = 0; i < DeviceCount; i++)
+            {
+                SetLoadingLabelTo("BASS.NET: Device " + i + " out of " + DeviceCount);
+                var device = BassWasapi.BASS_WASAPI_GetDeviceInfo(i);
+                if (device.IsEnabled && device.IsLoopback)
+                {
+                    MainFormClass.AudioSourceComboBox.Items.Add(string.Format("{0} - {1}", i, device.name));
+                }
+            }
+
+            foreach (string s in SerialPort.GetPortNames())
+            {
+                MainFormClass.ComPortsComboBox.Items.Add(s);
             }
         }
     }
