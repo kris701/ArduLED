@@ -439,13 +439,14 @@ namespace ArduLEDNameSpace
 
         private void FadeColors_BeginSendData(object sender, MouseEventArgs e)
         {
-            FadeColorsSectionClass.FadeColorsSendData(
-                false, 
-                (int)FadeLEDPanelFromIDNumericUpDown.Value, 
-                (int)FadeLEDPanelToIDNumericUpDown.Value, 
-                Color.FromArgb(FadeColorsRedTrackBar.Value, FadeColorsGreenTrackBar.Value, FadeColorsBlueTrackBar.Value),
-                (int)FadeColorsFadeSpeedNumericUpDown.Value,
-                (int)Math.Round(FadeColorsFadeFactorNumericUpDown.Value * 100, 0)
+            if (!ServerAPISectionClass.RunningCommand)
+                FadeColorsSectionClass.FadeColorsSendData(
+                    false, 
+                    (int)FadeLEDPanelFromIDNumericUpDown.Value, 
+                    (int)FadeLEDPanelToIDNumericUpDown.Value, 
+                    Color.FromArgb(FadeColorsRedTrackBar.Value, FadeColorsGreenTrackBar.Value, FadeColorsBlueTrackBar.Value),
+                    (int)FadeColorsFadeSpeedNumericUpDown.Value,
+                    (double)FadeColorsFadeFactorNumericUpDown.Value
                 );
         }
 

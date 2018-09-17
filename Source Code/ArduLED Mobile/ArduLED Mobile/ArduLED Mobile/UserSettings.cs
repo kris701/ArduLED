@@ -30,67 +30,30 @@ namespace ArduLED_Mobile.Helpers
             set => AppSettings.AddOrUpdateValue(nameof(ConnectionSettingsDefaultPort), value);
         }
 
-        public static int FadeColorsFromIDPickerValue
-        {
-            get => AppSettings.GetValueOrDefault(nameof(FadeColorsFromIDPickerValue), -1);
-            set => AppSettings.AddOrUpdateValue(nameof(FadeColorsFromIDPickerValue), value);
-        }
-
-        public static int FadeColorsToIDPickerValue
-        {
-            get => AppSettings.GetValueOrDefault(nameof(FadeColorsToIDPickerValue), -1);
-            set => AppSettings.AddOrUpdateValue(nameof(FadeColorsToIDPickerValue), value);
-        }
-        public static int FadeColorsRedSliderValue
-        {
-            get => AppSettings.GetValueOrDefault(nameof(FadeColorsRedSliderValue), -1);
-            set => AppSettings.AddOrUpdateValue(nameof(FadeColorsRedSliderValue), value);
-        }
-        public static int FadeColorsGreenSliderValue
-        {
-            get => AppSettings.GetValueOrDefault(nameof(FadeColorsGreenSliderValue), -1);
-            set => AppSettings.AddOrUpdateValue(nameof(FadeColorsGreenSliderValue), value);
-        }
-        public static int FadeColorsBlueSliderValue
-        {
-            get => AppSettings.GetValueOrDefault(nameof(FadeColorsBlueSliderValue), -1);
-            set => AppSettings.AddOrUpdateValue(nameof(FadeColorsBlueSliderValue), value);
-        }
-        public static int FadeColorsFadeSpeedPickerValue
-        {
-            get => AppSettings.GetValueOrDefault(nameof(FadeColorsFadeSpeedPickerValue), -1);
-            set => AppSettings.AddOrUpdateValue(nameof(FadeColorsFadeSpeedPickerValue), value);
-        }
-        public static int FadeColorsFadeFactorPickerValue
-        {
-            get => AppSettings.GetValueOrDefault(nameof(FadeColorsFadeFactorPickerValue), -1);
-            set => AppSettings.AddOrUpdateValue(nameof(FadeColorsFadeFactorPickerValue), value);
-        }
-
         public static int IndividualPinID
         {
-            get => AppSettings.GetValueOrDefault(nameof(FadeColorsToIDPickerValue), -1);
-            set => AppSettings.AddOrUpdateValue(nameof(FadeColorsToIDPickerValue), value);
+            get => AppSettings.GetValueOrDefault(nameof(IndividualPinID), -1);
+            set => AppSettings.AddOrUpdateValue(nameof(IndividualPinID), value);
         }
         public static int InvididualHardwareID
         {
-            get => AppSettings.GetValueOrDefault(nameof(FadeColorsRedSliderValue), -1);
-            set => AppSettings.AddOrUpdateValue(nameof(FadeColorsRedSliderValue), value);
+            get => AppSettings.GetValueOrDefault(nameof(InvididualHardwareID), -1);
+            set => AppSettings.AddOrUpdateValue(nameof(InvididualHardwareID), value);
         }
         public static int IndividualRedSliderValue
         {
-            get => AppSettings.GetValueOrDefault(nameof(FadeColorsGreenSliderValue), -1);
-            set => AppSettings.AddOrUpdateValue(nameof(FadeColorsGreenSliderValue), value);
+            get => AppSettings.GetValueOrDefault(nameof(IndividualRedSliderValue), -1);
+            set => AppSettings.AddOrUpdateValue(nameof(IndividualRedSliderValue), value);
         }
         public static int IndividualGreenSliderValue
         {
-            get => AppSettings.GetValueOrDefault(nameof(FadeColorsBlueSliderValue), -1);
-            set => AppSettings.AddOrUpdateValue(nameof(FadeColorsBlueSliderValue), value);
+            get => AppSettings.GetValueOrDefault(nameof(IndividualGreenSliderValue), -1);
+            set => AppSettings.AddOrUpdateValue(nameof(IndividualGreenSliderValue), value);
         }
         public static int IndividualBlueSliderValue
         {
-            get => AppSettings.GetValueOrDefault(nameof(FadeColorsFadeSpeedPickerValue), -1);
-            set => AppSettings.AddOrUpdateValue(nameof(FadeColorsFadeSpeedPickerValue), value);
+            get => AppSettings.GetValueOrDefault(nameof(IndividualBlueSliderValue), -1);
+            set => AppSettings.AddOrUpdateValue(nameof(IndividualBlueSliderValue), value);
         }
 
         public static void ClearAllData()

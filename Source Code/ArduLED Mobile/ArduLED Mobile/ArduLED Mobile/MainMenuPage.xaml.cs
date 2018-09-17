@@ -130,7 +130,8 @@ namespace ArduLED_Mobile
                 DataStream.ReadTimeout = 1000;
                 byte[] ReadBytes = new byte[1024];
                 DataStream.Read(ReadBytes, 0, 1024);
-                return Encoding.ASCII.GetString(ReadBytes);
+                string[] Out = Encoding.ASCII.GetString(ReadBytes).Split('\0');
+                return Out[0];
             }
             catch
             {

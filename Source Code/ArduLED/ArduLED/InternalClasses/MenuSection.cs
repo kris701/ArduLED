@@ -207,7 +207,7 @@ namespace ArduLEDNameSpace
                         (int)MainFormClass.FadeLEDPanelToIDNumericUpDown.Value,
                         Color.FromArgb(MainFormClass.FadeColorsRedTrackBar.Value, MainFormClass.FadeColorsGreenTrackBar.Value, MainFormClass.FadeColorsBlueTrackBar.Value),
                         (int)MainFormClass.FadeColorsFadeSpeedNumericUpDown.Value,
-                        (int)Math.Round(MainFormClass.FadeColorsFadeFactorNumericUpDown.Value * 100, 0)
+                        (double)MainFormClass.FadeColorsFadeFactorNumericUpDown.Value
                         );
                 }
             }
@@ -239,7 +239,7 @@ namespace ArduLEDNameSpace
                         (int)MainFormClass.FadeLEDPanelToIDNumericUpDown.Value,
                         Color.FromArgb(MainFormClass.FadeColorsRedTrackBar.Value, MainFormClass.FadeColorsGreenTrackBar.Value, MainFormClass.FadeColorsBlueTrackBar.Value),
                         (int)MainFormClass.FadeColorsFadeSpeedNumericUpDown.Value,
-                        (int)Math.Round(MainFormClass.FadeColorsFadeFactorNumericUpDown.Value * 100, 0)
+                        (double)MainFormClass.FadeColorsFadeFactorNumericUpDown.Value
                         );
                 }
             }
@@ -255,7 +255,7 @@ namespace ArduLEDNameSpace
                         (int)MainFormClass.FadeLEDPanelToIDNumericUpDown.Value,
                         Color.FromArgb(MainFormClass.FadeColorsRedTrackBar.Value, MainFormClass.FadeColorsGreenTrackBar.Value, MainFormClass.FadeColorsBlueTrackBar.Value),
                         (int)MainFormClass.FadeColorsFadeSpeedNumericUpDown.Value,
-                        (int)Math.Round(MainFormClass.FadeColorsFadeFactorNumericUpDown.Value * 100, 0)
+                        (double)MainFormClass.FadeColorsFadeFactorNumericUpDown.Value
                         );
                 }
             }

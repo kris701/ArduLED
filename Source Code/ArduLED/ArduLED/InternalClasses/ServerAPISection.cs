@@ -20,6 +20,7 @@ namespace ArduLEDNameSpace
         public TcpClient ClientSocket;
         public Thread ServerThread;
         private MainForm MainFormClass;
+        public bool RunningCommand = false;
 
         public void Dispose()
         {
@@ -142,6 +143,8 @@ namespace ArduLEDNameSpace
 
                     string Out = ArduLEDServerAPI(ClientData);
 
+                    RunningCommand = false;
+
                     //Use for debug
                     //if (Out != "")
                     //{
@@ -203,6 +206,7 @@ namespace ArduLEDNameSpace
 
         private string ArduLEDServerAPI(string _Input)
         {
+            RunningCommand = true;
             try
             {
                 string[] InputSplit = _Input.Split(',');
@@ -250,8 +254,22 @@ namespace ArduLEDNameSpace
                         Int32.Parse(InputSplit[2]),
                         Color.FromArgb(Int32.Parse(InputSplit[3]), Int32.Parse(InputSplit[4]), Int32.Parse(InputSplit[5])),
                         Int32.Parse(InputSplit[6]),
-                        Int32.Parse(InputSplit[7])
+                        Convert.ToDouble(InputSplit[7].Replace('.',','))
                         );
+                    MainFormClass.MenuPanel.Invoke((MethodInvoker)delegate
+                    {
+                        MainFormClass.FadeLEDPanelFromIDNumericUpDown.Value = Int32.Parse(InputSplit[1]);
+                        MainFormClass.FadeLEDPanelToIDNumericUpDown.Value = Int32.Parse(InputSplit[2]);
+                        MainFormClass.FadeColorsRedTrackBar.Value = Int32.Parse(InputSplit[3]);
+                        MainFormClass.FadeColorsGreenTrackBar.Value = Int32.Parse(InputSplit[4]);
+                        MainFormClass.FadeColorsBlueTrackBar.Value = Int32.Parse(InputSplit[5]);
+                        MainFormClass.FadeColorsFadeSpeedNumericUpDown.Value = Int32.Parse(InputSplit[6]);
+                        MainFormClass.FadeColorsFadeFactorNumericUpDown.Value = Convert.ToDecimal(InputSplit[7].Replace('.', ','));
+
+                        MainFormClass.FadeColorsRedLabel.Text = MainFormClass.FadeColorsRedTrackBar.Value.ToString();
+                        MainFormClass.FadeColorsGreenLabel.Text = MainFormClass.FadeColorsGreenTrackBar.Value.ToString();
+                        MainFormClass.FadeColorsBlueLabel.Text = MainFormClass.FadeColorsBlueTrackBar.Value.ToString();
+                    });
                     return "G";
                 }
 
@@ -645,10 +663,137 @@ namespace ArduLEDNameSpace
                     return "G";
                 }
 
+                //SETCHECKBOXCONTROL(AutoTriggerCheckBox,0,True)
+
+                if (InputSplit[0].Replace(InputSplit[0].Replace("SETCHECKBOXCONTROL(", ""), "").ToUpper() == "SETCHECKBOXCONTROL(")
+                {
+                    InputSplit[0] = InputSplit[0].Replace("SETCHECKBOXCONTROL(", "");
+                    InputSplit[InputSplit.Length - 1] = InputSplit[InputSplit.Length - 1].Replace(")", "");
+
+                    try
+                    {
+                        CheckBox CallControl = MainFormClass.Controls.Find(InputSplit[0], true)[Int32.Parse(InputSplit[1])] as CheckBox;
+                        CallControl.Invoke((MethodInvoker)delegate { CallControl.Checked = Convert.ToBoolean(InputSplit[2]); });
+                    }
+                    catch (Exception E)
+                    {
+                        MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "     " + E.ToString() + Environment.NewLine; });
+                    }
+
+                    return "G";
+                }
+
+                //GETCONTROLTEXT(LanguageComboBox,0)
+
+                if (InputSplit[0].Replace(InputSplit[0].Replace("GETCONTROLTEXT(", ""), "").ToUpper() == "GETCONTROLTEXT(")
+                {
+                    InputSplit[0] = InputSplit[0].Replace("GETCONTROLTEXT(", "");
+                    InputSplit[InputSplit.Length - 1] = InputSplit[InputSplit.Length - 1].Replace(")", "");
+
+                    try
+                    {
+                        Control CallControl = MainFormClass.Controls.Find(InputSplit[0], true)[Int32.Parse(InputSplit[1])] as Control;
+                        CallControl.Invoke((MethodInvoker)delegate {
+                            NetworkStream DataStream = ClientSocket.GetStream();
+                            Byte[] SendBytes = System.Text.Encoding.ASCII.GetBytes(CallControl.Text);
+                            DataStream.Write(SendBytes, 0, SendBytes.Length);
+                            DataStream.Flush();
+                        });
+                    }
+                    catch (Exception E)
+                    {
+                        MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "     " + E.ToString() + Environment.NewLine; });
+                    }
+
+                    return "G";
+                }
+
+                //GETCOMBOBOXLIST(LanguageComboBox,0)
+
+                if (InputSplit[0].Replace(InputSplit[0].Replace("GETCOMBOBOXLIST(", ""), "").ToUpper() == "GETCOMBOBOXLIST(")
+                {
+                    InputSplit[0] = InputSplit[0].Replace("GETCOMBOBOXLIST(", "");
+                    InputSplit[InputSplit.Length - 1] = InputSplit[InputSplit.Length - 1].Replace(")", "");
+
+                    try
+                    {
+                        string SendString = "";
+
+                        ComboBox CallControl = MainFormClass.Controls.Find(InputSplit[0], true)[Int32.Parse(InputSplit[1])] as ComboBox;
+                        CallControl.Invoke((MethodInvoker)delegate {
+                            foreach(string Item in CallControl.Items)
+                            {
+                                SendString += Item + ";";
+                            }
+                        });
+
+                        NetworkStream DataStream = ClientSocket.GetStream();
+                        Byte[] SendBytes = System.Text.Encoding.ASCII.GetBytes(SendString);
+                        DataStream.Write(SendBytes, 0, SendBytes.Length);
+                        DataStream.Flush();
+                    }
+                    catch (Exception E)
+                    {
+                        MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "     " + E.ToString() + Environment.NewLine; });
+                    }
+
+                    return "G";
+                }
+
+                //GETTRACKBARVALUE(SampleTimeTrackBar,0)
+
+                if (InputSplit[0].Replace(InputSplit[0].Replace("GETTRACKBARVALUE(", ""), "").ToUpper() == "GETTRACKBARVALUE(")
+                {
+                    InputSplit[0] = InputSplit[0].Replace("GETTRACKBARVALUE(", "");
+                    InputSplit[InputSplit.Length - 1] = InputSplit[InputSplit.Length - 1].Replace(")", "");
+
+                    try
+                    {
+                        TrackBar CallControl = MainFormClass.Controls.Find(InputSplit[0], true)[Int32.Parse(InputSplit[1])] as TrackBar;
+                        CallControl.Invoke((MethodInvoker)delegate {
+                            NetworkStream DataStream = ClientSocket.GetStream();
+                            Byte[] SendBytes = System.Text.Encoding.ASCII.GetBytes(CallControl.Value.ToString());
+                            DataStream.Write(SendBytes, 0, SendBytes.Length);
+                            DataStream.Flush();
+                        });
+                    }
+                    catch (Exception E)
+                    {
+                        MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "     " + E.ToString() + Environment.NewLine; });
+                    }
+
+                    return "G";
+                }
+
+                //GETCHECKBOXSTATE(SampleTimeTrackBar,0)
+
+                if (InputSplit[0].Replace(InputSplit[0].Replace("GETTRACKBARVALUE(", ""), "").ToUpper() == "GETTRACKBARVALUE(")
+                {
+                    InputSplit[0] = InputSplit[0].Replace("GETTRACKBARVALUE(", "");
+                    InputSplit[InputSplit.Length - 1] = InputSplit[InputSplit.Length - 1].Replace(")", "");
+
+                    try
+                    {
+                        TrackBar CallControl = MainFormClass.Controls.Find(InputSplit[0], true)[Int32.Parse(InputSplit[1])] as TrackBar;
+                        CallControl.Invoke((MethodInvoker)delegate {
+                            NetworkStream DataStream = ClientSocket.GetStream();
+                            Byte[] SendBytes = System.Text.Encoding.ASCII.GetBytes(CallControl.Value.ToString());
+                            DataStream.Write(SendBytes, 0, SendBytes.Length);
+                            DataStream.Flush();
+                        });
+                    }
+                    catch (Exception E)
+                    {
+                        MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "     " + E.ToString() + Environment.NewLine; });
+                    }
+
+                    return "G";
+                }
+
                 return "U";
             }
             catch
-            {  }
+            { RunningCommand = false; }
             return "B";
         }
     }

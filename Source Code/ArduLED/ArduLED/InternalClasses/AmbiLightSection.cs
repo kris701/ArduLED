@@ -63,8 +63,8 @@ namespace ArduLEDNameSpace
                 if (_LeftSide.Enabled)
                 {
                     MakeNewBlock(
-                        (Screen.AllScreens[_ScreenID].Bounds.Height - _LeftSide.Height + _LeftSide.XOffSet),
-                        _LeftSide.XOffSet,
+                        (Screen.AllScreens[_ScreenID].Bounds.Height - _LeftSide.Height + _LeftSide.YOffSet),
+                        _LeftSide.YOffSet,
                         _LeftSide.Height + _LeftSide.BlockSpacing,
                         true,
                         _LeftSide.Width,
@@ -208,7 +208,7 @@ namespace ArduLEDNameSpace
 
             if (_LeftSide.Enabled)
             {
-                MainFormClass.AmbiLightModeLeftBlockOffsetYNumericUpDown.Value = FindFirstLightPixel(
+                MainFormClass.AmbiLightModeLeftBlockOffsetXNumericUpDown.Value = FindFirstLightPixel(
                     0,
                     Screen.AllScreens[_ScreenID].Bounds.Width / 2,
                     false,

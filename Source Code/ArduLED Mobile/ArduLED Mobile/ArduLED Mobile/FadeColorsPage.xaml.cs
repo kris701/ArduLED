@@ -26,7 +26,7 @@ namespace ArduLED_Mobile
             for (int i = 0; i < 100; i++)
                 FadeSpeedPicker.Items.Add(i.ToString());
 
-            for (int i = 0; i < 500; i++)
+            for (double i = 0; i <= 1; i += 0.05)
                 FadeFactorPicker.Items.Add(i.ToString());
 
             for (int i = 0; i < MainMenu.TotalLEDCount; i++)
@@ -35,20 +35,58 @@ namespace ArduLED_Mobile
             for (int i = -1; i < MainMenu.TotalLEDCount; i++)
                 ToIDPicker.Items.Add(i.ToString());
 
-            if (UserSettings.FadeColorsFromIDPickerValue != -1)
-                FromIDPicker.SelectedIndex = UserSettings.FadeColorsFromIDPickerValue;
-            if (UserSettings.FadeColorsToIDPickerValue != -1)
-                ToIDPicker.SelectedIndex = UserSettings.FadeColorsToIDPickerValue;
-            if(UserSettings.FadeColorsRedSliderValue != -1)
-                RedSlider.Value = UserSettings.FadeColorsRedSliderValue;
-            if(UserSettings.FadeColorsGreenSliderValue != -1)
-                GreenSlider.Value = UserSettings.FadeColorsGreenSliderValue;
-            if(UserSettings.FadeColorsBlueSliderValue != -1)
-                BlueSlider.Value = UserSettings.FadeColorsBlueSliderValue;
-            if (UserSettings.FadeColorsFadeSpeedPickerValue != -1)
-                FadeSpeedPicker.SelectedIndex = UserSettings.FadeColorsFadeSpeedPickerValue;
-            if (UserSettings.FadeColorsFadeFactorPickerValue != -1)
-                FadeFactorPicker.SelectedIndex = UserSettings.FadeColorsFadeFactorPickerValue;
+            MainMenu.SendData("GETTRACKBARVALUE(FadeColorsRedTrackBar,0)");
+            RedSlider.Value = Convert.ToDouble(MainMenu.ReceiveData());
+            MainMenu.SendData("GETTRACKBARVALUE(FadeColorsGreenTrackBar,0)");
+            GreenSlider.Value = Convert.ToDouble(MainMenu.ReceiveData());
+            MainMenu.SendData("GETTRACKBARVALUE(FadeColorsBlueTrackBar,0)");
+            BlueSlider.Value = Convert.ToDouble(MainMenu.ReceiveData());
+            MainMenu.SendData("GETCONTROLTEXT(FadeColorsFadeSpeedNumericUpDown,0)");
+            string Recived = MainMenu.ReceiveData();
+            for (int i = 0; i < FadeSpeedPicker.Items.Count; i++)
+            {
+                if (FadeSpeedPicker.Items[i].ToString() == Recived)
+                {
+                    FadeSpeedPicker.SelectedIndex = i;
+                    break;
+                }
+            }
+            MainMenu.SendData("GETCONTROLTEXT(FadeColorsFadeFactorNumericUpDown,0)");
+            Recived = MainMenu.ReceiveData();
+            for (int i = 0; i < FadeFactorPicker.Items.Count; i++)
+            {
+                if (Convert.ToDouble(FadeFactorPicker.Items[i].ToString().Replace(',', '.')) == Convert.ToDouble(Recived.Replace(',', '.')))
+                {
+                    FadeFactorPicker.SelectedIndex = i;
+                    break;
+                }
+                else
+                    if (Convert.ToDouble(FadeFactorPicker.Items[i].ToString().Replace('.', ',')) == Convert.ToDouble(Recived.Replace('.', ',')))
+                    {
+                        FadeFactorPicker.SelectedIndex = i;
+                        break;
+                    }
+            }
+            MainMenu.SendData("GETCONTROLTEXT(FadeLEDPanelFromIDNumericUpDown,0)");
+            Recived = MainMenu.ReceiveData();
+            for (int i = 0; i < FromIDPicker.Items.Count; i++)
+            {
+                if (FromIDPicker.Items[i].ToString() == Recived)
+                {
+                    FromIDPicker.SelectedIndex = i;
+                    break;
+                }
+            }
+            MainMenu.SendData("GETCONTROLTEXT(FadeLEDPanelToIDNumericUpDown,0)");
+            Recived = MainMenu.ReceiveData();
+            for (int i = 0; i < ToIDPicker.Items.Count; i++)
+            {
+                if (ToIDPicker.Items[i].ToString() == Recived)
+                {
+                    ToIDPicker.SelectedIndex = i;
+                    break;
+                }
+            }
 
             RedSliderValueLabel.Text = Math.Round(RedSlider.Value, 0).ToString();
             GreenSliderValueLabel.Text = Math.Round(GreenSlider.Value, 0).ToString();
@@ -70,7 +108,7 @@ namespace ArduLED_Mobile
                         Math.Round(GreenSlider.Value, 0) + "," +
                         Math.Round(BlueSlider.Value, 0) + "," +
                         Math.Round(Convert.ToDecimal(FadeSpeedPicker.SelectedItem), 0) + "," +
-                        Math.Round(Convert.ToDecimal(FadeFactorPicker.SelectedItem), 0) + ")");
+                        Convert.ToDecimal(FadeFactorPicker.SelectedItem).ToString().Replace(',', '.') + ")");
                 }
                 catch
                 {
@@ -93,21 +131,6 @@ namespace ArduLED_Mobile
                     RedSliderValueLabel.Text = Math.Round(RedSlider.Value, 0).ToString();
                     GreenSliderValueLabel.Text = Math.Round(GreenSlider.Value, 0).ToString();
                     BlueSliderValueLabel.Text = Math.Round(BlueSlider.Value, 0).ToString();
-
-                    if (FromIDPicker.SelectedIndex != -1)
-                        UserSettings.FadeColorsFromIDPickerValue = FromIDPicker.SelectedIndex;
-                    if (ToIDPicker.SelectedIndex != -1)
-                        UserSettings.FadeColorsToIDPickerValue = ToIDPicker.SelectedIndex;
-                    if (RedSlider.Value != -1)
-                        UserSettings.FadeColorsRedSliderValue = (int)RedSlider.Value;
-                    if (GreenSlider.Value != -1)
-                        UserSettings.FadeColorsGreenSliderValue = (int)GreenSlider.Value;
-                    if (BlueSlider.Value != -1)
-                        UserSettings.FadeColorsBlueSliderValue = (int)BlueSlider.Value;
-                    if (FadeSpeedPicker.SelectedIndex != -1)
-                        UserSettings.FadeColorsFadeSpeedPickerValue = FadeSpeedPicker.SelectedIndex;
-                    if (FadeFactorPicker.SelectedIndex != -1)
-                        UserSettings.FadeColorsFadeFactorPickerValue = FadeFactorPicker.SelectedIndex;
                 }
             }
             catch

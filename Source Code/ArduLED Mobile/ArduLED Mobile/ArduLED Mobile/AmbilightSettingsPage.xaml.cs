@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Text;
-using System.IO;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
