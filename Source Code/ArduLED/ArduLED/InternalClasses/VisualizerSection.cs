@@ -20,6 +20,7 @@ namespace ArduLEDNameSpace
         private Task VisualizerThread;
         private bool RunVisualizerThread = true;
         private MainForm MainFormClass;
+        private bool SpectrumCrash = false;
 
         public void Dispose()
         {
@@ -110,9 +111,10 @@ namespace ArduLEDNameSpace
                         else
                         {
                             double ColorValue = TransformToPoint((string)InnerSeries.Tag, i);
-                            if (ColorValue == -1)
+                            if (SpectrumCrash)
                             {
                                 i = _XValues;
+                                SpectrumCrash = false;
                                 break;
                             }
                             if (_AutoScale)
@@ -264,8 +266,8 @@ namespace ArduLEDNameSpace
             catch
             {
                 MessageBox.Show("Error in input string");
-                EnableBASS(false);
-                return -1;
+                SpectrumCrash = true;
+                return 0;
             }
         }
 
