@@ -58,15 +58,20 @@ namespace ArduLEDNameSpace
                 string[] Lines = File.ReadAllLines(_Location, System.Text.Encoding.UTF8);
                 for (int i = 0; i < Lines.Length; i++)
                 {
-                    try
+                    string[] Split = Lines[i].Split(';');
+                    if (Split[0] != "")
                     {
-                        string[] Split = Lines[i].Split(';');
-                        if (Split[0] != "")
+                        try
                         {
                             if (Split[0].ToUpper() == "COMBOBOX")
                             {
                                 ComboBox LoadCombobox = Controls.Find(Split[1], true)[0] as ComboBox;
-                                LoadCombobox.SelectedIndex = Int32.Parse(Split[2]);
+                                int Value = Int32.Parse(Split[2]);
+                                if (Value >= 0)
+                                {
+                                    if (Value < LoadCombobox.Items.Count)
+                                        LoadCombobox.SelectedIndex = Value;
+                                }
                             }
                             if (Split[0].ToUpper() == "CHECKBOX")
                             {
@@ -81,20 +86,30 @@ namespace ArduLEDNameSpace
                             if (Split[0].ToUpper() == "NUMERICUPDOWN")
                             {
                                 NumericUpDown LoadNumericUpDown = Controls.Find(Split[1], true)[0] as NumericUpDown;
-                                LoadNumericUpDown.Value = Convert.ToDecimal(Split[2]);
+                                decimal Value = Convert.ToDecimal(Split[2]);
+                                if (Value >= LoadNumericUpDown.Minimum)
+                                {
+                                    if (Value <= LoadNumericUpDown.Maximum)
+                                        LoadNumericUpDown.Value = Value;
+                                }
                             }
                             if (Split[0].ToUpper() == "TRACKBAR")
                             {
                                 TrackBar LoadTrackBar = Controls.Find(Split[1], true)[0] as TrackBar;
-                                LoadTrackBar.Value = Int32.Parse(Split[2]);
+                                int Value = Int32.Parse(Split[2]);
+                                if (Value >= LoadTrackBar.Minimum)
+                                {
+                                    if (Value <= LoadTrackBar.Maximum)
+                                        LoadTrackBar.Value = Value;
+                                }
                             }
                             if (Split[0].ToUpper() == "SERIALPORT")
                             {
                                 SerialPort1.BaudRate = Int32.Parse(Split[1]);
                             }
                         }
+                        catch { }
                     }
-                    catch { }
                 }
                 FormatLayout();
             }

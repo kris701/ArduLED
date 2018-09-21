@@ -259,6 +259,7 @@ namespace ArduLEDNameSpace
             catch
             {
                 MessageBox.Show("Error in input string");
+                EnableBASS(false);
                 return 0;
             }
         }
@@ -367,245 +368,252 @@ namespace ArduLEDNameSpace
 
             while (RunVisualizerThread)
             {
-                CalibrateRefreshRate = DateTime.Now;
-
-                MainFormClass.BeatZoneTriggerHeight.Invoke((MethodInvoker)delegate { TriggerHeight = MainFormClass.BeatZoneTriggerHeight.Value; });
-
-                Series BeatZoneSeries = new Series
+                try
                 {
-                    IsVisibleInLegend = false,
-                    IsXValueIndexed = false,
-                    ChartType = SeriesChartType.Column,
-                    Color = Color.FromArgb(0, 122, 217)
-                };
+                    CalibrateRefreshRate = DateTime.Now;
 
-                int ReturnValue = BassWasapi.BASS_WASAPI_GetData(AudioData, (int)(BASSData)Enum.Parse(typeof(BASSData), "BASS_DATA_FFT" + BASSDataRate));
-                if (ReturnValue < -1) return;
+                    MainFormClass.BeatZoneTriggerHeight.Invoke((MethodInvoker)delegate { TriggerHeight = MainFormClass.BeatZoneTriggerHeight.Value; });
 
-                int X, Y;
-                int B0 = 0;
-                for (X = BeatZoneFrom; X < BeatZoneTo; X++)
-                {
-                    float Peak = 0;
-                    int B1 = (int)Math.Pow(2, X * 10.0 / ((int)VisualSamles - 1));
-                    if (B1 > 1023) B1 = 1023;
-                    if (B1 <= B0) B1 = B0 + 1;
-                    for (; B0 < B1; B0++)
+                    Series BeatZoneSeries = new Series
                     {
-                        if (Peak < AudioData[1 + B0]) Peak = AudioData[1 + B0];
-                    }
-                    Y = (int)(Math.Sqrt(Peak) * Sensitivity * 255 - 4);
-                    if (Y > 255) Y = 255;
-                    if (Y < 1) Y = 1;
+                        IsVisibleInLegend = false,
+                        IsXValueIndexed = false,
+                        ChartType = SeriesChartType.Column,
+                        Color = Color.FromArgb(0, 122, 217)
+                    };
 
-                    if (X >= BeatZoneFrom)
+                    int ReturnValue = BassWasapi.BASS_WASAPI_GetData(AudioData, (int)(BASSData)Enum.Parse(typeof(BASSData), "BASS_DATA_FFT" + BASSDataRate));
+                    if (ReturnValue < -1) return;
+
+                    int X, Y;
+                    int B0 = 0;
+                    for (X = BeatZoneFrom; X < BeatZoneTo; X++)
                     {
-                        if (X <= BeatZoneTo)
+                        float Peak = 0;
+                        int B1 = (int)Math.Pow(2, X * 10.0 / ((int)VisualSamles - 1));
+                        if (B1 > 1023) B1 = 1023;
+                        if (B1 <= B0) B1 = B0 + 1;
+                        for (; B0 < B1; B0++)
                         {
+                            if (Peak < AudioData[1 + B0]) Peak = AudioData[1 + B0];
+                        }
+                        Y = (int)(Math.Sqrt(Peak) * Sensitivity * 255 - 4);
+                        if (Y > 255) Y = 255;
+                        if (Y < 1) Y = 1;
 
-                            AudioDataPointStore[X].Add((byte)Y);
-                            while (AudioDataPointStore[X].Count > Smoothness)
-                                AudioDataPointStore[X].RemoveAt(0);
-
-                            int AverageValue = 0;
-                            if (Smoothness > 1)
+                        if (X >= BeatZoneFrom)
+                        {
+                            if (X <= BeatZoneTo)
                             {
-                                for (int s = 0; s < Smoothness; s++)
+
+                                AudioDataPointStore[X].Add((byte)Y);
+                                while (AudioDataPointStore[X].Count > Smoothness)
+                                    AudioDataPointStore[X].RemoveAt(0);
+
+                                int AverageValue = 0;
+                                if (Smoothness > 1)
                                 {
-                                    AverageValue += AudioDataPointStore[X][s];
+                                    for (int s = 0; s < Smoothness; s++)
+                                    {
+                                        AverageValue += AudioDataPointStore[X][s];
+                                    }
+                                    AverageValue = AverageValue / Smoothness;
                                 }
-                                AverageValue = AverageValue / Smoothness;
+                                else
+                                {
+                                    AverageValue = AudioDataPointStore[X][0];
+                                }
+                                if (AverageValue > 255)
+                                    AverageValue = 255;
+                                if (AverageValue < 0)
+                                    AverageValue = 0;
+
+                                BeatZoneSeries.Points.AddXY(X, AverageValue);
+                            }
+                        }
+                    }
+
+                    if (SelectedIndex == 0)
+                    {
+                        double Hit = 0;
+                        for (int i = 0; i < BeatZoneSeries.Points.Count; i++)
+                        {
+                            if (BeatZoneSeries.Points[i].YValues[0] >= TriggerHeight)
+                                Hit++;
+                        }
+                        double OutValue = Math.Round(Math.Round((Hit / ((double)BeatZoneTo - (double)BeatZoneFrom)), 2) * 99, 0);
+                        AutoTrigger((OutValue / 99) * (255 * 3));
+                        if (OutValue > 99)
+                            OutValue = 99;
+                        string SerialOut = "2;" + OutValue.ToString().Replace(',', '.');
+                        MainFormClass.SendDataBySerial(SerialOut);
+                    }
+                    if (SelectedIndex == 1 | SelectedIndex == 2)
+                    {
+                        double EndR = 0;
+                        double EndG = 0;
+                        double EndB = 0;
+                        int CountR = 0;
+                        int CountG = 0;
+                        int CountB = 0;
+                        int Hit = 0;
+                        for (int i = 0; i < BeatZoneSeries.Points.Count; i++)
+                        {
+                            if (BeatZoneSeries.Points[i].YValues[0] >= TriggerHeight)
+                            {
+                                if (MainFormClass.SpectrumChart.Series[0].Points[i].YValues[0] <= 255)
+                                {
+                                    if (MainFormClass.SpectrumChart.Series[0].Points[i].YValues[0] >= 0)
+                                    {
+                                        EndR += MainFormClass.SpectrumChart.Series[0].Points[i].YValues[0];
+                                        CountR++;
+                                    }
+                                }
+                                if (MainFormClass.SpectrumChart.Series[1].Points[i].YValues[0] <= 255)
+                                {
+                                    if (MainFormClass.SpectrumChart.Series[1].Points[i].YValues[0] >= 0)
+                                    {
+                                        EndG += MainFormClass.SpectrumChart.Series[1].Points[i].YValues[0];
+                                        CountG++;
+                                    }
+                                }
+                                if (MainFormClass.SpectrumChart.Series[2].Points[i].YValues[0] <= 255)
+                                {
+                                    if (MainFormClass.SpectrumChart.Series[2].Points[i].YValues[0] >= 0)
+                                    {
+                                        EndB += MainFormClass.SpectrumChart.Series[2].Points[i].YValues[0];
+                                        CountB++;
+                                    }
+                                }
+                                Hit++;
+                            }
+                        }
+
+                        AutoTrigger(((float)Hit / ((float)BeatZoneTo - (float)BeatZoneFrom)) * (255 * 3));
+
+                        if (CountR > 0)
+                        {
+                            EndR = EndR / CountR;
+                        }
+                        if (CountG > 0)
+                        {
+                            EndG = EndG / CountG;
+                        }
+                        if (CountB > 0)
+                        {
+                            EndB = EndB / CountB;
+                        }
+
+                        Color AfterShuffel = MainFormClass.ShuffleColors(Color.FromArgb((int)Math.Round(EndR, 0), (int)Math.Round(EndG, 0), (int)Math.Round(EndB, 0)));
+
+                        string SerialOut = "";
+                        if (SelectedIndex == 1)
+                            SerialOut = "1;" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B + ";0;0";
+                        if (SelectedIndex == 2)
+                            SerialOut = "3;" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B;
+                        MainFormClass.SendDataBySerial(SerialOut);
+                    }
+                    if (SelectedIndex == 3 | SelectedIndex == 4)
+                    {
+                        int EndR = 0;
+                        int EndG = 0;
+                        int EndB = 0;
+                        int Hit = 0;
+
+                        for (int i = 0; i < BeatZoneSeries.Points.Count; i++)
+                        {
+                            if (BeatZoneSeries.Points[i].YValues[0] >= TriggerHeight)
+                            {
+                                Hit++;
+                            }
+                        }
+
+                        int EndValue = (int)(((float)255 * (float)3) * ((float)Hit / ((float)BeatZoneTo - (float)BeatZoneFrom)));
+                        if (EndValue >= 765)
+                            EndValue = 764;
+                        if (EndValue < 0)
+                            EndValue = 0;
+
+                        MainFormClass.BeatWaveProgressBar.Invoke((MethodInvoker)delegate { MainFormClass.BeatWaveProgressBar.Value = EndValue; });
+
+                        EndR = (int)MainFormClass.WaveChart.Series[0].Points[EndValue].YValues[0];
+                        EndG = (int)MainFormClass.WaveChart.Series[1].Points[EndValue].YValues[0];
+                        EndB = (int)MainFormClass.WaveChart.Series[2].Points[EndValue].YValues[0];
+
+                        AutoTrigger(((float)Hit / ((float)BeatZoneTo - (float)BeatZoneFrom)) * (255 * 3));
+
+                        if (EndR > 255)
+                            EndR = 0;
+
+                        if (EndG > 255)
+                            EndG = 0;
+
+                        if (EndB > 255)
+                            EndB = 0;
+
+                        if (EndR < 0)
+                            EndR = 0;
+
+                        if (EndG < 0)
+                            EndG = 0;
+
+                        if (EndB < 0)
+                            EndB = 0;
+
+                        Color AfterShuffel = MainFormClass.ShuffleColors(Color.FromArgb(EndR, EndG, EndB));
+
+                        string SerialOut = "";
+                        if (SelectedIndex == 4)
+                            SerialOut = "1;" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B + ";0;0";
+                        if (SelectedIndex == 3)
+                            SerialOut = "3;" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B + "";
+                        MainFormClass.SendDataBySerial(SerialOut);
+                    }
+                    if (SelectedIndex == 5)
+                    {
+                        int Hit = 0;
+                        string SerialOut = "5;" + SpectrumSplit.ToString() + ";";
+                        for (int i = 0; i < BeatZoneSeries.Points.Count; i++)
+                        {
+                            if (BeatZoneSeries.Points[i].YValues[0] >= TriggerHeight)
+                            {
+                                SerialOut += Math.Round((BeatZoneSeries.Points[i].YValues[0] / 255) * (double)SpectrumSplit, 0) + ";";
+                                Hit++;
                             }
                             else
-                            {
-                                AverageValue = AudioDataPointStore[X][0];
-                            }
-                            if (AverageValue > 255)
-                                AverageValue = 255;
-                            if (AverageValue < 0)
-                                AverageValue = 0;
-
-                            BeatZoneSeries.Points.AddXY(X, AverageValue);
+                                SerialOut += "0;";
                         }
+
+                        AutoTrigger(((float)Hit / ((float)BeatZoneTo - (float)BeatZoneFrom)) * (255 * 3));
+
+                        MainFormClass.SendDataBySerial(SerialOut);
                     }
+
+                    VisualizerUpdatesCounter++;
+                    if ((DateTime.Now - VisualizerRPSCounter).TotalSeconds >= 1)
+                    {
+                        MainFormClass.VisualizerRPSLabel.Invoke((MethodInvoker)delegate { MainFormClass.VisualizerRPSLabel.Text = "RPS: " + VisualizerUpdatesCounter; });
+                        VisualizerUpdatesCounter = 0;
+                        VisualizerRPSCounter = DateTime.Now;
+                    }
+                    MainFormClass.BeatZoneChart.Invoke((MethodInvoker)delegate
+                    {
+                        MainFormClass.BeatZoneChart.Series.Clear();
+                        MainFormClass.BeatZoneChart.Series.Add(BeatZoneSeries);
+                    });
+
+                    int ExectuionTime = (int)(DateTime.Now - CalibrateRefreshRate).TotalMilliseconds;
+                    int ActuralRefreshTime = RefreshTime - ExectuionTime;
+
+                    if (ActuralRefreshTime < 0)
+                        ActuralRefreshTime = 0;
+
+                    Thread.Sleep(ActuralRefreshTime);
                 }
-
-                if (SelectedIndex == 0)
+                catch
                 {
-                    double Hit = 0;
-                    for (int i = 0; i < BeatZoneSeries.Points.Count; i++)
-                    {
-                        if (BeatZoneSeries.Points[i].YValues[0] >= TriggerHeight)
-                            Hit++;
-                    }
-                    double OutValue = Math.Round(Math.Round((Hit / ((double)BeatZoneTo - (double)BeatZoneFrom)), 2) * 99, 0);
-                    AutoTrigger((OutValue / 99) * (255 * 3));
-                    if (OutValue > 99)
-                        OutValue = 99;
-                    string SerialOut = "2;" + OutValue.ToString().Replace(',', '.');
-                    MainFormClass.SendDataBySerial(SerialOut);
+                    EnableBASS(false);
                 }
-                if (SelectedIndex == 1 | SelectedIndex == 2)
-                {
-                    double EndR = 0;
-                    double EndG = 0;
-                    double EndB = 0;
-                    int CountR = 0;
-                    int CountG = 0;
-                    int CountB = 0;
-                    int Hit = 0;
-                    for (int i = 0; i < BeatZoneSeries.Points.Count; i++)
-                    {
-                        if (BeatZoneSeries.Points[i].YValues[0] >= TriggerHeight)
-                        {
-                            if (MainFormClass.SpectrumChart.Series[0].Points[i].YValues[0] <= 255)
-                            {
-                                if (MainFormClass.SpectrumChart.Series[0].Points[i].YValues[0] >= 0)
-                                {
-                                    EndR += MainFormClass.SpectrumChart.Series[0].Points[i].YValues[0];
-                                    CountR++;
-                                }
-                            }
-                            if (MainFormClass.SpectrumChart.Series[1].Points[i].YValues[0] <= 255)
-                            {
-                                if (MainFormClass.SpectrumChart.Series[1].Points[i].YValues[0] >= 0)
-                                {
-                                    EndG += MainFormClass.SpectrumChart.Series[1].Points[i].YValues[0];
-                                    CountG++;
-                                }
-                            }
-                            if (MainFormClass.SpectrumChart.Series[2].Points[i].YValues[0] <= 255)
-                            {
-                                if (MainFormClass.SpectrumChart.Series[2].Points[i].YValues[0] >= 0)
-                                {
-                                    EndB += MainFormClass.SpectrumChart.Series[2].Points[i].YValues[0];
-                                    CountB++;
-                                }
-                            }
-                            Hit++;
-                        }
-                    }
-
-                    AutoTrigger(((float)Hit / ((float)BeatZoneTo - (float)BeatZoneFrom)) * (255 * 3));
-
-                    if (CountR > 0)
-                    {
-                        EndR = EndR / CountR;
-                    }
-                    if (CountG > 0)
-                    {
-                        EndG = EndG / CountG;
-                    }
-                    if (CountB > 0)
-                    {
-                        EndB = EndB / CountB;
-                    }
-
-                    Color AfterShuffel = MainFormClass.ShuffleColors(Color.FromArgb((int)Math.Round(EndR, 0), (int)Math.Round(EndG, 0), (int)Math.Round(EndB, 0)));
-
-                    string SerialOut = "";
-                    if (SelectedIndex == 1)
-                        SerialOut = "1;" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B + ";0;0";
-                    if (SelectedIndex == 2)
-                        SerialOut = "3;" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B;
-                    MainFormClass.SendDataBySerial(SerialOut);
-                }
-                if (SelectedIndex == 3 | SelectedIndex == 4)
-                {
-                    int EndR = 0;
-                    int EndG = 0;
-                    int EndB = 0;
-                    int Hit = 0;
-
-                    for (int i = 0; i < BeatZoneSeries.Points.Count; i++)
-                    {
-                        if (BeatZoneSeries.Points[i].YValues[0] >= TriggerHeight)
-                        {
-                            Hit++;
-                        }
-                    }
-
-                    int EndValue = (int)(((float)255 * (float)3) * ((float)Hit / ((float)BeatZoneTo - (float)BeatZoneFrom)));
-                    if (EndValue >= 765)
-                        EndValue = 764;
-                    if (EndValue < 0)
-                        EndValue = 0;
-
-                    MainFormClass.BeatWaveProgressBar.Invoke((MethodInvoker)delegate { MainFormClass.BeatWaveProgressBar.Value = EndValue; });
-
-                    EndR = (int)MainFormClass.WaveChart.Series[0].Points[EndValue].YValues[0];
-                    EndG = (int)MainFormClass.WaveChart.Series[1].Points[EndValue].YValues[0];
-                    EndB = (int)MainFormClass.WaveChart.Series[2].Points[EndValue].YValues[0];
-
-                    AutoTrigger(((float)Hit / ((float)BeatZoneTo - (float)BeatZoneFrom)) * (255 * 3));
-
-                    if (EndR > 255)
-                        EndR = 0;
-
-                    if (EndG > 255)
-                        EndG = 0;
-
-                    if (EndB > 255)
-                        EndB = 0;
-
-                    if (EndR < 0)
-                        EndR = 0;
-
-                    if (EndG < 0)
-                        EndG = 0;
-
-                    if (EndB < 0)
-                        EndB = 0;
-
-                    Color AfterShuffel = MainFormClass.ShuffleColors(Color.FromArgb(EndR, EndG, EndB));
-
-                    string SerialOut = "";
-                    if (SelectedIndex == 4)
-                        SerialOut = "1;" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B + ";0;0";
-                    if (SelectedIndex == 3)
-                        SerialOut = "3;" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B + "";
-                    MainFormClass.SendDataBySerial(SerialOut);
-                }
-                if (SelectedIndex == 5)
-                {
-                    int Hit = 0;
-                    string SerialOut = "5;" + SpectrumSplit.ToString() + ";";
-                    for (int i = 0; i < BeatZoneSeries.Points.Count; i++)
-                    {
-                        if (BeatZoneSeries.Points[i].YValues[0] >= TriggerHeight)
-                        {
-                            SerialOut += Math.Round((BeatZoneSeries.Points[i].YValues[0] / 255) * (double)SpectrumSplit, 0) + ";";
-                            Hit++;
-                        }
-                        else
-                            SerialOut += "0;";
-                    }
-
-                    AutoTrigger(((float)Hit / ((float)BeatZoneTo - (float)BeatZoneFrom)) * (255 * 3));
-
-                    MainFormClass.SendDataBySerial(SerialOut);
-                }
-
-                VisualizerUpdatesCounter++;
-                if ((DateTime.Now - VisualizerRPSCounter).TotalSeconds >= 1)
-                {
-                    MainFormClass.VisualizerRPSLabel.Invoke((MethodInvoker)delegate { MainFormClass.VisualizerRPSLabel.Text = "RPS: " + VisualizerUpdatesCounter; });
-                    VisualizerUpdatesCounter = 0;
-                    VisualizerRPSCounter = DateTime.Now;
-                }
-                MainFormClass.BeatZoneChart.Invoke((MethodInvoker)delegate
-                {
-                    MainFormClass.BeatZoneChart.Series.Clear();
-                    MainFormClass.BeatZoneChart.Series.Add(BeatZoneSeries);
-                });
-
-                int ExectuionTime = (int)(DateTime.Now - CalibrateRefreshRate).TotalMilliseconds;
-                int ActuralRefreshTime = RefreshTime - ExectuionTime;
-
-                if (ActuralRefreshTime < 0)
-                    ActuralRefreshTime = 0;
-
-                Thread.Sleep(ActuralRefreshTime);
             }
         }
 
