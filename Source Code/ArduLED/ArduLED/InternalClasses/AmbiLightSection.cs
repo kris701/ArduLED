@@ -1133,9 +1133,9 @@ namespace ArduLEDNameSpace
             {
                 string[] ChangeToIDString = _InnerSerialOut[_SectionIndex].Split(';');
                 if (_FromID < _ToID)
-                    ChangeToIDString[2] = (_FromID + _Count).ToString();
+                    ChangeToIDString[2] = (_FromID + (_Count * _PixelsPrBlock)).ToString();
                 else
-                    ChangeToIDString[2] = (_FromID - _Count).ToString();
+                    ChangeToIDString[2] = (_FromID - (_Count * _PixelsPrBlock)).ToString();
 
                 _InnerSerialOut[_SectionIndex] = "";
 
@@ -1147,9 +1147,9 @@ namespace ArduLEDNameSpace
                 _SectionIndex++;
 
                 if (_FromID < _ToID)
-                    _InnerSerialOut[_SectionIndex] = "7;" + (_FromID + _Count) + ";" + _ToID + ";" + _PixelsPrBlock + ";";
+                    _InnerSerialOut[_SectionIndex] = "7;" + (_FromID + (_Count * _PixelsPrBlock)) + ";" + _ToID + ";" + _PixelsPrBlock + ";";
                 else
-                    _InnerSerialOut[_SectionIndex] = "7;" + (_FromID - _Count) + ";" + _ToID + ";" + _PixelsPrBlock + ";";
+                    _InnerSerialOut[_SectionIndex] = "7;" + (_FromID - (_Count * _PixelsPrBlock)) + ";" + _ToID + ";" + _PixelsPrBlock + ";";
             }
             _InnerSerialOut[_SectionIndex] += AddString;
             return _SectionIndex;
