@@ -405,8 +405,13 @@ namespace ArduLEDNameSpace
                 TextBox Textbox2 = ParentPanel.Controls.Find("MakeLEDPanelStripSeriesIDLabelTo", false)[0] as TextBox;
                 SenderTextBox.TextChanged -= ChangeSeries;
                 Textbox2.TextChanged -= ChangeSeries;
-                string Value1 = (Int32.Parse(SenderTextBox.Text) + ParentPanel.Controls.Count - 5).ToString();
-                ParentPanel.Controls.Find("MakeLEDPanelStripSeriesIDLabelTo", false)[0].Text = Value1;
+                if (SenderTextBox.Text != "")
+                {
+                    string Value1 = (Int32.Parse(SenderTextBox.Text) + ParentPanel.Controls.Count - 5).ToString();
+                    ParentPanel.Controls.Find("MakeLEDPanelStripSeriesIDLabelTo", false)[0].Text = Value1;
+                }
+                else
+                    ParentPanel.Controls.Find("MakeLEDPanelStripSeriesIDLabelTo", false)[0].Text = "";
                 SenderTextBox.TextChanged += ChangeSeries;
                 Textbox2.TextChanged += ChangeSeries;
             }
@@ -415,8 +420,13 @@ namespace ArduLEDNameSpace
                 TextBox Textbox2 = ParentPanel.Controls.Find("MakeLEDPanelStripSeriesIDLabelFrom", false)[0] as TextBox;
                 SenderTextBox.TextChanged -= ChangeSeries;
                 Textbox2.TextChanged -= ChangeSeries;
-                string Value1 = (Int32.Parse(SenderTextBox.Text) + ParentPanel.Controls.Count - 5).ToString();
-                ParentPanel.Controls.Find("MakeLEDPanelStripSeriesIDLabelFrom", false)[0].Text = Value1;
+                if (SenderTextBox.Text != "")
+                {
+                    string Value1 = (Int32.Parse(SenderTextBox.Text) + ParentPanel.Controls.Count - 5).ToString();
+                    ParentPanel.Controls.Find("MakeLEDPanelStripSeriesIDLabelFrom", false)[0].Text = Value1;
+                }
+                else
+                    ParentPanel.Controls.Find("MakeLEDPanelStripSeriesIDLabelFrom", false)[0].Text = "";
                 SenderTextBox.TextChanged += ChangeSeries;
                 Textbox2.TextChanged += ChangeSeries;
             }

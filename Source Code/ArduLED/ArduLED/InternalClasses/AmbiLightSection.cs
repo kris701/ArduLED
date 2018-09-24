@@ -100,8 +100,8 @@ namespace ArduLEDNameSpace
                         _RightSide.Width,
                         _RightSide.Height,
                         false,
-                        Screen.AllScreens[_ScreenID].Bounds.X + Screen.AllScreens[_ScreenID].Bounds.Width - _RightSide.XOffSet - _RightSide.Width,
-                        Screen.AllScreens[_ScreenID].Bounds.Y,
+                        (Screen.AllScreens[_ScreenID].Bounds.X + Screen.AllScreens[_ScreenID].Bounds.Width - _RightSide.Width) + _RightSide.XOffSet,
+                        Screen.AllScreens[_ScreenID].Bounds.Y + _RightSide.YOffSet,
                         _SampleSplit
                         );
                 }
@@ -109,14 +109,14 @@ namespace ArduLEDNameSpace
                 {
                     MakeNewBlock(
                         (Screen.AllScreens[_ScreenID].Bounds.Width - _BottomSide.Width) + _BottomSide.XOffSet,
-                        _BottomSide.Width,
+                        0,
                         _BottomSide.Width + _BottomSide.BlockSpacing,
                         true,
                         _BottomSide.Width,
                         _BottomSide.Height,
                         true,
                         Screen.AllScreens[_ScreenID].Bounds.X,
-                        Screen.AllScreens[_ScreenID].Bounds.Y + Screen.AllScreens[_ScreenID].Bounds.Height + _BottomSide.YOffSet - _BottomSide.Height,
+                        (Screen.AllScreens[_ScreenID].Bounds.Y + Screen.AllScreens[_ScreenID].Bounds.Height - _BottomSide.Height) + _BottomSide.YOffSet,
                         _SampleSplit
                         );
                 }
@@ -180,18 +180,21 @@ namespace ArduLEDNameSpace
             else
                 NewBlock.Location = new Point(_XOffset, _YOffset + _i);
             BlockList.Add(NewBlock);
-            for (int j = 0; j < _BoxWidth; j += _PixelSpread)
+            if (_PixelSpread > 20)
             {
-                for (int l = 0; l < _BoxHeight; l += _PixelSpread)
+                for (int j = 0; j < _BoxWidth; j += _PixelSpread)
                 {
-                    Panel Pixel = new Panel
+                    for (int l = 0; l < _BoxHeight; l += _PixelSpread)
                     {
-                        BackColor = Color.Black,
-                        Width = 1,
-                        Height = 1,
-                        Location = new Point(j, l)
-                    };
-                    NewBlock.Controls.Add(Pixel);
+                        Panel Pixel = new Panel
+                        {
+                            BackColor = Color.Black,
+                            Width = 1,
+                            Height = 1,
+                            Location = new Point(j, l)
+                        };
+                        NewBlock.Controls.Add(Pixel);
+                    }
                 }
             }
         }
@@ -234,7 +237,7 @@ namespace ArduLEDNameSpace
 
             if (_RightSide.Enabled)
             {
-                MainFormClass.AmbiLightModeRightBlockOffsetXNumericUpDown.Value = Screen.AllScreens[_ScreenID].Bounds.Width - FindFirstLightPixel(
+                MainFormClass.AmbiLightModeRightBlockOffsetXNumericUpDown.Value = -(Screen.AllScreens[_ScreenID].Bounds.Width - FindFirstLightPixel(
                     Screen.AllScreens[_ScreenID].Bounds.Width - 1,
                     Screen.AllScreens[_ScreenID].Bounds.Width / 2,
                     true,
@@ -242,20 +245,20 @@ namespace ArduLEDNameSpace
                     0,
                     Screen.AllScreens[_ScreenID].Bounds.Height / 2,
                     Screenshot
-                    );
+                    ));
             }
 
             if (_BottomSide.Enabled)
             {
-                MainFormClass.AmbiLightModeBottomBlockOffsetYNumericUpDown.Value = Screen.AllScreens[_ScreenID].Bounds.Height - FindFirstLightPixel(
+                MainFormClass.AmbiLightModeBottomBlockOffsetYNumericUpDown.Value = -(Screen.AllScreens[_ScreenID].Bounds.Height - FindFirstLightPixel(
                     Screen.AllScreens[_ScreenID].Bounds.Height - 1,
                     Screen.AllScreens[_ScreenID].Bounds.Height / 2,
                     true,
                     false,
                     Screen.AllScreens[_ScreenID].Bounds.Width / 2,
-                    0,
+                    -2,
                     Screenshot
-                    );
+                    ));
             }
             Screenshot.Dispose();
 
@@ -497,8 +500,8 @@ namespace ArduLEDNameSpace
             int BottomCaptureY = (Screen.AllScreens[_ScreenID].Bounds.Y + Screen.AllScreens[_ScreenID].Bounds.Height - _BottomSide.Height) + _BottomSide.YOffSet;
             int BottomCaptureWidth = Screen.AllScreens[_ScreenID].Bounds.Width;
             int BottomCaptureHeight = _BottomSide.Height;
-            int BottomUntilI = Screen.AllScreens[_ScreenID].Bounds.Height - _BottomSide.Height;
-            int BottomAddIWith = _BottomSide.Height + _BottomSide.BlockSpacing;
+            int BottomFromI = Screen.AllScreens[_ScreenID].Bounds.Width - _BottomSide.Width;
+            int BottomAddIWith = _BottomSide.Width + _BottomSide.BlockSpacing;
 
             int WaitTime = -1;
 
@@ -644,10 +647,10 @@ namespace ArduLEDNameSpace
                                 _BottomSide.FromID,
                                 _BottomSide.ToID,
                                 _BottomSide.LEDsPrBlock,
+                                BottomFromI,
                                 0,
-                                BottomUntilI,
                                 BottomAddIWith,
-                                false,
+                                true,
                                 _BottomSide.Width,
                                 _BottomSide.Height,
                                 0,
@@ -810,10 +813,10 @@ namespace ArduLEDNameSpace
                                     _BottomSide.FromID,
                                     _BottomSide.ToID,
                                     _BottomSide.LEDsPrBlock,
+                                    BottomFromI,
                                     0,
-                                    BottomUntilI,
                                     BottomAddIWith,
-                                    false,
+                                    true,
                                     _BottomSide.Width,
                                     _BottomSide.Height,
                                     0,
@@ -933,32 +936,6 @@ namespace ArduLEDNameSpace
             ImageWindowBottom2.Dispose();
         }
 
-        private Color GetColorOfSection(Bitmap _InputImage, int _Width, int _Height, int _Xpos, int _Ypos, int _AddBy)
-        {
-            int Count = 0;
-            int AvgR = 0;
-            int AvgG = 0;
-            int AvgB = 0;
-
-            for (int y = _Ypos; y < _Ypos + _Height; y += _AddBy)
-            {
-                for (int x = _Xpos; x < _Xpos + _Width; x += _AddBy)
-                {
-                    Color Pixel = _InputImage.GetPixel(x, y);
-                    AvgR += Pixel.R;
-                    AvgG += Pixel.G;
-                    AvgB += Pixel.B;
-                    Count++;
-                }
-            }
-
-            AvgR = AvgR / Count;
-            AvgG = AvgG / Count;
-            AvgB = AvgB / Count;
-
-            return Color.FromArgb(AvgR, AvgG, AvgB);
-        }
-
         private bool ProcessSection(
             string[] InnerSerialOut,
             Graphics _GFXScreenShot,
@@ -986,7 +963,6 @@ namespace ArduLEDNameSpace
             double _GammaValue
             )
         {
-
             _GFXScreenShot.CopyFromScreen(_CaptureX, _CaptureY, 0, 0, new Size(_CaptureWidth, _CaptureHeight), CopyPixelOperation.SourceCopy);
 
             int Count = 0;
@@ -1155,21 +1131,47 @@ namespace ArduLEDNameSpace
             return _SectionIndex;
         }
 
+        private Color GetColorOfSection(Bitmap _InputImage, int _Width, int _Height, int _Xpos, int _Ypos, int _AddBy)
+        {
+            int Count = 0;
+            int AvgR = 0;
+            int AvgG = 0;
+            int AvgB = 0;
+
+            for (int y = _Ypos; y < _Ypos + _Height; y += _AddBy)
+            {
+                for (int x = _Xpos; x < _Xpos + _Width; x += _AddBy)
+                {
+                    Color Pixel = _InputImage.GetPixel(x, y);
+                    AvgR += Pixel.R;
+                    AvgG += Pixel.G;
+                    AvgB += Pixel.B;
+                    Count++;
+                }
+            }
+
+            AvgR = AvgR / Count;
+            AvgG = AvgG / Count;
+            AvgB = AvgB / Count;
+
+            return Color.FromArgb(AvgR, AvgG, AvgB);
+        }
+
         private Color GammaCorrection(Color _InputColor, double _GammaValue)
         {
-            int OutColorR = (int)(Math.Pow((float)_InputColor.R / (float)255, _GammaValue) * 255 + 0.5);
+            int OutColorR = (int)(Math.Pow((double)_InputColor.R / (double)255, _GammaValue) * 255 + 0.5);
             if (OutColorR > 255)
                 OutColorR = 0;
             if (OutColorR < 0)
                 OutColorR = 0;
 
-            int OutColorG = (int)(Math.Pow((float)_InputColor.G / (float)255, _GammaValue) * 255 + 0.5);
+            int OutColorG = (int)(Math.Pow((double)_InputColor.G / (double)255, _GammaValue) * 255 + 0.5);
             if (OutColorG > 255)
                 OutColorG = 0;
             if (OutColorG < 0)
                 OutColorG = 0;
 
-            int OutColorB = (int)(Math.Pow((float)_InputColor.B / (float)255, _GammaValue) * 255 + 0.5);
+            int OutColorB = (int)(Math.Pow((double)_InputColor.B / (double)255, _GammaValue) * 255 + 0.5);
             if (OutColorB > 255)
                 OutColorB = 0;
             if (OutColorB < 0)
