@@ -12,6 +12,7 @@ namespace ArduLEDNameSpace
 {
     public class AmbiLightSection : IDisposable
     {
+        private enum SideID { Left, Top, Right, Bottom };
         public bool IsDisposed = false;
         SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
         private List<Block> BlockList = new List<Block>();
@@ -21,6 +22,12 @@ namespace ArduLEDNameSpace
         private int AmbilightFPSCounterFramesRendered;
         private Task AmbilightTask;
         private MainForm MainFormClass;
+        private double AssumeLevel = 1;
+        private int MaxVariation = 765;
+        private AmbilightSide LeftSide;
+        private AmbilightSide TopSide;
+        private AmbilightSide RightSide;
+        private AmbilightSide BottomSide;
 
         public void Dispose()
         {
@@ -56,67 +63,69 @@ namespace ArduLEDNameSpace
             this.MainFormClass = _MainFormClass;
         }
 
-        public void ShowBlocks(AmbilightSide _LeftSide, AmbilightSide _ToptSide, AmbilightSide _RightSide, AmbilightSide _BottomSide, int _ScreenID, int _SampleSplit)
+        public void ShowBlocks(int _ScreenID, int _SampleSplit)
         {
+            SetSides();
+
             if (BlockList.Count == 0)
             {
-                if (_LeftSide.Enabled)
+                if (LeftSide.Enabled)
                 {
                     MakeNewBlock(
-                        (Screen.AllScreens[_ScreenID].Bounds.Height - _LeftSide.Height + _LeftSide.YOffSet),
-                        _LeftSide.YOffSet,
-                        _LeftSide.Height + _LeftSide.BlockSpacing,
+                        (Screen.AllScreens[_ScreenID].Bounds.Height - LeftSide.Height + LeftSide.YOffSet),
+                        LeftSide.YOffSet,
+                        LeftSide.Height + LeftSide.BlockSpacing,
                         true,
-                        _LeftSide.Width,
-                        _LeftSide.Height,
+                        LeftSide.Width,
+                        LeftSide.Height,
                         false,
-                        Screen.AllScreens[_ScreenID].Bounds.X + _LeftSide.XOffSet,
+                        Screen.AllScreens[_ScreenID].Bounds.X + LeftSide.XOffSet,
                         Screen.AllScreens[_ScreenID].Bounds.Y,
                         _SampleSplit
                         );
                 }
-                if (_ToptSide.Enabled)
+                if (TopSide.Enabled)
                 {
                     MakeNewBlock(
-                        _ToptSide.XOffSet,
-                        (Screen.AllScreens[_ScreenID].Bounds.Width - _ToptSide.Width),
-                        _ToptSide.Width + _ToptSide.BlockSpacing,
+                        TopSide.XOffSet,
+                        (Screen.AllScreens[_ScreenID].Bounds.Width - TopSide.Width),
+                        TopSide.Width + TopSide.BlockSpacing,
                         false,
-                        _ToptSide.Width,
-                        _ToptSide.Height,
+                        TopSide.Width,
+                        TopSide.Height,
                         true,
                         Screen.AllScreens[_ScreenID].Bounds.X,
-                        Screen.AllScreens[_ScreenID].Bounds.Y + _ToptSide.YOffSet,
+                        Screen.AllScreens[_ScreenID].Bounds.Y + TopSide.YOffSet,
                         _SampleSplit
                         );
                 }
-                if (_RightSide.Enabled)
+                if (RightSide.Enabled)
                 {
                     MakeNewBlock(
-                        _RightSide.YOffSet,
-                        Screen.AllScreens[_ScreenID].Bounds.Height - _RightSide.Height,
-                        _RightSide.Height + _RightSide.BlockSpacing,
+                        RightSide.YOffSet,
+                        Screen.AllScreens[_ScreenID].Bounds.Height - RightSide.Height,
+                        RightSide.Height + RightSide.BlockSpacing,
                         false,
-                        _RightSide.Width,
-                        _RightSide.Height,
+                        RightSide.Width,
+                        RightSide.Height,
                         false,
-                        (Screen.AllScreens[_ScreenID].Bounds.X + Screen.AllScreens[_ScreenID].Bounds.Width - _RightSide.Width) + _RightSide.XOffSet,
-                        Screen.AllScreens[_ScreenID].Bounds.Y + _RightSide.YOffSet,
+                        (Screen.AllScreens[_ScreenID].Bounds.X + Screen.AllScreens[_ScreenID].Bounds.Width - RightSide.Width) + RightSide.XOffSet,
+                        Screen.AllScreens[_ScreenID].Bounds.Y + RightSide.YOffSet,
                         _SampleSplit
                         );
                 }
-                if (_BottomSide.Enabled)
+                if (BottomSide.Enabled)
                 {
                     MakeNewBlock(
-                        (Screen.AllScreens[_ScreenID].Bounds.Width - _BottomSide.Width) + _BottomSide.XOffSet,
+                        (Screen.AllScreens[_ScreenID].Bounds.Width - BottomSide.Width) + BottomSide.XOffSet,
                         0,
-                        _BottomSide.Width + _BottomSide.BlockSpacing,
+                        BottomSide.Width + BottomSide.BlockSpacing,
                         true,
-                        _BottomSide.Width,
-                        _BottomSide.Height,
+                        BottomSide.Width,
+                        BottomSide.Height,
                         true,
                         Screen.AllScreens[_ScreenID].Bounds.X,
-                        (Screen.AllScreens[_ScreenID].Bounds.Y + Screen.AllScreens[_ScreenID].Bounds.Height - _BottomSide.Height) + _BottomSide.YOffSet,
+                        (Screen.AllScreens[_ScreenID].Bounds.Y + Screen.AllScreens[_ScreenID].Bounds.Height - BottomSide.Height) + BottomSide.YOffSet,
                         _SampleSplit
                         );
                 }
@@ -199,8 +208,10 @@ namespace ArduLEDNameSpace
             }
         }
 
-        public void AutoSetOffsets(AmbilightSide _LeftSide, AmbilightSide _TopSide, AmbilightSide _RightSide, AmbilightSide _BottomSide, int _ScreenID, int _SampleSplit)
+        public void AutoSetOffsets(int _ScreenID, int _SampleSplit)
         {
+            SetSides();
+
             MainFormClass.Opacity = 0;
             Bitmap Screenshot = new Bitmap(Screen.AllScreens[_ScreenID].Bounds.Width, Screen.AllScreens[_ScreenID].Bounds.Height, PixelFormat.Format32bppRgb);
             using (Graphics GFXScreenshot = Graphics.FromImage(Screenshot))
@@ -209,7 +220,7 @@ namespace ArduLEDNameSpace
             }
             MainFormClass.Opacity = 1;
 
-            if (_LeftSide.Enabled)
+            if (LeftSide.Enabled)
             {
                 MainFormClass.AmbiLightModeLeftBlockOffsetXNumericUpDown.Value = FindFirstLightPixel(
                     0,
@@ -222,7 +233,7 @@ namespace ArduLEDNameSpace
                     );
             }
 
-            if (_TopSide.Enabled)
+            if (TopSide.Enabled)
             {
                 MainFormClass.AmbiLightModeTopBlockOffsetYNumericUpDown.Value = FindFirstLightPixel(
                     0,
@@ -235,7 +246,7 @@ namespace ArduLEDNameSpace
                     );
             }
 
-            if (_RightSide.Enabled)
+            if (RightSide.Enabled)
             {
                 MainFormClass.AmbiLightModeRightBlockOffsetXNumericUpDown.Value = -(Screen.AllScreens[_ScreenID].Bounds.Width - FindFirstLightPixel(
                     Screen.AllScreens[_ScreenID].Bounds.Width - 1,
@@ -248,7 +259,7 @@ namespace ArduLEDNameSpace
                     ));
             }
 
-            if (_BottomSide.Enabled)
+            if (BottomSide.Enabled)
             {
                 MainFormClass.AmbiLightModeBottomBlockOffsetYNumericUpDown.Value = -(Screen.AllScreens[_ScreenID].Bounds.Height - FindFirstLightPixel(
                     Screen.AllScreens[_ScreenID].Bounds.Height - 1,
@@ -266,7 +277,7 @@ namespace ArduLEDNameSpace
 
             SetSides();
 
-            ShowBlocks(MainFormClass.LeftSide, MainFormClass.TopSide, MainFormClass.RightSide, MainFormClass.BottomSide, _ScreenID, _SampleSplit);
+            ShowBlocks(_ScreenID, _SampleSplit);
 
             Thread.Sleep(1000);
 
@@ -308,8 +319,45 @@ namespace ArduLEDNameSpace
             return 0;
         }
 
-        public void StartAmbilight(AmbilightSide _LeftSide, AmbilightSide _TopSide, AmbilightSide _RightSide, AmbilightSide _BottomSide, int _ScreenID, int _SampleSplit, double _GammaValue, double _FadeFactor, int _RefreshRate)
+        public void AutoSetBlockSize(int _ScreenID, int _SampleSplit)
         {
+            SetSides();
+
+            if (LeftSide.Enabled)
+            {
+                MainFormClass.AmbiLightModeLeftBlockHeightNumericUpDown.Value = (decimal)((Screen.AllScreens[_ScreenID].Bounds.Height - LeftSide.YOffSet) / Math.Round((double)(Math.Abs(LeftSide.ToID - LeftSide.FromID) / LeftSide.LEDsPrBlock),0) - LeftSide.BlockSpacing);
+            }
+
+            if (TopSide.Enabled)
+            {
+                MainFormClass.AmbiLightModeTopBlockWidthNumericUpDown.Value = (decimal)((Screen.AllScreens[_ScreenID].Bounds.Width - TopSide.XOffSet) / Math.Round((double)(Math.Abs(TopSide.ToID - TopSide.FromID) / TopSide.LEDsPrBlock), 0) - TopSide.BlockSpacing);
+            }
+
+            if (RightSide.Enabled)
+            {
+                MainFormClass.AmbiLightModeRightBlockHeightNumericUpDown.Value = (decimal)((Screen.AllScreens[_ScreenID].Bounds.Height - RightSide.YOffSet) / Math.Round((double)(Math.Abs(RightSide.ToID - RightSide.FromID) / RightSide.LEDsPrBlock), 0) - RightSide.BlockSpacing);
+            }
+
+            if (BottomSide.Enabled)
+            {
+                MainFormClass.AmbiLightModeBottomBlockWidthNumericUpDown.Value = (decimal)((Screen.AllScreens[_ScreenID].Bounds.Width - BottomSide.XOffSet) / Math.Round((double)(Math.Abs(BottomSide.ToID - BottomSide.FromID) / BottomSide.LEDsPrBlock), 0) - BottomSide.BlockSpacing);
+            }
+
+            Application.DoEvents();
+
+            SetSides();
+
+            ShowBlocks(_ScreenID, _SampleSplit);
+
+            Thread.Sleep(1000);
+
+            HideBlocks();
+        }
+
+        public void StartAmbilight(int _ScreenID, int _SampleSplit, double _GammaValue, double _FadeFactor, int _RefreshRate)
+        {
+            SetSides();
+
             if (AmbilightTask != null)
                 if (AmbilightTask.Status == TaskStatus.Running)
                     StopAmbilight();
@@ -317,69 +365,69 @@ namespace ArduLEDNameSpace
             int Highest = 0;
             int Lowest = 0;
 
-            if (_LeftSide.Enabled)
-                if (_LeftSide.FromID < Lowest)
-                    Lowest = _LeftSide.FromID;
+            if (LeftSide.Enabled)
+                if (LeftSide.FromID < Lowest)
+                    Lowest = LeftSide.FromID;
 
-            if (_TopSide.Enabled)
-                if (_TopSide.FromID < Lowest)
-                    Lowest = _TopSide.FromID;
+            if (TopSide.Enabled)
+                if (TopSide.FromID < Lowest)
+                    Lowest = TopSide.FromID;
 
-            if (_RightSide.Enabled)
-                if (_RightSide.FromID < Lowest)
-                    Lowest = _RightSide.FromID;
+            if (RightSide.Enabled)
+                if (RightSide.FromID < Lowest)
+                    Lowest = RightSide.FromID;
 
-            if (_BottomSide.Enabled)
-                if (_BottomSide.FromID < Lowest)
-                    Lowest = _BottomSide.FromID;
+            if (BottomSide.Enabled)
+                if (BottomSide.FromID < Lowest)
+                    Lowest = BottomSide.FromID;
 
-            if (_LeftSide.Enabled)
-                if (_LeftSide.ToID < Lowest)
-                    Lowest = _LeftSide.ToID;
+            if (LeftSide.Enabled)
+                if (LeftSide.ToID < Lowest)
+                    Lowest = LeftSide.ToID;
 
-            if (_TopSide.Enabled)
-                if (_TopSide.ToID < Lowest)
-                    Lowest = _TopSide.ToID;
+            if (TopSide.Enabled)
+                if (TopSide.ToID < Lowest)
+                    Lowest = TopSide.ToID;
 
-            if (_RightSide.Enabled)
-                if (_RightSide.ToID < Lowest)
-                    Lowest = _RightSide.ToID;
+            if (RightSide.Enabled)
+                if (RightSide.ToID < Lowest)
+                    Lowest = RightSide.ToID;
 
-            if (_BottomSide.Enabled)
-                if (_BottomSide.ToID < Lowest)
-                    Lowest = _BottomSide.ToID;
+            if (BottomSide.Enabled)
+                if (BottomSide.ToID < Lowest)
+                    Lowest = BottomSide.ToID;
 
-            if (_LeftSide.Enabled)
-                if (_LeftSide.ToID > Highest)
-                    Highest = _LeftSide.ToID;
+            if (LeftSide.Enabled)
+                if (LeftSide.ToID > Highest)
+                    Highest = LeftSide.ToID;
 
-            if (_TopSide.Enabled)
-                if (_TopSide.ToID > Highest)
-                    Highest = _TopSide.ToID;
+            if (TopSide.Enabled)
+                if (TopSide.ToID > Highest)
+                    Highest = TopSide.ToID;
 
-            if (_RightSide.Enabled)
-                if (_RightSide.ToID > Highest)
-                    Highest = _RightSide.ToID;
+            if (RightSide.Enabled)
+                if (RightSide.ToID > Highest)
+                    Highest = RightSide.ToID;
 
-            if (_BottomSide.Enabled)
-                if (_BottomSide.ToID > Highest)
-                    Highest = _BottomSide.ToID;
+            if (BottomSide.Enabled)
+                if (BottomSide.ToID > Highest)
+                    Highest = BottomSide.ToID;
 
-            if (_LeftSide.Enabled)
-                if (_LeftSide.FromID > Highest)
-                    Highest = _LeftSide.FromID;
+            if (LeftSide.Enabled)
+                if (LeftSide.FromID > Highest)
+                    Highest = LeftSide.FromID;
 
-            if (_TopSide.Enabled)
-                if (_TopSide.FromID > Highest)
-                    Highest = _TopSide.FromID;
+            if (TopSide.Enabled)
+                if (TopSide.FromID > Highest)
+                    Highest = TopSide.FromID;
 
-            if (_RightSide.Enabled)
-                if (_RightSide.FromID > Highest)
-                    Highest = _RightSide.FromID;
+            if (RightSide.Enabled)
+                if (RightSide.FromID > Highest)
+                    Highest = RightSide.FromID;
 
-            if (_BottomSide.Enabled)
-                if (_BottomSide.FromID > Highest)
-                    Highest = _BottomSide.FromID;
+            if (BottomSide.Enabled)
+                if (BottomSide.FromID > Highest)
+                    Highest = BottomSide.FromID;
 
             string SerialOut = "6;" + Lowest + ";" + Highest;
             MainFormClass.SendDataBySerial(SerialOut);
@@ -393,9 +441,12 @@ namespace ArduLEDNameSpace
                 AmbilightColorStore.Add(new List<List<int>>());
             }
 
+            AssumeLevel = (double)MainFormClass.AmbiLightModeAssumeNumericUpDown.Value;
+            MaxVariation = (int)MainFormClass.AmbiLightModeMaxVariationNumericUpDown.Value;
+
             MainFormClass.AmbiLightModeWorkingPanel.Enabled = false;
 
-            AmbilightTask = new Task(delegate { AmbilightThread(_LeftSide,_TopSide,_RightSide,_BottomSide, _ScreenID, _SampleSplit, _GammaValue, _FadeFactor, _RefreshRate); });
+            AmbilightTask = new Task(delegate { AmbilightThread(LeftSide, TopSide, RightSide, BottomSide, _ScreenID, _SampleSplit, _GammaValue, _FadeFactor, _RefreshRate); });
             AmbilightTask.Start();
 
             RunAmbilight = true;
@@ -551,7 +602,7 @@ namespace ArduLEDNameSpace
                                 0,
                                 0,
                                 false,
-                                0,
+                                SideID.Left,
                                 _FadeFactor,
                                 _SampleSplit,
                                 _GammaValue
@@ -586,7 +637,7 @@ namespace ArduLEDNameSpace
                                 0,
                                 0,
                                 true,
-                                1,
+                                SideID.Top,
                                 _FadeFactor,
                                 _SampleSplit,
                                 _GammaValue
@@ -621,7 +672,7 @@ namespace ArduLEDNameSpace
                                 0,
                                 0,
                                 false,
-                                2,
+                                SideID.Right,
                                 _FadeFactor,
                                 _SampleSplit,
                                 _GammaValue
@@ -656,7 +707,7 @@ namespace ArduLEDNameSpace
                                 0,
                                 0,
                                 true,
-                                3,
+                                SideID.Bottom,
                                 _FadeFactor,
                                 _SampleSplit,
                                 _GammaValue
@@ -714,7 +765,7 @@ namespace ArduLEDNameSpace
                                     0,
                                     0,
                                     false,
-                                    0,
+                                    SideID.Left,
                                     _FadeFactor,
                                     _SampleSplit,
                                     _GammaValue
@@ -750,7 +801,7 @@ namespace ArduLEDNameSpace
                                     0,
                                     0,
                                     true,
-                                    1,
+                                    SideID.Top,
                                     _FadeFactor,
                                     _SampleSplit,
                                     _GammaValue
@@ -786,7 +837,7 @@ namespace ArduLEDNameSpace
                                     0,
                                     0,
                                     false,
-                                    2,
+                                    SideID.Right,
                                     _FadeFactor,
                                     _SampleSplit,
                                     _GammaValue
@@ -822,7 +873,7 @@ namespace ArduLEDNameSpace
                                     0,
                                     0,
                                     true,
-                                    3,
+                                    SideID.Bottom,
                                     _FadeFactor,
                                     _SampleSplit,
                                     _GammaValue
@@ -957,7 +1008,7 @@ namespace ArduLEDNameSpace
             int _OffSetX,
             int _OffSetY,
             bool _ILoc,
-            int _SideID,
+            SideID _SideID,
             double _FadeFactor,
             int _AddBy,
             double _GammaValue
@@ -1031,7 +1082,7 @@ namespace ArduLEDNameSpace
             int _OffSetX,
             int _OffSetY,
             int _i,
-            int _SideID,
+            SideID _SideID,
             int _Count,
             string[] _InnerSerialOut,
             int _SectionIndex,
@@ -1050,32 +1101,38 @@ namespace ArduLEDNameSpace
                 OutPutColor = GetColorOfSection(_ImageWindow, _ProcessColorWidth, _ProcessColorHeight, _OffSetX, _OffSetY + _i, _AddBy);
             if (_FadeFactor != 0)
             {
-                if (AmbilightColorStore[_SideID].Count == _Count)
+                int RedValue;
+                int GreenValue;
+                int BlueValue;
+                if (AmbilightColorStore[(int)_SideID].Count == _Count)
                 {
-                    AmbilightColorStore[_SideID].Add(new List<int>());
-                    AmbilightColorStore[_SideID][_Count].Add(OutPutColor.R);
-                    AmbilightColorStore[_SideID][_Count].Add(OutPutColor.G);
-                    AmbilightColorStore[_SideID][_Count].Add(OutPutColor.B);
+                    AmbilightColorStore[(int)_SideID].Add(new List<int> { OutPutColor.R, OutPutColor.G, OutPutColor.B });
+                    RedValue = OutPutColor.R;
+                    GreenValue = OutPutColor.G;
+                    BlueValue = OutPutColor.B;
                 }
                 else
                 {
-                    AmbilightColorStore[_SideID][_Count][0] = AmbilightColorStore[_SideID][_Count][0] + (int)(((double)OutPutColor.R - (double)AmbilightColorStore[_SideID][_Count][0]) * _FadeFactor);
-                    if (AmbilightColorStore[_SideID][_Count][0] > 255)
-                        AmbilightColorStore[_SideID][_Count][0] = 255;
-                    if (AmbilightColorStore[_SideID][_Count][0] < 0)
-                        AmbilightColorStore[_SideID][_Count][0] = 0;
-                    AmbilightColorStore[_SideID][_Count][1] = AmbilightColorStore[_SideID][_Count][1] + (int)(((double)OutPutColor.G - (double)AmbilightColorStore[_SideID][_Count][1]) * _FadeFactor);
-                    if (AmbilightColorStore[_SideID][_Count][1] > 255)
-                        AmbilightColorStore[_SideID][_Count][1] = 255;
-                    if (AmbilightColorStore[_SideID][_Count][1] < 0)
-                        AmbilightColorStore[_SideID][_Count][1] = 0;
-                    AmbilightColorStore[_SideID][_Count][2] = AmbilightColorStore[_SideID][_Count][2] + (int)(((double)OutPutColor.B - (double)AmbilightColorStore[_SideID][_Count][2]) * _FadeFactor);
-                    if (AmbilightColorStore[_SideID][_Count][2] > 255)
-                        AmbilightColorStore[_SideID][_Count][2] = 255;
-                    if (AmbilightColorStore[_SideID][_Count][2] < 0)
-                        AmbilightColorStore[_SideID][_Count][2] = 0;
+                    RedValue = AmbilightColorStore[(int)_SideID][_Count][0] + (int)(((double)OutPutColor.R - (double)AmbilightColorStore[(int)_SideID][_Count][0]) * _FadeFactor);
+                    if (RedValue > 255)
+                        RedValue = 255;
+                    if (RedValue < 0)
+                        RedValue = 0;
+                    AmbilightColorStore[(int)_SideID][_Count][0] = RedValue;
+                    GreenValue = AmbilightColorStore[(int)_SideID][_Count][1] + (int)(((double)OutPutColor.G - (double)AmbilightColorStore[(int)_SideID][_Count][1]) * _FadeFactor);
+                    if (GreenValue > 255)
+                        GreenValue = 255;
+                    if (GreenValue < 0)
+                        GreenValue = 0;
+                    AmbilightColorStore[(int)_SideID][_Count][1] = GreenValue;
+                    BlueValue = AmbilightColorStore[(int)_SideID][_Count][2] + (int)(((double)OutPutColor.B - (double)AmbilightColorStore[(int)_SideID][_Count][2]) * _FadeFactor);
+                    if (BlueValue > 255)
+                        BlueValue = 255;
+                    if (BlueValue < 0)
+                        BlueValue = 0;
+                    AmbilightColorStore[(int)_SideID][_Count][2] = BlueValue;
                 }
-                OutPutColor = GammaCorrection(Color.FromArgb(AmbilightColorStore[_SideID][_Count][0], AmbilightColorStore[_SideID][_Count][1], AmbilightColorStore[_SideID][_Count][2]), _GammaValue);
+                OutPutColor = GammaCorrection(Color.FromArgb(RedValue, GreenValue, BlueValue), _GammaValue);
             }
             else
             {
@@ -1138,6 +1195,11 @@ namespace ArduLEDNameSpace
             int AvgG = 0;
             int AvgB = 0;
 
+            int High = 0;
+            int Low = 765;
+
+            int CountTarget = (int)(((_Height / _AddBy) * (_Width / _AddBy)) * AssumeLevel);
+
             for (int y = _Ypos; y < _Ypos + _Height; y += _AddBy)
             {
                 for (int x = _Xpos; x < _Xpos + _Width; x += _AddBy)
@@ -1146,6 +1208,13 @@ namespace ArduLEDNameSpace
                     AvgR += Pixel.R;
                     AvgG += Pixel.G;
                     AvgB += Pixel.B;
+                    if ((AvgR + AvgG + AvgB) > High)
+                        High = (AvgR + AvgG + AvgB);
+                    if ((AvgR + AvgG + AvgB) < Low)
+                        Low = (AvgR + AvgG + AvgB);
+                    if (CountTarget == Count)
+                        if (High - Low <= MaxVariation)
+                            break;
                     Count++;
                 }
             }
@@ -1182,45 +1251,45 @@ namespace ArduLEDNameSpace
 
         public void SetSides()
         {
-            MainFormClass.LeftSide.Enabled = MainFormClass.AmbiLightModeLeftCheckBox.Checked;
-            MainFormClass.LeftSide.Width = (int)MainFormClass.AmbiLightModeLeftBlockWidthNumericUpDown.Value;
-            MainFormClass.LeftSide.Height = (int)MainFormClass.AmbiLightModeLeftBlockHeightNumericUpDown.Value;
-            MainFormClass.LeftSide.BlockSpacing = (int)MainFormClass.AmbiLightModeLeftBlockSpacingNumericUpDown.Value;
-            MainFormClass.LeftSide.XOffSet = (int)MainFormClass.AmbiLightModeLeftBlockOffsetXNumericUpDown.Value;
-            MainFormClass.LeftSide.YOffSet = (int)MainFormClass.AmbiLightModeLeftBlockOffsetYNumericUpDown.Value;
-            MainFormClass.LeftSide.FromID = (int)MainFormClass.AmbiLightModeLeftFromIDNumericUpDown.Value;
-            MainFormClass.LeftSide.ToID = (int)MainFormClass.AmbiLightModeLeftToIDNumericUpDown.Value;
-            MainFormClass.LeftSide.LEDsPrBlock = (int)MainFormClass.AmbiLightModeLeftLEDsPrBlockNumericUpDown.Value;
+            LeftSide.Enabled = MainFormClass.AmbiLightModeLeftCheckBox.Checked;
+            LeftSide.Width = (int)MainFormClass.AmbiLightModeLeftBlockWidthNumericUpDown.Value;
+            LeftSide.Height = (int)MainFormClass.AmbiLightModeLeftBlockHeightNumericUpDown.Value;
+            LeftSide.BlockSpacing = (int)MainFormClass.AmbiLightModeLeftBlockSpacingNumericUpDown.Value;
+            LeftSide.XOffSet = (int)MainFormClass.AmbiLightModeLeftBlockOffsetXNumericUpDown.Value;
+            LeftSide.YOffSet = (int)MainFormClass.AmbiLightModeLeftBlockOffsetYNumericUpDown.Value;
+            LeftSide.FromID = (int)MainFormClass.AmbiLightModeLeftFromIDNumericUpDown.Value;
+            LeftSide.ToID = (int)MainFormClass.AmbiLightModeLeftToIDNumericUpDown.Value;
+            LeftSide.LEDsPrBlock = (int)MainFormClass.AmbiLightModeLeftLEDsPrBlockNumericUpDown.Value;
 
-            MainFormClass.TopSide.Enabled = MainFormClass.AmbiLightModeTopCheckBox.Checked;
-            MainFormClass.TopSide.Width = (int)MainFormClass.AmbiLightModeTopBlockWidthNumericUpDown.Value;
-            MainFormClass.TopSide.Height = (int)MainFormClass.AmbiLightModeTopBlockHeightNumericUpDown.Value;
-            MainFormClass.TopSide.BlockSpacing = (int)MainFormClass.AmbiLightModeTopBlockSpacingNumericUpDown.Value;
-            MainFormClass.TopSide.XOffSet = (int)MainFormClass.AmbiLightModeTopBlockOffsetXNumericUpDown.Value;
-            MainFormClass.TopSide.YOffSet = (int)MainFormClass.AmbiLightModeTopBlockOffsetYNumericUpDown.Value;
-            MainFormClass.TopSide.FromID = (int)MainFormClass.AmbiLightModeTopFromIDNumericUpDown.Value;
-            MainFormClass.TopSide.ToID = (int)MainFormClass.AmbiLightModeTopToIDNumericUpDown.Value;
-            MainFormClass.TopSide.LEDsPrBlock = (int)MainFormClass.AmbiLightModeTopLEDsPrBlockNumericUpDown.Value;
+            TopSide.Enabled = MainFormClass.AmbiLightModeTopCheckBox.Checked;
+            TopSide.Width = (int)MainFormClass.AmbiLightModeTopBlockWidthNumericUpDown.Value;
+            TopSide.Height = (int)MainFormClass.AmbiLightModeTopBlockHeightNumericUpDown.Value;
+            TopSide.BlockSpacing = (int)MainFormClass.AmbiLightModeTopBlockSpacingNumericUpDown.Value;
+            TopSide.XOffSet = (int)MainFormClass.AmbiLightModeTopBlockOffsetXNumericUpDown.Value;
+            TopSide.YOffSet = (int)MainFormClass.AmbiLightModeTopBlockOffsetYNumericUpDown.Value;
+            TopSide.FromID = (int)MainFormClass.AmbiLightModeTopFromIDNumericUpDown.Value;
+            TopSide.ToID = (int)MainFormClass.AmbiLightModeTopToIDNumericUpDown.Value;
+            TopSide.LEDsPrBlock = (int)MainFormClass.AmbiLightModeTopLEDsPrBlockNumericUpDown.Value;
 
-            MainFormClass.RightSide.Enabled = MainFormClass.AmbiLightModeRightCheckBox.Checked;
-            MainFormClass.RightSide.Width = (int)MainFormClass.AmbiLightModeRightBlockWidthNumericUpDown.Value;
-            MainFormClass.RightSide.Height = (int)MainFormClass.AmbiLightModeRightBlockHeightNumericUpDown.Value;
-            MainFormClass.RightSide.BlockSpacing = (int)MainFormClass.AmbiLightModeRightBlockSpacingNumericUpDown.Value;
-            MainFormClass.RightSide.XOffSet = (int)MainFormClass.AmbiLightModeRightBlockOffsetXNumericUpDown.Value;
-            MainFormClass.RightSide.YOffSet = (int)MainFormClass.AmbiLightModeRightBlockOffsetYNumericUpDown.Value;
-            MainFormClass.RightSide.FromID = (int)MainFormClass.AmbiLightModeRightFromIDNumericUpDown.Value;
-            MainFormClass.RightSide.ToID = (int)MainFormClass.AmbiLightModeRightToIDNumericUpDown.Value;
-            MainFormClass.RightSide.LEDsPrBlock = (int)MainFormClass.AmbiLightModeRightLEDsPrBlockNumericUpDown.Value;
+            RightSide.Enabled = MainFormClass.AmbiLightModeRightCheckBox.Checked;
+            RightSide.Width = (int)MainFormClass.AmbiLightModeRightBlockWidthNumericUpDown.Value;
+            RightSide.Height = (int)MainFormClass.AmbiLightModeRightBlockHeightNumericUpDown.Value;
+            RightSide.BlockSpacing = (int)MainFormClass.AmbiLightModeRightBlockSpacingNumericUpDown.Value;
+            RightSide.XOffSet = (int)MainFormClass.AmbiLightModeRightBlockOffsetXNumericUpDown.Value;
+            RightSide.YOffSet = (int)MainFormClass.AmbiLightModeRightBlockOffsetYNumericUpDown.Value;
+            RightSide.FromID = (int)MainFormClass.AmbiLightModeRightFromIDNumericUpDown.Value;
+            RightSide.ToID = (int)MainFormClass.AmbiLightModeRightToIDNumericUpDown.Value;
+            RightSide.LEDsPrBlock = (int)MainFormClass.AmbiLightModeRightLEDsPrBlockNumericUpDown.Value;
 
-            MainFormClass.BottomSide.Enabled = MainFormClass.AmbiLightModeBottomCheckBox.Checked;
-            MainFormClass.BottomSide.Width = (int)MainFormClass.AmbiLightModeBottomBlockWidthNumericUpDown.Value;
-            MainFormClass.BottomSide.Height = (int)MainFormClass.AmbiLightModeBottomBlockHeightNumericUpDown.Value;
-            MainFormClass.BottomSide.BlockSpacing = (int)MainFormClass.AmbiLightModeBottomBlockSpacingNumericUpDown.Value;
-            MainFormClass.BottomSide.XOffSet = (int)MainFormClass.AmbiLightModeBottomBlockOffsetXNumericUpDown.Value;
-            MainFormClass.BottomSide.YOffSet = (int)MainFormClass.AmbiLightModeBottomBlockOffsetYNumericUpDown.Value;
-            MainFormClass.BottomSide.FromID = (int)MainFormClass.AmbiLightModeBottomFromIDNumericUpDown.Value;
-            MainFormClass.BottomSide.ToID = (int)MainFormClass.AmbiLightModeBottomToIDNumericUpDown.Value;
-            MainFormClass.BottomSide.LEDsPrBlock = (int)MainFormClass.AmbiLightModeBottomLEDsPrBlockNumericUpDown.Value;
+            BottomSide.Enabled = MainFormClass.AmbiLightModeBottomCheckBox.Checked;
+            BottomSide.Width = (int)MainFormClass.AmbiLightModeBottomBlockWidthNumericUpDown.Value;
+            BottomSide.Height = (int)MainFormClass.AmbiLightModeBottomBlockHeightNumericUpDown.Value;
+            BottomSide.BlockSpacing = (int)MainFormClass.AmbiLightModeBottomBlockSpacingNumericUpDown.Value;
+            BottomSide.XOffSet = (int)MainFormClass.AmbiLightModeBottomBlockOffsetXNumericUpDown.Value;
+            BottomSide.YOffSet = (int)MainFormClass.AmbiLightModeBottomBlockOffsetYNumericUpDown.Value;
+            BottomSide.FromID = (int)MainFormClass.AmbiLightModeBottomFromIDNumericUpDown.Value;
+            BottomSide.ToID = (int)MainFormClass.AmbiLightModeBottomToIDNumericUpDown.Value;
+            BottomSide.LEDsPrBlock = (int)MainFormClass.AmbiLightModeBottomLEDsPrBlockNumericUpDown.Value;
         }
     }
 }

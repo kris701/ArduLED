@@ -21,6 +21,7 @@ namespace ArduLEDNameSpace
         public Thread ServerThread;
         private MainForm MainFormClass;
         public bool RunningCommand = false;
+        private int TotalLEDCount = 0;
 
         public void Dispose()
         {
@@ -137,28 +138,39 @@ namespace ArduLEDNameSpace
                     DataStream.Read(ReadBytes, 0, 1024);
                     DataStream.Flush();
                     string ClientData = System.Text.Encoding.ASCII.GetString(ReadBytes);
-                    ClientData = ClientData.Substring(0, ClientData.IndexOf("$"));
+                    if (ClientData.IndexOf("$") > 0)
+                    {
+                        ClientData = ClientData.Substring(0, ClientData.IndexOf("$"));
 
-                    MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "Server Recieved: " + ClientData + Environment.NewLine; });
+                        MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "Server Recieved: " + ClientData + Environment.NewLine; });
 
-                    string Out = ArduLEDServerAPI(ClientData);
+                        string Out = ArduLEDServerAPI(ClientData);
 
-                    RunningCommand = false;
+                        RunningCommand = false;
 
-                    //Use for debug
-                    //if (Out != "")
-                    //{
-                    //    Byte[] SendBytes = System.Text.Encoding.ASCII.GetBytes(Out);
-                    //    DataStream.Write(SendBytes, 0, SendBytes.Length);
-                    //    DataStream.Flush();
-                    //}
-                    if (Out != "N")
-                        MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += " Command Done!" + Environment.NewLine; });
+                        //Use for debug
+                        //if (Out != "")
+                        //{
+                        //    Byte[] SendBytes = System.Text.Encoding.ASCII.GetBytes(Out);
+                        //    DataStream.Write(SendBytes, 0, SendBytes.Length);
+                        //    DataStream.Flush();
+                        //}
+                        if (Out != "N")
+                            MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += " Command Done!" + Environment.NewLine; });
+                        else
+                            MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += " Bad Input!!" + Environment.NewLine; });
+
+                        MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.SelectionStart = MainFormClass.ServerSettingsConsoleTextBox.TextLength - 1; });
+                        MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.ScrollToCaret(); });
+                    }
                     else
-                        MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += " Bad Input!!" + Environment.NewLine; });
-
-                    MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.SelectionStart = MainFormClass.ServerSettingsConsoleTextBox.TextLength - 1; });
-                    MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.ScrollToCaret(); });
+                    {
+                        MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "Client Disconnected!" + Environment.NewLine; });
+                        ServerListener.Stop();
+                        ServerListener.Start();
+                        if (!ConnectToClient())
+                            break;
+                    }
                 }
                 catch
                 {
@@ -220,8 +232,9 @@ namespace ArduLEDNameSpace
                     InputSplit[0] = InputSplit[0].Replace("GETTOTALLEDCOUNT(", "");
                     InputSplit[InputSplit.Length - 1] = InputSplit[InputSplit.Length - 1].Replace(")", "");
 
+                    TotalLEDCount = MainFormClass.TotalLEDCount;
                     NetworkStream DataStream = ClientSocket.GetStream();
-                    Byte[] SendBytes = System.Text.Encoding.ASCII.GetBytes(MainFormClass.TotalLEDCount.ToString());
+                    Byte[] SendBytes = System.Text.Encoding.ASCII.GetBytes(TotalLEDCount.ToString());
                     DataStream.Write(SendBytes, 0, SendBytes.Length);
                     DataStream.Flush();
                     return "G";
@@ -368,12 +381,7 @@ namespace ArduLEDNameSpace
                     if (InputSplit[0] == "True")
                     {
                         MainFormClass.AmbiLightModePanel.Invoke((MethodInvoker)delegate {
-                            MainFormClass.AmbiLightSectionClass.SetSides();
                             MainFormClass.AmbiLightSectionClass.StartAmbilight(
-                                    MainFormClass.LeftSide,
-                                    MainFormClass.TopSide,
-                                    MainFormClass.RightSide,
-                                    MainFormClass.BottomSide,
                                     (int)MainFormClass.AmbiLightModeScreenIDNumericUpDown.Value,
                                     (int)MainFormClass.AmbiLightModeBlockSampleSplitNumericUpDown.Value,
                                     (double)MainFormClass.AmbiLightModeGammaFactorNumericUpDown.Value,
@@ -391,12 +399,7 @@ namespace ArduLEDNameSpace
                     if (InputSplit[2] == "True")
                     {
                         MainFormClass.AmbiLightModePanel.Invoke((MethodInvoker)delegate {
-                            MainFormClass.AmbiLightSectionClass.SetSides();
                             MainFormClass.AmbiLightSectionClass.ShowBlocks(
-                                MainFormClass.LeftSide,
-                                MainFormClass.TopSide,
-                                MainFormClass.RightSide,
-                                MainFormClass.BottomSide,
                                 (int)MainFormClass.AmbiLightModeScreenIDNumericUpDown.Value,
                                 (int)MainFormClass.AmbiLightModeBlockSampleSplitNumericUpDown.Value
                                 );
@@ -405,12 +408,7 @@ namespace ArduLEDNameSpace
                     if (InputSplit[3] == "True")
                     {
                         MainFormClass.AmbiLightModePanel.Invoke((MethodInvoker)delegate {
-                            MainFormClass.AmbiLightSectionClass.SetSides();
                             MainFormClass.AmbiLightSectionClass.AutoSetOffsets(
-                                MainFormClass.LeftSide,
-                                MainFormClass.TopSide,
-                                MainFormClass.RightSide,
-                                MainFormClass.BottomSide,
                                 (int)MainFormClass.AmbiLightModeScreenIDNumericUpDown.Value,
                                 (int)MainFormClass.AmbiLightModeBlockSampleSplitNumericUpDown.Value
                                 );

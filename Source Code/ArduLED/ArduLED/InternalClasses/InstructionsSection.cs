@@ -165,23 +165,32 @@ namespace ArduLEDNameSpace
 
         public void AutoloadLastInstructions()
         {
-            if (File.Exists(Directory.GetCurrentDirectory() + "\\Instructions\\0.txt"))
+            try
             {
-                while (MainFormClass.InstructionsWorkingPanel.Controls.Count > 0)
-                    MainFormClass.InstructionsWorkingPanel.Controls[0].Dispose();
-
-                IntructionsList.Clear();
-
-                string[] Lines = File.ReadAllLines(Directory.GetCurrentDirectory() + "\\Instructions\\0.txt", System.Text.Encoding.UTF8);
-                for (int i = 0; i < Lines.Length; i++)
+                if (File.Exists(Directory.GetCurrentDirectory() + "\\Instructions\\0.txt"))
                 {
-                    IntructionsList.Add(Lines[i]);
-                    MakeInstructionPanel(Lines[i], i);
+                    while (MainFormClass.InstructionsWorkingPanel.Controls.Count > 0)
+                        MainFormClass.InstructionsWorkingPanel.Controls[0].Dispose();
+
+                    IntructionsList.Clear();
+
+                    string[] Lines = File.ReadAllLines(Directory.GetCurrentDirectory() + "\\Instructions\\0.txt", System.Text.Encoding.UTF8);
+                    for (int i = 0; i < Lines.Length; i++)
+                    {
+                        IntructionsList.Add(Lines[i]);
+                        MakeInstructionPanel(Lines[i], i);
+                    }
                 }
             }
+            catch { MessageBox.Show("Cannot access file!"); }
         }
 
-        public async Task RunInstructions()
+        public async void RunInstructions()
+        {
+            await RunInstructionsInner();
+        }
+
+        public async Task RunInstructionsInner()
         {
             await Task.Run(async () =>
             {
@@ -270,12 +279,7 @@ namespace ArduLEDNameSpace
                                 if (Data[2] == "True")
                                 {
                                     MainFormClass.AmbiLightModePanel.Invoke((MethodInvoker)delegate {
-                                        MainFormClass.AmbiLightSectionClass.SetSides();
                                         MainFormClass.AmbiLightSectionClass.ShowBlocks(
-                                            MainFormClass.LeftSide,
-                                            MainFormClass.TopSide,
-                                            MainFormClass.RightSide,
-                                            MainFormClass.BottomSide,
                                             (int)MainFormClass.AmbiLightModeScreenIDNumericUpDown.Value,
                                             (int)MainFormClass.AmbiLightModeBlockSampleSplitNumericUpDown.Value
                                             );
@@ -286,12 +290,7 @@ namespace ArduLEDNameSpace
                                     if (Data[3] == "True")
                                     {
                                         MainFormClass.AmbiLightModePanel.Invoke((MethodInvoker)delegate {
-                                            MainFormClass.AmbiLightSectionClass.SetSides();
                                             MainFormClass.AmbiLightSectionClass.AutoSetOffsets(
-                                                MainFormClass.LeftSide,
-                                                MainFormClass.TopSide,
-                                                MainFormClass.RightSide,
-                                                MainFormClass.BottomSide,
                                                 (int)MainFormClass.AmbiLightModeScreenIDNumericUpDown.Value,
                                                 (int)MainFormClass.AmbiLightModeBlockSampleSplitNumericUpDown.Value
                                                 );
@@ -301,12 +300,7 @@ namespace ArduLEDNameSpace
                                     {
                                         MainFormClass.AmbiLightModePanel.Invoke((MethodInvoker)delegate {
                                             MainFormClass.LoadSettings(Directory.GetCurrentDirectory() + "\\AmbilightSettings\\" + Data[4]);
-                                            MainFormClass.AmbiLightSectionClass.SetSides();
                                             MainFormClass.AmbiLightSectionClass.StartAmbilight(
-                                                MainFormClass.LeftSide,
-                                                MainFormClass.TopSide,
-                                                MainFormClass.RightSide,
-                                                MainFormClass.BottomSide,
                                                 (int)MainFormClass.AmbiLightModeScreenIDNumericUpDown.Value,
                                                 (int)MainFormClass.AmbiLightModeBlockSampleSplitNumericUpDown.Value,
                                                 (double)MainFormClass.AmbiLightModeGammaFactorNumericUpDown.Value,
@@ -339,44 +333,56 @@ namespace ArduLEDNameSpace
 
         public void SaveInstructions()
         {
-            using (StreamWriter AutoSaveFile = new StreamWriter(MainFormClass.GenerateStreamFromString(Directory.GetCurrentDirectory() + "\\Instructions\\0.txt"), System.Text.Encoding.UTF8))
-            {
-                using (StreamWriter SaveFile = new StreamWriter(MainFormClass.SaveFileDialog.OpenFile(), System.Text.Encoding.UTF8))
+            try
+            { 
+                using (StreamWriter AutoSaveFile = new StreamWriter(MainFormClass.GenerateStreamFromString(Directory.GetCurrentDirectory() + "\\Instructions\\0.txt"), System.Text.Encoding.UTF8))
                 {
-                    foreach (string c in IntructionsList)
+                    using (StreamWriter SaveFile = new StreamWriter(MainFormClass.SaveFileDialog.OpenFile(), System.Text.Encoding.UTF8))
                     {
-                        string SerialOut = c;
-                        SaveFile.WriteLine(SerialOut);
-                        AutoSaveFile.WriteLine(SerialOut);
+                        foreach (string c in IntructionsList)
+                        {
+                            string SerialOut = c;
+                            SaveFile.WriteLine(SerialOut);
+                            AutoSaveFile.WriteLine(SerialOut);
+                        }
                     }
                 }
             }
+            catch { MessageBox.Show("Cannot access file!"); }
         }
 
         public void LoadInstructions(string _FileLoc)
         {
-            while (MainFormClass.InstructionsWorkingPanel.Controls.Count > 0)
-                MainFormClass.InstructionsWorkingPanel.Controls[0].Dispose();
+            try
+            { 
+                while (MainFormClass.InstructionsWorkingPanel.Controls.Count > 0)
+                    MainFormClass.InstructionsWorkingPanel.Controls[0].Dispose();
 
-            IntructionsList.Clear();
-            string[] Lines = File.ReadAllLines(_FileLoc, System.Text.Encoding.UTF8);
-            for (int i = 0; i < Lines.Length; i++)
-            {
-                IntructionsList.Add(Lines[i]);
-                MakeInstructionPanel(Lines[i], i);
+                IntructionsList.Clear();
+                string[] Lines = File.ReadAllLines(_FileLoc, System.Text.Encoding.UTF8);
+                for (int i = 0; i < Lines.Length; i++)
+                {
+                    IntructionsList.Add(Lines[i]);
+                    MakeInstructionPanel(Lines[i], i);
+                }
             }
+            catch { MessageBox.Show("Cannot access file!"); }
         }
 
         public void AutoSave()
         {
-            using (StreamWriter AutoSaveFile = new StreamWriter(MainFormClass.GenerateStreamFromString(Directory.GetCurrentDirectory() + "\\Instructions\\0.txt"), System.Text.Encoding.UTF8))
+            try
             {
-                foreach (string c in IntructionsList)
+                using (StreamWriter AutoSaveFile = new StreamWriter(MainFormClass.GenerateStreamFromString(Directory.GetCurrentDirectory() + "\\Instructions\\0.txt"), System.Text.Encoding.UTF8))
                 {
-                    string SerialOut = c;
-                    AutoSaveFile.WriteLine(SerialOut);
+                    foreach (string c in IntructionsList)
+                    {
+                        string SerialOut = c;
+                        AutoSaveFile.WriteLine(SerialOut);
+                    }
                 }
             }
+            catch { MessageBox.Show("Cannot access file!"); }
         }
     }
 }

@@ -29,13 +29,6 @@ namespace ArduLEDNameSpace
 
         public List<Control> ControlList = new List<Control>();
 
-        public Point DragStart = new Point(0, 0);
-
-        public AmbilightSide LeftSide;
-        public AmbilightSide TopSide;
-        public AmbilightSide RightSide;
-        public AmbilightSide BottomSide;
-
         public VisualizerSection VisualizerSectionClass;
         public AmbiLightSection AmbiLightSectionClass;
         public InstructionsSection InstructionsSectionClass;
@@ -53,121 +46,129 @@ namespace ArduLEDNameSpace
 
         public void LoadSettings(string _Location)
         {
-            if (File.Exists(_Location))
-            {
-                string[] Lines = File.ReadAllLines(_Location, System.Text.Encoding.UTF8);
-                for (int i = 0; i < Lines.Length; i++)
+            try
+            { 
+                if (File.Exists(_Location))
                 {
-                    string[] Split = Lines[i].Split(';');
-                    if (Split[0] != "")
+                    string[] Lines = File.ReadAllLines(_Location, System.Text.Encoding.UTF8);
+                    for (int i = 0; i < Lines.Length; i++)
                     {
-                        try
+                        string[] Split = Lines[i].Split(';');
+                        if (Split[0] != "")
                         {
-                            if (Split[0].ToUpper() == "COMBOBOX")
+                            try
                             {
-                                ComboBox LoadCombobox = Controls.Find(Split[1], true)[0] as ComboBox;
-                                int Value = Int32.Parse(Split[2]);
-                                if (Value >= 0)
+                                if (Split[0].ToUpper() == "COMBOBOX")
                                 {
-                                    if (Value < LoadCombobox.Items.Count)
-                                        LoadCombobox.SelectedIndex = Value;
+                                    ComboBox LoadCombobox = Controls.Find(Split[1], true)[0] as ComboBox;
+                                    int Value = Int32.Parse(Split[2]);
+                                    if (Value >= 0)
+                                    {
+                                        if (Value < LoadCombobox.Items.Count)
+                                            LoadCombobox.SelectedIndex = Value;
+                                    }
+                                }
+                                if (Split[0].ToUpper() == "CHECKBOX")
+                                {
+                                    CheckBox LoadCheckBox = Controls.Find(Split[1], true)[0] as CheckBox;
+                                    LoadCheckBox.Checked = Convert.ToBoolean(Split[2]);
+                                }
+                                if (Split[0].ToUpper() == "TEXTBOX")
+                                {
+                                    TextBox LoadTextBox = Controls.Find(Split[1], true)[0] as TextBox;
+                                    LoadTextBox.Text = Split[2];
+                                }
+                                if (Split[0].ToUpper() == "NUMERICUPDOWN")
+                                {
+                                    NumericUpDown LoadNumericUpDown = Controls.Find(Split[1], true)[0] as NumericUpDown;
+                                    decimal Value = Convert.ToDecimal(Split[2]);
+                                    if (Value >= LoadNumericUpDown.Minimum)
+                                    {
+                                        if (Value <= LoadNumericUpDown.Maximum)
+                                            LoadNumericUpDown.Value = Value;
+                                    }
+                                }
+                                if (Split[0].ToUpper() == "TRACKBAR")
+                                {
+                                    TrackBar LoadTrackBar = Controls.Find(Split[1], true)[0] as TrackBar;
+                                    int Value = Int32.Parse(Split[2]);
+                                    if (Value >= LoadTrackBar.Minimum)
+                                    {
+                                        if (Value <= LoadTrackBar.Maximum)
+                                            LoadTrackBar.Value = Value;
+                                    }
+                                }
+                                if (Split[0].ToUpper() == "SERIALPORT")
+                                {
+                                    SerialPort1.BaudRate = Int32.Parse(Split[1]);
                                 }
                             }
-                            if (Split[0].ToUpper() == "CHECKBOX")
-                            {
-                                CheckBox LoadCheckBox = Controls.Find(Split[1], true)[0] as CheckBox;
-                                LoadCheckBox.Checked = Convert.ToBoolean(Split[2]);
-                            }
-                            if (Split[0].ToUpper() == "TEXTBOX")
-                            {
-                                TextBox LoadTextBox = Controls.Find(Split[1], true)[0] as TextBox;
-                                LoadTextBox.Text = Split[2];
-                            }
-                            if (Split[0].ToUpper() == "NUMERICUPDOWN")
-                            {
-                                NumericUpDown LoadNumericUpDown = Controls.Find(Split[1], true)[0] as NumericUpDown;
-                                decimal Value = Convert.ToDecimal(Split[2]);
-                                if (Value >= LoadNumericUpDown.Minimum)
-                                {
-                                    if (Value <= LoadNumericUpDown.Maximum)
-                                        LoadNumericUpDown.Value = Value;
-                                }
-                            }
-                            if (Split[0].ToUpper() == "TRACKBAR")
-                            {
-                                TrackBar LoadTrackBar = Controls.Find(Split[1], true)[0] as TrackBar;
-                                int Value = Int32.Parse(Split[2]);
-                                if (Value >= LoadTrackBar.Minimum)
-                                {
-                                    if (Value <= LoadTrackBar.Maximum)
-                                        LoadTrackBar.Value = Value;
-                                }
-                            }
-                            if (Split[0].ToUpper() == "SERIALPORT")
-                            {
-                                SerialPort1.BaudRate = Int32.Parse(Split[1]);
-                            }
+                            catch { }
                         }
-                        catch { }
                     }
+                    FormatLayout();
                 }
-                FormatLayout();
             }
+            catch { MessageBox.Show("Cannot access file!"); }
         }
 
         public void SaveSettings(string _Location, string _Additional)
         {
-            if (File.Exists(_Location))
-                File.Delete(_Location);
+            try
+            { 
+                if (File.Exists(_Location))
+                    RemoveFile(_Location);
 
-            using (StreamWriter SaveFile = File.CreateText(_Location))
-            {
-                string SerialOut;
-                if (_Additional != "")
+                using (StreamWriter SaveFile = File.CreateText(_Location))
                 {
-                    SerialOut = _Additional;
-                    SaveFile.WriteLine(SerialOut);
+                    string SerialOut;
+                    if (_Additional != "")
+                    {
+                        SerialOut = _Additional;
+                        SaveFile.WriteLine(SerialOut);
+                    }
+                    foreach (Control c in ControlList)
+                    {
+                        if (c is ComboBox)
+                        {
+                            ComboBox SaveComboBox = c as ComboBox;
+                            SerialOut = "COMBOBOX;" + SaveComboBox.Name + ";" + SaveComboBox.SelectedIndex;
+                            SaveFile.WriteLine(SerialOut);
+                            continue;
+                        }
+                        if (c is CheckBox)
+                        {
+                            CheckBox SaveCheckBox = c as CheckBox;
+                            SerialOut = "CHECKBOX;" + SaveCheckBox.Name + ";" + SaveCheckBox.Checked;
+                            SaveFile.WriteLine(SerialOut);
+                            continue;
+                        }
+                        if (c is TextBox)
+                        {
+                            TextBox SaveTextBox = c as TextBox;
+                            SerialOut = "TEXTBOX;" + SaveTextBox.Name + ";" + SaveTextBox.Text;
+                            SaveFile.WriteLine(SerialOut);
+                            continue;
+                        }
+                        if (c is NumericUpDown)
+                        {
+                            NumericUpDown SaveNumericUpDown = c as NumericUpDown;
+                            SerialOut = "NUMERICUPDOWN;" + SaveNumericUpDown.Name + ";" + SaveNumericUpDown.Value;
+                            SaveFile.WriteLine(SerialOut);
+                            continue;
+                        }
+                        if (c is TrackBar)
+                        {
+                            TrackBar SaveTrackBar = c as TrackBar;
+                            SerialOut = "TRACKBAR;" + SaveTrackBar.Name + ";" + SaveTrackBar.Value;
+                            SaveFile.WriteLine(SerialOut);
+                            continue;
+                        }
+                    }
                 }
-                foreach (Control c in ControlList)
-                {
-                    if (c is ComboBox)
-                    {
-                        ComboBox SaveComboBox = c as ComboBox;
-                        SerialOut = "COMBOBOX;" + SaveComboBox.Name + ";" + SaveComboBox.SelectedIndex;
-                        SaveFile.WriteLine(SerialOut);
-                        continue;
-                    }
-                    if (c is CheckBox)
-                    {
-                        CheckBox SaveCheckBox = c as CheckBox;
-                        SerialOut = "CHECKBOX;" + SaveCheckBox.Name + ";" + SaveCheckBox.Checked;
-                        SaveFile.WriteLine(SerialOut);
-                        continue;
-                    }
-                    if (c is TextBox)
-                    {
-                        TextBox SaveTextBox = c as TextBox;
-                        SerialOut = "TEXTBOX;" + SaveTextBox.Name + ";" + SaveTextBox.Text;
-                        SaveFile.WriteLine(SerialOut);
-                        continue;
-                    }
-                    if (c is NumericUpDown)
-                    {
-                        NumericUpDown SaveNumericUpDown = c as NumericUpDown;
-                        SerialOut = "NUMERICUPDOWN;" + SaveNumericUpDown.Name + ";" + SaveNumericUpDown.Value;
-                        SaveFile.WriteLine(SerialOut);
-                        continue;
-                    }
-                    if (c is TrackBar)
-                    {
-                        TrackBar SaveTrackBar = c as TrackBar;
-                        SerialOut = "TRACKBAR;" + SaveTrackBar.Name + ";" + SaveTrackBar.Value;
-                        SaveFile.WriteLine(SerialOut);
-                        continue;
-                    }
-                }
+                ControlList.Clear();
             }
-            ControlList.Clear();
+            catch { MessageBox.Show("Cannot access file!"); }
         }
 
         public void FormatLayout()
@@ -344,7 +345,7 @@ namespace ArduLEDNameSpace
                 AutoSaveAllSettings();
             }
             if (File.Exists(Directory.GetCurrentDirectory() + "\\Temp.txt"))
-                File.Delete(Directory.GetCurrentDirectory() + "\\Temp.txt");
+                RemoveFile(Directory.GetCurrentDirectory() + "\\Temp.txt");
 
             ServerAPISectionClass.Dispose();
             AmbiLightSectionClass.Dispose();
@@ -394,6 +395,15 @@ namespace ArduLEDNameSpace
 
             await LoadingSectionClass.MainLoadingSection();
         }
+
+        public void RemoveFile(string _FileLocation)
+        {
+            try
+            {
+                File.Delete(_FileLocation);
+            }
+            catch { MessageBox.Show("Cannot access file!"); }
+}
 
         #endregion
 
@@ -575,12 +585,12 @@ namespace ArduLEDNameSpace
 
         #region Instructions Region
 
-        private async void InstructionStartLoopButton_Click(object sender, EventArgs e)
+        private void InstructionStartLoopButton_Click(object sender, EventArgs e)
         {
             if (!InstructionsSectionClass.InstructionsRunning)
             {
                 InstructionsSectionClass.ContinueInstructionsLoop = true;
-                await InstructionsSectionClass.RunInstructions();
+                InstructionsSectionClass.RunInstructions();
             }
         }
 
@@ -860,7 +870,7 @@ namespace ArduLEDNameSpace
                 VisualizerSectionClass.EnableBASS(true);
         }
 
-        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        private void CheckBox4_CheckedChanged(object sender, EventArgs e)
         {
             BeatZoneTriggerHeight.Enabled = !AutoTriggerCheckBox.Checked;
         }
@@ -953,12 +963,7 @@ namespace ArduLEDNameSpace
 
         public void AmbiLightModeShowHideBlocksButton_Click(object sender, EventArgs e)
         {
-            AmbiLightSectionClass.SetSides();
             AmbiLightSectionClass.ShowBlocks(
-                LeftSide, 
-                TopSide, 
-                RightSide, 
-                BottomSide, 
                 (int)AmbiLightModeScreenIDNumericUpDown.Value, 
                 (int)AmbiLightModeBlockSampleSplitNumericUpDown.Value
                 );
@@ -966,12 +971,7 @@ namespace ArduLEDNameSpace
 
         public void AmbiLightModeStartAmbilightButton_Click(object sender, EventArgs e)
         {
-            AmbiLightSectionClass.SetSides();
             AmbiLightSectionClass.StartAmbilight(
-                LeftSide, 
-                TopSide, 
-                RightSide,
-                BottomSide, 
                 (int)AmbiLightModeScreenIDNumericUpDown.Value, 
                 (int)AmbiLightModeBlockSampleSplitNumericUpDown.Value, 
                 (double)AmbiLightModeGammaFactorNumericUpDown.Value,
@@ -987,13 +987,16 @@ namespace ArduLEDNameSpace
 
         public void AmbiLightModeAutosetOffsets_Click(object sender, EventArgs e)
         {
-            AmbiLightSectionClass.SetSides();
             AmbiLightSectionClass.AutoSetOffsets(
-                LeftSide, 
-                TopSide, 
-                RightSide, 
-                BottomSide, 
                 (int)AmbiLightModeScreenIDNumericUpDown.Value, 
+                (int)AmbiLightModeBlockSampleSplitNumericUpDown.Value
+                );
+        }
+
+        private void AmbiLightModeAutosetBlockSizes_Click(object sender, EventArgs e)
+        {
+            AmbiLightSectionClass.AutoSetBlockSize(
+                (int)AmbiLightModeScreenIDNumericUpDown.Value,
                 (int)AmbiLightModeBlockSampleSplitNumericUpDown.Value
                 );
         }
@@ -1010,13 +1013,13 @@ namespace ArduLEDNameSpace
             AnimationModeSectionClass.AddLine(SendData);
         }
 
-        private async void AnimationModeStartButton_Click(object sender, EventArgs e)
+        private void AnimationModeStartButton_Click(object sender, EventArgs e)
         {
             if (!AnimationModeSectionClass.AnimationRunning)
             {
                 AnimationModeSectionClass.MoveInterval = (int)AnimationModeMoveIntervalNumericUpDown.Value;
                 AnimationModeSectionClass.ContinueAnimationLoop = true;
-                await AnimationModeSectionClass.RunAnimation();
+                AnimationModeSectionClass.RunAnimation();
             }
         }
 

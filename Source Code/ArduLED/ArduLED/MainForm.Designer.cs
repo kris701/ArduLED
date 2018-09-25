@@ -425,6 +425,11 @@
             this.AnimationModeTopLabel = new System.Windows.Forms.Label();
             this.AnimationModeSaveButton = new System.Windows.Forms.Button();
             this.AnimationModeAnimationWindowWorkingPanel = new System.Windows.Forms.Panel();
+            this.AmbiLightModeAssumeLabel = new System.Windows.Forms.Label();
+            this.AmbiLightModeAssumeNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.AmbiLightModeMaxVariationLabel = new System.Windows.Forms.Label();
+            this.AmbiLightModeMaxVariationNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.AmbiLightModeAutosetBlockSizes = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.SampleTimeTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SmoothnessTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SensitivityTrackBar)).BeginInit();
@@ -558,6 +563,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.AnimationModeRedTrackbar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AnimationModeBlueTrackbar)).BeginInit();
             this.panel8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeAssumeNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeMaxVariationNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // AudioSourceComboBox
@@ -1191,7 +1198,7 @@
             this.AutoTriggerCheckBox.TabIndex = 16;
             this.AutoTriggerCheckBox.Text = "Auto Trigger";
             this.AutoTriggerCheckBox.UseVisualStyleBackColor = false;
-            this.AutoTriggerCheckBox.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
+            this.AutoTriggerCheckBox.CheckedChanged += new System.EventHandler(this.CheckBox4_CheckedChanged);
             // 
             // panel5
             // 
@@ -2235,7 +2242,7 @@
             this.InstructionsPanel.Controls.Add(this.InstructionsAddDelayPanel);
             this.InstructionsPanel.Controls.Add(this.InstructionsAddFadeColorsPanel);
             this.InstructionsPanel.Controls.Add(this.InstructionsAddIndividualLEDPanel);
-            this.InstructionsPanel.Location = new System.Drawing.Point(3228, 725);
+            this.InstructionsPanel.Location = new System.Drawing.Point(3227, 755);
             this.InstructionsPanel.Name = "InstructionsPanel";
             this.InstructionsPanel.Size = new System.Drawing.Size(1154, 1239);
             this.InstructionsPanel.TabIndex = 48;
@@ -3876,12 +3883,17 @@
             this.AmbiLightModePanel.Controls.Add(this.panel3);
             this.AmbiLightModePanel.Location = new System.Drawing.Point(3227, 34);
             this.AmbiLightModePanel.Name = "AmbiLightModePanel";
-            this.AmbiLightModePanel.Size = new System.Drawing.Size(687, 685);
+            this.AmbiLightModePanel.Size = new System.Drawing.Size(687, 712);
             this.AmbiLightModePanel.TabIndex = 69;
             this.AmbiLightModePanel.Visible = false;
             // 
             // AmbiLightModeWorkingPanel
             // 
+            this.AmbiLightModeWorkingPanel.Controls.Add(this.AmbiLightModeAutosetBlockSizes);
+            this.AmbiLightModeWorkingPanel.Controls.Add(this.AmbiLightModeAssumeLabel);
+            this.AmbiLightModeWorkingPanel.Controls.Add(this.AmbiLightModeAssumeNumericUpDown);
+            this.AmbiLightModeWorkingPanel.Controls.Add(this.AmbiLightModeMaxVariationLabel);
+            this.AmbiLightModeWorkingPanel.Controls.Add(this.AmbiLightModeMaxVariationNumericUpDown);
             this.AmbiLightModeWorkingPanel.Controls.Add(this.AmbiLightModeGammaFactorLabel);
             this.AmbiLightModeWorkingPanel.Controls.Add(this.AmbiLightModeGammaFactorNumericUpDown);
             this.AmbiLightModeWorkingPanel.Controls.Add(this.AmbiLightModeAutosetOffsets);
@@ -3906,14 +3918,14 @@
             this.AmbiLightModeWorkingPanel.Controls.Add(this.AmbiLightModeBottomPanel);
             this.AmbiLightModeWorkingPanel.Location = new System.Drawing.Point(12, 101);
             this.AmbiLightModeWorkingPanel.Name = "AmbiLightModeWorkingPanel";
-            this.AmbiLightModeWorkingPanel.Size = new System.Drawing.Size(654, 570);
+            this.AmbiLightModeWorkingPanel.Size = new System.Drawing.Size(654, 606);
             this.AmbiLightModeWorkingPanel.TabIndex = 50;
             // 
             // AmbiLightModeGammaFactorLabel
             // 
             this.AmbiLightModeGammaFactorLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AmbiLightModeGammaFactorLabel.ForeColor = System.Drawing.Color.White;
-            this.AmbiLightModeGammaFactorLabel.Location = new System.Drawing.Point(229, 49);
+            this.AmbiLightModeGammaFactorLabel.Location = new System.Drawing.Point(229, 48);
             this.AmbiLightModeGammaFactorLabel.Name = "AmbiLightModeGammaFactorLabel";
             this.AmbiLightModeGammaFactorLabel.Size = new System.Drawing.Size(195, 17);
             this.AmbiLightModeGammaFactorLabel.TabIndex = 120;
@@ -3926,7 +3938,7 @@
             this.AmbiLightModeGammaFactorNumericUpDown.DecimalPlaces = 2;
             this.AmbiLightModeGammaFactorNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AmbiLightModeGammaFactorNumericUpDown.ForeColor = System.Drawing.Color.White;
-            this.AmbiLightModeGammaFactorNumericUpDown.Location = new System.Drawing.Point(229, 70);
+            this.AmbiLightModeGammaFactorNumericUpDown.Location = new System.Drawing.Point(229, 69);
             this.AmbiLightModeGammaFactorNumericUpDown.Maximum = new decimal(new int[] {
             10,
             0,
@@ -3954,7 +3966,7 @@
             this.AmbiLightModeAutosetOffsets.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AmbiLightModeAutosetOffsets.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AmbiLightModeAutosetOffsets.ForeColor = System.Drawing.Color.White;
-            this.AmbiLightModeAutosetOffsets.Location = new System.Drawing.Point(5, 70);
+            this.AmbiLightModeAutosetOffsets.Location = new System.Drawing.Point(5, 69);
             this.AmbiLightModeAutosetOffsets.Name = "AmbiLightModeAutosetOffsets";
             this.AmbiLightModeAutosetOffsets.Size = new System.Drawing.Size(195, 18);
             this.AmbiLightModeAutosetOffsets.TabIndex = 118;
@@ -3966,7 +3978,7 @@
             // 
             this.AmbilightModeFPSCounterLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AmbilightModeFPSCounterLabel.ForeColor = System.Drawing.Color.White;
-            this.AmbilightModeFPSCounterLabel.Location = new System.Drawing.Point(5, 49);
+            this.AmbilightModeFPSCounterLabel.Location = new System.Drawing.Point(5, 48);
             this.AmbilightModeFPSCounterLabel.Name = "AmbilightModeFPSCounterLabel";
             this.AmbilightModeFPSCounterLabel.Size = new System.Drawing.Size(195, 17);
             this.AmbilightModeFPSCounterLabel.TabIndex = 117;
@@ -4006,7 +4018,7 @@
             this.AmbiLightModeLeftPanel.Controls.Add(this.AmbiLightModeLeftBlockOffsetYNumericUpDown);
             this.AmbiLightModeLeftPanel.Controls.Add(this.AmbiLightModeLeftBlockOffsetYLabel);
             this.AmbiLightModeLeftPanel.Enabled = false;
-            this.AmbiLightModeLeftPanel.Location = new System.Drawing.Point(3, 334);
+            this.AmbiLightModeLeftPanel.Location = new System.Drawing.Point(3, 374);
             this.AmbiLightModeLeftPanel.Name = "AmbiLightModeLeftPanel";
             this.AmbiLightModeLeftPanel.Size = new System.Drawing.Size(316, 199);
             this.AmbiLightModeLeftPanel.TabIndex = 104;
@@ -4325,7 +4337,7 @@
             // 
             this.AmbiLightModeFadeFactorLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AmbiLightModeFadeFactorLabel.ForeColor = System.Drawing.Color.White;
-            this.AmbiLightModeFadeFactorLabel.Location = new System.Drawing.Point(453, 49);
+            this.AmbiLightModeFadeFactorLabel.Location = new System.Drawing.Point(453, 48);
             this.AmbiLightModeFadeFactorLabel.Name = "AmbiLightModeFadeFactorLabel";
             this.AmbiLightModeFadeFactorLabel.Size = new System.Drawing.Size(195, 17);
             this.AmbiLightModeFadeFactorLabel.TabIndex = 116;
@@ -4354,7 +4366,7 @@
             this.AmbiLightModeTopPanel.Controls.Add(this.AmbiLightModeTopBlockOffsetYNumericUpDown);
             this.AmbiLightModeTopPanel.Controls.Add(this.AmbiLightModeTopBlockOffsetYLabel);
             this.AmbiLightModeTopPanel.Enabled = false;
-            this.AmbiLightModeTopPanel.Location = new System.Drawing.Point(3, 123);
+            this.AmbiLightModeTopPanel.Location = new System.Drawing.Point(3, 163);
             this.AmbiLightModeTopPanel.Name = "AmbiLightModeTopPanel";
             this.AmbiLightModeTopPanel.Size = new System.Drawing.Size(316, 199);
             this.AmbiLightModeTopPanel.TabIndex = 105;
@@ -4670,7 +4682,7 @@
             this.AmbiLightModeFadeFactorNumericUpDown.DecimalPlaces = 2;
             this.AmbiLightModeFadeFactorNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AmbiLightModeFadeFactorNumericUpDown.ForeColor = System.Drawing.Color.White;
-            this.AmbiLightModeFadeFactorNumericUpDown.Location = new System.Drawing.Point(453, 70);
+            this.AmbiLightModeFadeFactorNumericUpDown.Location = new System.Drawing.Point(453, 69);
             this.AmbiLightModeFadeFactorNumericUpDown.Maximum = new decimal(new int[] {
             10,
             0,
@@ -4715,7 +4727,7 @@
             // AmbiLightModeLeftCheckBox
             // 
             this.AmbiLightModeLeftCheckBox.ForeColor = System.Drawing.Color.White;
-            this.AmbiLightModeLeftCheckBox.Location = new System.Drawing.Point(3, 95);
+            this.AmbiLightModeLeftCheckBox.Location = new System.Drawing.Point(3, 135);
             this.AmbiLightModeLeftCheckBox.Name = "AmbiLightModeLeftCheckBox";
             this.AmbiLightModeLeftCheckBox.Size = new System.Drawing.Size(158, 30);
             this.AmbiLightModeLeftCheckBox.TabIndex = 95;
@@ -4754,7 +4766,7 @@
             // AmbiLightModeTopCheckBox
             // 
             this.AmbiLightModeTopCheckBox.ForeColor = System.Drawing.Color.White;
-            this.AmbiLightModeTopCheckBox.Location = new System.Drawing.Point(161, 95);
+            this.AmbiLightModeTopCheckBox.Location = new System.Drawing.Point(161, 135);
             this.AmbiLightModeTopCheckBox.Name = "AmbiLightModeTopCheckBox";
             this.AmbiLightModeTopCheckBox.Size = new System.Drawing.Size(158, 30);
             this.AmbiLightModeTopCheckBox.TabIndex = 95;
@@ -4766,7 +4778,7 @@
             // AmbiLightModeRightCheckBox
             // 
             this.AmbiLightModeRightCheckBox.ForeColor = System.Drawing.Color.White;
-            this.AmbiLightModeRightCheckBox.Location = new System.Drawing.Point(332, 95);
+            this.AmbiLightModeRightCheckBox.Location = new System.Drawing.Point(332, 135);
             this.AmbiLightModeRightCheckBox.Name = "AmbiLightModeRightCheckBox";
             this.AmbiLightModeRightCheckBox.Size = new System.Drawing.Size(158, 30);
             this.AmbiLightModeRightCheckBox.TabIndex = 95;
@@ -4782,7 +4794,7 @@
             this.AmbiLightModeLoadSetup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AmbiLightModeLoadSetup.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AmbiLightModeLoadSetup.ForeColor = System.Drawing.Color.White;
-            this.AmbiLightModeLoadSetup.Location = new System.Drawing.Point(332, 537);
+            this.AmbiLightModeLoadSetup.Location = new System.Drawing.Point(332, 577);
             this.AmbiLightModeLoadSetup.Name = "AmbiLightModeLoadSetup";
             this.AmbiLightModeLoadSetup.Size = new System.Drawing.Size(316, 24);
             this.AmbiLightModeLoadSetup.TabIndex = 112;
@@ -4793,7 +4805,7 @@
             // AmbiLightModeBottomCheckBox
             // 
             this.AmbiLightModeBottomCheckBox.ForeColor = System.Drawing.Color.White;
-            this.AmbiLightModeBottomCheckBox.Location = new System.Drawing.Point(490, 95);
+            this.AmbiLightModeBottomCheckBox.Location = new System.Drawing.Point(490, 135);
             this.AmbiLightModeBottomCheckBox.Name = "AmbiLightModeBottomCheckBox";
             this.AmbiLightModeBottomCheckBox.Size = new System.Drawing.Size(158, 30);
             this.AmbiLightModeBottomCheckBox.TabIndex = 95;
@@ -4809,7 +4821,7 @@
             this.AmbiLightModeSaveSetup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AmbiLightModeSaveSetup.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AmbiLightModeSaveSetup.ForeColor = System.Drawing.Color.White;
-            this.AmbiLightModeSaveSetup.Location = new System.Drawing.Point(3, 535);
+            this.AmbiLightModeSaveSetup.Location = new System.Drawing.Point(3, 575);
             this.AmbiLightModeSaveSetup.Name = "AmbiLightModeSaveSetup";
             this.AmbiLightModeSaveSetup.Size = new System.Drawing.Size(316, 24);
             this.AmbiLightModeSaveSetup.TabIndex = 111;
@@ -4839,7 +4851,7 @@
             this.AmbiLightModeRightPanel.Controls.Add(this.AmbiLightModeRightBlockOffsetYNumericUpDown);
             this.AmbiLightModeRightPanel.Controls.Add(this.AmbiLightModeRightBlockOffsetYLabel);
             this.AmbiLightModeRightPanel.Enabled = false;
-            this.AmbiLightModeRightPanel.Location = new System.Drawing.Point(332, 123);
+            this.AmbiLightModeRightPanel.Location = new System.Drawing.Point(332, 163);
             this.AmbiLightModeRightPanel.Name = "AmbiLightModeRightPanel";
             this.AmbiLightModeRightPanel.Size = new System.Drawing.Size(316, 199);
             this.AmbiLightModeRightPanel.TabIndex = 106;
@@ -5160,7 +5172,7 @@
             this.AmbiLightModeBottomPanel.Controls.Add(this.AmbiLightModeBottomBlockOffsetYNumericUpDown);
             this.AmbiLightModeBottomPanel.Controls.Add(this.AmbiLightModeBottomBlockOffsetYLabel);
             this.AmbiLightModeBottomPanel.Enabled = false;
-            this.AmbiLightModeBottomPanel.Location = new System.Drawing.Point(332, 334);
+            this.AmbiLightModeBottomPanel.Location = new System.Drawing.Point(332, 374);
             this.AmbiLightModeBottomPanel.Name = "AmbiLightModeBottomPanel";
             this.AmbiLightModeBottomPanel.Size = new System.Drawing.Size(316, 199);
             this.AmbiLightModeBottomPanel.TabIndex = 107;
@@ -6205,6 +6217,91 @@
             this.AnimationModeAnimationWindowWorkingPanel.Size = new System.Drawing.Size(842, 381);
             this.AnimationModeAnimationWindowWorkingPanel.TabIndex = 10;
             // 
+            // AmbiLightModeAssumeLabel
+            // 
+            this.AmbiLightModeAssumeLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmbiLightModeAssumeLabel.ForeColor = System.Drawing.Color.White;
+            this.AmbiLightModeAssumeLabel.Location = new System.Drawing.Point(228, 91);
+            this.AmbiLightModeAssumeLabel.Name = "AmbiLightModeAssumeLabel";
+            this.AmbiLightModeAssumeLabel.Size = new System.Drawing.Size(195, 17);
+            this.AmbiLightModeAssumeLabel.TabIndex = 124;
+            this.AmbiLightModeAssumeLabel.Text = "Assume %";
+            this.AmbiLightModeAssumeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // AmbiLightModeAssumeNumericUpDown
+            // 
+            this.AmbiLightModeAssumeNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
+            this.AmbiLightModeAssumeNumericUpDown.DecimalPlaces = 2;
+            this.AmbiLightModeAssumeNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmbiLightModeAssumeNumericUpDown.ForeColor = System.Drawing.Color.White;
+            this.AmbiLightModeAssumeNumericUpDown.Location = new System.Drawing.Point(228, 112);
+            this.AmbiLightModeAssumeNumericUpDown.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.AmbiLightModeAssumeNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.AmbiLightModeAssumeNumericUpDown.Name = "AmbiLightModeAssumeNumericUpDown";
+            this.AmbiLightModeAssumeNumericUpDown.Size = new System.Drawing.Size(195, 18);
+            this.AmbiLightModeAssumeNumericUpDown.TabIndex = 123;
+            this.AmbiLightModeAssumeNumericUpDown.Tag = "Setting";
+            this.AmbiLightModeAssumeNumericUpDown.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            // 
+            // AmbiLightModeMaxVariationLabel
+            // 
+            this.AmbiLightModeMaxVariationLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmbiLightModeMaxVariationLabel.ForeColor = System.Drawing.Color.White;
+            this.AmbiLightModeMaxVariationLabel.Location = new System.Drawing.Point(452, 91);
+            this.AmbiLightModeMaxVariationLabel.Name = "AmbiLightModeMaxVariationLabel";
+            this.AmbiLightModeMaxVariationLabel.Size = new System.Drawing.Size(195, 17);
+            this.AmbiLightModeMaxVariationLabel.TabIndex = 122;
+            this.AmbiLightModeMaxVariationLabel.Text = "Max Variation";
+            this.AmbiLightModeMaxVariationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // AmbiLightModeMaxVariationNumericUpDown
+            // 
+            this.AmbiLightModeMaxVariationNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
+            this.AmbiLightModeMaxVariationNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmbiLightModeMaxVariationNumericUpDown.ForeColor = System.Drawing.Color.White;
+            this.AmbiLightModeMaxVariationNumericUpDown.Location = new System.Drawing.Point(452, 112);
+            this.AmbiLightModeMaxVariationNumericUpDown.Maximum = new decimal(new int[] {
+            765,
+            0,
+            0,
+            0});
+            this.AmbiLightModeMaxVariationNumericUpDown.Name = "AmbiLightModeMaxVariationNumericUpDown";
+            this.AmbiLightModeMaxVariationNumericUpDown.Size = new System.Drawing.Size(195, 18);
+            this.AmbiLightModeMaxVariationNumericUpDown.TabIndex = 121;
+            this.AmbiLightModeMaxVariationNumericUpDown.Tag = "Setting";
+            this.AmbiLightModeMaxVariationNumericUpDown.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
+            // AmbiLightModeAutosetBlockSizes
+            // 
+            this.AmbiLightModeAutosetBlockSizes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
+            this.AmbiLightModeAutosetBlockSizes.FlatAppearance.BorderSize = 0;
+            this.AmbiLightModeAutosetBlockSizes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AmbiLightModeAutosetBlockSizes.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmbiLightModeAutosetBlockSizes.ForeColor = System.Drawing.Color.White;
+            this.AmbiLightModeAutosetBlockSizes.Location = new System.Drawing.Point(5, 94);
+            this.AmbiLightModeAutosetBlockSizes.Name = "AmbiLightModeAutosetBlockSizes";
+            this.AmbiLightModeAutosetBlockSizes.Size = new System.Drawing.Size(195, 36);
+            this.AmbiLightModeAutosetBlockSizes.TabIndex = 125;
+            this.AmbiLightModeAutosetBlockSizes.Text = "Autoset Block sizes from series IDs";
+            this.AmbiLightModeAutosetBlockSizes.UseVisualStyleBackColor = false;
+            this.AmbiLightModeAutosetBlockSizes.Click += new System.EventHandler(this.AmbiLightModeAutosetBlockSizes_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -6381,6 +6478,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.AnimationModeRedTrackbar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AnimationModeBlueTrackbar)).EndInit();
             this.panel8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeAssumeNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeMaxVariationNumericUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -6775,6 +6874,11 @@
         public System.Windows.Forms.CheckBox AnimationModeHighCompressionCheckBox;
         public System.Windows.Forms.TextBox ServerSettingsServerNameTextbox;
         public System.Windows.Forms.Label ServerSettingsServerNameLabel;
+        public System.Windows.Forms.Label AmbiLightModeAssumeLabel;
+        public System.Windows.Forms.NumericUpDown AmbiLightModeAssumeNumericUpDown;
+        public System.Windows.Forms.Label AmbiLightModeMaxVariationLabel;
+        public System.Windows.Forms.NumericUpDown AmbiLightModeMaxVariationNumericUpDown;
+        public System.Windows.Forms.Button AmbiLightModeAutosetBlockSizes;
     }
 }
 

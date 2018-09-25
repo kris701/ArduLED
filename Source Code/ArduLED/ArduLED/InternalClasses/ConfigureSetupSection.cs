@@ -10,6 +10,7 @@ namespace ArduLEDNameSpace
     public class ConfigureSetupSection
     {
         private MainForm MainFormClass;
+        private Point DragStart = new Point(0, 0);
 
         public ConfigureSetupSection(MainForm _MainFormClass)
         {
@@ -209,7 +210,7 @@ namespace ArduLEDNameSpace
 
         public void WorkingPanelMouseDown(object _Sender)
         {
-            MainFormClass.DragStart = Control.MousePosition;
+            DragStart = Control.MousePosition;
             Panel SenderPanel = _Sender as Panel;
             foreach (Control InnerControl in SenderPanel.Controls)
             {
@@ -250,7 +251,7 @@ namespace ArduLEDNameSpace
                 WorkingPanelBox MomentaryDataTag = (WorkingPanelBox)InnerControl.Tag;
                 if (MomentaryDataTag.Moving)
                 {
-                    InnerControl.Location = new Point(MomentaryDataTag.XLoc + (Control.MousePosition.X - MainFormClass.DragStart.X), MomentaryDataTag.YLoc + (Control.MousePosition.Y - MainFormClass.DragStart.Y));
+                    InnerControl.Location = new Point(MomentaryDataTag.XLoc + (Control.MousePosition.X - DragStart.X), MomentaryDataTag.YLoc + (Control.MousePosition.Y - DragStart.Y));
                 }
             }
         }
@@ -392,6 +393,7 @@ namespace ArduLEDNameSpace
                 }
 
                 MainFormClass.SendDataBySerial("0;9999");
+                MainFormClass.SendDataBySerial(" ");
             });
         }
 
@@ -474,13 +476,13 @@ namespace ArduLEDNameSpace
             WorkingPanelBox MomentaryDataTag = (WorkingPanelBox)SenderPanel.Tag;
             if (MomentaryDataTag.Moving == true)
             {
-                SenderPanel.Location = new Point(MomentaryDataTag.XLoc + (Control.MousePosition.X - MainFormClass.DragStart.X), MomentaryDataTag.YLoc + (Control.MousePosition.Y - MainFormClass.DragStart.Y));
+                SenderPanel.Location = new Point(MomentaryDataTag.XLoc + (Control.MousePosition.X - DragStart.X), MomentaryDataTag.YLoc + (Control.MousePosition.Y - DragStart.Y));
             }
         }
 
         private void MoveLEDStripDown(object sender, MouseEventArgs e)
         {
-            MainFormClass.DragStart = Control.MousePosition;
+            DragStart = Control.MousePosition;
             Panel SenderPanel = sender as Panel;
             foreach (Control InnerControl in SenderPanel.Parent.Controls)
             {
@@ -521,70 +523,86 @@ namespace ArduLEDNameSpace
 
         public void LoadASetup(string _FileName)
         {
-            while (MainFormClass.ConfigureSetupWorkingPanel.Controls.Count > 0)
-                MainFormClass.ConfigureSetupWorkingPanel.Controls[0].Dispose();
-            while (MainFormClass.IndividualLEDWorkingPanel.Controls.Count > 0)
-                MainFormClass.IndividualLEDWorkingPanel.Controls[0].Dispose();
+            try
+            { 
+                while (MainFormClass.ConfigureSetupWorkingPanel.Controls.Count > 0)
+                    MainFormClass.ConfigureSetupWorkingPanel.Controls[0].Dispose();
+                while (MainFormClass.IndividualLEDWorkingPanel.Controls.Count > 0)
+                    MainFormClass.IndividualLEDWorkingPanel.Controls[0].Dispose();
 
-            string[] Lines = File.ReadAllLines(_FileName, System.Text.Encoding.UTF8);
-            for (int i = 0; i < Lines.Length; i++)
-            {
-                string[] Split = Lines[i].Split(';');
-                MainFormClass.ConfigureSetupSectionClass.MakeLEDStrip(Int32.Parse(Split[0]), Int32.Parse(Split[1]), Int32.Parse(Split[2]), Boolean.Parse(Split[3]), Boolean.Parse(Split[4]), Int32.Parse(Split[5]), Int32.Parse(Split[6]), Int32.Parse(Split[7]), Lines[i + 1], false, Int32.Parse(Split[8]), Int32.Parse(Split[9]));
-                MainFormClass.ConfigureSetupSectionClass.MakeLEDStrip(Int32.Parse(Split[0]), Int32.Parse(Split[1]), Int32.Parse(Split[2]), Boolean.Parse(Split[3]), Boolean.Parse(Split[4]), Int32.Parse(Split[5]), Int32.Parse(Split[6]), Int32.Parse(Split[7]), Lines[i + 1], true, Int32.Parse(Split[8]), Int32.Parse(Split[9]));
-                i++;
+                string[] Lines = File.ReadAllLines(_FileName, System.Text.Encoding.UTF8);
+                for (int i = 0; i < Lines.Length; i++)
+                {
+                    string[] Split = Lines[i].Split(';');
+                    MainFormClass.ConfigureSetupSectionClass.MakeLEDStrip(Int32.Parse(Split[0]), Int32.Parse(Split[1]), Int32.Parse(Split[2]), Boolean.Parse(Split[3]), Boolean.Parse(Split[4]), Int32.Parse(Split[5]), Int32.Parse(Split[6]), Int32.Parse(Split[7]), Lines[i + 1], false, Int32.Parse(Split[8]), Int32.Parse(Split[9]));
+                    MainFormClass.ConfigureSetupSectionClass.MakeLEDStrip(Int32.Parse(Split[0]), Int32.Parse(Split[1]), Int32.Parse(Split[2]), Boolean.Parse(Split[3]), Boolean.Parse(Split[4]), Int32.Parse(Split[5]), Int32.Parse(Split[6]), Int32.Parse(Split[7]), Lines[i + 1], true, Int32.Parse(Split[8]), Int32.Parse(Split[9]));
+                    i++;
+                }
             }
+            catch { MessageBox.Show("Cannot access file!"); }
         }
 
         public void SaveCurrentSetup()
         {
-            using (StreamWriter SaveFile = new StreamWriter(MainFormClass.SaveFileDialog.FileName, false))
-            {
+            try
+            { 
+                using (StreamWriter SaveFile = new StreamWriter(MainFormClass.SaveFileDialog.FileName, false))
+                {
+                    using (StreamWriter AutoSaveFile = new StreamWriter(Directory.GetCurrentDirectory() + "\\Setups\\0.txt", false))
+                    {
+                        foreach (Control c in MainFormClass.ConfigureSetupWorkingPanel.Controls)
+                        {
+                            WorkingPanelBox MomentaryDataTag = (WorkingPanelBox)c.Tag;
+                            string SerialOut = MomentaryDataTag.XLoc + ";" + MomentaryDataTag.YLoc + ";" + MomentaryDataTag.FromLEDID + ";" + MomentaryDataTag.InvertXDir + ";" + MomentaryDataTag.InvertYDir + ";" + MomentaryDataTag.XLEDCount + ";" + MomentaryDataTag.YLEDCount + ";" + MomentaryDataTag.PinID + ";" + MomentaryDataTag.PixelTypeIndex + ";" + MomentaryDataTag.PixelBitstreamIndex;
+                            SaveFile.WriteLine(SerialOut);
+                            AutoSaveFile.WriteLine(SerialOut);
+
+                            SerialOut = "";
+                            SerialOut += (c.Controls.Find("MakeLEDPanelStripSeriesIDLabelFrom", true)[0] as TextBox).Text + ";";
+                            SerialOut += (c.Controls.Find("MakeLEDPanelStripSeriesIDLabelTo", true)[0] as TextBox).Text + ";";
+
+                            SaveFile.WriteLine(SerialOut);
+                            AutoSaveFile.WriteLine(SerialOut);
+                        }
+                    }
+                }
+            }
+            catch { MessageBox.Show("Cannot access file!"); }
+        }
+
+        public void AutoloadLastSetup()
+        {
+            try
+            { 
+                if (File.Exists(Directory.GetCurrentDirectory() + "\\Setups\\0.txt"))
+                {
+                    LoadASetup(Directory.GetCurrentDirectory() + "\\Setups\\0.txt");
+                }
+            }
+            catch { MessageBox.Show("Cannot access file!"); }
+        }
+
+        public void AutoSave()
+        {
+            try
+            { 
                 using (StreamWriter AutoSaveFile = new StreamWriter(Directory.GetCurrentDirectory() + "\\Setups\\0.txt", false))
                 {
                     foreach (Control c in MainFormClass.ConfigureSetupWorkingPanel.Controls)
                     {
                         WorkingPanelBox MomentaryDataTag = (WorkingPanelBox)c.Tag;
                         string SerialOut = MomentaryDataTag.XLoc + ";" + MomentaryDataTag.YLoc + ";" + MomentaryDataTag.FromLEDID + ";" + MomentaryDataTag.InvertXDir + ";" + MomentaryDataTag.InvertYDir + ";" + MomentaryDataTag.XLEDCount + ";" + MomentaryDataTag.YLEDCount + ";" + MomentaryDataTag.PinID + ";" + MomentaryDataTag.PixelTypeIndex + ";" + MomentaryDataTag.PixelBitstreamIndex;
-                        SaveFile.WriteLine(SerialOut);
                         AutoSaveFile.WriteLine(SerialOut);
 
                         SerialOut = "";
                         SerialOut += (c.Controls.Find("MakeLEDPanelStripSeriesIDLabelFrom", true)[0] as TextBox).Text + ";";
                         SerialOut += (c.Controls.Find("MakeLEDPanelStripSeriesIDLabelTo", true)[0] as TextBox).Text + ";";
 
-                        SaveFile.WriteLine(SerialOut);
                         AutoSaveFile.WriteLine(SerialOut);
                     }
                 }
             }
-        }
-
-        public void AutoloadLastSetup()
-        {
-            if (File.Exists(Directory.GetCurrentDirectory() + "\\Setups\\0.txt"))
-            {
-                LoadASetup(Directory.GetCurrentDirectory() + "\\Setups\\0.txt");
-            }
-        }
-
-        public void AutoSave()
-        {
-            using (StreamWriter AutoSaveFile = new StreamWriter(Directory.GetCurrentDirectory() + "\\Setups\\0.txt", false))
-            {
-                foreach (Control c in MainFormClass.ConfigureSetupWorkingPanel.Controls)
-                {
-                    WorkingPanelBox MomentaryDataTag = (WorkingPanelBox)c.Tag;
-                    string SerialOut = MomentaryDataTag.XLoc + ";" + MomentaryDataTag.YLoc + ";" + MomentaryDataTag.FromLEDID + ";" + MomentaryDataTag.InvertXDir + ";" + MomentaryDataTag.InvertYDir + ";" + MomentaryDataTag.XLEDCount + ";" + MomentaryDataTag.YLEDCount + ";" + MomentaryDataTag.PinID + ";" + MomentaryDataTag.PixelTypeIndex + ";" + MomentaryDataTag.PixelBitstreamIndex;
-                    AutoSaveFile.WriteLine(SerialOut);
-
-                    SerialOut = "";
-                    SerialOut += (c.Controls.Find("MakeLEDPanelStripSeriesIDLabelFrom", true)[0] as TextBox).Text + ";";
-                    SerialOut += (c.Controls.Find("MakeLEDPanelStripSeriesIDLabelTo", true)[0] as TextBox).Text + ";";
-
-                    AutoSaveFile.WriteLine(SerialOut);
-                }
-            }
+            catch { MessageBox.Show("Cannot access file!"); }
         }
     }
 }

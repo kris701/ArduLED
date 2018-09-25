@@ -33,7 +33,7 @@ namespace ArduLEDNameSpace
             {
 
                 if (File.Exists(Directory.GetCurrentDirectory() + "\\Temp.txt"))
-                    File.Delete(Directory.GetCurrentDirectory() + "\\Temp.txt");
+                    MainFormClass.RemoveFile(Directory.GetCurrentDirectory() + "\\Temp.txt");
 
                 DownloadFile("https://raw.githubusercontent.com/kris701/ArduLED/master/Stable%20version/ArduLED/Version.txt", Directory.GetCurrentDirectory() + "\\Temp.txt");
 
@@ -52,7 +52,7 @@ namespace ArduLEDNameSpace
                     {
                         System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo("cmd", $"/c start www.github.com/kris701/ArduLED") { CreateNoWindow = true, UseShellExecute = true, WorkingDirectory = "C:\\" });
                         if (File.Exists(Directory.GetCurrentDirectory() + "\\Temp.txt"))
-                            File.Delete(Directory.GetCurrentDirectory() + "\\Temp.txt");
+                            MainFormClass.RemoveFile(Directory.GetCurrentDirectory() + "\\Temp.txt");
                         Environment.Exit(0);
                     }
                     UpdateForm.Dispose();
@@ -62,7 +62,7 @@ namespace ArduLEDNameSpace
                 LoadingForm.LoadingScreenLoadingLabel.Invoke((MethodInvoker)delegate { LoadingForm.LoadingScreenLoadingLabel.Text = "Your Version: " + CurrentVersion + " Newest Version: " + NewVersion; });
 
                 if (File.Exists(Directory.GetCurrentDirectory() + "\\Temp.txt"))
-                    File.Delete(Directory.GetCurrentDirectory() + "\\Temp.txt");
+                    MainFormClass.RemoveFile(Directory.GetCurrentDirectory() + "\\Temp.txt");
             }
             else
             {
@@ -307,12 +307,12 @@ namespace ArduLEDNameSpace
             LoadingForm.LoadingScreenLabel.Invoke((MethodInvoker)delegate { LoadingForm.LoadingScreenLabel.Text = "Loading: " + _Input; });
         }
 
-        public static void DownloadFile(string _SourceURL, string _DestinationPath)
+        public void DownloadFile(string _SourceURL, string _DestinationPath)
         {
             try
             {
                 if (File.Exists(_DestinationPath))
-                    File.Delete(_DestinationPath);
+                    MainFormClass.RemoveFile(_DestinationPath);
 
                 using (var Client = new System.Net.WebClient())
                 {

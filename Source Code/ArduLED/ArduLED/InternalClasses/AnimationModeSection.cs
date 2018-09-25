@@ -63,7 +63,6 @@ namespace ArduLEDNameSpace
             BackPanel.BorderStyle = BorderStyle.FixedSingle;
             BackPanel.BackColor = Color.White;
             BackPanel.Font = new Font(BackPanel.Font.FontFamily, BackPanel.Font.Size);
-            BackPanel.BackColor = Color.White;
 
             Button RemovePanelButton = new Button();
             RemovePanelButton.Tag = _ID;
@@ -257,7 +256,12 @@ namespace ArduLEDNameSpace
             }
         }
 
-        public async Task RunAnimation()
+        public async void RunAnimation()
+        {
+            await RunAnimationInner();
+        }
+
+        public async Task RunAnimationInner()
         {
             DateTime CalibrateRefreshRate = new DateTime();
 
