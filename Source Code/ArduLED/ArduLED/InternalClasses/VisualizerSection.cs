@@ -292,6 +292,16 @@ namespace ArduLEDNameSpace
                     VisualizerThread.Dispose();
                 }
 
+                String SerialOut = "";
+                MainFormClass.VisualizerFromSeriesIDNumericUpDown.Invoke((MethodInvoker)delegate
+                {
+                    MainFormClass.VisualizerToSeriesIDNumericUpDown.Invoke((MethodInvoker)delegate
+                    {
+                        SerialOut = "6;" + MainFormClass.VisualizerFromSeriesIDNumericUpDown.Value + ";" + MainFormClass.VisualizerToSeriesIDNumericUpDown.Value;
+                    });
+                });
+                MainFormClass.SendDataBySerial(SerialOut);
+
                 BassProcess = new WASAPIPROC(Process);
 
                 var array = (MainFormClass.AudioSourceComboBox.Items[MainFormClass.AudioSourceComboBox.SelectedIndex] as string).Split(' ');

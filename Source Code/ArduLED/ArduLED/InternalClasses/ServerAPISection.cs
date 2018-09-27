@@ -204,7 +204,7 @@ namespace ArduLEDNameSpace
                     Byte[] SendBytes = System.Text.Encoding.ASCII.GetBytes("G");
                     DataStream.Write(SendBytes, 0, SendBytes.Length);
                     DataStream.Flush();
-                    MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "Server Connected!" + Environment.NewLine; });
+                    MainFormClass.ServerSettingsConsoleTextBox.Invoke((MethodInvoker)delegate { MainFormClass.ServerSettingsConsoleTextBox.Text += "Client Connected!" + Environment.NewLine; });
                     return true;
                 }
                 else
@@ -309,19 +309,10 @@ namespace ArduLEDNameSpace
                     {
                         try
                         {
-                            string SerialOut = "";
                             MainFormClass.VisualizerPanel.Invoke((MethodInvoker)delegate
                             {
-                                MainFormClass.LoadSettings(Directory.GetCurrentDirectory() + "\\VisualizerSettings\\" + InputSplit[2]);
+                                MainFormClass.LoadSettings(Directory.GetCurrentDirectory() + "\\VisualizerSettings\\" + InputSplit[2].Replace(" ",""));
                             });
-                            MainFormClass.VisualizerFromSeriesIDNumericUpDown.Invoke((MethodInvoker)delegate
-                            {
-                                MainFormClass.VisualizerToSeriesIDNumericUpDown.Invoke((MethodInvoker)delegate
-                                {
-                                    SerialOut = "6;" + MainFormClass.VisualizerFromSeriesIDNumericUpDown.Value + ";" + MainFormClass.VisualizerToSeriesIDNumericUpDown.Value;
-                                });
-                            });
-                            MainFormClass.SendDataBySerial(SerialOut);
                         }
                         catch (Exception E)
                         {
@@ -374,7 +365,7 @@ namespace ArduLEDNameSpace
                     if (InputSplit[4] != "")
                     {
                         MainFormClass.AmbiLightModePanel.Invoke((MethodInvoker)delegate {
-                            MainFormClass.LoadSettings(Directory.GetCurrentDirectory() + "\\AmbilightSettings\\" + InputSplit[4]);
+                            MainFormClass.LoadSettings(Directory.GetCurrentDirectory() + "\\AmbilightSettings\\" + InputSplit[4].Replace(" ", ""));
                             MainFormClass.AmbiLightSectionClass.SetSides();
                         });
                     }
@@ -449,7 +440,7 @@ namespace ArduLEDNameSpace
                     {
                         MainFormClass.AnimationModePanel.Invoke((MethodInvoker)delegate
                         {
-                            MainFormClass.AnimationModeSectionClass.LoadAnimation(Directory.GetCurrentDirectory() + "\\Animations\\" + InputSplit[3]);
+                            MainFormClass.AnimationModeSectionClass.LoadAnimation(Directory.GetCurrentDirectory() + "\\Animations\\" + InputSplit[3].Replace(" ", ""));
                         });
                     }
                     if (InputSplit[0] == "True")
@@ -511,7 +502,7 @@ namespace ArduLEDNameSpace
                     {
                         MainFormClass.InstructionsPanel.Invoke((MethodInvoker)delegate
                         {
-                            MainFormClass.InstructionsSectionClass.LoadInstructions(Directory.GetCurrentDirectory() + "\\Instructions\\" + InputSplit[3]);
+                            MainFormClass.InstructionsSectionClass.LoadInstructions(Directory.GetCurrentDirectory() + "\\Instructions\\" + InputSplit[3].Replace(" ", ""));
                         });
                     }
                     if (InputSplit[0] == "True")

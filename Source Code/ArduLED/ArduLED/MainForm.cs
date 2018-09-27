@@ -16,7 +16,7 @@ namespace ArduLEDNameSpace
         public int ButtonHeight = 15;
         public int BoxHeight = 45;
         public int Margins = 5;
-        public int ScroolBarWidth = 25;
+        public int ScrollBarSize = 25;
         public int Sizex = 1411;
         public int Sizey = 775;
 
@@ -109,7 +109,7 @@ namespace ArduLEDNameSpace
                     FormatLayout();
                 }
             }
-            catch { MessageBox.Show("Cannot access file!"); }
+            catch { MessageBox.Show("Cannot access file: " + _Location); }
         }
 
         public void SaveSettings(string _Location, string _Additional)
@@ -168,7 +168,7 @@ namespace ArduLEDNameSpace
                 }
                 ControlList.Clear();
             }
-            catch { MessageBox.Show("Cannot access file!"); }
+            catch { MessageBox.Show("Cannot access file: " + _Location); }
         }
 
         public void FormatLayout()
@@ -239,39 +239,42 @@ namespace ArduLEDNameSpace
 
         public void SendDataBySerial(string _Input)
         {
-            if (UnitReady)
+            if (!LoadingSectionClass.IsLoading)
             {
-                int TimeoutCounter = 0;
-                while (!ReadyToRecive)
+                if (UnitReady)
                 {
-                    Application.DoEvents();
-                    Thread.Sleep(1);
-                    TimeoutCounter++;
-                    if (TimeoutCounter > 250)
+                    int TimeoutCounter = 0;
+                    while (!ReadyToRecive)
                     {
-                        UnitTimeoutCounter++;
-                        if (UnitTimeoutCounter > 20)
+                        Application.DoEvents();
+                        Thread.Sleep(1);
+                        TimeoutCounter++;
+                        if (TimeoutCounter > 250)
                         {
-                            MessageBox.Show("Connection to Unit failed!");
-                            VisualizerSectionClass.EnableBASS(false);
-                            AmbiLightSectionClass.StopAmbilight();
-                            ModeSelectrionComboBox.SelectedIndex = 0;
-                            UnitTimeoutCounter = 0;
+                            UnitTimeoutCounter++;
+                            if (UnitTimeoutCounter > 20)
+                            {
+                                MessageBox.Show("Connection to Unit failed!");
+                                VisualizerSectionClass.EnableBASS(false);
+                                AmbiLightSectionClass.StopAmbilight();
+                                ModeSelectrionComboBox.SelectedIndex = 0;
+                                UnitTimeoutCounter = 0;
+                                break;
+                            }
+                            ReadyToRecive = true;
                             break;
                         }
-                        ReadyToRecive = true;
-                        break;
                     }
                 }
-            }
-            if (ReadyToRecive)
-            {
-                try
+                if (ReadyToRecive)
                 {
-                    SerialPort1.WriteLine(";" + _Input + ";-1;");
+                    try
+                    {
+                        SerialPort1.WriteLine(";" + _Input + ";-1;");
+                    }
+                    catch { }
+                    ReadyToRecive = false;
                 }
-                catch { }
-                ReadyToRecive = false;
             }
         }
 
@@ -403,15 +406,15 @@ namespace ArduLEDNameSpace
                 File.Delete(_FileLocation);
             }
             catch { MessageBox.Show("Cannot access file!"); }
-}
+        }
 
         #endregion
 
         #region Menu Section
 
-        private void Connect(object sender, EventArgs e)
+        private async void Connect(object sender, EventArgs e)
         {
-            MenuSectionClass.ConnectToComDevice();
+            await MenuSectionClass.ConnectToComDevice();
         }
 
         private void MenuButton_Click(object sender, EventArgs e)
@@ -733,7 +736,7 @@ namespace ArduLEDNameSpace
             SaveFileDialog.InitialDirectory = Directory.GetCurrentDirectory() + "\\Instructions";
             if (SaveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                InstructionsSectionClass.SaveInstructions();
+                InstructionsSectionClass.SaveInstructions(SaveFileDialog.FileName);
             }
             SaveFileDialog.InitialDirectory = Directory.GetCurrentDirectory();
         }

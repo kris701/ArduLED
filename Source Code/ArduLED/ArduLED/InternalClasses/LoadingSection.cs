@@ -14,6 +14,8 @@ namespace ArduLEDNameSpace
         private MainForm MainFormClass;
         public Loading LoadingForm;
         private Update UpdateForm;
+        public bool IsLoading = false;
+        private bool IsVisualsInitialized = false;
 
         public LoadingSection(MainForm _MainFormClass)
         {
@@ -115,15 +117,20 @@ namespace ArduLEDNameSpace
 
             SetLoadingLabelTo("Language Packs");
 
-            if (Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Languages").Length > 0)
+            if (Directory.Exists(Directory.GetCurrentDirectory() + "\\Languages"))
             {
-                foreach (string f in Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Languages"))
+                if (Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Languages").Length > 0)
                 {
-                    MainFormClass.LanguageComboBox.Items.Add(f.Substring(f.Length - 6, 2));
+                    foreach (string f in Directory.GetFiles(Directory.GetCurrentDirectory() + "\\Languages"))
+                    {
+                        MainFormClass.LanguageComboBox.Items.Add(f.Substring(f.Length - 6, 2));
+                    }
                 }
+                else
+                    MessageBox.Show("No language packs found! Using default preset");
             }
             else
-                MessageBox.Show("No language packs found! Using default preset");
+                MessageBox.Show("No language packs folder found! Using default preset");
 
             SetLoadingLabelTo("Visuals");
 
@@ -210,22 +217,27 @@ namespace ArduLEDNameSpace
 
             MainFormClass.InstructionsSectionClass.AutoloadLastInstructions();
 
-            SetLoadingLabelTo("Default language pack");
+            if (MainFormClass.LanguageComboBox.Items.Count > 0)
+            {
+                SetLoadingLabelTo("Default language pack");
 
-            if (MainFormClass.LanguageComboBox.Items.Contains("EN"))
-                MainFormClass.LanguageComboBox.SelectedIndex = MainFormClass.LanguageComboBox.FindString("EN");
-            else
-                MainFormClass.LanguageComboBox.SelectedIndex = 0;
+                if (MainFormClass.LanguageComboBox.Items.Contains("EN"))
+                    MainFormClass.LanguageComboBox.SelectedIndex = MainFormClass.LanguageComboBox.FindString("EN");
+                else
+                    MainFormClass.LanguageComboBox.SelectedIndex = 0;
+            }
+
+            SetLoadingLabelTo("Visual sections");
+
+            IsLoading = true;
+
+            await InitializeAllVisualSections();
+
+            IsLoading = false;
 
             SetLoadingLabelTo("Previus settings");
 
             MainFormClass.AutoLoadAllSettings();
-
-            if (MainFormClass.ConfigureSetupEnableServerMode.Checked)
-            {
-                SetLoadingLabelTo("Server Thread");
-                MainFormClass.ServerAPISectionClass.InitializeServer();
-            }
 
             SetLoadingLabelTo("Formating layout");
 
@@ -251,11 +263,19 @@ namespace ArduLEDNameSpace
                         MainFormClass.ConfigureSetupHiddenProgressBar.Location = new Point(i, 0);
                         await Task.Delay(5);
                     }
-                    MainFormClass.MenuSectionClass.ConnectToComDevice();
+                    await MainFormClass.MenuSectionClass.ConnectToComDevice();
                 }
                 else
                     MessageBox.Show("Error, saved COM port not found!");
             }
+
+            if (MainFormClass.ConfigureSetupEnableServerMode.Checked)
+            {
+                MainFormClass.ServerAPISectionClass.InitializeServer();
+            }
+
+            MainFormClass.ModeSelectrionComboBox.SelectedIndex = MainFormClass.ModeSelectrionComboBox.Items.Count - 1;
+            MainFormClass.ModeSelectrionComboBox.SelectedIndex = 0;
         }
 
         private void ShowLoadingScreen()
@@ -343,6 +363,23 @@ namespace ArduLEDNameSpace
             foreach (string s in SerialPort.GetPortNames())
             {
                 MainFormClass.ComPortsComboBox.Items.Add(s);
+            }
+        }
+
+        public async Task InitializeAllVisualSections()
+        {
+            if (!IsVisualsInitialized)
+            {
+                int PreIndex = MainFormClass.ModeSelectrionComboBox.SelectedIndex;
+                if (PreIndex < 0) PreIndex = 0;
+                for (int i = 0; i < MainFormClass.ModeSelectrionComboBox.Items.Count; i++)
+                {
+                    MainFormClass.ModeSelectrionComboBox.SelectedIndex = i;
+                    await Task.Delay(100);
+                }
+                MainFormClass.ModeSelectrionComboBox.SelectedIndex = PreIndex;
+
+                IsVisualsInitialized = true;
             }
         }
     }

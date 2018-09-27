@@ -66,7 +66,7 @@ namespace ArduLEDNameSpace
             Panel BackPanel = new Panel();
             BackPanel.Location = new Point(MainFormClass.Margins, MainFormClass.InstructionsWorkingPanel.Controls.Count * MainFormClass.BoxHeight + 2 * MainFormClass.Margins);
             BackPanel.Height = MainFormClass.BoxHeight;
-            BackPanel.Width = MainFormClass.InstructionsWorkingPanel.Width - 2 * MainFormClass.Margins - MainFormClass.ScroolBarWidth;
+            BackPanel.Width = MainFormClass.InstructionsWorkingPanel.Width - 2 * MainFormClass.Margins - MainFormClass.ScrollBarSize;
             BackPanel.BorderStyle = BorderStyle.FixedSingle;
             BackPanel.BackColor = Color.White;
             BackPanel.Tag = _Input;
@@ -182,7 +182,7 @@ namespace ArduLEDNameSpace
                     }
                 }
             }
-            catch { MessageBox.Show("Cannot access file!"); }
+            catch { MessageBox.Show("Cannot access autosave file!"); }
         }
 
         public async void RunInstructions()
@@ -331,13 +331,13 @@ namespace ArduLEDNameSpace
             });
         }
 
-        public void SaveInstructions()
+        public void SaveInstructions(string _FileLoc)
         {
             try
             { 
                 using (StreamWriter AutoSaveFile = new StreamWriter(MainFormClass.GenerateStreamFromString(Directory.GetCurrentDirectory() + "\\Instructions\\0.txt"), System.Text.Encoding.UTF8))
                 {
-                    using (StreamWriter SaveFile = new StreamWriter(MainFormClass.SaveFileDialog.OpenFile(), System.Text.Encoding.UTF8))
+                    using (StreamWriter SaveFile = new StreamWriter(MainFormClass.GenerateStreamFromString(_FileLoc), System.Text.Encoding.UTF8))
                     {
                         foreach (string c in IntructionsList)
                         {
@@ -348,7 +348,7 @@ namespace ArduLEDNameSpace
                     }
                 }
             }
-            catch { MessageBox.Show("Cannot access file!"); }
+            catch { MessageBox.Show("Cannot access file: " + _FileLoc); }
         }
 
         public void LoadInstructions(string _FileLoc)
@@ -366,23 +366,22 @@ namespace ArduLEDNameSpace
                     MakeInstructionPanel(Lines[i], i);
                 }
             }
-            catch { MessageBox.Show("Cannot access file!"); }
+            catch { MessageBox.Show("Cannot access file: " + _FileLoc); }
         }
 
         public void AutoSave()
         {
             try
             {
-                using (StreamWriter AutoSaveFile = new StreamWriter(MainFormClass.GenerateStreamFromString(Directory.GetCurrentDirectory() + "\\Instructions\\0.txt"), System.Text.Encoding.UTF8))
+                using (StreamWriter AutoSaveFile = new StreamWriter(Directory.GetCurrentDirectory() + "\\Instructions\\0.txt", false))
                 {
                     foreach (string c in IntructionsList)
                     {
-                        string SerialOut = c;
-                        AutoSaveFile.WriteLine(SerialOut);
+                        AutoSaveFile.WriteLine(c);
                     }
                 }
             }
-            catch { MessageBox.Show("Cannot access file!"); }
+            catch { MessageBox.Show("Cannot access autosave file!"); }
         }
     }
 }

@@ -57,7 +57,7 @@ namespace ArduLEDNameSpace
         private void MakeNewLinePanel(string _Input, int _ID, Panel _AddToPanel)
         {
             Panel BackPanel = new Panel();
-            BackPanel.Height = _AddToPanel.Height - MainFormClass.Margins * 2 - 20;
+            BackPanel.Height = _AddToPanel.Height - MainFormClass.Margins * 2 - MainFormClass.ScrollBarSize;
             BackPanel.Width = MainFormClass.ButtonWidth * 2 + MainFormClass.Margins * 3;
             BackPanel.Location = new Point(MainFormClass.Margins + (_AddToPanel.Controls.Count * (BackPanel.Width + MainFormClass.Margins)), MainFormClass.Margins);
             BackPanel.BorderStyle = BorderStyle.FixedSingle;

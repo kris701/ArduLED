@@ -44,7 +44,7 @@ namespace ArduLEDNameSpace
             HideTimer.Tick += HideTimer_Tick;
         }
 
-        public async void ConnectToComDevice()
+        public async Task ConnectToComDevice()
         {
             try
             {
@@ -202,7 +202,7 @@ namespace ArduLEDNameSpace
                 if (!MainFormClass.InstructionsSectionClass.ContinueInstructionsLoop)
                 {
                     MainFormClass.FadeColorsSectionClass.FadeColorsSendData(
-                        false,
+                        true,
                         (int)MainFormClass.FadeLEDPanelFromIDNumericUpDown.Value,
                         (int)MainFormClass.FadeLEDPanelToIDNumericUpDown.Value,
                         Color.FromArgb(MainFormClass.FadeColorsRedTrackBar.Value, MainFormClass.FadeColorsGreenTrackBar.Value, MainFormClass.FadeColorsBlueTrackBar.Value),
@@ -219,8 +219,6 @@ namespace ArduLEDNameSpace
                 MainFormClass.VisualizerPanel.BringToFront();
                 if (!MainFormClass.InstructionsSectionClass.ContinueInstructionsLoop)
                 {
-                    string SerialOut = "6;" + MainFormClass.VisualizerFromSeriesIDNumericUpDown.Value + ";" + MainFormClass.VisualizerToSeriesIDNumericUpDown.Value;
-                    MainFormClass.SendDataBySerial(SerialOut);
 
                     MainFormClass.VisualizerEnabled = true;
 

@@ -247,6 +247,11 @@ AmbilightModeFPSCounterLabel;Lucida Console;8;FPS:
 AmbiLightModeAutosetOffsets;Lucida Console;8;Autoset Offsets
 AmbiLightModeGammaFactorLabel;Lucida Console;8;Gamma Factor
 AmbiLightModeGammaFactorNumericUpDown;Lucida Console;8;
+AmbiLightModeAutosetBlockSizes;Lucida Console;8;Autoset Block sizes from series IDs
+AmbiLightModeAssumeLabel;Lucida Console;8;Assume %
+AmbiLightModeAssumeNumericUpDown;Lucida Console;8;
+AmbiLightModeMaxVariationLabel;Lucida Console;8;Max Variation
+AmbiLightModeMaxVariationNumericUpDown;Lucida Console;8;
 
 AmbiLightModeRefreshRateLabel;Lucida Console;8;Minimum refresh rate (ms)
 AmbiLightModeRefreshRateNumericUpDown;Lucida Console;8;
