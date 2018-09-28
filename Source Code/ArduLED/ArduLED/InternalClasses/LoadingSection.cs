@@ -155,6 +155,7 @@ namespace ArduLEDNameSpace
             MainFormClass.ConfigureSetupPanel.Location = new Point(79, 21);
             MainFormClass.ServerSettingsPanel.Location = new Point(80, 21);
             MainFormClass.AnimationModePanel.Location = new Point(80, 21);
+            MainFormClass.GeneralSettingsPanel.Location = new Point(596, 21);
 
             SetLoadingLabelTo("Save/Load Mechanisms");
 
@@ -178,20 +179,14 @@ namespace ArduLEDNameSpace
 
             SetLoadingLabelTo("Presetting Combobox indexes");
 
-            MainFormClass.ModeSelectrionComboBox.Items.Add(" ");
-            MainFormClass.ModeSelectrionComboBox.Items.Add(" ");
-            MainFormClass.ModeSelectrionComboBox.Items.Add(" ");
-            MainFormClass.ModeSelectrionComboBox.Items.Add(" ");
-            MainFormClass.ModeSelectrionComboBox.Items.Add(" ");
-            MainFormClass.ModeSelectrionComboBox.Items.Add(" ");
-            MainFormClass.ModeSelectrionComboBox.Items.Add(" ");
-            MainFormClass.ModeSelectrionComboBox.Items.Add(" ");
-            MainFormClass.VisualizationTypeComboBox.Items.Add(" ");
-            MainFormClass.VisualizationTypeComboBox.Items.Add(" ");
-            MainFormClass.VisualizationTypeComboBox.Items.Add(" ");
-            MainFormClass.VisualizationTypeComboBox.Items.Add(" ");
-            MainFormClass.VisualizationTypeComboBox.Items.Add(" ");
-            MainFormClass.VisualizationTypeComboBox.Items.Add(" ");
+            for (int i = 0; i < 9; i++)
+                MainFormClass.ModeSelectrionComboBox.Items.Add(" ");
+            for (int i = 0; i < 9; i++)
+                MainFormClass.GeneralSettingsStartAtModeComboBox.Items.Add(" ");
+
+            for (int i = 0; i < 6; i++)
+                MainFormClass.VisualizationTypeComboBox.Items.Add(" ");
+
             MainFormClass.PixelTypeComboBox.Items.Add(" ");
             MainFormClass.PixelTypeComboBox.Items.Add(" ");
             MainFormClass.PixelBitstreamComboBox.Items.Add(" ");
@@ -204,6 +199,7 @@ namespace ArduLEDNameSpace
             MainFormClass.AudioSampleRateComboBox.SelectedIndex = 6;
             MainFormClass.PixelTypeComboBox.SelectedIndex = 0;
             MainFormClass.PixelBitstreamComboBox.SelectedIndex = 0;
+            MainFormClass.GeneralSettingsStartAtModeComboBox.SelectedIndex = 0;
 
             SetLoadingLabelTo("Screen index");
 
@@ -216,6 +212,10 @@ namespace ArduLEDNameSpace
             SetLoadingLabelTo("Last instructions");
 
             MainFormClass.InstructionsSectionClass.AutoloadLastInstructions();
+
+            SetLoadingLabelTo("Last animation");
+
+            MainFormClass.AnimationModeSectionClass.AutoloadLastAnimation();
 
             if (MainFormClass.LanguageComboBox.Items.Count > 0)
             {
@@ -252,11 +252,11 @@ namespace ArduLEDNameSpace
                 MainFormClass.Opacity = i / 100;
                 await Task.Delay(10);
             }
-            if (MainFormClass.ConfigureSetupAutoSendCheckBox.Checked)
+            if (MainFormClass.GeneralSettingsAutoSendCheckBox.Checked)
             {
                 if (MainFormClass.ComPortsComboBox.Items.Count > 0)
                 {
-                    MainFormClass.ConfigureSetupAutoSendCheckBox.Enabled = false;
+                    MainFormClass.GeneralSettingsAutoSendCheckBox.Enabled = false;
                     MainFormClass.ConfigureSetupHiddenProgressBar.Visible = true;
                     for (int i = MainFormClass.Width; i > MainFormClass.Width - MainFormClass.MenuButton.Width; i--)
                     {
@@ -267,15 +267,63 @@ namespace ArduLEDNameSpace
                 }
                 else
                     MessageBox.Show("Error, saved COM port not found!");
+
+                MainFormClass.MenuPanel.Visible = MainFormClass.GeneralSettingsStartAtModeOpenMenuAswellCheckBox.Checked;
+
+                if (MainFormClass.ModeSelectrionComboBox.SelectedIndex != 8)
+                {
+                    await Task.Delay(500);
+                    if (MainFormClass.GeneralSettingsStartAtModeComboBox.SelectedIndex != 0)
+                    {
+                        MainFormClass.ModeSelectrionComboBox.SelectedIndex = MainFormClass.GeneralSettingsStartAtModeComboBox.SelectedIndex;
+                    }
+                    else
+                    {
+                        MainFormClass.MenuSectionClass.ModeIndexChange(MainFormClass.GeneralSettingsStartAtModeComboBox.SelectedIndex);
+                        MainFormClass.ModeSelectrionComboBox.SelectedIndex = 0;
+                    }
+                }
+            }
+            else
+            {
+                MainFormClass.MenuPanel.Visible = true;
+                MainFormClass.ModeSelectrionComboBox.SelectedIndex = 8;
             }
 
-            if (MainFormClass.ConfigureSetupEnableServerMode.Checked)
+            if (MainFormClass.GeneralSettingsEnableServerMode.Checked)
             {
                 MainFormClass.ServerAPISectionClass.InitializeServer();
             }
 
-            MainFormClass.ModeSelectrionComboBox.SelectedIndex = MainFormClass.ModeSelectrionComboBox.Items.Count - 1;
-            MainFormClass.ModeSelectrionComboBox.SelectedIndex = 0;
+            MainFormClass.AnimationModeLoopCheckBox.Checked = MainFormClass.GeneralSettingsAutostartAutoloadedAnimationLoop.Checked;
+            MainFormClass.InstructionsLoopCheckBox.Checked = MainFormClass.GeneralSettingsAutostartAutoloadedInstructionsLoop.Checked;
+
+            if (MainFormClass.GeneralSettingsAutostartAutoloadedInstructions.Checked)
+            {
+                MainFormClass.InstructionsPanel.Invoke((MethodInvoker)delegate
+                {
+                    if (!MainFormClass.InstructionsSectionClass.InstructionsRunning)
+                    {
+                        MainFormClass.InstructionsSectionClass.ContinueInstructionsLoop = true;
+                        MainFormClass.InstructionsSectionClass.RunInstructions();
+                    }
+                });
+            }
+            else
+            {
+                if (MainFormClass.GeneralSettingsAutostartAutoloadedAnimation.Checked)
+                {
+                    MainFormClass.AnimationModePanel.Invoke((MethodInvoker)delegate
+                    {
+                        if (!MainFormClass.AnimationModeSectionClass.AnimationRunning)
+                        {
+                            MainFormClass.AnimationModeSectionClass.MoveInterval = (int)MainFormClass.AnimationModeMoveIntervalNumericUpDown.Value;
+                            MainFormClass.AnimationModeSectionClass.ContinueAnimationLoop = true;
+                            MainFormClass.AnimationModeSectionClass.RunAnimation();
+                        }
+                    });
+                }
+            }
         }
 
         private void ShowLoadingScreen()

@@ -26,6 +26,7 @@ namespace ArduLEDNameSpace
         private int UnitTimeoutCounter = 0;
         public bool VisualizerEnabled = false;
         public int TotalLEDCount = 0;
+        public int BaudRate = 1000000;
 
         public List<Control> ControlList = new List<Control>();
 
@@ -100,7 +101,9 @@ namespace ArduLEDNameSpace
                                 }
                                 if (Split[0].ToUpper() == "SERIALPORT")
                                 {
-                                    SerialPort1.BaudRate = Int32.Parse(Split[1]);
+                                    BaudRate = Int32.Parse(Split[1]);
+                                    SerialPort1.BaudRate = BaudRate;
+                                    GeneralSettingsBaudRateNumericUpDown.Value = BaudRate;
                                 }
                             }
                             catch { }
@@ -284,25 +287,25 @@ namespace ArduLEDNameSpace
             int Green = 0;
             int Blue = 0;
 
-            if (ConfigureSetupRGBColorOrderFirstTextbox.Text == "R")
+            if (GeneralSettingsRGBColorOrderFirstTextbox.Text == "R")
                 Red = _InputColors.R;
-            if (ConfigureSetupRGBColorOrderFirstTextbox.Text == "G")
+            if (GeneralSettingsRGBColorOrderFirstTextbox.Text == "G")
                 Red = _InputColors.G;
-            if (ConfigureSetupRGBColorOrderFirstTextbox.Text == "B")
+            if (GeneralSettingsRGBColorOrderFirstTextbox.Text == "B")
                 Red = _InputColors.B;
 
-            if (ConfigureSetupRGBColorOrderSeccondTextbox.Text == "R")
+            if (GeneralSettingsRGBColorOrderSeccondTextbox.Text == "R")
                 Green = _InputColors.R;
-            if (ConfigureSetupRGBColorOrderSeccondTextbox.Text == "G")
+            if (GeneralSettingsRGBColorOrderSeccondTextbox.Text == "G")
                 Green = _InputColors.G;
-            if (ConfigureSetupRGBColorOrderSeccondTextbox.Text == "B")
+            if (GeneralSettingsRGBColorOrderSeccondTextbox.Text == "B")
                 Green = _InputColors.B;
 
-            if (ConfigureSetupRGBColorOrderThirdTextbox.Text == "R")
+            if (GeneralSettingsRGBColorOrderThirdTextbox.Text == "R")
                 Blue = _InputColors.R;
-            if (ConfigureSetupRGBColorOrderThirdTextbox.Text == "G")
+            if (GeneralSettingsRGBColorOrderThirdTextbox.Text == "G")
                 Blue = _InputColors.G;
-            if (ConfigureSetupRGBColorOrderThirdTextbox.Text == "B")
+            if (GeneralSettingsRGBColorOrderThirdTextbox.Text == "B")
                 Blue = _InputColors.B;
 
             return Color.FromArgb(Red, Green, Blue);
@@ -414,6 +417,8 @@ namespace ArduLEDNameSpace
 
         private async void Connect(object sender, EventArgs e)
         {
+            BaudRate = (int)GeneralSettingsBaudRateNumericUpDown.Value;
+            SerialPort1.BaudRate = BaudRate;
             await MenuSectionClass.ConnectToComDevice();
         }
 
@@ -424,7 +429,7 @@ namespace ArduLEDNameSpace
 
         private void ModeSelectrionComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MenuSectionClass.ModeIndexChange();
+            MenuSectionClass.ModeIndexChange(ModeSelectrionComboBox.SelectedIndex);
         }
 
         private void MenuExitButton_Click(object sender, EventArgs e)

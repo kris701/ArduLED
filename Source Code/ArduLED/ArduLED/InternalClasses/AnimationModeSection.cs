@@ -446,15 +446,30 @@ namespace ArduLEDNameSpace
 
         public void AutoSave()
         {
-            using (StreamWriter AutoSaveFile = new StreamWriter(MainFormClass.GenerateStreamFromString(Directory.GetCurrentDirectory() + "\\Animations\\0.txt"), System.Text.Encoding.UTF8))
+            if (AnimationList.Count > 0)
             {
-                string SerialOut = MainFormClass.AnimationModeHighCompressionCheckBox.Checked + ";" + MainFormClass.AnimationModeMoveIntervalNumericUpDown.Value + ";" + MainFormClass.AnimationModeLineSpacingNumericUpDown.Value + ";" + MainFormClass.AnimationModeFromIDNumericUpDown.Value + ";" + MainFormClass.AnimationModeToIDNumericUpDown.Value;
-                AutoSaveFile.WriteLine(SerialOut);
-                foreach (string c in AnimationList)
+                using (StreamWriter AutoSaveFile = new StreamWriter(Directory.GetCurrentDirectory() + "\\Animations\\0.txt", false))
                 {
-                    AutoSaveFile.WriteLine(c);
+                    string SerialOut = MainFormClass.AnimationModeHighCompressionCheckBox.Checked + ";" + MainFormClass.AnimationModeMoveIntervalNumericUpDown.Value + ";" + MainFormClass.AnimationModeLineSpacingNumericUpDown.Value + ";" + MainFormClass.AnimationModeFromIDNumericUpDown.Value + ";" + MainFormClass.AnimationModeToIDNumericUpDown.Value;
+                    AutoSaveFile.WriteLine(SerialOut);
+                    foreach (string c in AnimationList)
+                    {
+                        AutoSaveFile.WriteLine(c);
+                    }
                 }
             }
+        }
+
+        public void AutoloadLastAnimation()
+        {
+            try
+            {
+                if (File.Exists(Directory.GetCurrentDirectory() + "\\Animations\\0.txt"))
+                {
+                    LoadAnimation(Directory.GetCurrentDirectory() + "\\Animations\\0.txt");
+                }
+            }
+            catch { MessageBox.Show("Cannot access autosave file!"); }
         }
     }
 }

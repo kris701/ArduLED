@@ -120,9 +120,9 @@
             this.FadeColorsGreenLabel = new System.Windows.Forms.Label();
             this.FadeColorsGreenTrackBar = new System.Windows.Forms.TrackBar();
             this.FadeColorsBlueLabel = new System.Windows.Forms.Label();
-            this.MenuConnectButton = new System.Windows.Forms.Button();
+            this.GeneralSettingsConnectButton = new System.Windows.Forms.Button();
             this.ComPortsComboBox = new System.Windows.Forms.ComboBox();
-            this.MenuSelectComDeviceLabel = new System.Windows.Forms.Label();
+            this.GeneralSettingsComDeviceLabel = new System.Windows.Forms.Label();
             this.FadeColorsFadeSpeedNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.MenuPanel = new System.Windows.Forms.Panel();
             this.MenuAutoHideCheckBox = new System.Windows.Forms.CheckBox();
@@ -241,14 +241,6 @@
             this.InstructionsAddIndividualLEDAddButton = new System.Windows.Forms.Button();
             this.InstructionsAddIndividualLEDPanelTopLabel = new System.Windows.Forms.Label();
             this.ConfigureSetupPanel = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.ConfigureSetupRGBColorOrderThirdTextbox = new System.Windows.Forms.TextBox();
-            this.ConfigureSetupRGBColorOrderSeccondTextbox = new System.Windows.Forms.TextBox();
-            this.ConfigureSetupRGBColorOrderFirstTextbox = new System.Windows.Forms.TextBox();
-            this.ConfigureSetupRGBColorOrderThirdLabel = new System.Windows.Forms.Label();
-            this.ConfigureSetupRGBColorOrderSeccondLabel = new System.Windows.Forms.Label();
-            this.ConfigureSetupRGBColorOrderFirstLabel = new System.Windows.Forms.Label();
-            this.ConfigureSetupRGBColorOrderLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ConfigureSetupClickToSetupSeriesFromIDLabel = new System.Windows.Forms.Label();
             this.ConfigureSetupClickToSetupSeriesCheckBox = new System.Windows.Forms.CheckBox();
@@ -276,10 +268,22 @@
             this.ConfigureSetupAddStripXDirLabel = new System.Windows.Forms.Label();
             this.AddLEDStripButton = new System.Windows.Forms.Button();
             this.ConfigureSetupWorkingPanel = new System.Windows.Forms.Panel();
-            this.ConfigureSetupAutoSendCheckBox = new System.Windows.Forms.CheckBox();
+            this.GeneralSettingsRGBColorOrderThirdTextbox = new System.Windows.Forms.TextBox();
+            this.GeneralSettingsRGBColorOrderSeccondTextbox = new System.Windows.Forms.TextBox();
+            this.GeneralSettingsRGBColorOrderFirstTextbox = new System.Windows.Forms.TextBox();
+            this.GeneralSettingsRGBColorOrderThirdLabel = new System.Windows.Forms.Label();
+            this.GeneralSettingsRGBColorOrderSeccondLabel = new System.Windows.Forms.Label();
+            this.GeneralSettingsRGBColorOrderFirstLabel = new System.Windows.Forms.Label();
+            this.GeneralSettingsRGBColorOrderLabel = new System.Windows.Forms.Label();
+            this.GeneralSettingsAutoSendCheckBox = new System.Windows.Forms.CheckBox();
             this.ConfigureSetupHiddenProgressBar = new System.Windows.Forms.ProgressBar();
             this.AmbiLightModePanel = new System.Windows.Forms.Panel();
             this.AmbiLightModeWorkingPanel = new System.Windows.Forms.Panel();
+            this.AmbiLightModeAutosetBlockSizes = new System.Windows.Forms.Button();
+            this.AmbiLightModeAssumeLabel = new System.Windows.Forms.Label();
+            this.AmbiLightModeAssumeNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.AmbiLightModeMaxVariationLabel = new System.Windows.Forms.Label();
+            this.AmbiLightModeMaxVariationNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.AmbiLightModeGammaFactorLabel = new System.Windows.Forms.Label();
             this.AmbiLightModeGammaFactorNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.AmbiLightModeAutosetOffsets = new System.Windows.Forms.Button();
@@ -384,12 +388,12 @@
             this.ServerSettingsStopServerButton = new System.Windows.Forms.Button();
             this.ServerSettingsStartServerButton = new System.Windows.Forms.Button();
             this.ServerSettingsPortTextBox = new System.Windows.Forms.TextBox();
-            this.ConfigureSetupEnableServerMode = new System.Windows.Forms.CheckBox();
             this.ServerSettingsIPAddressTextBox = new System.Windows.Forms.TextBox();
             this.ServerSettingsPortLabel = new System.Windows.Forms.Label();
             this.ServerSettingsIPAddressLabel = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
             this.ServerSettingsTopLabel = new System.Windows.Forms.Label();
+            this.GeneralSettingsEnableServerMode = new System.Windows.Forms.CheckBox();
             this.AnimationModePanel = new System.Windows.Forms.Panel();
             this.AnimationModeAPSLabel = new System.Windows.Forms.Label();
             this.AnimationModeStopButton = new System.Windows.Forms.Button();
@@ -425,11 +429,24 @@
             this.AnimationModeTopLabel = new System.Windows.Forms.Label();
             this.AnimationModeSaveButton = new System.Windows.Forms.Button();
             this.AnimationModeAnimationWindowWorkingPanel = new System.Windows.Forms.Panel();
-            this.AmbiLightModeAssumeLabel = new System.Windows.Forms.Label();
-            this.AmbiLightModeAssumeNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.AmbiLightModeMaxVariationLabel = new System.Windows.Forms.Label();
-            this.AmbiLightModeMaxVariationNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.AmbiLightModeAutosetBlockSizes = new System.Windows.Forms.Button();
+            this.GeneralSettingsPanel = new System.Windows.Forms.Panel();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.GeneralSettingsTopLabel = new System.Windows.Forms.Label();
+            this.panel13 = new System.Windows.Forms.Panel();
+            this.GeneralSettingsOtherSettingsLabel = new System.Windows.Forms.Label();
+            this.panel14 = new System.Windows.Forms.Panel();
+            this.GeneralSettingsAutostartAutoloadedInstructionsLoop = new System.Windows.Forms.CheckBox();
+            this.GeneralSettingsAutostartAutoloadedAnimationLoop = new System.Windows.Forms.CheckBox();
+            this.GeneralSettingsAutostartAutoloadedInstructions = new System.Windows.Forms.CheckBox();
+            this.GeneralSettingsAutostartAutoloadedAnimation = new System.Windows.Forms.CheckBox();
+            this.GeneralSettingsStartAtModeLabel = new System.Windows.Forms.Label();
+            this.GeneralSettingsStartAtModeComboBox = new System.Windows.Forms.ComboBox();
+            this.GeneralSettingsStartupSettingsLabel = new System.Windows.Forms.Label();
+            this.GeneralSettingsDeviceSettingsLabel = new System.Windows.Forms.Label();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.GeneralSettingsBaudRateLabel = new System.Windows.Forms.Label();
+            this.GeneralSettingsBaudRateNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.SampleTimeTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SmoothnessTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SensitivityTrackBar)).BeginInit();
@@ -497,7 +514,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddIndividualLEDBlueTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddIndividualLEDGreenTrackBar)).BeginInit();
             this.ConfigureSetupPanel.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown)).BeginInit();
             this.panel20.SuspendLayout();
@@ -508,6 +524,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupAddStripYDir)).BeginInit();
             this.AmbiLightModePanel.SuspendLayout();
             this.AmbiLightModeWorkingPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeAssumeNumericUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeMaxVariationNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeGammaFactorNumericUpDown)).BeginInit();
             this.AmbiLightModeLeftPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeLeftLEDsPrBlockNumericUpDown)).BeginInit();
@@ -563,8 +581,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.AnimationModeRedTrackbar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.AnimationModeBlueTrackbar)).BeginInit();
             this.panel8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeAssumeNumericUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeMaxVariationNumericUpDown)).BeginInit();
+            this.GeneralSettingsPanel.SuspendLayout();
+            this.panel10.SuspendLayout();
+            this.panel13.SuspendLayout();
+            this.panel14.SuspendLayout();
+            this.panel12.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.GeneralSettingsBaudRateNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // AudioSourceComboBox
@@ -1726,44 +1748,44 @@
             this.FadeColorsBlueLabel.Text = "255";
             this.FadeColorsBlueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // MenuConnectButton
+            // GeneralSettingsConnectButton
             // 
-            this.MenuConnectButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
-            this.MenuConnectButton.FlatAppearance.BorderSize = 0;
-            this.MenuConnectButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.MenuConnectButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MenuConnectButton.ForeColor = System.Drawing.Color.White;
-            this.MenuConnectButton.Location = new System.Drawing.Point(259, 33);
-            this.MenuConnectButton.Name = "MenuConnectButton";
-            this.MenuConnectButton.Size = new System.Drawing.Size(109, 22);
-            this.MenuConnectButton.TabIndex = 2;
-            this.MenuConnectButton.Text = "Connect";
-            this.MenuConnectButton.UseVisualStyleBackColor = false;
-            this.MenuConnectButton.Click += new System.EventHandler(this.Connect);
+            this.GeneralSettingsConnectButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
+            this.GeneralSettingsConnectButton.FlatAppearance.BorderSize = 0;
+            this.GeneralSettingsConnectButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GeneralSettingsConnectButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GeneralSettingsConnectButton.ForeColor = System.Drawing.Color.White;
+            this.GeneralSettingsConnectButton.Location = new System.Drawing.Point(16, 60);
+            this.GeneralSettingsConnectButton.Name = "GeneralSettingsConnectButton";
+            this.GeneralSettingsConnectButton.Size = new System.Drawing.Size(294, 22);
+            this.GeneralSettingsConnectButton.TabIndex = 2;
+            this.GeneralSettingsConnectButton.Text = "Connect";
+            this.GeneralSettingsConnectButton.UseVisualStyleBackColor = false;
+            this.GeneralSettingsConnectButton.Click += new System.EventHandler(this.Connect);
             // 
             // ComPortsComboBox
             // 
-            this.ComPortsComboBox.BackColor = System.Drawing.Color.Gray;
+            this.ComPortsComboBox.BackColor = System.Drawing.Color.DarkGray;
             this.ComPortsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComPortsComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ComPortsComboBox.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ComPortsComboBox.ForeColor = System.Drawing.Color.White;
             this.ComPortsComboBox.FormattingEnabled = true;
-            this.ComPortsComboBox.Location = new System.Drawing.Point(172, 34);
+            this.ComPortsComboBox.Location = new System.Drawing.Point(154, 6);
             this.ComPortsComboBox.Name = "ComPortsComboBox";
-            this.ComPortsComboBox.Size = new System.Drawing.Size(76, 19);
+            this.ComPortsComboBox.Size = new System.Drawing.Size(157, 19);
             this.ComPortsComboBox.TabIndex = 1;
             this.ComPortsComboBox.Tag = "Setting";
             // 
-            // MenuSelectComDeviceLabel
+            // GeneralSettingsComDeviceLabel
             // 
-            this.MenuSelectComDeviceLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MenuSelectComDeviceLabel.ForeColor = System.Drawing.Color.White;
-            this.MenuSelectComDeviceLabel.Location = new System.Drawing.Point(169, 9);
-            this.MenuSelectComDeviceLabel.Name = "MenuSelectComDeviceLabel";
-            this.MenuSelectComDeviceLabel.Size = new System.Drawing.Size(160, 15);
-            this.MenuSelectComDeviceLabel.TabIndex = 26;
-            this.MenuSelectComDeviceLabel.Text = "Select COM device";
+            this.GeneralSettingsComDeviceLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GeneralSettingsComDeviceLabel.ForeColor = System.Drawing.Color.White;
+            this.GeneralSettingsComDeviceLabel.Location = new System.Drawing.Point(16, 10);
+            this.GeneralSettingsComDeviceLabel.Name = "GeneralSettingsComDeviceLabel";
+            this.GeneralSettingsComDeviceLabel.Size = new System.Drawing.Size(107, 15);
+            this.GeneralSettingsComDeviceLabel.TabIndex = 26;
+            this.GeneralSettingsComDeviceLabel.Text = "COM device";
             // 
             // FadeColorsFadeSpeedNumericUpDown
             // 
@@ -1802,7 +1824,7 @@
             this.MenuPanel.ForeColor = System.Drawing.SystemColors.ControlText;
             this.MenuPanel.Location = new System.Drawing.Point(3920, 34);
             this.MenuPanel.Name = "MenuPanel";
-            this.MenuPanel.Size = new System.Drawing.Size(387, 271);
+            this.MenuPanel.Size = new System.Drawing.Size(387, 241);
             this.MenuPanel.TabIndex = 46;
             this.MenuPanel.Visible = false;
             // 
@@ -1813,7 +1835,7 @@
             this.MenuAutoHideCheckBox.Checked = true;
             this.MenuAutoHideCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.MenuAutoHideCheckBox.ForeColor = System.Drawing.Color.White;
-            this.MenuAutoHideCheckBox.Location = new System.Drawing.Point(6, 248);
+            this.MenuAutoHideCheckBox.Location = new System.Drawing.Point(6, 218);
             this.MenuAutoHideCheckBox.Name = "MenuAutoHideCheckBox";
             this.MenuAutoHideCheckBox.Size = new System.Drawing.Size(73, 17);
             this.MenuAutoHideCheckBox.TabIndex = 5;
@@ -1829,7 +1851,7 @@
             this.LanguageComboBox.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LanguageComboBox.ForeColor = System.Drawing.Color.White;
             this.LanguageComboBox.FormattingEnabled = true;
-            this.LanguageComboBox.Location = new System.Drawing.Point(338, 247);
+            this.LanguageComboBox.Location = new System.Drawing.Point(338, 217);
             this.LanguageComboBox.Name = "LanguageComboBox";
             this.LanguageComboBox.Size = new System.Drawing.Size(44, 19);
             this.LanguageComboBox.TabIndex = 6;
@@ -1840,14 +1862,11 @@
             // 
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.panel7.Controls.Add(this.MenuExitButton);
-            this.panel7.Controls.Add(this.MenuConnectButton);
-            this.panel7.Controls.Add(this.ComPortsComboBox);
             this.panel7.Controls.Add(this.MenuModeLabel);
-            this.panel7.Controls.Add(this.MenuSelectComDeviceLabel);
             this.panel7.Controls.Add(this.ModeSelectrionComboBox);
             this.panel7.Location = new System.Drawing.Point(0, -1);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(387, 64);
+            this.panel7.Size = new System.Drawing.Size(387, 34);
             this.panel7.TabIndex = 57;
             // 
             // MenuExitButton
@@ -1869,11 +1888,11 @@
             // 
             this.MenuModeLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MenuModeLabel.ForeColor = System.Drawing.Color.White;
-            this.MenuModeLabel.Location = new System.Drawing.Point(20, 9);
+            this.MenuModeLabel.Location = new System.Drawing.Point(3, 6);
             this.MenuModeLabel.Name = "MenuModeLabel";
-            this.MenuModeLabel.Size = new System.Drawing.Size(146, 15);
+            this.MenuModeLabel.Size = new System.Drawing.Size(105, 22);
             this.MenuModeLabel.TabIndex = 50;
-            this.MenuModeLabel.Text = "Mode";
+            this.MenuModeLabel.Text = "Mode:";
             this.MenuModeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ModeSelectrionComboBox
@@ -1885,9 +1904,9 @@
             this.ModeSelectrionComboBox.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ModeSelectrionComboBox.ForeColor = System.Drawing.Color.White;
             this.ModeSelectrionComboBox.FormattingEnabled = true;
-            this.ModeSelectrionComboBox.Location = new System.Drawing.Point(20, 34);
+            this.ModeSelectrionComboBox.Location = new System.Drawing.Point(114, 8);
             this.ModeSelectrionComboBox.Name = "ModeSelectrionComboBox";
-            this.ModeSelectrionComboBox.Size = new System.Drawing.Size(146, 19);
+            this.ModeSelectrionComboBox.Size = new System.Drawing.Size(224, 19);
             this.ModeSelectrionComboBox.TabIndex = 4;
             this.ModeSelectrionComboBox.Tag = "";
             this.ModeSelectrionComboBox.SelectedIndexChanged += new System.EventHandler(this.ModeSelectrionComboBox_SelectedIndexChanged);
@@ -1915,7 +1934,7 @@
             this.FadeLEDPanel.Controls.Add(this.FadeColorsBlueLabel);
             this.FadeLEDPanel.Enabled = false;
             this.FadeLEDPanel.ForeColor = System.Drawing.Color.White;
-            this.FadeLEDPanel.Location = new System.Drawing.Point(6, 66);
+            this.FadeLEDPanel.Location = new System.Drawing.Point(6, 36);
             this.FadeLEDPanel.Name = "FadeLEDPanel";
             this.FadeLEDPanel.Size = new System.Drawing.Size(376, 180);
             this.FadeLEDPanel.TabIndex = 51;
@@ -3412,7 +3431,6 @@
             // 
             this.ConfigureSetupPanel.BackColor = System.Drawing.Color.DimGray;
             this.ConfigureSetupPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ConfigureSetupPanel.Controls.Add(this.panel2);
             this.ConfigureSetupPanel.Controls.Add(this.panel1);
             this.ConfigureSetupPanel.Controls.Add(this.panel20);
             this.ConfigureSetupPanel.Controls.Add(this.SendSetupProgressBar);
@@ -3421,110 +3439,11 @@
             this.ConfigureSetupPanel.Controls.Add(this.SaveSetupButton);
             this.ConfigureSetupPanel.Controls.Add(this.panel17);
             this.ConfigureSetupPanel.Controls.Add(this.ConfigureSetupWorkingPanel);
-            this.ConfigureSetupPanel.Controls.Add(this.ConfigureSetupAutoSendCheckBox);
             this.ConfigureSetupPanel.Location = new System.Drawing.Point(2342, 4);
             this.ConfigureSetupPanel.Name = "ConfigureSetupPanel";
-            this.ConfigureSetupPanel.Size = new System.Drawing.Size(871, 715);
+            this.ConfigureSetupPanel.Size = new System.Drawing.Size(871, 672);
             this.ConfigureSetupPanel.TabIndex = 49;
             this.ConfigureSetupPanel.Visible = false;
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.Gray;
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.ConfigureSetupRGBColorOrderThirdTextbox);
-            this.panel2.Controls.Add(this.ConfigureSetupRGBColorOrderSeccondTextbox);
-            this.panel2.Controls.Add(this.ConfigureSetupRGBColorOrderFirstTextbox);
-            this.panel2.Controls.Add(this.ConfigureSetupRGBColorOrderThirdLabel);
-            this.panel2.Controls.Add(this.ConfigureSetupRGBColorOrderSeccondLabel);
-            this.panel2.Controls.Add(this.ConfigureSetupRGBColorOrderFirstLabel);
-            this.panel2.Controls.Add(this.ConfigureSetupRGBColorOrderLabel);
-            this.panel2.Location = new System.Drawing.Point(20, 661);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(580, 47);
-            this.panel2.TabIndex = 71;
-            // 
-            // ConfigureSetupRGBColorOrderThirdTextbox
-            // 
-            this.ConfigureSetupRGBColorOrderThirdTextbox.BackColor = System.Drawing.Color.DarkGray;
-            this.ConfigureSetupRGBColorOrderThirdTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ConfigureSetupRGBColorOrderThirdTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ConfigureSetupRGBColorOrderThirdTextbox.ForeColor = System.Drawing.Color.White;
-            this.ConfigureSetupRGBColorOrderThirdTextbox.Location = new System.Drawing.Point(493, 25);
-            this.ConfigureSetupRGBColorOrderThirdTextbox.Name = "ConfigureSetupRGBColorOrderThirdTextbox";
-            this.ConfigureSetupRGBColorOrderThirdTextbox.Size = new System.Drawing.Size(69, 13);
-            this.ConfigureSetupRGBColorOrderThirdTextbox.TabIndex = 58;
-            this.ConfigureSetupRGBColorOrderThirdTextbox.Tag = "Setting";
-            this.ConfigureSetupRGBColorOrderThirdTextbox.Text = "B";
-            this.ConfigureSetupRGBColorOrderThirdTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ConfigureSetupRGBColorOrderTextboxes_KeyPress);
-            // 
-            // ConfigureSetupRGBColorOrderSeccondTextbox
-            // 
-            this.ConfigureSetupRGBColorOrderSeccondTextbox.BackColor = System.Drawing.Color.DarkGray;
-            this.ConfigureSetupRGBColorOrderSeccondTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ConfigureSetupRGBColorOrderSeccondTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ConfigureSetupRGBColorOrderSeccondTextbox.ForeColor = System.Drawing.Color.White;
-            this.ConfigureSetupRGBColorOrderSeccondTextbox.Location = new System.Drawing.Point(302, 25);
-            this.ConfigureSetupRGBColorOrderSeccondTextbox.Name = "ConfigureSetupRGBColorOrderSeccondTextbox";
-            this.ConfigureSetupRGBColorOrderSeccondTextbox.Size = new System.Drawing.Size(69, 13);
-            this.ConfigureSetupRGBColorOrderSeccondTextbox.TabIndex = 57;
-            this.ConfigureSetupRGBColorOrderSeccondTextbox.Tag = "Setting";
-            this.ConfigureSetupRGBColorOrderSeccondTextbox.Text = "G";
-            this.ConfigureSetupRGBColorOrderSeccondTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ConfigureSetupRGBColorOrderTextboxes_KeyPress);
-            // 
-            // ConfigureSetupRGBColorOrderFirstTextbox
-            // 
-            this.ConfigureSetupRGBColorOrderFirstTextbox.BackColor = System.Drawing.Color.DarkGray;
-            this.ConfigureSetupRGBColorOrderFirstTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ConfigureSetupRGBColorOrderFirstTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ConfigureSetupRGBColorOrderFirstTextbox.ForeColor = System.Drawing.Color.White;
-            this.ConfigureSetupRGBColorOrderFirstTextbox.Location = new System.Drawing.Point(111, 25);
-            this.ConfigureSetupRGBColorOrderFirstTextbox.Name = "ConfigureSetupRGBColorOrderFirstTextbox";
-            this.ConfigureSetupRGBColorOrderFirstTextbox.Size = new System.Drawing.Size(69, 13);
-            this.ConfigureSetupRGBColorOrderFirstTextbox.TabIndex = 56;
-            this.ConfigureSetupRGBColorOrderFirstTextbox.Tag = "Setting";
-            this.ConfigureSetupRGBColorOrderFirstTextbox.Text = "R";
-            this.ConfigureSetupRGBColorOrderFirstTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ConfigureSetupRGBColorOrderTextboxes_KeyPress);
-            // 
-            // ConfigureSetupRGBColorOrderThirdLabel
-            // 
-            this.ConfigureSetupRGBColorOrderThirdLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ConfigureSetupRGBColorOrderThirdLabel.ForeColor = System.Drawing.Color.White;
-            this.ConfigureSetupRGBColorOrderThirdLabel.Location = new System.Drawing.Point(385, 24);
-            this.ConfigureSetupRGBColorOrderThirdLabel.Name = "ConfigureSetupRGBColorOrderThirdLabel";
-            this.ConfigureSetupRGBColorOrderThirdLabel.Size = new System.Drawing.Size(94, 15);
-            this.ConfigureSetupRGBColorOrderThirdLabel.TabIndex = 55;
-            this.ConfigureSetupRGBColorOrderThirdLabel.Text = "Third:";
-            // 
-            // ConfigureSetupRGBColorOrderSeccondLabel
-            // 
-            this.ConfigureSetupRGBColorOrderSeccondLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ConfigureSetupRGBColorOrderSeccondLabel.ForeColor = System.Drawing.Color.White;
-            this.ConfigureSetupRGBColorOrderSeccondLabel.Location = new System.Drawing.Point(194, 24);
-            this.ConfigureSetupRGBColorOrderSeccondLabel.Name = "ConfigureSetupRGBColorOrderSeccondLabel";
-            this.ConfigureSetupRGBColorOrderSeccondLabel.Size = new System.Drawing.Size(94, 15);
-            this.ConfigureSetupRGBColorOrderSeccondLabel.TabIndex = 54;
-            this.ConfigureSetupRGBColorOrderSeccondLabel.Text = "Seccond:";
-            // 
-            // ConfigureSetupRGBColorOrderFirstLabel
-            // 
-            this.ConfigureSetupRGBColorOrderFirstLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ConfigureSetupRGBColorOrderFirstLabel.ForeColor = System.Drawing.Color.White;
-            this.ConfigureSetupRGBColorOrderFirstLabel.Location = new System.Drawing.Point(3, 24);
-            this.ConfigureSetupRGBColorOrderFirstLabel.Name = "ConfigureSetupRGBColorOrderFirstLabel";
-            this.ConfigureSetupRGBColorOrderFirstLabel.Size = new System.Drawing.Size(94, 15);
-            this.ConfigureSetupRGBColorOrderFirstLabel.TabIndex = 53;
-            this.ConfigureSetupRGBColorOrderFirstLabel.Text = "First:";
-            // 
-            // ConfigureSetupRGBColorOrderLabel
-            // 
-            this.ConfigureSetupRGBColorOrderLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ConfigureSetupRGBColorOrderLabel.ForeColor = System.Drawing.Color.White;
-            this.ConfigureSetupRGBColorOrderLabel.Location = new System.Drawing.Point(3, 3);
-            this.ConfigureSetupRGBColorOrderLabel.Name = "ConfigureSetupRGBColorOrderLabel";
-            this.ConfigureSetupRGBColorOrderLabel.Size = new System.Drawing.Size(297, 15);
-            this.ConfigureSetupRGBColorOrderLabel.TabIndex = 52;
-            this.ConfigureSetupRGBColorOrderLabel.Text = "RGB Color order";
             // 
             // panel1
             // 
@@ -3851,17 +3770,103 @@
             this.ConfigureSetupWorkingPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ConfigureSetupWorkingPanel_MouseMove);
             this.ConfigureSetupWorkingPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ConfigureSetupWorkingPanel_MouseUp);
             // 
-            // ConfigureSetupAutoSendCheckBox
+            // GeneralSettingsRGBColorOrderThirdTextbox
             // 
-            this.ConfigureSetupAutoSendCheckBox.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ConfigureSetupAutoSendCheckBox.ForeColor = System.Drawing.Color.White;
-            this.ConfigureSetupAutoSendCheckBox.Location = new System.Drawing.Point(609, 648);
-            this.ConfigureSetupAutoSendCheckBox.Name = "ConfigureSetupAutoSendCheckBox";
-            this.ConfigureSetupAutoSendCheckBox.Size = new System.Drawing.Size(240, 36);
-            this.ConfigureSetupAutoSendCheckBox.TabIndex = 17;
-            this.ConfigureSetupAutoSendCheckBox.Tag = "Setting";
-            this.ConfigureSetupAutoSendCheckBox.Text = "Auto send default setup next time";
-            this.ConfigureSetupAutoSendCheckBox.UseVisualStyleBackColor = true;
+            this.GeneralSettingsRGBColorOrderThirdTextbox.BackColor = System.Drawing.Color.DarkGray;
+            this.GeneralSettingsRGBColorOrderThirdTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.GeneralSettingsRGBColorOrderThirdTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GeneralSettingsRGBColorOrderThirdTextbox.ForeColor = System.Drawing.Color.White;
+            this.GeneralSettingsRGBColorOrderThirdTextbox.Location = new System.Drawing.Point(296, 34);
+            this.GeneralSettingsRGBColorOrderThirdTextbox.Name = "GeneralSettingsRGBColorOrderThirdTextbox";
+            this.GeneralSettingsRGBColorOrderThirdTextbox.Size = new System.Drawing.Size(30, 13);
+            this.GeneralSettingsRGBColorOrderThirdTextbox.TabIndex = 58;
+            this.GeneralSettingsRGBColorOrderThirdTextbox.Tag = "Setting";
+            this.GeneralSettingsRGBColorOrderThirdTextbox.Text = "B";
+            this.GeneralSettingsRGBColorOrderThirdTextbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.GeneralSettingsRGBColorOrderThirdTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ConfigureSetupRGBColorOrderTextboxes_KeyPress);
+            // 
+            // GeneralSettingsRGBColorOrderSeccondTextbox
+            // 
+            this.GeneralSettingsRGBColorOrderSeccondTextbox.BackColor = System.Drawing.Color.DarkGray;
+            this.GeneralSettingsRGBColorOrderSeccondTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.GeneralSettingsRGBColorOrderSeccondTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GeneralSettingsRGBColorOrderSeccondTextbox.ForeColor = System.Drawing.Color.White;
+            this.GeneralSettingsRGBColorOrderSeccondTextbox.Location = new System.Drawing.Point(187, 34);
+            this.GeneralSettingsRGBColorOrderSeccondTextbox.Name = "GeneralSettingsRGBColorOrderSeccondTextbox";
+            this.GeneralSettingsRGBColorOrderSeccondTextbox.Size = new System.Drawing.Size(30, 13);
+            this.GeneralSettingsRGBColorOrderSeccondTextbox.TabIndex = 57;
+            this.GeneralSettingsRGBColorOrderSeccondTextbox.Tag = "Setting";
+            this.GeneralSettingsRGBColorOrderSeccondTextbox.Text = "G";
+            this.GeneralSettingsRGBColorOrderSeccondTextbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.GeneralSettingsRGBColorOrderSeccondTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ConfigureSetupRGBColorOrderTextboxes_KeyPress);
+            // 
+            // GeneralSettingsRGBColorOrderFirstTextbox
+            // 
+            this.GeneralSettingsRGBColorOrderFirstTextbox.BackColor = System.Drawing.Color.DarkGray;
+            this.GeneralSettingsRGBColorOrderFirstTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.GeneralSettingsRGBColorOrderFirstTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GeneralSettingsRGBColorOrderFirstTextbox.ForeColor = System.Drawing.Color.White;
+            this.GeneralSettingsRGBColorOrderFirstTextbox.Location = new System.Drawing.Point(78, 34);
+            this.GeneralSettingsRGBColorOrderFirstTextbox.Name = "GeneralSettingsRGBColorOrderFirstTextbox";
+            this.GeneralSettingsRGBColorOrderFirstTextbox.Size = new System.Drawing.Size(30, 13);
+            this.GeneralSettingsRGBColorOrderFirstTextbox.TabIndex = 56;
+            this.GeneralSettingsRGBColorOrderFirstTextbox.Tag = "Setting";
+            this.GeneralSettingsRGBColorOrderFirstTextbox.Text = "R";
+            this.GeneralSettingsRGBColorOrderFirstTextbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.GeneralSettingsRGBColorOrderFirstTextbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ConfigureSetupRGBColorOrderTextboxes_KeyPress);
+            // 
+            // GeneralSettingsRGBColorOrderThirdLabel
+            // 
+            this.GeneralSettingsRGBColorOrderThirdLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GeneralSettingsRGBColorOrderThirdLabel.ForeColor = System.Drawing.Color.White;
+            this.GeneralSettingsRGBColorOrderThirdLabel.Location = new System.Drawing.Point(224, 33);
+            this.GeneralSettingsRGBColorOrderThirdLabel.Name = "GeneralSettingsRGBColorOrderThirdLabel";
+            this.GeneralSettingsRGBColorOrderThirdLabel.Size = new System.Drawing.Size(65, 15);
+            this.GeneralSettingsRGBColorOrderThirdLabel.TabIndex = 55;
+            this.GeneralSettingsRGBColorOrderThirdLabel.Text = "Third:";
+            // 
+            // GeneralSettingsRGBColorOrderSeccondLabel
+            // 
+            this.GeneralSettingsRGBColorOrderSeccondLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GeneralSettingsRGBColorOrderSeccondLabel.ForeColor = System.Drawing.Color.White;
+            this.GeneralSettingsRGBColorOrderSeccondLabel.Location = new System.Drawing.Point(115, 33);
+            this.GeneralSettingsRGBColorOrderSeccondLabel.Name = "GeneralSettingsRGBColorOrderSeccondLabel";
+            this.GeneralSettingsRGBColorOrderSeccondLabel.Size = new System.Drawing.Size(65, 15);
+            this.GeneralSettingsRGBColorOrderSeccondLabel.TabIndex = 54;
+            this.GeneralSettingsRGBColorOrderSeccondLabel.Text = "Seccond:";
+            // 
+            // GeneralSettingsRGBColorOrderFirstLabel
+            // 
+            this.GeneralSettingsRGBColorOrderFirstLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GeneralSettingsRGBColorOrderFirstLabel.ForeColor = System.Drawing.Color.White;
+            this.GeneralSettingsRGBColorOrderFirstLabel.Location = new System.Drawing.Point(6, 33);
+            this.GeneralSettingsRGBColorOrderFirstLabel.Name = "GeneralSettingsRGBColorOrderFirstLabel";
+            this.GeneralSettingsRGBColorOrderFirstLabel.Size = new System.Drawing.Size(65, 15);
+            this.GeneralSettingsRGBColorOrderFirstLabel.TabIndex = 53;
+            this.GeneralSettingsRGBColorOrderFirstLabel.Text = "First:";
+            // 
+            // GeneralSettingsRGBColorOrderLabel
+            // 
+            this.GeneralSettingsRGBColorOrderLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GeneralSettingsRGBColorOrderLabel.ForeColor = System.Drawing.Color.White;
+            this.GeneralSettingsRGBColorOrderLabel.Location = new System.Drawing.Point(3, 7);
+            this.GeneralSettingsRGBColorOrderLabel.Name = "GeneralSettingsRGBColorOrderLabel";
+            this.GeneralSettingsRGBColorOrderLabel.Size = new System.Drawing.Size(331, 15);
+            this.GeneralSettingsRGBColorOrderLabel.TabIndex = 52;
+            this.GeneralSettingsRGBColorOrderLabel.Text = "RGB Color order";
+            this.GeneralSettingsRGBColorOrderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // GeneralSettingsAutoSendCheckBox
+            // 
+            this.GeneralSettingsAutoSendCheckBox.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GeneralSettingsAutoSendCheckBox.ForeColor = System.Drawing.Color.White;
+            this.GeneralSettingsAutoSendCheckBox.Location = new System.Drawing.Point(9, 7);
+            this.GeneralSettingsAutoSendCheckBox.Name = "GeneralSettingsAutoSendCheckBox";
+            this.GeneralSettingsAutoSendCheckBox.Size = new System.Drawing.Size(317, 23);
+            this.GeneralSettingsAutoSendCheckBox.TabIndex = 17;
+            this.GeneralSettingsAutoSendCheckBox.Tag = "Setting";
+            this.GeneralSettingsAutoSendCheckBox.Text = "Auto send default setup next time";
+            this.GeneralSettingsAutoSendCheckBox.UseVisualStyleBackColor = true;
             // 
             // ConfigureSetupHiddenProgressBar
             // 
@@ -3920,6 +3925,91 @@
             this.AmbiLightModeWorkingPanel.Name = "AmbiLightModeWorkingPanel";
             this.AmbiLightModeWorkingPanel.Size = new System.Drawing.Size(654, 606);
             this.AmbiLightModeWorkingPanel.TabIndex = 50;
+            // 
+            // AmbiLightModeAutosetBlockSizes
+            // 
+            this.AmbiLightModeAutosetBlockSizes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
+            this.AmbiLightModeAutosetBlockSizes.FlatAppearance.BorderSize = 0;
+            this.AmbiLightModeAutosetBlockSizes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AmbiLightModeAutosetBlockSizes.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmbiLightModeAutosetBlockSizes.ForeColor = System.Drawing.Color.White;
+            this.AmbiLightModeAutosetBlockSizes.Location = new System.Drawing.Point(5, 94);
+            this.AmbiLightModeAutosetBlockSizes.Name = "AmbiLightModeAutosetBlockSizes";
+            this.AmbiLightModeAutosetBlockSizes.Size = new System.Drawing.Size(195, 36);
+            this.AmbiLightModeAutosetBlockSizes.TabIndex = 125;
+            this.AmbiLightModeAutosetBlockSizes.Text = "Autoset Block sizes from series IDs";
+            this.AmbiLightModeAutosetBlockSizes.UseVisualStyleBackColor = false;
+            this.AmbiLightModeAutosetBlockSizes.Click += new System.EventHandler(this.AmbiLightModeAutosetBlockSizes_Click);
+            // 
+            // AmbiLightModeAssumeLabel
+            // 
+            this.AmbiLightModeAssumeLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmbiLightModeAssumeLabel.ForeColor = System.Drawing.Color.White;
+            this.AmbiLightModeAssumeLabel.Location = new System.Drawing.Point(228, 91);
+            this.AmbiLightModeAssumeLabel.Name = "AmbiLightModeAssumeLabel";
+            this.AmbiLightModeAssumeLabel.Size = new System.Drawing.Size(195, 17);
+            this.AmbiLightModeAssumeLabel.TabIndex = 124;
+            this.AmbiLightModeAssumeLabel.Text = "Assume %";
+            this.AmbiLightModeAssumeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // AmbiLightModeAssumeNumericUpDown
+            // 
+            this.AmbiLightModeAssumeNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
+            this.AmbiLightModeAssumeNumericUpDown.DecimalPlaces = 2;
+            this.AmbiLightModeAssumeNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmbiLightModeAssumeNumericUpDown.ForeColor = System.Drawing.Color.White;
+            this.AmbiLightModeAssumeNumericUpDown.Location = new System.Drawing.Point(228, 112);
+            this.AmbiLightModeAssumeNumericUpDown.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.AmbiLightModeAssumeNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.AmbiLightModeAssumeNumericUpDown.Name = "AmbiLightModeAssumeNumericUpDown";
+            this.AmbiLightModeAssumeNumericUpDown.Size = new System.Drawing.Size(195, 18);
+            this.AmbiLightModeAssumeNumericUpDown.TabIndex = 123;
+            this.AmbiLightModeAssumeNumericUpDown.Tag = "Setting";
+            this.AmbiLightModeAssumeNumericUpDown.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            // 
+            // AmbiLightModeMaxVariationLabel
+            // 
+            this.AmbiLightModeMaxVariationLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmbiLightModeMaxVariationLabel.ForeColor = System.Drawing.Color.White;
+            this.AmbiLightModeMaxVariationLabel.Location = new System.Drawing.Point(452, 91);
+            this.AmbiLightModeMaxVariationLabel.Name = "AmbiLightModeMaxVariationLabel";
+            this.AmbiLightModeMaxVariationLabel.Size = new System.Drawing.Size(195, 17);
+            this.AmbiLightModeMaxVariationLabel.TabIndex = 122;
+            this.AmbiLightModeMaxVariationLabel.Text = "Max Variation";
+            this.AmbiLightModeMaxVariationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // AmbiLightModeMaxVariationNumericUpDown
+            // 
+            this.AmbiLightModeMaxVariationNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
+            this.AmbiLightModeMaxVariationNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AmbiLightModeMaxVariationNumericUpDown.ForeColor = System.Drawing.Color.White;
+            this.AmbiLightModeMaxVariationNumericUpDown.Location = new System.Drawing.Point(452, 112);
+            this.AmbiLightModeMaxVariationNumericUpDown.Maximum = new decimal(new int[] {
+            765,
+            0,
+            0,
+            0});
+            this.AmbiLightModeMaxVariationNumericUpDown.Name = "AmbiLightModeMaxVariationNumericUpDown";
+            this.AmbiLightModeMaxVariationNumericUpDown.Size = new System.Drawing.Size(195, 18);
+            this.AmbiLightModeMaxVariationNumericUpDown.TabIndex = 121;
+            this.AmbiLightModeMaxVariationNumericUpDown.Tag = "Setting";
+            this.AmbiLightModeMaxVariationNumericUpDown.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
             // 
             // AmbiLightModeGammaFactorLabel
             // 
@@ -5571,7 +5661,6 @@
             this.panel6.Controls.Add(this.ServerSettingsStopServerButton);
             this.panel6.Controls.Add(this.ServerSettingsStartServerButton);
             this.panel6.Controls.Add(this.ServerSettingsPortTextBox);
-            this.panel6.Controls.Add(this.ConfigureSetupEnableServerMode);
             this.panel6.Controls.Add(this.ServerSettingsIPAddressTextBox);
             this.panel6.Controls.Add(this.ServerSettingsPortLabel);
             this.panel6.Controls.Add(this.ServerSettingsIPAddressLabel);
@@ -5610,9 +5699,9 @@
             this.ServerSettingsClearConsoleButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ServerSettingsClearConsoleButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ServerSettingsClearConsoleButton.ForeColor = System.Drawing.Color.White;
-            this.ServerSettingsClearConsoleButton.Location = new System.Drawing.Point(586, 23);
+            this.ServerSettingsClearConsoleButton.Location = new System.Drawing.Point(586, 12);
             this.ServerSettingsClearConsoleButton.Name = "ServerSettingsClearConsoleButton";
-            this.ServerSettingsClearConsoleButton.Size = new System.Drawing.Size(240, 19);
+            this.ServerSettingsClearConsoleButton.Size = new System.Drawing.Size(240, 38);
             this.ServerSettingsClearConsoleButton.TabIndex = 75;
             this.ServerSettingsClearConsoleButton.Text = "Clear Console";
             this.ServerSettingsClearConsoleButton.UseVisualStyleBackColor = false;
@@ -5625,7 +5714,7 @@
             this.ServerSettingsStopServerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ServerSettingsStopServerButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ServerSettingsStopServerButton.ForeColor = System.Drawing.Color.White;
-            this.ServerSettingsStopServerButton.Location = new System.Drawing.Point(436, 3);
+            this.ServerSettingsStopServerButton.Location = new System.Drawing.Point(436, 12);
             this.ServerSettingsStopServerButton.Name = "ServerSettingsStopServerButton";
             this.ServerSettingsStopServerButton.Size = new System.Drawing.Size(120, 38);
             this.ServerSettingsStopServerButton.TabIndex = 74;
@@ -5640,7 +5729,7 @@
             this.ServerSettingsStartServerButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ServerSettingsStartServerButton.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ServerSettingsStartServerButton.ForeColor = System.Drawing.Color.White;
-            this.ServerSettingsStartServerButton.Location = new System.Drawing.Point(291, 3);
+            this.ServerSettingsStartServerButton.Location = new System.Drawing.Point(291, 12);
             this.ServerSettingsStartServerButton.Name = "ServerSettingsStartServerButton";
             this.ServerSettingsStartServerButton.Size = new System.Drawing.Size(120, 38);
             this.ServerSettingsStartServerButton.TabIndex = 73;
@@ -5660,18 +5749,6 @@
             this.ServerSettingsPortTextBox.TabIndex = 57;
             this.ServerSettingsPortTextBox.Tag = "Setting";
             this.ServerSettingsPortTextBox.Text = "8888";
-            // 
-            // ConfigureSetupEnableServerMode
-            // 
-            this.ConfigureSetupEnableServerMode.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ConfigureSetupEnableServerMode.ForeColor = System.Drawing.Color.White;
-            this.ConfigureSetupEnableServerMode.Location = new System.Drawing.Point(586, 2);
-            this.ConfigureSetupEnableServerMode.Name = "ConfigureSetupEnableServerMode";
-            this.ConfigureSetupEnableServerMode.Size = new System.Drawing.Size(240, 20);
-            this.ConfigureSetupEnableServerMode.TabIndex = 72;
-            this.ConfigureSetupEnableServerMode.Tag = "Setting";
-            this.ConfigureSetupEnableServerMode.Text = "Enable Server at Startup";
-            this.ConfigureSetupEnableServerMode.UseVisualStyleBackColor = true;
             // 
             // ServerSettingsIPAddressTextBox
             // 
@@ -5725,6 +5802,18 @@
             this.ServerSettingsTopLabel.TabIndex = 10;
             this.ServerSettingsTopLabel.Text = "Server Settings";
             this.ServerSettingsTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // GeneralSettingsEnableServerMode
+            // 
+            this.GeneralSettingsEnableServerMode.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GeneralSettingsEnableServerMode.ForeColor = System.Drawing.Color.White;
+            this.GeneralSettingsEnableServerMode.Location = new System.Drawing.Point(9, 37);
+            this.GeneralSettingsEnableServerMode.Name = "GeneralSettingsEnableServerMode";
+            this.GeneralSettingsEnableServerMode.Size = new System.Drawing.Size(317, 23);
+            this.GeneralSettingsEnableServerMode.TabIndex = 72;
+            this.GeneralSettingsEnableServerMode.Tag = "Setting";
+            this.GeneralSettingsEnableServerMode.Text = "Enable Server at Startup";
+            this.GeneralSettingsEnableServerMode.UseVisualStyleBackColor = true;
             // 
             // AnimationModePanel
             // 
@@ -6217,96 +6306,251 @@
             this.AnimationModeAnimationWindowWorkingPanel.Size = new System.Drawing.Size(842, 381);
             this.AnimationModeAnimationWindowWorkingPanel.TabIndex = 10;
             // 
-            // AmbiLightModeAssumeLabel
+            // GeneralSettingsPanel
             // 
-            this.AmbiLightModeAssumeLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AmbiLightModeAssumeLabel.ForeColor = System.Drawing.Color.White;
-            this.AmbiLightModeAssumeLabel.Location = new System.Drawing.Point(228, 91);
-            this.AmbiLightModeAssumeLabel.Name = "AmbiLightModeAssumeLabel";
-            this.AmbiLightModeAssumeLabel.Size = new System.Drawing.Size(195, 17);
-            this.AmbiLightModeAssumeLabel.TabIndex = 124;
-            this.AmbiLightModeAssumeLabel.Text = "Assume %";
-            this.AmbiLightModeAssumeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.GeneralSettingsPanel.BackColor = System.Drawing.Color.DimGray;
+            this.GeneralSettingsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.GeneralSettingsPanel.Controls.Add(this.panel10);
+            this.GeneralSettingsPanel.Controls.Add(this.panel13);
+            this.GeneralSettingsPanel.Controls.Add(this.GeneralSettingsOtherSettingsLabel);
+            this.GeneralSettingsPanel.Controls.Add(this.panel14);
+            this.GeneralSettingsPanel.Controls.Add(this.GeneralSettingsStartupSettingsLabel);
+            this.GeneralSettingsPanel.Controls.Add(this.GeneralSettingsDeviceSettingsLabel);
+            this.GeneralSettingsPanel.Controls.Add(this.panel12);
+            this.GeneralSettingsPanel.Location = new System.Drawing.Point(1097, 5);
+            this.GeneralSettingsPanel.Name = "GeneralSettingsPanel";
+            this.GeneralSettingsPanel.Size = new System.Drawing.Size(354, 528);
+            this.GeneralSettingsPanel.TabIndex = 73;
+            this.GeneralSettingsPanel.Visible = false;
             // 
-            // AmbiLightModeAssumeNumericUpDown
+            // panel10
             // 
-            this.AmbiLightModeAssumeNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
-            this.AmbiLightModeAssumeNumericUpDown.DecimalPlaces = 2;
-            this.AmbiLightModeAssumeNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AmbiLightModeAssumeNumericUpDown.ForeColor = System.Drawing.Color.White;
-            this.AmbiLightModeAssumeNumericUpDown.Location = new System.Drawing.Point(228, 112);
-            this.AmbiLightModeAssumeNumericUpDown.Maximum = new decimal(new int[] {
-            1,
+            this.panel10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.panel10.Controls.Add(this.GeneralSettingsTopLabel);
+            this.panel10.Location = new System.Drawing.Point(0, 0);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(354, 63);
+            this.panel10.TabIndex = 64;
+            // 
+            // GeneralSettingsTopLabel
+            // 
+            this.GeneralSettingsTopLabel.Font = new System.Drawing.Font("Lucida Console", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GeneralSettingsTopLabel.ForeColor = System.Drawing.Color.White;
+            this.GeneralSettingsTopLabel.Location = new System.Drawing.Point(0, 0);
+            this.GeneralSettingsTopLabel.Name = "GeneralSettingsTopLabel";
+            this.GeneralSettingsTopLabel.Size = new System.Drawing.Size(354, 63);
+            this.GeneralSettingsTopLabel.TabIndex = 10;
+            this.GeneralSettingsTopLabel.Text = "General Settings";
+            this.GeneralSettingsTopLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel13
+            // 
+            this.panel13.BackColor = System.Drawing.Color.Gray;
+            this.panel13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel13.Controls.Add(this.GeneralSettingsRGBColorOrderThirdTextbox);
+            this.panel13.Controls.Add(this.GeneralSettingsRGBColorOrderLabel);
+            this.panel13.Controls.Add(this.GeneralSettingsRGBColorOrderSeccondTextbox);
+            this.panel13.Controls.Add(this.GeneralSettingsRGBColorOrderFirstLabel);
+            this.panel13.Controls.Add(this.GeneralSettingsRGBColorOrderThirdLabel);
+            this.panel13.Controls.Add(this.GeneralSettingsRGBColorOrderFirstTextbox);
+            this.panel13.Controls.Add(this.GeneralSettingsRGBColorOrderSeccondLabel);
+            this.panel13.ForeColor = System.Drawing.Color.White;
+            this.panel13.Location = new System.Drawing.Point(7, 461);
+            this.panel13.Name = "panel13";
+            this.panel13.Size = new System.Drawing.Size(339, 58);
+            this.panel13.TabIndex = 82;
+            // 
+            // GeneralSettingsOtherSettingsLabel
+            // 
+            this.GeneralSettingsOtherSettingsLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GeneralSettingsOtherSettingsLabel.ForeColor = System.Drawing.Color.White;
+            this.GeneralSettingsOtherSettingsLabel.Location = new System.Drawing.Point(7, 443);
+            this.GeneralSettingsOtherSettingsLabel.Name = "GeneralSettingsOtherSettingsLabel";
+            this.GeneralSettingsOtherSettingsLabel.Size = new System.Drawing.Size(339, 15);
+            this.GeneralSettingsOtherSettingsLabel.TabIndex = 81;
+            this.GeneralSettingsOtherSettingsLabel.Text = "Other Settings";
+            this.GeneralSettingsOtherSettingsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel14
+            // 
+            this.panel14.BackColor = System.Drawing.Color.Gray;
+            this.panel14.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel14.Controls.Add(this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox);
+            this.panel14.Controls.Add(this.GeneralSettingsAutostartAutoloadedInstructionsLoop);
+            this.panel14.Controls.Add(this.GeneralSettingsAutostartAutoloadedAnimationLoop);
+            this.panel14.Controls.Add(this.GeneralSettingsAutostartAutoloadedInstructions);
+            this.panel14.Controls.Add(this.GeneralSettingsAutostartAutoloadedAnimation);
+            this.panel14.Controls.Add(this.GeneralSettingsStartAtModeLabel);
+            this.panel14.Controls.Add(this.GeneralSettingsStartAtModeComboBox);
+            this.panel14.Controls.Add(this.GeneralSettingsAutoSendCheckBox);
+            this.panel14.Controls.Add(this.GeneralSettingsEnableServerMode);
+            this.panel14.ForeColor = System.Drawing.Color.White;
+            this.panel14.Location = new System.Drawing.Point(7, 209);
+            this.panel14.Name = "panel14";
+            this.panel14.Size = new System.Drawing.Size(339, 228);
+            this.panel14.TabIndex = 80;
+            // 
+            // GeneralSettingsAutostartAutoloadedInstructionsLoop
+            // 
+            this.GeneralSettingsAutostartAutoloadedInstructionsLoop.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GeneralSettingsAutostartAutoloadedInstructionsLoop.ForeColor = System.Drawing.Color.White;
+            this.GeneralSettingsAutostartAutoloadedInstructionsLoop.Location = new System.Drawing.Point(19, 198);
+            this.GeneralSettingsAutostartAutoloadedInstructionsLoop.Name = "GeneralSettingsAutostartAutoloadedInstructionsLoop";
+            this.GeneralSettingsAutostartAutoloadedInstructionsLoop.Size = new System.Drawing.Size(307, 23);
+            this.GeneralSettingsAutostartAutoloadedInstructionsLoop.TabIndex = 78;
+            this.GeneralSettingsAutostartAutoloadedInstructionsLoop.Tag = "Setting";
+            this.GeneralSettingsAutostartAutoloadedInstructionsLoop.Text = "Loop";
+            this.GeneralSettingsAutostartAutoloadedInstructionsLoop.UseVisualStyleBackColor = true;
+            // 
+            // GeneralSettingsAutostartAutoloadedAnimationLoop
+            // 
+            this.GeneralSettingsAutostartAutoloadedAnimationLoop.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GeneralSettingsAutostartAutoloadedAnimationLoop.ForeColor = System.Drawing.Color.White;
+            this.GeneralSettingsAutostartAutoloadedAnimationLoop.Location = new System.Drawing.Point(19, 157);
+            this.GeneralSettingsAutostartAutoloadedAnimationLoop.Name = "GeneralSettingsAutostartAutoloadedAnimationLoop";
+            this.GeneralSettingsAutostartAutoloadedAnimationLoop.Size = new System.Drawing.Size(307, 23);
+            this.GeneralSettingsAutostartAutoloadedAnimationLoop.TabIndex = 77;
+            this.GeneralSettingsAutostartAutoloadedAnimationLoop.Tag = "Setting";
+            this.GeneralSettingsAutostartAutoloadedAnimationLoop.Text = "Loop";
+            this.GeneralSettingsAutostartAutoloadedAnimationLoop.UseVisualStyleBackColor = true;
+            // 
+            // GeneralSettingsAutostartAutoloadedInstructions
+            // 
+            this.GeneralSettingsAutostartAutoloadedInstructions.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GeneralSettingsAutostartAutoloadedInstructions.ForeColor = System.Drawing.Color.White;
+            this.GeneralSettingsAutostartAutoloadedInstructions.Location = new System.Drawing.Point(9, 181);
+            this.GeneralSettingsAutostartAutoloadedInstructions.Name = "GeneralSettingsAutostartAutoloadedInstructions";
+            this.GeneralSettingsAutostartAutoloadedInstructions.Size = new System.Drawing.Size(317, 23);
+            this.GeneralSettingsAutostartAutoloadedInstructions.TabIndex = 76;
+            this.GeneralSettingsAutostartAutoloadedInstructions.Tag = "Setting";
+            this.GeneralSettingsAutostartAutoloadedInstructions.Text = "Autostart autoloaded Instructions";
+            this.GeneralSettingsAutostartAutoloadedInstructions.UseVisualStyleBackColor = true;
+            // 
+            // GeneralSettingsAutostartAutoloadedAnimation
+            // 
+            this.GeneralSettingsAutostartAutoloadedAnimation.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GeneralSettingsAutostartAutoloadedAnimation.ForeColor = System.Drawing.Color.White;
+            this.GeneralSettingsAutostartAutoloadedAnimation.Location = new System.Drawing.Point(9, 139);
+            this.GeneralSettingsAutostartAutoloadedAnimation.Name = "GeneralSettingsAutostartAutoloadedAnimation";
+            this.GeneralSettingsAutostartAutoloadedAnimation.Size = new System.Drawing.Size(317, 23);
+            this.GeneralSettingsAutostartAutoloadedAnimation.TabIndex = 75;
+            this.GeneralSettingsAutostartAutoloadedAnimation.Tag = "Setting";
+            this.GeneralSettingsAutostartAutoloadedAnimation.Text = "Autostart autoloaded Animation";
+            this.GeneralSettingsAutostartAutoloadedAnimation.UseVisualStyleBackColor = true;
+            // 
+            // GeneralSettingsStartAtModeLabel
+            // 
+            this.GeneralSettingsStartAtModeLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GeneralSettingsStartAtModeLabel.ForeColor = System.Drawing.Color.White;
+            this.GeneralSettingsStartAtModeLabel.Location = new System.Drawing.Point(6, 63);
+            this.GeneralSettingsStartAtModeLabel.Name = "GeneralSettingsStartAtModeLabel";
+            this.GeneralSettingsStartAtModeLabel.Size = new System.Drawing.Size(317, 23);
+            this.GeneralSettingsStartAtModeLabel.TabIndex = 74;
+            this.GeneralSettingsStartAtModeLabel.Text = "Start at mode:";
+            this.GeneralSettingsStartAtModeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // GeneralSettingsStartAtModeComboBox
+            // 
+            this.GeneralSettingsStartAtModeComboBox.BackColor = System.Drawing.Color.DarkGray;
+            this.GeneralSettingsStartAtModeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.GeneralSettingsStartAtModeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.GeneralSettingsStartAtModeComboBox.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GeneralSettingsStartAtModeComboBox.ForeColor = System.Drawing.Color.White;
+            this.GeneralSettingsStartAtModeComboBox.FormattingEnabled = true;
+            this.GeneralSettingsStartAtModeComboBox.Location = new System.Drawing.Point(6, 91);
+            this.GeneralSettingsStartAtModeComboBox.Name = "GeneralSettingsStartAtModeComboBox";
+            this.GeneralSettingsStartAtModeComboBox.Size = new System.Drawing.Size(317, 19);
+            this.GeneralSettingsStartAtModeComboBox.TabIndex = 73;
+            this.GeneralSettingsStartAtModeComboBox.Tag = "Setting";
+            // 
+            // GeneralSettingsStartupSettingsLabel
+            // 
+            this.GeneralSettingsStartupSettingsLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GeneralSettingsStartupSettingsLabel.ForeColor = System.Drawing.Color.White;
+            this.GeneralSettingsStartupSettingsLabel.Location = new System.Drawing.Point(7, 191);
+            this.GeneralSettingsStartupSettingsLabel.Name = "GeneralSettingsStartupSettingsLabel";
+            this.GeneralSettingsStartupSettingsLabel.Size = new System.Drawing.Size(339, 15);
+            this.GeneralSettingsStartupSettingsLabel.TabIndex = 79;
+            this.GeneralSettingsStartupSettingsLabel.Text = "Startup Settings";
+            this.GeneralSettingsStartupSettingsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // GeneralSettingsDeviceSettingsLabel
+            // 
+            this.GeneralSettingsDeviceSettingsLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GeneralSettingsDeviceSettingsLabel.ForeColor = System.Drawing.Color.White;
+            this.GeneralSettingsDeviceSettingsLabel.Location = new System.Drawing.Point(7, 68);
+            this.GeneralSettingsDeviceSettingsLabel.Name = "GeneralSettingsDeviceSettingsLabel";
+            this.GeneralSettingsDeviceSettingsLabel.Size = new System.Drawing.Size(339, 15);
+            this.GeneralSettingsDeviceSettingsLabel.TabIndex = 76;
+            this.GeneralSettingsDeviceSettingsLabel.Text = "Device settings";
+            this.GeneralSettingsDeviceSettingsLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel12
+            // 
+            this.panel12.BackColor = System.Drawing.Color.Gray;
+            this.panel12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel12.Controls.Add(this.GeneralSettingsComDeviceLabel);
+            this.panel12.Controls.Add(this.GeneralSettingsConnectButton);
+            this.panel12.Controls.Add(this.ComPortsComboBox);
+            this.panel12.Controls.Add(this.GeneralSettingsBaudRateLabel);
+            this.panel12.Controls.Add(this.GeneralSettingsBaudRateNumericUpDown);
+            this.panel12.ForeColor = System.Drawing.Color.White;
+            this.panel12.Location = new System.Drawing.Point(7, 91);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(339, 88);
+            this.panel12.TabIndex = 75;
+            // 
+            // GeneralSettingsBaudRateLabel
+            // 
+            this.GeneralSettingsBaudRateLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F);
+            this.GeneralSettingsBaudRateLabel.ForeColor = System.Drawing.Color.White;
+            this.GeneralSettingsBaudRateLabel.Location = new System.Drawing.Point(16, 40);
+            this.GeneralSettingsBaudRateLabel.Name = "GeneralSettingsBaudRateLabel";
+            this.GeneralSettingsBaudRateLabel.Size = new System.Drawing.Size(107, 15);
+            this.GeneralSettingsBaudRateLabel.TabIndex = 70;
+            this.GeneralSettingsBaudRateLabel.Text = "Baud Rate";
+            this.GeneralSettingsBaudRateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // GeneralSettingsBaudRateNumericUpDown
+            // 
+            this.GeneralSettingsBaudRateNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
+            this.GeneralSettingsBaudRateNumericUpDown.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.GeneralSettingsBaudRateNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GeneralSettingsBaudRateNumericUpDown.ForeColor = System.Drawing.Color.White;
+            this.GeneralSettingsBaudRateNumericUpDown.Location = new System.Drawing.Point(154, 40);
+            this.GeneralSettingsBaudRateNumericUpDown.Maximum = new decimal(new int[] {
+            999999999,
             0,
             0,
             0});
-            this.AmbiLightModeAssumeNumericUpDown.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.AmbiLightModeAssumeNumericUpDown.Name = "AmbiLightModeAssumeNumericUpDown";
-            this.AmbiLightModeAssumeNumericUpDown.Size = new System.Drawing.Size(195, 18);
-            this.AmbiLightModeAssumeNumericUpDown.TabIndex = 123;
-            this.AmbiLightModeAssumeNumericUpDown.Tag = "Setting";
-            this.AmbiLightModeAssumeNumericUpDown.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            65536});
-            // 
-            // AmbiLightModeMaxVariationLabel
-            // 
-            this.AmbiLightModeMaxVariationLabel.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AmbiLightModeMaxVariationLabel.ForeColor = System.Drawing.Color.White;
-            this.AmbiLightModeMaxVariationLabel.Location = new System.Drawing.Point(452, 91);
-            this.AmbiLightModeMaxVariationLabel.Name = "AmbiLightModeMaxVariationLabel";
-            this.AmbiLightModeMaxVariationLabel.Size = new System.Drawing.Size(195, 17);
-            this.AmbiLightModeMaxVariationLabel.TabIndex = 122;
-            this.AmbiLightModeMaxVariationLabel.Text = "Max Variation";
-            this.AmbiLightModeMaxVariationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // AmbiLightModeMaxVariationNumericUpDown
-            // 
-            this.AmbiLightModeMaxVariationNumericUpDown.BackColor = System.Drawing.Color.DarkGray;
-            this.AmbiLightModeMaxVariationNumericUpDown.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AmbiLightModeMaxVariationNumericUpDown.ForeColor = System.Drawing.Color.White;
-            this.AmbiLightModeMaxVariationNumericUpDown.Location = new System.Drawing.Point(452, 112);
-            this.AmbiLightModeMaxVariationNumericUpDown.Maximum = new decimal(new int[] {
-            765,
-            0,
-            0,
-            0});
-            this.AmbiLightModeMaxVariationNumericUpDown.Name = "AmbiLightModeMaxVariationNumericUpDown";
-            this.AmbiLightModeMaxVariationNumericUpDown.Size = new System.Drawing.Size(195, 18);
-            this.AmbiLightModeMaxVariationNumericUpDown.TabIndex = 121;
-            this.AmbiLightModeMaxVariationNumericUpDown.Tag = "Setting";
-            this.AmbiLightModeMaxVariationNumericUpDown.Value = new decimal(new int[] {
-            100,
+            this.GeneralSettingsBaudRateNumericUpDown.Name = "GeneralSettingsBaudRateNumericUpDown";
+            this.GeneralSettingsBaudRateNumericUpDown.Size = new System.Drawing.Size(156, 14);
+            this.GeneralSettingsBaudRateNumericUpDown.TabIndex = 69;
+            this.GeneralSettingsBaudRateNumericUpDown.Tag = "Setting";
+            this.GeneralSettingsBaudRateNumericUpDown.Value = new decimal(new int[] {
+            1000000,
             0,
             0,
             0});
             // 
-            // AmbiLightModeAutosetBlockSizes
+            // GeneralSettingsStartAtModeOpenMenuAswellCheckBox
             // 
-            this.AmbiLightModeAutosetBlockSizes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(217)))));
-            this.AmbiLightModeAutosetBlockSizes.FlatAppearance.BorderSize = 0;
-            this.AmbiLightModeAutosetBlockSizes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AmbiLightModeAutosetBlockSizes.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AmbiLightModeAutosetBlockSizes.ForeColor = System.Drawing.Color.White;
-            this.AmbiLightModeAutosetBlockSizes.Location = new System.Drawing.Point(5, 94);
-            this.AmbiLightModeAutosetBlockSizes.Name = "AmbiLightModeAutosetBlockSizes";
-            this.AmbiLightModeAutosetBlockSizes.Size = new System.Drawing.Size(195, 36);
-            this.AmbiLightModeAutosetBlockSizes.TabIndex = 125;
-            this.AmbiLightModeAutosetBlockSizes.Text = "Autoset Block sizes from series IDs";
-            this.AmbiLightModeAutosetBlockSizes.UseVisualStyleBackColor = false;
-            this.AmbiLightModeAutosetBlockSizes.Click += new System.EventHandler(this.AmbiLightModeAutosetBlockSizes_Click);
+            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox.ForeColor = System.Drawing.Color.White;
+            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox.Location = new System.Drawing.Point(19, 110);
+            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox.Name = "GeneralSettingsStartAtModeOpenMenuAswellCheckBox";
+            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox.Size = new System.Drawing.Size(304, 23);
+            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox.TabIndex = 79;
+            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox.Tag = "Setting";
+            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox.Text = "Open menu aswell?";
+            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.ClientSize = new System.Drawing.Size(4410, 2109);
+            this.Controls.Add(this.GeneralSettingsPanel);
             this.Controls.Add(this.AnimationModePanel);
             this.Controls.Add(this.MenuPanel);
             this.Controls.Add(this.ConfigureSetupHiddenProgressBar);
@@ -6409,8 +6653,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddIndividualLEDBlueTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.InstructionsAddIndividualLEDGreenTrackBar)).EndInit();
             this.ConfigureSetupPanel.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupClickToSetupSeriesFromIDNumericUpDown)).EndInit();
             this.panel20.ResumeLayout(false);
@@ -6421,6 +6663,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.ConfigureSetupAddStripYDir)).EndInit();
             this.AmbiLightModePanel.ResumeLayout(false);
             this.AmbiLightModeWorkingPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeAssumeNumericUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeMaxVariationNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeGammaFactorNumericUpDown)).EndInit();
             this.AmbiLightModeLeftPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeLeftLEDsPrBlockNumericUpDown)).EndInit();
@@ -6478,15 +6722,20 @@
             ((System.ComponentModel.ISupportInitialize)(this.AnimationModeRedTrackbar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.AnimationModeBlueTrackbar)).EndInit();
             this.panel8.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeAssumeNumericUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.AmbiLightModeMaxVariationNumericUpDown)).EndInit();
+            this.GeneralSettingsPanel.ResumeLayout(false);
+            this.panel10.ResumeLayout(false);
+            this.panel13.ResumeLayout(false);
+            this.panel13.PerformLayout();
+            this.panel14.ResumeLayout(false);
+            this.panel12.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.GeneralSettingsBaudRateNumericUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
         public System.Windows.Forms.TextBox ServerSettingsPortTextBox;
-        public System.Windows.Forms.CheckBox ConfigureSetupEnableServerMode;
+        public System.Windows.Forms.CheckBox GeneralSettingsEnableServerMode;
         public System.Windows.Forms.TextBox ServerSettingsIPAddressTextBox;
         public System.Windows.Forms.TextBox ServerSettingsConsoleTextBox;
         public System.Windows.Forms.Label AudioSourceLabel;
@@ -6515,9 +6764,9 @@
         public System.Windows.Forms.Label FadeColorsGreenLabel;
         public System.Windows.Forms.TrackBar FadeColorsGreenTrackBar;
         public System.Windows.Forms.Label FadeColorsBlueLabel;
-        public System.Windows.Forms.Button MenuConnectButton;
+        public System.Windows.Forms.Button GeneralSettingsConnectButton;
         public System.Windows.Forms.ComboBox ComPortsComboBox;
-        public System.Windows.Forms.Label MenuSelectComDeviceLabel;
+        public System.Windows.Forms.Label GeneralSettingsComDeviceLabel;
         public System.Windows.Forms.NumericUpDown FadeColorsFadeSpeedNumericUpDown;
         public System.Windows.Forms.Panel MenuPanel;
         public System.Windows.Forms.Label FadeColorsFadeFactorLabel;
@@ -6649,7 +6898,7 @@
         public System.Windows.Forms.Label InstructionsAddDelayLabel;
         public System.Windows.Forms.ComboBox LanguageComboBox;
         public System.Windows.Forms.ProgressBar ConfigureSetupHiddenProgressBar;
-        public System.Windows.Forms.CheckBox ConfigureSetupAutoSendCheckBox;
+        public System.Windows.Forms.CheckBox GeneralSettingsAutoSendCheckBox;
         public System.Windows.Forms.Label VisualizerCurrentValueLabel;
         public System.Windows.Forms.Button InstructionStopLoopButton;
         public System.Windows.Forms.Panel FullSpectrumPanel;
@@ -6806,14 +7055,13 @@
         public System.Windows.Forms.Label VisualizerRPSLabel;
         public System.Windows.Forms.Label AmbiLightModeGammaFactorLabel;
         public System.Windows.Forms.NumericUpDown AmbiLightModeGammaFactorNumericUpDown;
-        public System.Windows.Forms.Panel panel2;
-        public System.Windows.Forms.Label ConfigureSetupRGBColorOrderLabel;
-        public System.Windows.Forms.Label ConfigureSetupRGBColorOrderThirdLabel;
-        public System.Windows.Forms.Label ConfigureSetupRGBColorOrderSeccondLabel;
-        public System.Windows.Forms.Label ConfigureSetupRGBColorOrderFirstLabel;
-        public System.Windows.Forms.TextBox ConfigureSetupRGBColorOrderThirdTextbox;
-        public System.Windows.Forms.TextBox ConfigureSetupRGBColorOrderSeccondTextbox;
-        public System.Windows.Forms.TextBox ConfigureSetupRGBColorOrderFirstTextbox;
+        public System.Windows.Forms.Label GeneralSettingsRGBColorOrderLabel;
+        public System.Windows.Forms.Label GeneralSettingsRGBColorOrderThirdLabel;
+        public System.Windows.Forms.Label GeneralSettingsRGBColorOrderSeccondLabel;
+        public System.Windows.Forms.Label GeneralSettingsRGBColorOrderFirstLabel;
+        public System.Windows.Forms.TextBox GeneralSettingsRGBColorOrderThirdTextbox;
+        public System.Windows.Forms.TextBox GeneralSettingsRGBColorOrderSeccondTextbox;
+        public System.Windows.Forms.TextBox GeneralSettingsRGBColorOrderFirstTextbox;
         public System.Windows.Forms.Panel ServerSettingsPanel;
         public System.Windows.Forms.Panel panel6;
         public System.Windows.Forms.Label ServerSettingsPortLabel;
@@ -6879,6 +7127,24 @@
         public System.Windows.Forms.Label AmbiLightModeMaxVariationLabel;
         public System.Windows.Forms.NumericUpDown AmbiLightModeMaxVariationNumericUpDown;
         public System.Windows.Forms.Button AmbiLightModeAutosetBlockSizes;
+        public System.Windows.Forms.Panel GeneralSettingsPanel;
+        public System.Windows.Forms.Panel panel10;
+        public System.Windows.Forms.Label GeneralSettingsTopLabel;
+        public System.Windows.Forms.Label GeneralSettingsBaudRateLabel;
+        public System.Windows.Forms.NumericUpDown GeneralSettingsBaudRateNumericUpDown;
+        public System.Windows.Forms.Label GeneralSettingsDeviceSettingsLabel;
+        public System.Windows.Forms.Panel panel12;
+        public System.Windows.Forms.Panel panel14;
+        public System.Windows.Forms.Label GeneralSettingsStartupSettingsLabel;
+        public System.Windows.Forms.Panel panel13;
+        public System.Windows.Forms.Label GeneralSettingsOtherSettingsLabel;
+        public System.Windows.Forms.Label GeneralSettingsStartAtModeLabel;
+        public System.Windows.Forms.ComboBox GeneralSettingsStartAtModeComboBox;
+        public System.Windows.Forms.CheckBox GeneralSettingsAutostartAutoloadedInstructions;
+        public System.Windows.Forms.CheckBox GeneralSettingsAutostartAutoloadedAnimation;
+        public System.Windows.Forms.CheckBox GeneralSettingsAutostartAutoloadedInstructionsLoop;
+        public System.Windows.Forms.CheckBox GeneralSettingsAutostartAutoloadedAnimationLoop;
+        public System.Windows.Forms.CheckBox GeneralSettingsStartAtModeOpenMenuAswellCheckBox;
     }
 }
 

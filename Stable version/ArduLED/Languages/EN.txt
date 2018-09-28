@@ -1,13 +1,35 @@
-MenuModeLabel;Lucida Console;11;Mode
-MenuSelectComDeviceLabel;Lucida Console;11;Select COM device
+MenuModeLabel;Lucida Console;11;Mode:
 MenuExitButton;Lucida Console;8;X
-MenuConnectButton;Lucida Console;8;Connect
 MenuButton;Lucida Console;8;ArduLED
 LanguageComboBox;Lucida Console;8;
 MenuAutoHideCheckBox;Lucida Console;8;Auto Hide
 
+GeneralSettingsTopLabel;Lucida Console;16;General Settings
+GeneralSettingsComDeviceLabel;Lucida Console;11;Select COM device
+GeneralSettingsConnectButton;Lucida Console;8;Connect
+GeneralSettingsBaudRateLabel;Lucida Console;11;Baud Rate
+INDEXNAMES;GeneralSettingsStartAtModeComboBox;Fade Colors;Visualizer;Individual Colors;Indstructions Mode;Ambilight Mode;Server Settings;Animation Mode;Configure Setup;General Settings
+GeneralSettingsAutoSendCheckBox;Lucida Console;8;Auto send default setup next time
+GeneralSettingsEnableServerMode;Lucida Console;8;Enable Server at Startup
+GeneralSettingsStartAtModeLabel;Lucida Console;11;Start at mode:
+GeneralSettingsStartAtModeOpenMenuAswellCheckBox;Lucida Console;8;Open menu aswell?
+GeneralSettingsAutostartAutoloadedAnimation;Lucida Console;8;Autostart autoloaded Animation
+GeneralSettingsAutostartAutoloadedAnimationLoop;Lucida Console;8;Loop
+GeneralSettingsAutostartAutoloadedInstructions;Lucida Console;8;Autostart autoloaded Instructions
+GeneralSettingsAutostartAutoloadedInstructionsLoop;Lucida Console;8;Loop
+GeneralSettingsDeviceSettingsLabel;Lucida Console;11;Device settings
+GeneralSettingsStartupSettingsLabel;Lucida Console;11;Startup Settings
+GeneralSettingsOtherSettingsLabel;Lucida Console;11;Other Settings
+GeneralSettingsRGBColorOrderLabel;Lucida Console;11;RGB Color order
+GeneralSettingsRGBColorOrderFirstLabel;Lucida Console;8;First:
+GeneralSettingsRGBColorOrderFirstTextbox;Lucida Console;8;
+GeneralSettingsRGBColorOrderSeccondLabel;Lucida Console;8;Seccond:
+GeneralSettingsRGBColorOrderSeccondTextbox;Lucida Console;8;
+GeneralSettingsRGBColorOrderThirdLabel;Lucida Console;8;Last:
+GeneralSettingsRGBColorOrderThirdTextbox;Lucida Console;8;
+
 ModeSelectrionComboBox;Lucida Console;8;
-INDEXNAMES;ModeSelectrionComboBox;Fade Colors;Visualizer;Individual Colors;Indstructions Mode;Ambilight Mode;Server Settings;Animation Mode;Configure Setup
+INDEXNAMES;ModeSelectrionComboBox;Fade Colors;Visualizer;Individual Colors;Indstructions Mode;Ambilight Mode;Server Settings;Animation Mode;Configure Setup;General Settings
 
 FadeColorsRedTopLabel;Lucida Console;11;Red
 FadeColorsGreenTopLabel;Lucida Console;11;Green
@@ -30,7 +52,6 @@ FadeLEDPanelToIDLabel;Lucida Console;8;To series ID
 FadeLEDPanelToIDNumericUpDown;Lucida Console;8;
 
 
-ConfigureSetupAutoSendCheckBox;Lucida Console;8;Auto send current setup next time
 ConfigureSetupTopLabel;Lucida Console;16;Configure Setup
 POSSIBLE;MakeLEDPanelDeleteButton;Lucida Console;5;x
 POSSIBLE;MakeLEDPanelStripIDLabel;Lucida Console;7;
@@ -64,14 +85,6 @@ ConfigureSetupAddStripInvertY;Lucida Console;8;Invert y
 ConfigureSetupClickToSetupSeriesCheckBox;Lucida Console;8;Click to setup series ID
 ConfigureSetupClickToSetupSeriesFromIDLabel;Lucida Console;11;From ID
 ConfigureSetupClickToSetupSeriesFromIDNumericUpDown;Lucida Console;8;
-
-ConfigureSetupRGBColorOrderLabel;Lucida Console;11;RGB Color order
-ConfigureSetupRGBColorOrderFirstLabel;Lucida Console;8;First:
-ConfigureSetupRGBColorOrderFirstTextbox;Lucida Console;8;
-ConfigureSetupRGBColorOrderSeccondLabel;Lucida Console;8;Seccond:
-ConfigureSetupRGBColorOrderSeccondTextbox;Lucida Console;8;
-ConfigureSetupRGBColorOrderThirdLabel;Lucida Console;8;Last:
-ConfigureSetupRGBColorOrderThirdTextbox;Lucida Console;8;
 
 
 POSSIBLE;InstructionsInstructionPanelRemoveButton;Lucida Console;8;X
@@ -338,7 +351,6 @@ AmbiLightModeBottomToIDNumericUpDown;Lucida Console;8;
 
 ServerSettingsTopLabel;Lucida Console;16;Server Settings
 ServerSettingsConsoleTextBox;Lucida Console;8;
-ConfigureSetupEnableServerMode;Lucida Console;8;Enable Server at Startup
 ServerSettingsClearConsoleButton;Lucida Console;8;Clear Console
 ServerSettingsStopServerButton;Lucida Console;8;Stop Server
 ServerSettingsStartServerButton;Lucida Console;8;Start Server

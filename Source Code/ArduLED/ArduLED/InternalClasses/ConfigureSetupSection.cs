@@ -306,7 +306,7 @@ namespace ArduLEDNameSpace
                 MainFormClass.TotalLEDCount = TotalLEDs;
 
                 MainFormClass.SendSetupProgressBar.Invoke((MethodInvoker)delegate { MainFormClass.SendSetupProgressBar.Maximum = MainFormClass.ConfigureSetupWorkingPanel.Controls.Count; });
-                if (MainFormClass.ConfigureSetupAutoSendCheckBox.Checked)
+                if (MainFormClass.GeneralSettingsAutoSendCheckBox.Checked)
                     MainFormClass.ConfigureSetupHiddenProgressBar.Invoke((MethodInvoker)delegate { MainFormClass.ConfigureSetupHiddenProgressBar.Maximum = MainFormClass.ConfigureSetupWorkingPanel.Controls.Count; });
 
                 List<int> UpOrDownFrom = new List<int>();
@@ -371,7 +371,7 @@ namespace ArduLEDNameSpace
                 for (int i = 0; i < InternalPins.Count; i++)
                 {
                     MainFormClass.SendSetupProgressBar.Invoke((MethodInvoker)delegate { MainFormClass.SendSetupProgressBar.Value = i; });
-                    if (MainFormClass.ConfigureSetupAutoSendCheckBox.Checked)
+                    if (MainFormClass.GeneralSettingsAutoSendCheckBox.Checked)
                         MainFormClass.ConfigureSetupHiddenProgressBar.Invoke((MethodInvoker)delegate { MainFormClass.ConfigureSetupHiddenProgressBar.Value = i; });
 
                     string SerialOut = "0;" + UpOrDownFrom[SeriesData[i]] + ";" + UpOrDownTo[SeriesData[i]] + ";" + InternalPins[SeriesData[i]] + ";";
@@ -381,7 +381,7 @@ namespace ArduLEDNameSpace
                 MainFormClass.SendDataBySerial("0;9999;");
 
                 MainFormClass.SendSetupProgressBar.Invoke((MethodInvoker)delegate { MainFormClass.SendSetupProgressBar.Value = 0; });
-                if (MainFormClass.ConfigureSetupAutoSendCheckBox.Checked)
+                if (MainFormClass.GeneralSettingsAutoSendCheckBox.Checked)
                 {
                     for (int i = MainFormClass.Width - MainFormClass.MenuButton.Width; i < MainFormClass.Width; i++)
                     {
@@ -389,7 +389,7 @@ namespace ArduLEDNameSpace
                         await Task.Delay(5);
                     }
                     MainFormClass.ConfigureSetupHiddenProgressBar.Invoke((MethodInvoker)delegate { MainFormClass.ConfigureSetupHiddenProgressBar.Visible = false; });
-                    MainFormClass.ConfigureSetupAutoSendCheckBox.Invoke((MethodInvoker)delegate { MainFormClass.ConfigureSetupAutoSendCheckBox.Enabled = true; });
+                    MainFormClass.GeneralSettingsAutoSendCheckBox.Invoke((MethodInvoker)delegate { MainFormClass.GeneralSettingsAutoSendCheckBox.Enabled = true; });
                 }
 
                 MainFormClass.SendDataBySerial("0;9999");

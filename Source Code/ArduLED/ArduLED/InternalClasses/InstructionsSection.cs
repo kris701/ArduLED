@@ -163,28 +163,6 @@ namespace ArduLEDNameSpace
             }
         }
 
-        public void AutoloadLastInstructions()
-        {
-            try
-            {
-                if (File.Exists(Directory.GetCurrentDirectory() + "\\Instructions\\0.txt"))
-                {
-                    while (MainFormClass.InstructionsWorkingPanel.Controls.Count > 0)
-                        MainFormClass.InstructionsWorkingPanel.Controls[0].Dispose();
-
-                    IntructionsList.Clear();
-
-                    string[] Lines = File.ReadAllLines(Directory.GetCurrentDirectory() + "\\Instructions\\0.txt", System.Text.Encoding.UTF8);
-                    for (int i = 0; i < Lines.Length; i++)
-                    {
-                        IntructionsList.Add(Lines[i]);
-                        MakeInstructionPanel(Lines[i], i);
-                    }
-                }
-            }
-            catch { MessageBox.Show("Cannot access autosave file!"); }
-        }
-
         public async void RunInstructions()
         {
             await RunInstructionsInner();
@@ -371,13 +349,39 @@ namespace ArduLEDNameSpace
 
         public void AutoSave()
         {
+            if (IntructionsList.Count > 0)
+            {
+                try
+                {
+                    using (StreamWriter AutoSaveFile = new StreamWriter(Directory.GetCurrentDirectory() + "\\Instructions\\0.txt", false))
+                    {
+                        foreach (string c in IntructionsList)
+                        {
+                            AutoSaveFile.WriteLine(c);
+                        }
+                    }
+                }
+                catch { MessageBox.Show("Cannot access autosave file!"); }
+            }
+        }
+
+
+        public void AutoloadLastInstructions()
+        {
             try
             {
-                using (StreamWriter AutoSaveFile = new StreamWriter(Directory.GetCurrentDirectory() + "\\Instructions\\0.txt", false))
+                if (File.Exists(Directory.GetCurrentDirectory() + "\\Instructions\\0.txt"))
                 {
-                    foreach (string c in IntructionsList)
+                    while (MainFormClass.InstructionsWorkingPanel.Controls.Count > 0)
+                        MainFormClass.InstructionsWorkingPanel.Controls[0].Dispose();
+
+                    IntructionsList.Clear();
+
+                    string[] Lines = File.ReadAllLines(Directory.GetCurrentDirectory() + "\\Instructions\\0.txt", System.Text.Encoding.UTF8);
+                    for (int i = 0; i < Lines.Length; i++)
                     {
-                        AutoSaveFile.WriteLine(c);
+                        IntructionsList.Add(Lines[i]);
+                        MakeInstructionPanel(Lines[i], i);
                     }
                 }
             }

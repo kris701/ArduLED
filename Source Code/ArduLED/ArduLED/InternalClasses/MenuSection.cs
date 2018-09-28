@@ -51,10 +51,16 @@ namespace ArduLEDNameSpace
                 if (MainFormClass.SerialPort1.IsOpen)
                     MainFormClass.SerialPort1.Close();
                 MainFormClass.SerialPort1.PortName = MainFormClass.ComPortsComboBox.Text;
+                MainFormClass.SerialPort1.BaudRate = MainFormClass.BaudRate;
                 MainFormClass.SerialPort1.Open();
                 MainFormClass.UnitReady = false;
             }
-            catch { }
+            catch
+            {
+                MainFormClass.MenuPanel.Visible = true;
+                MainFormClass.ModeSelectrionComboBox.SelectedIndex = 8;
+                MessageBox.Show("COM Port already in use!");
+            }
 
             if (MainFormClass.SerialPort1.IsOpen)
             {
@@ -67,7 +73,7 @@ namespace ArduLEDNameSpace
                     DelayCount++;
                     if (DelayCount >= 100)
                     {
-                        if (MainFormClass.ConfigureSetupAutoSendCheckBox.Checked)
+                        if (MainFormClass.GeneralSettingsAutoSendCheckBox.Checked)
                             MainFormClass.ConfigureSetupHiddenProgressBar.Visible = false;
                         MessageBox.Show("Error, unit timed out!");
                         NoError = false;
@@ -77,7 +83,7 @@ namespace ArduLEDNameSpace
                 if (NoError)
                 {
                     MainFormClass.ModeSelectrionComboBox.Enabled = true;
-                    if (!MainFormClass.ConfigureSetupAutoSendCheckBox.Checked)
+                    if (!MainFormClass.GeneralSettingsAutoSendCheckBox.Checked)
                         MainFormClass.ModeSelectrionComboBox.SelectedIndex = 7;
                     else
                         await MainFormClass.ConfigureSetupSectionClass.SendSetup();
@@ -97,6 +103,7 @@ namespace ArduLEDNameSpace
                 MainFormClass.AmbiLightModePanel.Visible = false;
                 MainFormClass.ServerSettingsPanel.Visible = false;
                 MainFormClass.AnimationModePanel.Visible = false;
+                MainFormClass.GeneralSettingsPanel.Visible = false;
                 MainFormClass.AutoSaveAllSettings();
                 if (MainFormClass.MenuAutoHideCheckBox.Checked)
                     HideTimer.Start();
@@ -178,7 +185,7 @@ namespace ArduLEDNameSpace
             MainFormClass.FormatLayout();
         }
 
-        public void ModeIndexChange()
+        public void ModeIndexChange(int _Index)
         {
             MainFormClass.FadeLEDPanel.Enabled = false;
             MainFormClass.VisualizerPanel.Visible = false;
@@ -188,6 +195,7 @@ namespace ArduLEDNameSpace
             MainFormClass.AmbiLightModePanel.Visible = false;
             MainFormClass.ServerSettingsPanel.Visible = false;
             MainFormClass.AnimationModePanel.Visible = false;
+            MainFormClass.GeneralSettingsPanel.Visible = false;
             MainFormClass.VisualizerEnabled = false;
             MainFormClass.VisualizerSectionClass.EnableBASS(false);
 
@@ -195,7 +203,7 @@ namespace ArduLEDNameSpace
             MainFormClass.InstructionsSectionClass.AutoSave();
             MainFormClass.ConfigureSetupSectionClass.AutoSave();
 
-            if (MainFormClass.ModeSelectrionComboBox.SelectedIndex == 0)
+            if (_Index == 0)
             {
                 MainFormClass.FadeLEDPanel.Enabled = true;
                 MainFormClass.FadeLEDPanel.BringToFront();
@@ -211,11 +219,12 @@ namespace ArduLEDNameSpace
                         );
                 }
             }
-            if (MainFormClass.ModeSelectrionComboBox.SelectedIndex == 1)
+            if (_Index == 1)
             {
                 MainFormClass.AmbiLightSectionClass.StopAmbilight();
 
-                MainFormClass.VisualizerPanel.Visible = true;
+                if (MainFormClass.MenuPanel.Visible)
+                    MainFormClass.VisualizerPanel.Visible = true;
                 MainFormClass.VisualizerPanel.BringToFront();
                 if (!MainFormClass.InstructionsSectionClass.ContinueInstructionsLoop)
                 {
@@ -225,9 +234,10 @@ namespace ArduLEDNameSpace
                     MainFormClass.VisualizerSectionClass.EnableBASS(true);
                 }
             }
-            if (MainFormClass.ModeSelectrionComboBox.SelectedIndex == 2)
+            if (_Index == 2)
             {
-                MainFormClass.IndividualLEDPanel.Visible = true;
+                if (MainFormClass.MenuPanel.Visible)
+                    MainFormClass.IndividualLEDPanel.Visible = true;
                 MainFormClass.IndividualLEDPanel.BringToFront();
                 if (!MainFormClass.InstructionsSectionClass.ContinueInstructionsLoop)
                 {
@@ -241,9 +251,10 @@ namespace ArduLEDNameSpace
                         );
                 }
             }
-            if (MainFormClass.ModeSelectrionComboBox.SelectedIndex == 3)
+            if (_Index == 3)
             {
-                MainFormClass.InstructionsPanel.Visible = true;
+                if (MainFormClass.MenuPanel.Visible)
+                    MainFormClass.InstructionsPanel.Visible = true;
                 MainFormClass.InstructionsPanel.BringToFront();
                 if (!MainFormClass.InstructionsSectionClass.ContinueInstructionsLoop)
                 {
@@ -257,34 +268,52 @@ namespace ArduLEDNameSpace
                         );
                 }
             }
-            if (MainFormClass.ModeSelectrionComboBox.SelectedIndex == 4)
+            if (_Index == 4)
             {
-                MainFormClass.AmbiLightModePanel.Visible = true;
+                if (MainFormClass.MenuPanel.Visible)
+                    MainFormClass.AmbiLightModePanel.Visible = true;
                 MainFormClass.AmbiLightModePanel.BringToFront();
             }
-            if (MainFormClass.ModeSelectrionComboBox.SelectedIndex == 5)
+            if (_Index == 5)
             {
-                MainFormClass.ServerSettingsPanel.Visible = true;
+                if (MainFormClass.MenuPanel.Visible)
+                    MainFormClass.ServerSettingsPanel.Visible = true;
                 MainFormClass.ServerSettingsPanel.BringToFront();
             }
-            if (MainFormClass.ModeSelectrionComboBox.SelectedIndex == 6)
+            if (_Index == 6)
             {
-                MainFormClass.AnimationModePanel.Visible = true;
+                if (MainFormClass.MenuPanel.Visible)
+                    MainFormClass.AnimationModePanel.Visible = true;
                 MainFormClass.AnimationModePanel.BringToFront();
             }
-            if (MainFormClass.ModeSelectrionComboBox.SelectedIndex == 7)
+            if (_Index == 7)
             {
-                MainFormClass.ConfigureSetupPanel.Visible = true;
+                if (MainFormClass.MenuPanel.Visible)
+                    MainFormClass.ConfigureSetupPanel.Visible = true;
                 MainFormClass.ConfigureSetupPanel.BringToFront();
+            }
+            if (_Index == 8)
+            {
+                if (MainFormClass.MenuPanel.Visible)
+                    MainFormClass.GeneralSettingsPanel.Visible = true;
+                MainFormClass.GeneralSettingsPanel.BringToFront();
             }
         }
 
         private async void HideTimer_Tick(object sender, EventArgs e)
         {
-            for (double i = 100; i >= 0; i -= 2)
+            if (!MainFormClass.MenuPanel.Visible)
             {
-                MainFormClass.Opacity = i / 100;
-                await Task.Delay(10);
+                for (double i = 100; i >= 0; i -= 2)
+                {
+                    MainFormClass.Opacity = i / 100;
+                    await Task.Delay(10);
+                    if (MainFormClass.MenuPanel.Visible)
+                    {
+                        MainFormClass.Opacity = 1;
+                        break;
+                    }
+                }
             }
             HideTimer.Stop();
         }
