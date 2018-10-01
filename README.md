@@ -32,7 +32,7 @@ And this is only the main topics of what ArduLED can do. There is still a lot of
 
 This project is open source, so all the Visual Studio files comes with the project. From there on, you can either just use the program itself, or look into how its made.
 
-![Error Loading Image](https://0apltq.db.files.1drv.com/y4mUFqSsSeJb_r6ybSDBTl_l2rx1dJU-R7R852YPt6aXdiJXMWdphZl5YtKKNJLNDXYGT1yuFbR1HjB-U8MHjwX97KGqcjIQolq426uJO7MgLIOFQy1_2JKPAt3xkpV8n5xyrwueGhTU7XPSwIyC18Ox_FwSXzB2cWyhb8Y9OH3pmzZ9DvYsvlwkMqiUWmIZoY7qT4_HzS4wao5bL9tPKBBGg/howtouselabel.gif?psid=1?width=150&height=85&cropmode=none)
+![Error Loading Image](https://lnowiq.db.files.1drv.com/y4mCptiLw7lbe3NuOb9PY1JhKvJK_RTwmHmoe1UTykyh4QR5IY27UzN6zgqZmH88B7oBMnk4EUcLjrKTqF7GoY5DJK6CNiQ_-PQs3Hv1E0AtjyZSkpK99IOJ0VRQesMb_hBNidhwU4quhMbbGq2zySDn_OA3db48-O7NQyCACcJWJp8vD9IJfgYtUxp6lR5vQM8Q68CsJShvHK9czZUNGEY3w?width=914&height=113&cropmode=none)
 
 - [**Home**](https://github.com/kris701/ArduLED/wiki)
 - [**Requirements and Setup**](https://github.com/kris701/ArduLED/wiki/Requirements-and-setup)
