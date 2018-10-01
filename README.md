@@ -44,7 +44,7 @@ This project is open source, so all the Visual Studio files comes with the proje
   - [Individual LED Control](https://github.com/kris701/ArduLED/wiki/Individual-LED-Control)
   - [Instructions Mode](https://github.com/kris701/ArduLED/wiki/Instructions-Mode)
   - [Ambilight Mode](https://github.com/kris701/ArduLED/wiki/Ambilight-Mode)
-  - [Server API](https://github.com/kris701/ArduLED/wiki/Server-API)
+  - [Server Mode](https://github.com/kris701/ArduLED/wiki/Server-Mode)
   - [Configure Setup](https://github.com/kris701/ArduLED/wiki/First-Startup)
   - [Animation Mode](https://github.com/kris701/ArduLED/wiki/Animation-Mode)
   - [General Settings](https://github.com/kris701/ArduLED/wiki/General-Settings)
@@ -62,5 +62,6 @@ This project is open source, so all the Visual Studio files comes with the proje
 - [**Performance**](https://github.com/kris701/ArduLED/wiki/Performance)
   - [Visualizer](https://github.com/kris701/ArduLED/wiki/Performance-of-Visualizer)
   - [Ambilight](https://github.com/kris701/ArduLED/wiki/Performance-of-Ambilight)
+- [**Server API**](https://github.com/kris701/ArduLED/wiki/Server-API)
 
 Feel free to support us via patreon: https://www.patreon.com/ArduLed I means alot! 
