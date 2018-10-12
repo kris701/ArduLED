@@ -2,7 +2,9 @@
 
 ### This project is work in progress, expect errors and mistakes
 
-Welcome, to the ArduLED project. What is this? you may ask, this is a program, both one for an Arduino and one for a computer, together makes it possible to control Neopixels (ws2812b). It features easy-to-do setup, that does not require much work. A list of features can be made:
+Welcome, to the ArduLED project. What is this? you may ask, this is a program, both one for an Arduino and one for a computer, together makes it possible to control Neopixels (ws2812b). It features easy-to-do setup, that does not require much work.
+
+Features:
  
  - Supports up to 8 LED strips with a total of over 200 LEDs (Testet up to 200, can go higher)
  - Dynamic setup from the computer, there is no need to change the code for the Arduino if changes to your setup are made
