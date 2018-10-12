@@ -1,5 +1,6 @@
-﻿using System.Drawing;
-using System;
+﻿using System;
+using System.Drawing;
+using ArduLED_Serial_Protocol;
 
 namespace ArduLEDNameSpace
 {
@@ -14,22 +15,18 @@ namespace ArduLEDNameSpace
 
         public void FadeColorsSendData(bool _FromZero, int _FromID, int _ToID, Color _OutputColor, int _FadeSpeed, double _FadeFactor)
         {
-            if (MainFormClass.SerialPort1.IsOpen)
+            if (MainFormClass.Serial.SerialPort1.IsOpen)
             {
-                string SerialOut;
-                SerialOut = "6;" + _FromID + ";" + _ToID;
-                MainFormClass.SendDataBySerial(SerialOut);
+                MainFormClass.Serial.Write(new Ranges(_FromID, _ToID));
 
                 if (_FromZero)
                 {
-                    SerialOut = "1;0;0;0;0;0";
-                    MainFormClass.SendDataBySerial(SerialOut);
+                    MainFormClass.Serial.Write(new FadeColorsMode(0,0,0,0,0));
                 }
 
                 Color AfterShuffel = MainFormClass.ShuffleColors(_OutputColor);
 
-                SerialOut = "1;" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B + ";" + _FadeSpeed + ";" + Math.Round(_FadeFactor * 100,0);
-                MainFormClass.SendDataBySerial(SerialOut);
+                MainFormClass.Serial.Write(new FadeColorsMode(AfterShuffel.R, AfterShuffel.G, AfterShuffel.B, _FadeSpeed, _FadeFactor));
             }
         }
     }

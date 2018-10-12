@@ -1,6 +1,8 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ArduLED_Serial_Protocol;
 
 namespace ArduLEDNameSpace
 {
@@ -30,8 +32,7 @@ namespace ArduLEDNameSpace
                                         WorkingPanelBox MomentaryDataTag = (WorkingPanelBox)Button.Parent.Tag;
                                         Button.BackColor = Color.FromArgb(MainFormClass.IndividalLEDRedTrackBar.Value, MainFormClass.IndividalLEDGreenTrackBar.Value, MainFormClass.IndividalLEDBlueTrackBar.Value);
                                         Color AfterShuffel = MainFormClass.ShuffleColors(Color.FromArgb(MainFormClass.IndividalLEDRedTrackBar.Value, MainFormClass.IndividalLEDGreenTrackBar.Value, MainFormClass.IndividalLEDBlueTrackBar.Value));
-                                        string SerialOut = "4;" + MomentaryDataTag.PinID + ";" + Button.Text + ";" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B;
-                                        MainFormClass.SendDataBySerial(SerialOut);
+                                        MainFormClass.Serial.Write(new IndividualLEDs(AfterShuffel.R, AfterShuffel.G, AfterShuffel.B, MomentaryDataTag.PinID, Int32.Parse(Button.Text)));
                                     });
                                 });
                             });
@@ -47,8 +48,7 @@ namespace ArduLEDNameSpace
             WorkingPanelBox MomentaryDataTag = (WorkingPanelBox)SenderButton.Parent.Tag;
             SenderButton.BackColor = Color.FromArgb(MainFormClass.IndividalLEDRedTrackBar.Value, MainFormClass.IndividalLEDGreenTrackBar.Value, MainFormClass.IndividalLEDBlueTrackBar.Value);
             Color AfterShuffel = MainFormClass.ShuffleColors(Color.FromArgb(MainFormClass.IndividalLEDRedTrackBar.Value, MainFormClass.IndividalLEDGreenTrackBar.Value, MainFormClass.IndividalLEDBlueTrackBar.Value));
-            string SerialOut = "4;" + MomentaryDataTag.PinID + ";" + SenderButton.Text + ";" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B;
-            MainFormClass.SendDataBySerial(SerialOut);
+            MainFormClass.Serial.Write(new IndividualLEDs(AfterShuffel.R, AfterShuffel.G, AfterShuffel.B, MomentaryDataTag.PinID, Int32.Parse(SenderButton.Text)));
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32.SafeHandles;
 using System.Runtime.InteropServices;
+using ArduLED_Serial_Protocol;
 
 namespace ArduLEDNameSpace
 {
@@ -274,12 +275,13 @@ namespace ArduLEDNameSpace
                 MainFormClass.AnimationModeLoadButton.Invoke((MethodInvoker)delegate { MainFormClass.AnimationModeLoadButton.Enabled = false; });
                 MainFormClass.AnimationModeLiveViewWorkingPanel.Invoke((MethodInvoker)delegate { MainFormClass.AnimationModeLiveViewWorkingPanel.Controls.Clear(); });
 
-                string SerialOut = "6;" + MainFormClass.AnimationModeFromIDNumericUpDown.Value + ";" + MainFormClass.AnimationModeToIDNumericUpDown.Value;
-                MainFormClass.SendDataBySerial(SerialOut);
+                MainFormClass.Serial.Write(new Ranges((int)MainFormClass.AnimationModeFromIDNumericUpDown.Value, (int)MainFormClass.AnimationModeToIDNumericUpDown.Value));
 
                 bool UseCompression = MainFormClass.AnimationModeHighCompressionCheckBox.Checked;
 
                 CalibrateRefreshRate = DateTime.Now;
+
+                Animation OutAnimation;
 
                 AnimationRunning = true;
                 while (ContinueAnimationLoop)
@@ -294,7 +296,7 @@ namespace ArduLEDNameSpace
                             });
                         }
 
-                        SerialOut = "8;" + (AnimationList[i].Split(';').Length - 1) + ";" + Convert.ToInt32(UseCompression) + ";1;";
+                        OutAnimation = new Animation((AnimationList[i].Split(';').Length - 1), UseCompression, true,"");
 
                         int Count = 0;
                         int PreCount = 0;
@@ -333,35 +335,35 @@ namespace ArduLEDNameSpace
                                     AddString = AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B + ";";
                                 }
 
-                                if (SerialOut.Length + AddString.Length > 75)
+                                if (OutAnimation.Values.Length + AddString.Length > 75)
                                 {
-                                    string[] InnerSerialOutSplit = SerialOut.Split(';');
+                                    string[] InnerSerialOutSplit = OutAnimation.Values.Split(';');
                                     InnerSerialOutSplit[1] = (Count - PreCount).ToString();
                                     InnerSerialOutSplit[3] = "0";
 
-                                    SerialOut = "";
+                                    OutAnimation.Values = "";
                                     foreach (string Split in InnerSerialOutSplit)
-                                        SerialOut += Split + ";";
+                                        OutAnimation.Values += Split + ";";
 
-                                    SerialOut = SerialOut.Substring(0, SerialOut.Length - 1);
+                                    OutAnimation.Values = OutAnimation.Values.Substring(0, OutAnimation.Values.Length - 1);
 
-                                    MainFormClass.SendDataBySerial(SerialOut);
+                                    MainFormClass.Serial.Write(OutAnimation);
 
-                                    SerialOut = "8;" + ((AnimationList[i].Split(';').Length - 1) - Count).ToString() + ";" + Convert.ToInt32(UseCompression) + ";1;" + AddString;
+                                    OutAnimation = new Animation(((AnimationList[i].Split(';').Length - 1) - Count), UseCompression, true, AddString);
 
                                     PreCount = Count;
                                 }
                                 else
                                 {
-                                    SerialOut += AddString;
+                                    OutAnimation.Values += AddString;
                                 }
                                 Count++;
                             }
                         }
 
-                        SerialOut = SerialOut.Substring(0, SerialOut.Length - 1);
+                        OutAnimation.Values = OutAnimation.Values.Substring(0, OutAnimation.Values.Length - 1);
 
-                        MainFormClass.SendDataBySerial(SerialOut);
+                        MainFormClass.Serial.Write(OutAnimation);
 
                         int ExectuionTime = (int)(DateTime.Now - CalibrateRefreshRate).TotalMilliseconds;
                         int ActuralRefreshTime = MoveInterval - ExectuionTime;
@@ -446,18 +448,22 @@ namespace ArduLEDNameSpace
 
         public void AutoSave()
         {
-            if (AnimationList.Count > 0)
-            {
-                using (StreamWriter AutoSaveFile = new StreamWriter(Directory.GetCurrentDirectory() + "\\Animations\\0.txt", false))
+            try
+            { 
+                if (AnimationList.Count > 0)
                 {
-                    string SerialOut = MainFormClass.AnimationModeHighCompressionCheckBox.Checked + ";" + MainFormClass.AnimationModeMoveIntervalNumericUpDown.Value + ";" + MainFormClass.AnimationModeLineSpacingNumericUpDown.Value + ";" + MainFormClass.AnimationModeFromIDNumericUpDown.Value + ";" + MainFormClass.AnimationModeToIDNumericUpDown.Value;
-                    AutoSaveFile.WriteLine(SerialOut);
-                    foreach (string c in AnimationList)
+                    using (StreamWriter AutoSaveFile = new StreamWriter(Directory.GetCurrentDirectory() + "\\Animations\\0.txt", false))
                     {
-                        AutoSaveFile.WriteLine(c);
+                        string SerialOut = MainFormClass.AnimationModeHighCompressionCheckBox.Checked + ";" + MainFormClass.AnimationModeMoveIntervalNumericUpDown.Value + ";" + MainFormClass.AnimationModeLineSpacingNumericUpDown.Value + ";" + MainFormClass.AnimationModeFromIDNumericUpDown.Value + ";" + MainFormClass.AnimationModeToIDNumericUpDown.Value;
+                        AutoSaveFile.WriteLine(SerialOut);
+                        foreach (string c in AnimationList)
+                        {
+                            AutoSaveFile.WriteLine(c);
+                        }
                     }
                 }
             }
+            catch { MessageBox.Show("Cannot access autosave file!"); }
         }
 
         public void AutoloadLastAnimation()

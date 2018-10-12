@@ -13,7 +13,7 @@ namespace ArduLEDNameSpace
     {
         public bool IsDisposed = false;
         SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
-        private System.Windows.Forms.Timer HideTimer;
+        public System.Windows.Forms.Timer HideTimer;
         private MainForm MainFormClass;
 
         public void Dispose()
@@ -48,12 +48,12 @@ namespace ArduLEDNameSpace
         {
             try
             {
-                if (MainFormClass.SerialPort1.IsOpen)
-                    MainFormClass.SerialPort1.Close();
-                MainFormClass.SerialPort1.PortName = MainFormClass.ComPortsComboBox.Text;
-                MainFormClass.SerialPort1.BaudRate = MainFormClass.BaudRate;
-                MainFormClass.SerialPort1.Open();
-                MainFormClass.UnitReady = false;
+                if (MainFormClass.Serial.SerialPort1.IsOpen)
+                    MainFormClass.Serial.SerialPort1.Close();
+                MainFormClass.Serial.SerialPort1.PortName = MainFormClass.ComPortsComboBox.Text;
+                MainFormClass.Serial.SerialPort1.BaudRate = MainFormClass.BaudRate;
+                MainFormClass.Serial.SerialPort1.Open();
+                MainFormClass.Serial.UnitReady = false;
             }
             catch
             {
@@ -62,11 +62,11 @@ namespace ArduLEDNameSpace
                 MessageBox.Show("COM Port already in use!");
             }
 
-            if (MainFormClass.SerialPort1.IsOpen)
+            if (MainFormClass.Serial.SerialPort1.IsOpen)
             {
                 int DelayCount = 0;
                 bool NoError = true;
-                while (!MainFormClass.UnitReady)
+                while (!MainFormClass.Serial.UnitReady)
                 {
                     Application.DoEvents();
                     Thread.Sleep(100);
@@ -105,12 +105,12 @@ namespace ArduLEDNameSpace
                 MainFormClass.AnimationModePanel.Visible = false;
                 MainFormClass.GeneralSettingsPanel.Visible = false;
                 MainFormClass.AutoSaveAllSettings();
-                if (MainFormClass.MenuAutoHideCheckBox.Checked)
+                if (MainFormClass.GeneralSettingsAutoHideCheckBox.Checked)
                     HideTimer.Start();
             }
             else
             {
-                if (MainFormClass.MenuAutoHideCheckBox.Checked)
+                if (MainFormClass.GeneralSettingsAutoHideCheckBox.Checked)
                 {
                     HideTimer.Stop();
                     MainFormClass.Opacity = 1;
@@ -320,7 +320,7 @@ namespace ArduLEDNameSpace
 
         public async Task ShowArduLED()
         {
-            if (MainFormClass.MenuAutoHideCheckBox.Checked)
+            if (MainFormClass.GeneralSettingsAutoHideCheckBox.Checked)
             {
                 if (!MainFormClass.MenuPanel.Visible)
                 {

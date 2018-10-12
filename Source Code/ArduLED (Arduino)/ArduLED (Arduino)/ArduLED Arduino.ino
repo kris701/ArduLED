@@ -5,6 +5,7 @@
 #define SeriesS 64
 #define SeriesidS SeriesS / 2
 #define BaudRate 1000000
+enum Mode { None, FadeColors, VisualizerBeat, VisualizerWave, IndividualLEDs, VisualizerFullSpectrum, Ranges, Ambilight, Animation };
 
 void setup()
 {
@@ -123,29 +124,29 @@ void Run(Adafruit_NeoPixel _LEDStrips[LEDStripsS], short _Split[SplitS], uint8_t
 	{
 		if (ReadSerial(&_Split[0]))
 		{
-			switch (_Split[0]) {
-			case 1:
+			switch ((Mode)_Split[0]) {
+			case FadeColors:
 				Mode_F(&_LEDStrips[0], &_Split[0], &_PreviousColor[0], _SeriesIndex, &_Series[0], &_SeriesID[0], _TotalLEDCount, FromID, ToID, DiscardFromIndex, DiscardToIndex, CountFromID, ShowFromPin, ShowToPin);
 				break;
-			case 2:
+			case VisualizerBeat:
 				Mode_B(&_LEDStrips[0], &_Split[0], &_PreviousColor[0], _SeriesIndex, &_Series[0], &_SeriesID[0], _TotalLEDCount, FromID, ToID, DiscardFromIndex, DiscardToIndex, CountFromID, ShowFromPin, ShowToPin);
 				break;
-			case 3:
+			case VisualizerWave:
 				Mode_W(&_LEDStrips[0], &_Split[0], _SeriesIndex, &_Series[0], &_SeriesID[0], _TotalLEDCount, FromID, ToID, DiscardFromIndex, DiscardToIndex, CountFromID, CountToID, ShowFromPin, ShowToPin);
 				break;
-			case 4:
+			case IndividualLEDs:
 				Mode_I(&_LEDStrips[0], &_Split[0]);
 				break;
-			case 5:
+			case VisualizerFullSpectrum:
 				Mode_S(&_LEDStrips[0], &_Split[0], &_PreviousColor[0], _SeriesIndex, &_Series[0], &_SeriesID[0], _TotalLEDCount, FromID, ToID, DiscardFromIndex, DiscardToIndex, CountFromID, ShowFromPin, ShowToPin);
 				break;
-			case 6:
+			case Ranges:
 				Mode_R(&DiscardFromIndex, &DiscardToIndex, &CountFromID, &CountToID, _SeriesIndex, &_LEDStrips[0], &_Series[0], &_SeriesID[0], &FromID, &ToID, _TotalLEDCount, _Split, &ShowFromPin, &ShowToPin);
 				break;
-			case 7:
+			case Ambilight:
 				Mode_A(&_LEDStrips[0], &_Split[0], _SeriesIndex, &_Series[0], &_SeriesID[0], _TotalLEDCount, FromID, ToID, DiscardFromIndex, DiscardToIndex, CountFromID, ShowFromPin, ShowToPin);
 				break;
-			case 8:
+			case Animation:
 				Mode_N(&_LEDStrips[0], &_Split[0], &_Series[0], &_SeriesID[0], FromID, ToID, DiscardFromIndex, DiscardToIndex, CountToID, ShowFromPin, ShowToPin);
 				break;
 			}

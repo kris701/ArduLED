@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Drawing.Imaging;
 using Microsoft.Win32.SafeHandles;
 using System.Runtime.InteropServices;
+using ArduLED_Serial_Protocol;
 
 namespace ArduLEDNameSpace
 {
@@ -429,8 +430,7 @@ namespace ArduLEDNameSpace
                 if (BottomSide.FromID > Highest)
                     Highest = BottomSide.FromID;
 
-            string SerialOut = "6;" + Lowest + ";" + Highest;
-            MainFormClass.SendDataBySerial(SerialOut);
+            MainFormClass.Serial.Write(new Ranges(Lowest,Highest));
 
             if (AmbilightColorStore.Count != 4)
             {
@@ -479,19 +479,19 @@ namespace ArduLEDNameSpace
             int SerialOutRightSection2 = 0;
             int SerialOutBottomSection2 = 0;
 
-            string[] SerialOutLeft = { "", "", "", "", "" };
-            string[] SerialOutTop = { "", "", "", "", "" };
-            string[] SerialOutRight = { "", "", "", "", "" };
-            string[] SerialOutBottom = { "", "", "", "", "" };
-            string[] InnerSerialOutLeft = { "", "", "", "", "" };
-            string[] InnerSerialOutTop = { "", "", "", "", "" };
-            string[] InnerSerialOutRight = { "", "", "", "", "" };
-            string[] InnerSerialOutBottom = { "", "", "", "", "" };
+            Ambilight[] SerialOutLeft = new Ambilight[] { new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, "") };
+            Ambilight[] SerialOutTop = new Ambilight[] { new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, "") };
+            Ambilight[] SerialOutRight = new Ambilight[] { new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, "") };
+            Ambilight[] SerialOutBottom = new Ambilight[] { new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, "") };
+            Ambilight[] InnerSerialOutLeft = new Ambilight[] { new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, "") };
+            Ambilight[] InnerSerialOutTop = new Ambilight[] { new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, "") };
+            Ambilight[] InnerSerialOutRight = new Ambilight[] { new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, "") };
+            Ambilight[] InnerSerialOutBottom = new Ambilight[] { new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, "") };
 
-            string[] InnerSerialOutLeft2 = { "", "", "", "", "" };
-            string[] InnerSerialOutTop2 = { "", "", "", "", "" };
-            string[] InnerSerialOutRight2 = { "", "", "", "", "" };
-            string[] InnerSerialOutBottom2 = { "", "", "", "", "" };
+            Ambilight[] InnerSerialOutLeft2 = new Ambilight[] { new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, "") };
+            Ambilight[] InnerSerialOutTop2 = new Ambilight[] { new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, "") };
+            Ambilight[] InnerSerialOutRight2 = new Ambilight[] { new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, "") };
+            Ambilight[] InnerSerialOutBottom2 = new Ambilight[] { new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, ""), new Ambilight(0, 0, 0, "") };
 
             bool SerialOutLeftReady = false;
             bool SerialOutTopReady = false;
@@ -599,8 +599,6 @@ namespace ArduLEDNameSpace
                                 true,
                                 _LeftSide.Width,
                                 _LeftSide.Height,
-                                0,
-                                0,
                                 false,
                                 SideID.Left,
                                 _FadeFactor,
@@ -634,8 +632,6 @@ namespace ArduLEDNameSpace
                                 false,
                                 _TopSide.Width,
                                 _TopSide.Height,
-                                0,
-                                0,
                                 true,
                                 SideID.Top,
                                 _FadeFactor,
@@ -669,8 +665,6 @@ namespace ArduLEDNameSpace
                                 false,
                                 _RightSide.Width,
                                 _RightSide.Height,
-                                0,
-                                0,
                                 false,
                                 SideID.Right,
                                 _FadeFactor,
@@ -704,8 +698,6 @@ namespace ArduLEDNameSpace
                                 true,
                                 _BottomSide.Width,
                                 _BottomSide.Height,
-                                0,
-                                0,
                                 true,
                                 SideID.Bottom,
                                 _FadeFactor,
@@ -762,8 +754,6 @@ namespace ArduLEDNameSpace
                                     true,
                                     _LeftSide.Width,
                                     _LeftSide.Height,
-                                    0,
-                                    0,
                                     false,
                                     SideID.Left,
                                     _FadeFactor,
@@ -798,8 +788,6 @@ namespace ArduLEDNameSpace
                                     false,
                                     _TopSide.Width,
                                     _TopSide.Height,
-                                    0,
-                                    0,
                                     true,
                                     SideID.Top,
                                     _FadeFactor,
@@ -834,8 +822,6 @@ namespace ArduLEDNameSpace
                                     false,
                                     _RightSide.Width,
                                     _RightSide.Height,
-                                    0,
-                                    0,
                                     false,
                                     SideID.Right,
                                     _FadeFactor,
@@ -870,8 +856,6 @@ namespace ArduLEDNameSpace
                                     true,
                                     _BottomSide.Width,
                                     _BottomSide.Height,
-                                    0,
-                                    0,
                                     true,
                                     SideID.Bottom,
                                     _FadeFactor,
@@ -926,25 +910,25 @@ namespace ArduLEDNameSpace
                         if (_LeftSide.Enabled)
                         {
                             for (int i = 0; i < 5; i++)
-                                if (SerialOutLeft[i] != null)
-                                    MainFormClass.SendDataBySerial(SerialOutLeft[i]);
+                                if (SerialOutLeft[i].Values != null)
+                                    MainFormClass.Serial.Write(SerialOutLeft[i]);
                         }
                         if (_TopSide.Enabled)
                         {
                             for (int i = 0; i < 5; i++)
-                                if (SerialOutTop[i] != null)
-                                    MainFormClass.SendDataBySerial(SerialOutTop[i]);
+                                if (SerialOutTop[i].Values != null)
+                                    MainFormClass.Serial.Write(SerialOutTop[i]);
                         }
                         if (_RightSide.Enabled)
                         {
                             for (int i = 0; i < 5; i++)
-                                if (SerialOutRight[i] != null)
-                                    MainFormClass.SendDataBySerial(SerialOutRight[i]);
+                                if (SerialOutRight[i].Values != null)
+                                    MainFormClass.Serial.Write(SerialOutRight[i]);
                         }
                         if (_BottomSide.Enabled)
                             for (int i = 0; i < 5; i++)
-                                if (SerialOutBottom[i] != null)
-                                    MainFormClass.SendDataBySerial(SerialOutBottom[i]);
+                                if (SerialOutBottom[i].Values != null)
+                                    MainFormClass.Serial.Write(SerialOutBottom[i]);
 
                         AllSendt = true;
 
@@ -988,7 +972,7 @@ namespace ArduLEDNameSpace
         }
 
         private bool ProcessSection(
-            string[] InnerSerialOut,
+            Ambilight[] InnerSerialOut,
             Graphics _GFXScreenShot,
             Bitmap _ImageWindow,
             int _SectionIndex,
@@ -1005,8 +989,6 @@ namespace ArduLEDNameSpace
             bool _WhileILarger,
             int _ProcessColorWidth,
             int _ProcessColorHeight,
-            int _OffSetX,
-            int _OffSetY,
             bool _ILoc,
             SideID _SideID,
             double _FadeFactor,
@@ -1017,7 +999,7 @@ namespace ArduLEDNameSpace
             _GFXScreenShot.CopyFromScreen(_CaptureX, _CaptureY, 0, 0, new Size(_CaptureWidth, _CaptureHeight), CopyPixelOperation.SourceCopy);
 
             int Count = 0;
-            InnerSerialOut[_SectionIndex] = "7;" + _FromID + ";" + _ToID + ";" + _PixelsPrBlock + ";";
+            InnerSerialOut[_SectionIndex] = new Ambilight(_FromID, _ToID, _PixelsPrBlock, "");
             if (_WhileILarger)
             {
                 for (int i = _FromI; i > _UntilI; i -= _AddToI)
@@ -1027,8 +1009,6 @@ namespace ArduLEDNameSpace
                         _ImageWindow,
                         _ProcessColorWidth,
                         _ProcessColorHeight,
-                        _OffSetX,
-                        _OffSetY,
                         i,
                         _SideID,
                         Count,
@@ -1053,8 +1033,6 @@ namespace ArduLEDNameSpace
                         _ImageWindow,
                         _ProcessColorWidth,
                         _ProcessColorHeight,
-                        _OffSetX,
-                        _OffSetY,
                         i,
                         _SideID,
                         Count,
@@ -1079,12 +1057,10 @@ namespace ArduLEDNameSpace
             Bitmap _ImageWindow,
             int _ProcessColorWidth,
             int _ProcessColorHeight,
-            int _OffSetX,
-            int _OffSetY,
             int _i,
             SideID _SideID,
             int _Count,
-            string[] _InnerSerialOut,
+            Ambilight[] _InnerSerialOut,
             int _SectionIndex,
             int _FromID,
             int _ToID,
@@ -1096,9 +1072,9 @@ namespace ArduLEDNameSpace
         {
             Color OutPutColor;
             if (_ILoc)
-                OutPutColor = GetColorOfSection(_ImageWindow, _ProcessColorWidth, _ProcessColorHeight, _OffSetX + _i, _OffSetY, _AddBy);
+                OutPutColor = GetColorOfSection(_ImageWindow, _ProcessColorWidth, _ProcessColorHeight, _i, 0, _AddBy);
             else
-                OutPutColor = GetColorOfSection(_ImageWindow, _ProcessColorWidth, _ProcessColorHeight, _OffSetX, _OffSetY + _i, _AddBy);
+                OutPutColor = GetColorOfSection(_ImageWindow, _ProcessColorWidth, _ProcessColorHeight, 0, _i, _AddBy);
             if (_FadeFactor != 0)
             {
                 int RedValue;
@@ -1162,29 +1138,29 @@ namespace ArduLEDNameSpace
                 }
             }
 
-            if (AddString.Length + _InnerSerialOut[_SectionIndex].Length * 2 > 128)
+            if (AddString.Length + _InnerSerialOut[_SectionIndex].Values.Length * 2 > 128)
             {
-                string[] ChangeToIDString = _InnerSerialOut[_SectionIndex].Split(';');
+                string[] ChangeToIDString = _InnerSerialOut[_SectionIndex].Values.Split(';');
                 if (_FromID < _ToID)
                     ChangeToIDString[2] = (_FromID + (_Count * _PixelsPrBlock)).ToString();
                 else
                     ChangeToIDString[2] = (_FromID - (_Count * _PixelsPrBlock)).ToString();
 
-                _InnerSerialOut[_SectionIndex] = "";
+                _InnerSerialOut[_SectionIndex].Values = "";
 
-                foreach (String Out in ChangeToIDString)
+                foreach (string Out in ChangeToIDString)
                 {
-                    _InnerSerialOut[_SectionIndex] += Out + ";";
+                    _InnerSerialOut[_SectionIndex].Values += Out + ";";
                 }
 
                 _SectionIndex++;
 
                 if (_FromID < _ToID)
-                    _InnerSerialOut[_SectionIndex] = "7;" + (_FromID + (_Count * _PixelsPrBlock)) + ";" + _ToID + ";" + _PixelsPrBlock + ";";
+                    _InnerSerialOut[_SectionIndex] = new Ambilight((_FromID + (_Count * _PixelsPrBlock)), _ToID, _PixelsPrBlock, "");
                 else
-                    _InnerSerialOut[_SectionIndex] = "7;" + (_FromID - (_Count * _PixelsPrBlock)) + ";" + _ToID + ";" + _PixelsPrBlock + ";";
+                    _InnerSerialOut[_SectionIndex] = new Ambilight((_FromID - (_Count * _PixelsPrBlock)), _ToID, _PixelsPrBlock, "");
             }
-            _InnerSerialOut[_SectionIndex] += AddString;
+            _InnerSerialOut[_SectionIndex].Values += AddString;
             return _SectionIndex;
         }
 

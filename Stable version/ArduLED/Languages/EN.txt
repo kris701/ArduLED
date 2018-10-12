@@ -2,7 +2,6 @@ MenuModeLabel;Lucida Console;11;Mode:
 MenuExitButton;Lucida Console;8;X
 MenuButton;Lucida Console;8;ArduLED
 LanguageComboBox;Lucida Console;8;
-MenuAutoHideCheckBox;Lucida Console;8;Auto Hide
 
 GeneralSettingsTopLabel;Lucida Console;16;General Settings
 GeneralSettingsComDeviceLabel;Lucida Console;11;Select COM device
@@ -27,6 +26,7 @@ GeneralSettingsRGBColorOrderSeccondLabel;Lucida Console;8;Seccond:
 GeneralSettingsRGBColorOrderSeccondTextbox;Lucida Console;8;
 GeneralSettingsRGBColorOrderThirdLabel;Lucida Console;8;Last:
 GeneralSettingsRGBColorOrderThirdTextbox;Lucida Console;8;
+GeneralSettingsAutoHideCheckBox;Lucida Console;8;Auto hide ArduLED when closed
 
 ModeSelectrionComboBox;Lucida Console;8;
 INDEXNAMES;ModeSelectrionComboBox;Fade Colors;Visualizer;Individual Colors;Indstructions Mode;Ambilight Mode;Server Settings;Animation Mode;Configure Setup;General Settings

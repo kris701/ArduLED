@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Sockets;
 using Microsoft.Win32.SafeHandles;
 using System.Runtime.InteropServices;
+using ArduLED_Serial_Protocol;
 
 namespace ArduLEDNameSpace
 {
@@ -293,8 +294,7 @@ namespace ArduLEDNameSpace
                     InputSplit[0] = InputSplit[0].Replace("FADECOLOR(", "");
                     InputSplit[InputSplit.Length - 1] = InputSplit[InputSplit.Length - 1].Replace(")", "");
 
-                    string SerialOut = "4;" + InputSplit[0] + ";" + InputSplit[1] + ";" + InputSplit[2] + ";" + InputSplit[3] + ";" + InputSplit[4];
-                    MainFormClass.SendDataBySerial(SerialOut);
+                    MainFormClass.Serial.Write(new IndividualLEDs(Int16.Parse(InputSplit[2]), Int16.Parse(InputSplit[3]), Int16.Parse(InputSplit[4]), Int32.Parse(InputSplit[0]), Int32.Parse(InputSplit[1])));
                     return "G";
                 }
 

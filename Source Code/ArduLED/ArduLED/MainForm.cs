@@ -5,6 +5,7 @@ using System.IO;
 using System.IO.Ports;
 using System.Threading;
 using System.Windows.Forms;
+using ArduLED_Serial_Protocol;
 
 namespace ArduLEDNameSpace
 {
@@ -21,9 +22,6 @@ namespace ArduLEDNameSpace
         public int Sizey = 775;
 
         public bool ShowLoadingScreen = true;
-        public bool UnitReady = false;
-        private bool ReadyToRecive = false;
-        private int UnitTimeoutCounter = 0;
         public bool VisualizerEnabled = false;
         public int TotalLEDCount = 0;
         public int BaudRate = 1000000;
@@ -40,6 +38,8 @@ namespace ArduLEDNameSpace
         public LoadingSection LoadingSectionClass;
         public AnimationModeSection AnimationModeSectionClass;
         public ServerAPISection ServerAPISectionClass;
+
+        public ArduLEDSerialProtocol Serial;
 
         #endregion
 
@@ -102,7 +102,7 @@ namespace ArduLEDNameSpace
                                 if (Split[0].ToUpper() == "SERIALPORT")
                                 {
                                     BaudRate = Int32.Parse(Split[1]);
-                                    SerialPort1.BaudRate = BaudRate;
+                                    Serial.SerialPort1.BaudRate = BaudRate;
                                     GeneralSettingsBaudRateNumericUpDown.Value = BaudRate;
                                 }
                             }
@@ -225,62 +225,6 @@ namespace ArduLEDNameSpace
             }
         }
 
-        private void SerialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
-            if (!UnitReady)
-                UnitReady = true;
-            if (SerialPort1.BytesToRead > 0)
-            {
-                if (!ReadyToRecive)
-                {
-                    ReadyToRecive = true;
-                    UnitTimeoutCounter = 0;
-                }
-                SerialPort1.ReadChar();
-            }
-        }
-
-        public void SendDataBySerial(string _Input)
-        {
-            if (!LoadingSectionClass.IsLoading)
-            {
-                if (UnitReady)
-                {
-                    int TimeoutCounter = 0;
-                    while (!ReadyToRecive)
-                    {
-                        Application.DoEvents();
-                        Thread.Sleep(1);
-                        TimeoutCounter++;
-                        if (TimeoutCounter > 250)
-                        {
-                            UnitTimeoutCounter++;
-                            if (UnitTimeoutCounter > 20)
-                            {
-                                MessageBox.Show("Connection to Unit failed!");
-                                VisualizerSectionClass.EnableBASS(false);
-                                AmbiLightSectionClass.StopAmbilight();
-                                ModeSelectrionComboBox.SelectedIndex = 0;
-                                UnitTimeoutCounter = 0;
-                                break;
-                            }
-                            ReadyToRecive = true;
-                            break;
-                        }
-                    }
-                }
-                if (ReadyToRecive)
-                {
-                    try
-                    {
-                        SerialPort1.WriteLine(";" + _Input + ";-1;");
-                    }
-                    catch { }
-                    ReadyToRecive = false;
-                }
-            }
-        }
-
         public Color ShuffleColors(Color _InputColors)
         {
             int Red = 0;
@@ -324,7 +268,7 @@ namespace ArduLEDNameSpace
             GetAllControls(this);
 
             SaveSettings(Directory.GetCurrentDirectory() + "\\cfg.txt",
-                "SERIALPORT;" + SerialPort1.BaudRate + Environment.NewLine);
+                "SERIALPORT;" + Serial.SerialPort1.BaudRate + Environment.NewLine);
         }
 
         public void GetAllControls(Control _InputControl)
@@ -377,6 +321,15 @@ namespace ArduLEDNameSpace
             return Stream;
         }
 
+        public void RemoveFile(string _FileLocation)
+        {
+            try
+            {
+                File.Delete(_FileLocation);
+            }
+            catch { MessageBox.Show("Cannot access file!"); }
+        }
+
         #endregion
 
         #region Loading Section
@@ -388,6 +341,8 @@ namespace ArduLEDNameSpace
 
         public async void Form1_Load(object sender, EventArgs e)
         {
+            Serial = new ArduLEDSerialProtocol();
+
             AmbiLightSectionClass = new AmbiLightSection(this);
             VisualizerSectionClass = new VisualizerSection(this);
             InstructionsSectionClass = new InstructionsSection(this);
@@ -402,15 +357,6 @@ namespace ArduLEDNameSpace
             await LoadingSectionClass.MainLoadingSection();
         }
 
-        public void RemoveFile(string _FileLocation)
-        {
-            try
-            {
-                File.Delete(_FileLocation);
-            }
-            catch { MessageBox.Show("Cannot access file!"); }
-        }
-
         #endregion
 
         #region Menu Section
@@ -418,7 +364,7 @@ namespace ArduLEDNameSpace
         private async void Connect(object sender, EventArgs e)
         {
             BaudRate = (int)GeneralSettingsBaudRateNumericUpDown.Value;
-            SerialPort1.BaudRate = BaudRate;
+            Serial.SerialPort1.BaudRate = BaudRate;
             await MenuSectionClass.ConnectToComDevice();
         }
 
@@ -444,8 +390,12 @@ namespace ArduLEDNameSpace
 
         private async void MainForm_Activated(object sender, EventArgs e)
         {
-            if (UnitReady)
-                await MenuSectionClass.ShowArduLED();
+            try
+            {
+                if (Serial.UnitReady)
+                    await MenuSectionClass.ShowArduLED();
+            }
+            catch { }
         }
 
         #endregion
@@ -804,13 +754,13 @@ namespace ArduLEDNameSpace
 
         private void TrackBarUpdateBASSKey(object sender, KeyEventArgs e)
         {
-            if (UnitReady && VisualizerEnabled)
+            if (Serial.UnitReady && VisualizerEnabled)
                 VisualizerSectionClass.EnableBASS(true);
         }
 
         private void TrackBarUpdateBASSMouse(object sender, MouseEventArgs e)
         {
-            if (UnitReady && VisualizerEnabled)
+            if (Serial.UnitReady && VisualizerEnabled)
                 VisualizerSectionClass.EnableBASS(true);
         }
 
@@ -846,13 +796,13 @@ namespace ArduLEDNameSpace
                 FullSpectrumPanel.Enabled = true;
             }
 
-            if (UnitReady && VisualizerEnabled)
+            if (Serial.UnitReady && VisualizerEnabled)
                 VisualizerSectionClass.EnableBASS(true);
         }
 
         private void AudioSampleRateComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (UnitReady && VisualizerEnabled)
+            if (Serial.UnitReady && VisualizerEnabled)
                 VisualizerSectionClass.EnableBASS(true);
         }
 
@@ -863,7 +813,7 @@ namespace ArduLEDNameSpace
                 VisualizerSectionClass.UpdateSpectrumChart(SpectrumChart, SpectrumRedTextBox.Text, SpectrumGreenTextBox.Text, SpectrumBlueTextBox.Text, (int)VisualSamplesNumericUpDown.Value, SpectrumAutoScaleValuesCheckBox.Checked);
             }
 
-            if (UnitReady && VisualizerEnabled)
+            if (Serial.UnitReady && VisualizerEnabled)
                 VisualizerSectionClass.EnableBASS(true);
         }
 
@@ -874,7 +824,7 @@ namespace ArduLEDNameSpace
                 VisualizerSectionClass.UpdateSpectrumChart(WaveChart, WaveRedTextBox.Text, WaveGreenTextBox.Text, WaveBlueTextBox.Text, 255 * 3, WaveAutoScaleValuesCheckBox.Checked);
             }
 
-            if (UnitReady && VisualizerEnabled)
+            if (Serial.UnitReady && VisualizerEnabled)
                 VisualizerSectionClass.EnableBASS(true);
         }
 
@@ -886,7 +836,7 @@ namespace ArduLEDNameSpace
         private void AudioSourceComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (AudioSourceComboBox.Visible)
-                if (UnitReady && VisualizerEnabled)
+                if (Serial.UnitReady && VisualizerEnabled)
                     VisualizerSectionClass.EnableBASS(true);
         }
 
@@ -914,11 +864,10 @@ namespace ArduLEDNameSpace
 
         private void VisualizerToSeriesIDNumericUpDown_KeyDown(object sender, KeyEventArgs e)
         {
-            if (UnitReady && VisualizerEnabled)
+            if (Serial.UnitReady && VisualizerEnabled)
             {
                 VisualizerSectionClass.EnableBASS(false);
-                string SerialOut = "6;" + VisualizerFromSeriesIDNumericUpDown.Value + ";" + VisualizerToSeriesIDNumericUpDown.Value;
-                SendDataBySerial(SerialOut);
+                Serial.Write(new Ranges((int)VisualizerFromSeriesIDNumericUpDown.Value,(int)VisualizerToSeriesIDNumericUpDown.Value));
                 VisualizerSectionClass.EnableBASS(true);
             }
         }

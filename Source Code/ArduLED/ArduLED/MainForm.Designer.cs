@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
@@ -54,7 +53,6 @@
             this.VisualSamplesNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.VisualSamplesLabel = new System.Windows.Forms.Label();
             this.AudioSourceLabel = new System.Windows.Forms.Label();
-            this.SerialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.BeatZoneChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.BeatZoneFromTrackBar = new System.Windows.Forms.TrackBar();
             this.BeatZoneToTrackBar = new System.Windows.Forms.TrackBar();
@@ -125,7 +123,6 @@
             this.GeneralSettingsComDeviceLabel = new System.Windows.Forms.Label();
             this.FadeColorsFadeSpeedNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.MenuPanel = new System.Windows.Forms.Panel();
-            this.MenuAutoHideCheckBox = new System.Windows.Forms.CheckBox();
             this.LanguageComboBox = new System.Windows.Forms.ComboBox();
             this.panel7 = new System.Windows.Forms.Panel();
             this.MenuExitButton = new System.Windows.Forms.Button();
@@ -140,6 +137,7 @@
             this.FadeColorsFadeFactorLabel = new System.Windows.Forms.Label();
             this.FadeColorsFadeFactorNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.FadeColorsFadeSpeedLabel = new System.Windows.Forms.Label();
+            this.GeneralSettingsAutoHideCheckBox = new System.Windows.Forms.CheckBox();
             this.IndividualLEDPanel = new System.Windows.Forms.Panel();
             this.panel22 = new System.Windows.Forms.Panel();
             this.IndividualLEDTopLabel = new System.Windows.Forms.Label();
@@ -435,6 +433,7 @@
             this.panel13 = new System.Windows.Forms.Panel();
             this.GeneralSettingsOtherSettingsLabel = new System.Windows.Forms.Label();
             this.panel14 = new System.Windows.Forms.Panel();
+            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox = new System.Windows.Forms.CheckBox();
             this.GeneralSettingsAutostartAutoloadedInstructionsLoop = new System.Windows.Forms.CheckBox();
             this.GeneralSettingsAutostartAutoloadedAnimationLoop = new System.Windows.Forms.CheckBox();
             this.GeneralSettingsAutostartAutoloadedInstructions = new System.Windows.Forms.CheckBox();
@@ -446,7 +445,6 @@
             this.panel12 = new System.Windows.Forms.Panel();
             this.GeneralSettingsBaudRateLabel = new System.Windows.Forms.Label();
             this.GeneralSettingsBaudRateNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.SampleTimeTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SmoothnessTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SensitivityTrackBar)).BeginInit();
@@ -816,14 +814,6 @@
             this.AudioSourceLabel.TabIndex = 4;
             this.AudioSourceLabel.Text = "Select audio device";
             this.AudioSourceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // SerialPort1
-            // 
-            this.SerialPort1.BaudRate = 1000000;
-            this.SerialPort1.DtrEnable = true;
-            this.SerialPort1.RtsEnable = true;
-            this.SerialPort1.WriteTimeout = 500;
-            this.SerialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.SerialPort1_DataReceived);
             // 
             // BeatZoneChart
             // 
@@ -1817,7 +1807,6 @@
             // 
             this.MenuPanel.BackColor = System.Drawing.Color.DimGray;
             this.MenuPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.MenuPanel.Controls.Add(this.MenuAutoHideCheckBox);
             this.MenuPanel.Controls.Add(this.LanguageComboBox);
             this.MenuPanel.Controls.Add(this.panel7);
             this.MenuPanel.Controls.Add(this.FadeLEDPanel);
@@ -1827,21 +1816,6 @@
             this.MenuPanel.Size = new System.Drawing.Size(387, 241);
             this.MenuPanel.TabIndex = 46;
             this.MenuPanel.Visible = false;
-            // 
-            // MenuAutoHideCheckBox
-            // 
-            this.MenuAutoHideCheckBox.AutoSize = true;
-            this.MenuAutoHideCheckBox.BackColor = System.Drawing.Color.DimGray;
-            this.MenuAutoHideCheckBox.Checked = true;
-            this.MenuAutoHideCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.MenuAutoHideCheckBox.ForeColor = System.Drawing.Color.White;
-            this.MenuAutoHideCheckBox.Location = new System.Drawing.Point(6, 218);
-            this.MenuAutoHideCheckBox.Name = "MenuAutoHideCheckBox";
-            this.MenuAutoHideCheckBox.Size = new System.Drawing.Size(73, 17);
-            this.MenuAutoHideCheckBox.TabIndex = 5;
-            this.MenuAutoHideCheckBox.Tag = "Setting";
-            this.MenuAutoHideCheckBox.Text = "Auto Hide";
-            this.MenuAutoHideCheckBox.UseVisualStyleBackColor = false;
             // 
             // LanguageComboBox
             // 
@@ -2057,6 +2031,18 @@
             this.FadeColorsFadeSpeedLabel.TabIndex = 46;
             this.FadeColorsFadeSpeedLabel.Text = "Fade speed (ms)";
             this.FadeColorsFadeSpeedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // GeneralSettingsAutoHideCheckBox
+            // 
+            this.GeneralSettingsAutoHideCheckBox.AutoSize = true;
+            this.GeneralSettingsAutoHideCheckBox.ForeColor = System.Drawing.Color.White;
+            this.GeneralSettingsAutoHideCheckBox.Location = new System.Drawing.Point(6, 8);
+            this.GeneralSettingsAutoHideCheckBox.Name = "GeneralSettingsAutoHideCheckBox";
+            this.GeneralSettingsAutoHideCheckBox.Size = new System.Drawing.Size(180, 17);
+            this.GeneralSettingsAutoHideCheckBox.TabIndex = 5;
+            this.GeneralSettingsAutoHideCheckBox.Tag = "Setting";
+            this.GeneralSettingsAutoHideCheckBox.Text = "Auto hide ArduLED when closed";
+            this.GeneralSettingsAutoHideCheckBox.UseVisualStyleBackColor = false;
             // 
             // IndividualLEDPanel
             // 
@@ -3776,7 +3762,7 @@
             this.GeneralSettingsRGBColorOrderThirdTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.GeneralSettingsRGBColorOrderThirdTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GeneralSettingsRGBColorOrderThirdTextbox.ForeColor = System.Drawing.Color.White;
-            this.GeneralSettingsRGBColorOrderThirdTextbox.Location = new System.Drawing.Point(296, 34);
+            this.GeneralSettingsRGBColorOrderThirdTextbox.Location = new System.Drawing.Point(296, 63);
             this.GeneralSettingsRGBColorOrderThirdTextbox.Name = "GeneralSettingsRGBColorOrderThirdTextbox";
             this.GeneralSettingsRGBColorOrderThirdTextbox.Size = new System.Drawing.Size(30, 13);
             this.GeneralSettingsRGBColorOrderThirdTextbox.TabIndex = 58;
@@ -3791,7 +3777,7 @@
             this.GeneralSettingsRGBColorOrderSeccondTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.GeneralSettingsRGBColorOrderSeccondTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GeneralSettingsRGBColorOrderSeccondTextbox.ForeColor = System.Drawing.Color.White;
-            this.GeneralSettingsRGBColorOrderSeccondTextbox.Location = new System.Drawing.Point(187, 34);
+            this.GeneralSettingsRGBColorOrderSeccondTextbox.Location = new System.Drawing.Point(187, 63);
             this.GeneralSettingsRGBColorOrderSeccondTextbox.Name = "GeneralSettingsRGBColorOrderSeccondTextbox";
             this.GeneralSettingsRGBColorOrderSeccondTextbox.Size = new System.Drawing.Size(30, 13);
             this.GeneralSettingsRGBColorOrderSeccondTextbox.TabIndex = 57;
@@ -3806,7 +3792,7 @@
             this.GeneralSettingsRGBColorOrderFirstTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.GeneralSettingsRGBColorOrderFirstTextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GeneralSettingsRGBColorOrderFirstTextbox.ForeColor = System.Drawing.Color.White;
-            this.GeneralSettingsRGBColorOrderFirstTextbox.Location = new System.Drawing.Point(78, 34);
+            this.GeneralSettingsRGBColorOrderFirstTextbox.Location = new System.Drawing.Point(78, 63);
             this.GeneralSettingsRGBColorOrderFirstTextbox.Name = "GeneralSettingsRGBColorOrderFirstTextbox";
             this.GeneralSettingsRGBColorOrderFirstTextbox.Size = new System.Drawing.Size(30, 13);
             this.GeneralSettingsRGBColorOrderFirstTextbox.TabIndex = 56;
@@ -3819,7 +3805,7 @@
             // 
             this.GeneralSettingsRGBColorOrderThirdLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GeneralSettingsRGBColorOrderThirdLabel.ForeColor = System.Drawing.Color.White;
-            this.GeneralSettingsRGBColorOrderThirdLabel.Location = new System.Drawing.Point(224, 33);
+            this.GeneralSettingsRGBColorOrderThirdLabel.Location = new System.Drawing.Point(224, 62);
             this.GeneralSettingsRGBColorOrderThirdLabel.Name = "GeneralSettingsRGBColorOrderThirdLabel";
             this.GeneralSettingsRGBColorOrderThirdLabel.Size = new System.Drawing.Size(65, 15);
             this.GeneralSettingsRGBColorOrderThirdLabel.TabIndex = 55;
@@ -3829,7 +3815,7 @@
             // 
             this.GeneralSettingsRGBColorOrderSeccondLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GeneralSettingsRGBColorOrderSeccondLabel.ForeColor = System.Drawing.Color.White;
-            this.GeneralSettingsRGBColorOrderSeccondLabel.Location = new System.Drawing.Point(115, 33);
+            this.GeneralSettingsRGBColorOrderSeccondLabel.Location = new System.Drawing.Point(115, 62);
             this.GeneralSettingsRGBColorOrderSeccondLabel.Name = "GeneralSettingsRGBColorOrderSeccondLabel";
             this.GeneralSettingsRGBColorOrderSeccondLabel.Size = new System.Drawing.Size(65, 15);
             this.GeneralSettingsRGBColorOrderSeccondLabel.TabIndex = 54;
@@ -3839,7 +3825,7 @@
             // 
             this.GeneralSettingsRGBColorOrderFirstLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GeneralSettingsRGBColorOrderFirstLabel.ForeColor = System.Drawing.Color.White;
-            this.GeneralSettingsRGBColorOrderFirstLabel.Location = new System.Drawing.Point(6, 33);
+            this.GeneralSettingsRGBColorOrderFirstLabel.Location = new System.Drawing.Point(6, 62);
             this.GeneralSettingsRGBColorOrderFirstLabel.Name = "GeneralSettingsRGBColorOrderFirstLabel";
             this.GeneralSettingsRGBColorOrderFirstLabel.Size = new System.Drawing.Size(65, 15);
             this.GeneralSettingsRGBColorOrderFirstLabel.TabIndex = 53;
@@ -3849,7 +3835,7 @@
             // 
             this.GeneralSettingsRGBColorOrderLabel.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GeneralSettingsRGBColorOrderLabel.ForeColor = System.Drawing.Color.White;
-            this.GeneralSettingsRGBColorOrderLabel.Location = new System.Drawing.Point(3, 7);
+            this.GeneralSettingsRGBColorOrderLabel.Location = new System.Drawing.Point(3, 36);
             this.GeneralSettingsRGBColorOrderLabel.Name = "GeneralSettingsRGBColorOrderLabel";
             this.GeneralSettingsRGBColorOrderLabel.Size = new System.Drawing.Size(331, 15);
             this.GeneralSettingsRGBColorOrderLabel.TabIndex = 52;
@@ -6319,7 +6305,7 @@
             this.GeneralSettingsPanel.Controls.Add(this.panel12);
             this.GeneralSettingsPanel.Location = new System.Drawing.Point(1097, 5);
             this.GeneralSettingsPanel.Name = "GeneralSettingsPanel";
-            this.GeneralSettingsPanel.Size = new System.Drawing.Size(354, 528);
+            this.GeneralSettingsPanel.Size = new System.Drawing.Size(354, 558);
             this.GeneralSettingsPanel.TabIndex = 73;
             this.GeneralSettingsPanel.Visible = false;
             // 
@@ -6347,6 +6333,7 @@
             // 
             this.panel13.BackColor = System.Drawing.Color.Gray;
             this.panel13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel13.Controls.Add(this.GeneralSettingsAutoHideCheckBox);
             this.panel13.Controls.Add(this.GeneralSettingsRGBColorOrderThirdTextbox);
             this.panel13.Controls.Add(this.GeneralSettingsRGBColorOrderLabel);
             this.panel13.Controls.Add(this.GeneralSettingsRGBColorOrderSeccondTextbox);
@@ -6357,7 +6344,7 @@
             this.panel13.ForeColor = System.Drawing.Color.White;
             this.panel13.Location = new System.Drawing.Point(7, 461);
             this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(339, 58);
+            this.panel13.Size = new System.Drawing.Size(339, 87);
             this.panel13.TabIndex = 82;
             // 
             // GeneralSettingsOtherSettingsLabel
@@ -6389,6 +6376,18 @@
             this.panel14.Name = "panel14";
             this.panel14.Size = new System.Drawing.Size(339, 228);
             this.panel14.TabIndex = 80;
+            // 
+            // GeneralSettingsStartAtModeOpenMenuAswellCheckBox
+            // 
+            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox.ForeColor = System.Drawing.Color.White;
+            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox.Location = new System.Drawing.Point(19, 110);
+            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox.Name = "GeneralSettingsStartAtModeOpenMenuAswellCheckBox";
+            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox.Size = new System.Drawing.Size(304, 23);
+            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox.TabIndex = 79;
+            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox.Tag = "Setting";
+            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox.Text = "Open menu aswell?";
+            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox.UseVisualStyleBackColor = true;
             // 
             // GeneralSettingsAutostartAutoloadedInstructionsLoop
             // 
@@ -6533,18 +6532,6 @@
             0,
             0});
             // 
-            // GeneralSettingsStartAtModeOpenMenuAswellCheckBox
-            // 
-            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox.ForeColor = System.Drawing.Color.White;
-            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox.Location = new System.Drawing.Point(19, 110);
-            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox.Name = "GeneralSettingsStartAtModeOpenMenuAswellCheckBox";
-            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox.Size = new System.Drawing.Size(304, 23);
-            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox.TabIndex = 79;
-            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox.Tag = "Setting";
-            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox.Text = "Open menu aswell?";
-            this.GeneralSettingsStartAtModeOpenMenuAswellCheckBox.UseVisualStyleBackColor = true;
-            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -6608,7 +6595,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.FadeColorsGreenTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.FadeColorsFadeSpeedNumericUpDown)).EndInit();
             this.MenuPanel.ResumeLayout(false);
-            this.MenuPanel.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.FadeLEDPanel.ResumeLayout(false);
             this.FadeLEDPanel.PerformLayout();
@@ -6875,7 +6861,6 @@
         public System.Windows.Forms.Label IndividualLEDTopLabel;
         public System.Windows.Forms.Button InstructionsModeLoadButton;
         public System.Windows.Forms.Button InstructionsModeSaveButton;
-        public System.IO.Ports.SerialPort SerialPort1;
         public System.Windows.Forms.DataVisualization.Charting.Chart SpectrumChart;
         public System.Windows.Forms.DataVisualization.Charting.Chart WaveChart;
         public System.Windows.Forms.ProgressBar BeatWaveProgressBar;
@@ -6921,7 +6906,7 @@
         public System.Windows.Forms.Label InstructionsAddFadeColorsFromSeriesIDLabel;
         public System.Windows.Forms.Button VisualizerLoadSettingsButton;
         public System.Windows.Forms.Button VisualizerSaveSettingsButton;
-        public System.Windows.Forms.CheckBox MenuAutoHideCheckBox;
+        public System.Windows.Forms.CheckBox GeneralSettingsAutoHideCheckBox;
         public System.Windows.Forms.Panel AmbiLightModePanel;
         public System.Windows.Forms.Panel panel3;
         public System.Windows.Forms.Label AmbiLightModeTopLabel;

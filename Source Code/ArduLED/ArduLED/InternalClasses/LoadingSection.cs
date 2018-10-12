@@ -73,8 +73,8 @@ namespace ArduLEDNameSpace
 
             SetLoadingLabelTo("Serial port settings");
 
-            MainFormClass.SerialPort1.Encoding = System.Text.Encoding.ASCII;
-            MainFormClass.SerialPort1.NewLine = "\n";
+            MainFormClass.Serial.SerialPort1.Encoding = System.Text.Encoding.ASCII;
+            MainFormClass.Serial.SerialPort1.NewLine = "\n";
 
             SetLoadingLabelTo("BASS.NET");
 
@@ -229,11 +229,13 @@ namespace ArduLEDNameSpace
 
             SetLoadingLabelTo("Visual sections");
 
+            MainFormClass.Serial.Wait = true;
             IsLoading = true;
 
             await InitializeAllVisualSections();
 
             IsLoading = false;
+            MainFormClass.Serial.Wait = false;
 
             SetLoadingLabelTo("Previus settings");
 
@@ -324,6 +326,10 @@ namespace ArduLEDNameSpace
                     });
                 }
             }
+
+            if (!MainFormClass.GeneralSettingsStartAtModeOpenMenuAswellCheckBox.Checked)
+                if (MainFormClass.GeneralSettingsAutoHideCheckBox.Checked)
+                    MainFormClass.MenuSectionClass.HideTimer.Start();
         }
 
         private void ShowLoadingScreen()

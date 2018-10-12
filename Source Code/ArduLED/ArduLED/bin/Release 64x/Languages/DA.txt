@@ -2,7 +2,6 @@
 MenuExitButton;Lucida Console;8;X
 MenuButton;Lucida Console;8;ArduLED
 LanguageComboBox;Lucida Console;8;
-MenuAutoHideCheckBox;Lucida Console;8;Gør automatisk usynlig
 
 GeneralSettingsTopLabel;Lucida Console;16;Generelle Indstillinger
 GeneralSettingsComDeviceLabel;Lucida Console;11;Vælg COM enhed
@@ -27,6 +26,7 @@ GeneralSettingsRGBColorOrderSeccondLabel;Lucida Console;8;Anden:
 GeneralSettingsRGBColorOrderSeccondTextbox;Lucida Console;8;
 GeneralSettingsRGBColorOrderThirdLabel;Lucida Console;8;Tredje:
 GeneralSettingsRGBColorOrderThirdTextbox;Lucida Console;8;
+GeneralSettingsAutoHideCheckBox;Lucida Console;8;Gem automatisk ArduLED
 
 ModeSelectrionComboBox;Lucida Console;8;
 INDEXNAMES;ModeSelectrionComboBox;Falme Farver;Visualizer;Individuelle Farver;Instruktioner;Server Opsætning;Ambilight;Animationer;Opsætning;Generelle Instillinger

@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ArduLED_Serial_Protocol;
 
 namespace ArduLEDNameSpace
 {
@@ -293,11 +294,10 @@ namespace ArduLEDNameSpace
 
                 for (int i = 0; i < Pins.Count; i++)
                 {
-                    string SerialOut = "0;" + LEDCount[i] + ";" + Pins[i] + ";" + PixelTypesIndexs[i] + ";" + PixelBitrateIndexs[i];
-                    MainFormClass.SendDataBySerial(SerialOut);
+                    MainFormClass.Serial.Write(new NoneMode(LEDCount[i] + ";" + Pins[i] + ";" + PixelTypesIndexs[i] + ";" + PixelBitrateIndexs[i]));
                 }
 
-                MainFormClass.SendDataBySerial("0;9999");
+                MainFormClass.Serial.Write(new NoneMode("9999"));
 
                 int TotalLEDs = 0;
                 foreach (int i in LEDCount)
@@ -374,11 +374,10 @@ namespace ArduLEDNameSpace
                     if (MainFormClass.GeneralSettingsAutoSendCheckBox.Checked)
                         MainFormClass.ConfigureSetupHiddenProgressBar.Invoke((MethodInvoker)delegate { MainFormClass.ConfigureSetupHiddenProgressBar.Value = i; });
 
-                    string SerialOut = "0;" + UpOrDownFrom[SeriesData[i]] + ";" + UpOrDownTo[SeriesData[i]] + ";" + InternalPins[SeriesData[i]] + ";";
-                    MainFormClass.SendDataBySerial(SerialOut);
+                    MainFormClass.Serial.Write(new NoneMode(UpOrDownFrom[SeriesData[i]] + ";" + UpOrDownTo[SeriesData[i]] + ";" + InternalPins[SeriesData[i]]));
                 }
 
-                MainFormClass.SendDataBySerial("0;9999;");
+                MainFormClass.Serial.Write(new NoneMode("9999"));
 
                 MainFormClass.SendSetupProgressBar.Invoke((MethodInvoker)delegate { MainFormClass.SendSetupProgressBar.Value = 0; });
                 if (MainFormClass.GeneralSettingsAutoSendCheckBox.Checked)
@@ -392,8 +391,8 @@ namespace ArduLEDNameSpace
                     MainFormClass.GeneralSettingsAutoSendCheckBox.Invoke((MethodInvoker)delegate { MainFormClass.GeneralSettingsAutoSendCheckBox.Enabled = true; });
                 }
 
-                MainFormClass.SendDataBySerial("0;9999");
-                MainFormClass.SendDataBySerial(" ");
+                MainFormClass.Serial.Write(new NoneMode("9999"));
+                MainFormClass.Serial.Write(new NoneMode(" "));
             });
         }
 

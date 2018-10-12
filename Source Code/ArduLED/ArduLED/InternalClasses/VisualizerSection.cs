@@ -9,6 +9,7 @@ using Un4seen.Bass;
 using Un4seen.BassWasapi;
 using Microsoft.Win32.SafeHandles;
 using System.Runtime.InteropServices;
+using ArduLED_Serial_Protocol;
 
 namespace ArduLEDNameSpace
 {
@@ -292,15 +293,13 @@ namespace ArduLEDNameSpace
                     VisualizerThread.Dispose();
                 }
 
-                String SerialOut = "";
                 MainFormClass.VisualizerFromSeriesIDNumericUpDown.Invoke((MethodInvoker)delegate
                 {
                     MainFormClass.VisualizerToSeriesIDNumericUpDown.Invoke((MethodInvoker)delegate
                     {
-                        SerialOut = "6;" + MainFormClass.VisualizerFromSeriesIDNumericUpDown.Value + ";" + MainFormClass.VisualizerToSeriesIDNumericUpDown.Value;
+                        MainFormClass.Serial.Write(new Ranges((int)MainFormClass.VisualizerFromSeriesIDNumericUpDown.Value,(int)MainFormClass.VisualizerToSeriesIDNumericUpDown.Value));
                     });
                 });
-                MainFormClass.SendDataBySerial(SerialOut);
 
                 BassProcess = new WASAPIPROC(Process);
 
@@ -460,8 +459,7 @@ namespace ArduLEDNameSpace
                     AutoTrigger((OutValue / 99) * (255 * 3));
                     if (OutValue > 99)
                         OutValue = 99;
-                    string SerialOut = "2;" + OutValue.ToString().Replace(',', '.');
-                    MainFormClass.SendDataBySerial(SerialOut);
+                    MainFormClass.Serial.Write(new VisualizerBeat((int)OutValue));
                 }
                 if (SelectedIndex == 1 | SelectedIndex == 2)
                 {
@@ -545,12 +543,10 @@ namespace ArduLEDNameSpace
 
                     Color AfterShuffel = MainFormClass.ShuffleColors(Color.FromArgb((int)Math.Round(EndR, 0), (int)Math.Round(EndG, 0), (int)Math.Round(EndB, 0)));
 
-                    string SerialOut = "";
                     if (SelectedIndex == 1)
-                        SerialOut = "1;" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B + ";0;0";
+                        MainFormClass.Serial.Write(new FadeColorsMode(AfterShuffel.R, AfterShuffel.G, AfterShuffel.B, 0, 0));
                     if (SelectedIndex == 2)
-                        SerialOut = "3;" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B;
-                    MainFormClass.SendDataBySerial(SerialOut);
+                        MainFormClass.Serial.Write(new VisualizerWave(AfterShuffel.R, AfterShuffel.G, AfterShuffel.B));
                 }
                 if (SelectedIndex == 3 | SelectedIndex == 4)
                 {
@@ -609,31 +605,29 @@ namespace ArduLEDNameSpace
 
                     Color AfterShuffel = MainFormClass.ShuffleColors(Color.FromArgb(EndR, EndG, EndB));
 
-                    string SerialOut = "";
                     if (SelectedIndex == 4)
-                        SerialOut = "1;" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B + ";0;0";
+                        MainFormClass.Serial.Write(new FadeColorsMode(AfterShuffel.R, AfterShuffel.G, AfterShuffel.B, 0, 0));
                     if (SelectedIndex == 3)
-                        SerialOut = "3;" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B + "";
-                    MainFormClass.SendDataBySerial(SerialOut);
+                        MainFormClass.Serial.Write(new VisualizerWave(AfterShuffel.R, AfterShuffel.G, AfterShuffel.B));
                 }
                 if (SelectedIndex == 5)
                 {
                     int Hit = 0;
-                    string SerialOut = "5;" + SpectrumSplit.ToString() + ";";
+                    VisualizerFullSpectrum newSpec = new VisualizerFullSpectrum("", SpectrumSplit);
                     for (int i = 0; i < BeatZoneSeries.Points.Count; i++)
                     {
                         if (BeatZoneSeries.Points[i].YValues[0] >= TriggerHeight)
                         {
-                            SerialOut += Math.Round((BeatZoneSeries.Points[i].YValues[0] / 255) * (double)SpectrumSplit, 0) + ";";
+                            newSpec.SpectrumValues += Math.Round((BeatZoneSeries.Points[i].YValues[0] / 255) * (double)SpectrumSplit, 0) + ";";
                             Hit++;
                         }
                         else
-                            SerialOut += "0;";
+                            newSpec.SpectrumValues += "0;";
                     }
 
                     AutoTrigger(((float)Hit / ((float)BeatZoneTo - (float)BeatZoneFrom)) * (255 * 3));
 
-                    MainFormClass.SendDataBySerial(SerialOut);
+                    MainFormClass.Serial.Write(newSpec);
                 }
 
                 VisualizerUpdatesCounter++;

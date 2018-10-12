@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32.SafeHandles;
 using System.Runtime.InteropServices;
+using ArduLED_Serial_Protocol;
 
 namespace ArduLEDNameSpace
 {
@@ -209,17 +210,14 @@ namespace ArduLEDNameSpace
                         }
                         if (Data[0] == "Fade Colors")
                         {
-                            string SerialOut = "6;" + Data[1] + ";" + Data[2];
-                            MainFormClass.SendDataBySerial(SerialOut);
+                            MainFormClass.Serial.Write(new Ranges(Int32.Parse(Data[1]),Int32.Parse(Data[2])));
                             Color AfterShuffel = MainFormClass.ShuffleColors(Color.FromArgb(Int32.Parse(Data[3]), Int32.Parse(Data[4]), Int32.Parse(Data[5])));
-                            SerialOut = "1;" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B + ";" + Data[6] + ";" + Math.Round((Convert.ToDecimal(Data[7]) * 100), 0).ToString();
-                            MainFormClass.SendDataBySerial(SerialOut);
+                            MainFormClass.Serial.Write(new FadeColorsMode(AfterShuffel.R, AfterShuffel.G, AfterShuffel.B,Int32.Parse(Data[6]), Convert.ToDouble(Data[7])));
                         }
                         if (Data[0] == "Individual LED")
                         {
                             Color AfterShuffel = MainFormClass.ShuffleColors(Color.FromArgb(Int32.Parse(Data[3]), Int32.Parse(Data[4]), Int32.Parse(Data[5])));
-                            string SerialOut = "4;" + Data[1] + ";" + Data[2] + ";" + AfterShuffel.R + ";" + AfterShuffel.G + ";" + AfterShuffel.B;
-                            MainFormClass.SendDataBySerial(SerialOut);
+                            MainFormClass.Serial.Write(new IndividualLEDs(AfterShuffel.R, AfterShuffel.G, AfterShuffel.B,Int32.Parse(Data[1]),Int32.Parse(Data[2])));
                         }
                         if (Data[0] == "Visualizer")
                         {
@@ -229,16 +227,16 @@ namespace ArduLEDNameSpace
                             }
                             else
                             {
-                                string SerialOut = "";
                                 MainFormClass.VisualizerPanel.Invoke((MethodInvoker)delegate {
                                     MainFormClass.LoadSettings(Directory.GetCurrentDirectory() + "\\VisualizerSettings\\" + Data[2]);
                                 });
+                                Ranges newRange = new Ranges();
                                 MainFormClass.VisualizerFromSeriesIDNumericUpDown.Invoke((MethodInvoker)delegate {
                                     MainFormClass.VisualizerToSeriesIDNumericUpDown.Invoke((MethodInvoker)delegate {
-                                        SerialOut = "6;" + MainFormClass.VisualizerFromSeriesIDNumericUpDown.Value + ";" + MainFormClass.VisualizerToSeriesIDNumericUpDown.Value;
+                                        newRange = new Ranges((int)MainFormClass.VisualizerFromSeriesIDNumericUpDown.Value, (int)MainFormClass.VisualizerToSeriesIDNumericUpDown.Value);
                                     });
                                 });
-                                MainFormClass.SendDataBySerial(SerialOut);
+                                MainFormClass.Serial.Write(newRange);
                                 MainFormClass.VisualizerPanel.Invoke((MethodInvoker)delegate {
                                     MainFormClass.VisualizerSectionClass.EnableBASS(true);
                                 });
