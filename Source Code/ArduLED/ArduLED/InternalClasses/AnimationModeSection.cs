@@ -338,14 +338,8 @@ namespace ArduLEDNameSpace
                                 if (OutAnimation.Values.Length + AddString.Length > 75)
                                 {
                                     string[] InnerSerialOutSplit = OutAnimation.Values.Split(';');
-                                    InnerSerialOutSplit[1] = (Count - PreCount).ToString();
-                                    InnerSerialOutSplit[3] = "0";
-
-                                    OutAnimation.Values = "";
-                                    foreach (string Split in InnerSerialOutSplit)
-                                        OutAnimation.Values += Split + ";";
-
-                                    OutAnimation.Values = OutAnimation.Values.Substring(0, OutAnimation.Values.Length - 1);
+                                    OutAnimation.LineCount = (Count - PreCount);
+                                    OutAnimation.ShowNow = false;
 
                                     MainFormClass.Serial.Write(OutAnimation);
 

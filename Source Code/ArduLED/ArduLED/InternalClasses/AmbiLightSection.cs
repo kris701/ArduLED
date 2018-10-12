@@ -1138,20 +1138,13 @@ namespace ArduLEDNameSpace
                 }
             }
 
-            if (AddString.Length + _InnerSerialOut[_SectionIndex].Values.Length * 2 > 128)
+            if (AddString.Length + _InnerSerialOut[_SectionIndex].Values.Length > 75)
             {
                 string[] ChangeToIDString = _InnerSerialOut[_SectionIndex].Values.Split(';');
                 if (_FromID < _ToID)
-                    ChangeToIDString[2] = (_FromID + (_Count * _PixelsPrBlock)).ToString();
+                    _InnerSerialOut[_SectionIndex].ToID = (_FromID + (_Count * _PixelsPrBlock));
                 else
-                    ChangeToIDString[2] = (_FromID - (_Count * _PixelsPrBlock)).ToString();
-
-                _InnerSerialOut[_SectionIndex].Values = "";
-
-                foreach (string Out in ChangeToIDString)
-                {
-                    _InnerSerialOut[_SectionIndex].Values += Out + ";";
-                }
+                    _InnerSerialOut[_SectionIndex].ToID = (_FromID - (_Count * _PixelsPrBlock));
 
                 _SectionIndex++;
 
