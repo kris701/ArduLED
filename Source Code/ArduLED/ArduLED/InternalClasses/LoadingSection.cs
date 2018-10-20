@@ -203,7 +203,7 @@ namespace ArduLEDNameSpace
 
             SetLoadingLabelTo("Screen index");
 
-            MainFormClass.AmbiLightModeScreenIDNumericUpDown.Maximum = SystemInformation.MonitorCount - 1;
+            MainFormClass.AmbiLightModeScreenIDNumericUpDown.Maximum = SystemInformation.MonitorCount;
 
             SetLoadingLabelTo("Last Setup");
 

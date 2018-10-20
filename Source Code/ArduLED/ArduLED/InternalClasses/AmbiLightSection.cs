@@ -18,6 +18,7 @@ namespace ArduLEDNameSpace
         SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
         private List<Block> BlockList = new List<Block>();
         private List<List<List<int>>> AmbilightColorStore = new List<List<List<int>>>();
+        private List<Rectangle> ScreenList = new List<Rectangle>();
         private bool RunAmbilight = false;
         private DateTime AmbilightFPSCounter;
         private int AmbilightFPSCounterFramesRendered;
@@ -62,6 +63,12 @@ namespace ArduLEDNameSpace
         public AmbiLightSection(MainForm _MainFormClass)
         {
             this.MainFormClass = _MainFormClass;
+            ScreenList.Clear();
+            ScreenList.Add(SystemInformation.VirtualScreen);
+            foreach(Screen Rec in Screen.AllScreens)
+            {
+                ScreenList.Add(Rec.Bounds);
+            }
         }
 
         public void ShowBlocks(int _ScreenID, int _SampleSplit)
@@ -73,15 +80,15 @@ namespace ArduLEDNameSpace
                 if (LeftSide.Enabled)
                 {
                     MakeNewBlock(
-                        (Screen.AllScreens[_ScreenID].Bounds.Height - LeftSide.Height + LeftSide.YOffSet),
+                        (ScreenList[_ScreenID].Height - LeftSide.Height + LeftSide.YOffSet),
                         LeftSide.YOffSet,
                         LeftSide.Height + LeftSide.BlockSpacing,
                         true,
                         LeftSide.Width,
                         LeftSide.Height,
                         false,
-                        Screen.AllScreens[_ScreenID].Bounds.X + LeftSide.XOffSet,
-                        Screen.AllScreens[_ScreenID].Bounds.Y,
+                        ScreenList[_ScreenID].X + LeftSide.XOffSet,
+                        ScreenList[_ScreenID].Y,
                         _SampleSplit
                         );
                 }
@@ -89,14 +96,14 @@ namespace ArduLEDNameSpace
                 {
                     MakeNewBlock(
                         TopSide.XOffSet,
-                        (Screen.AllScreens[_ScreenID].Bounds.Width - TopSide.Width),
+                        (ScreenList[_ScreenID].Width - TopSide.Width),
                         TopSide.Width + TopSide.BlockSpacing,
                         false,
                         TopSide.Width,
                         TopSide.Height,
                         true,
-                        Screen.AllScreens[_ScreenID].Bounds.X,
-                        Screen.AllScreens[_ScreenID].Bounds.Y + TopSide.YOffSet,
+                        ScreenList[_ScreenID].X,
+                        ScreenList[_ScreenID].Y + TopSide.YOffSet,
                         _SampleSplit
                         );
                 }
@@ -104,29 +111,29 @@ namespace ArduLEDNameSpace
                 {
                     MakeNewBlock(
                         RightSide.YOffSet,
-                        Screen.AllScreens[_ScreenID].Bounds.Height - RightSide.Height,
+                        ScreenList[_ScreenID].Height - RightSide.Height,
                         RightSide.Height + RightSide.BlockSpacing,
                         false,
                         RightSide.Width,
                         RightSide.Height,
                         false,
-                        (Screen.AllScreens[_ScreenID].Bounds.X + Screen.AllScreens[_ScreenID].Bounds.Width - RightSide.Width) + RightSide.XOffSet,
-                        Screen.AllScreens[_ScreenID].Bounds.Y + RightSide.YOffSet,
+                        (ScreenList[_ScreenID].X + ScreenList[_ScreenID].Width - RightSide.Width) + RightSide.XOffSet,
+                        ScreenList[_ScreenID].Y + RightSide.YOffSet,
                         _SampleSplit
                         );
                 }
                 if (BottomSide.Enabled)
                 {
                     MakeNewBlock(
-                        (Screen.AllScreens[_ScreenID].Bounds.Width - BottomSide.Width) + BottomSide.XOffSet,
+                        (ScreenList[_ScreenID].Width - BottomSide.Width) + BottomSide.XOffSet,
                         0,
                         BottomSide.Width + BottomSide.BlockSpacing,
                         true,
                         BottomSide.Width,
                         BottomSide.Height,
                         true,
-                        Screen.AllScreens[_ScreenID].Bounds.X,
-                        (Screen.AllScreens[_ScreenID].Bounds.Y + Screen.AllScreens[_ScreenID].Bounds.Height - BottomSide.Height) + BottomSide.YOffSet,
+                        ScreenList[_ScreenID].X,
+                        (ScreenList[_ScreenID].Y + ScreenList[_ScreenID].Height - BottomSide.Height) + BottomSide.YOffSet,
                         _SampleSplit
                         );
                 }
@@ -214,10 +221,10 @@ namespace ArduLEDNameSpace
             SetSides();
 
             MainFormClass.Opacity = 0;
-            Bitmap Screenshot = new Bitmap(Screen.AllScreens[_ScreenID].Bounds.Width, Screen.AllScreens[_ScreenID].Bounds.Height, PixelFormat.Format32bppRgb);
+            Bitmap Screenshot = new Bitmap(ScreenList[_ScreenID].Width, ScreenList[_ScreenID].Height, PixelFormat.Format32bppRgb);
             using (Graphics GFXScreenshot = Graphics.FromImage(Screenshot))
             {
-                GFXScreenshot.CopyFromScreen(Screen.AllScreens[_ScreenID].Bounds.X, Screen.AllScreens[_ScreenID].Bounds.Y, 0, 0, new Size(Screenshot.Width, Screenshot.Height), CopyPixelOperation.SourceCopy);
+                GFXScreenshot.CopyFromScreen(ScreenList[_ScreenID].X, ScreenList[_ScreenID].Y, 0, 0, new Size(Screenshot.Width, Screenshot.Height), CopyPixelOperation.SourceCopy);
             }
             MainFormClass.Opacity = 1;
 
@@ -225,11 +232,11 @@ namespace ArduLEDNameSpace
             {
                 MainFormClass.AmbiLightModeLeftBlockOffsetXNumericUpDown.Value = FindFirstLightPixel(
                     0,
-                    Screen.AllScreens[_ScreenID].Bounds.Width / 2,
+                    ScreenList[_ScreenID].Width / 2,
                     false,
                     true,
                     0,
-                    Screen.AllScreens[_ScreenID].Bounds.Height / 2,
+                    ScreenList[_ScreenID].Height / 2,
                     Screenshot
                     );
             }
@@ -238,10 +245,10 @@ namespace ArduLEDNameSpace
             {
                 MainFormClass.AmbiLightModeTopBlockOffsetYNumericUpDown.Value = FindFirstLightPixel(
                     0,
-                    Screen.AllScreens[_ScreenID].Bounds.Height / 2,
+                    ScreenList[_ScreenID].Height / 2,
                     false,
                     false,
-                    Screen.AllScreens[_ScreenID].Bounds.Width / 2,
+                    ScreenList[_ScreenID].Width / 2,
                     0,
                     Screenshot
                     );
@@ -249,25 +256,25 @@ namespace ArduLEDNameSpace
 
             if (RightSide.Enabled)
             {
-                MainFormClass.AmbiLightModeRightBlockOffsetXNumericUpDown.Value = -(Screen.AllScreens[_ScreenID].Bounds.Width - FindFirstLightPixel(
-                    Screen.AllScreens[_ScreenID].Bounds.Width - 1,
-                    Screen.AllScreens[_ScreenID].Bounds.Width / 2,
+                MainFormClass.AmbiLightModeRightBlockOffsetXNumericUpDown.Value = -(ScreenList[_ScreenID].Width - FindFirstLightPixel(
+                    ScreenList[_ScreenID].Width - 1,
+                    ScreenList[_ScreenID].Width / 2,
                     true,
                     true,
                     0,
-                    Screen.AllScreens[_ScreenID].Bounds.Height / 2,
+                    ScreenList[_ScreenID].Height / 2,
                     Screenshot
                     ));
             }
 
             if (BottomSide.Enabled)
             {
-                MainFormClass.AmbiLightModeBottomBlockOffsetYNumericUpDown.Value = -(Screen.AllScreens[_ScreenID].Bounds.Height - FindFirstLightPixel(
-                    Screen.AllScreens[_ScreenID].Bounds.Height - 1,
-                    Screen.AllScreens[_ScreenID].Bounds.Height / 2,
+                MainFormClass.AmbiLightModeBottomBlockOffsetYNumericUpDown.Value = -(ScreenList[_ScreenID].Height - FindFirstLightPixel(
+                    ScreenList[_ScreenID].Height - 1,
+                    ScreenList[_ScreenID].Height / 2,
                     true,
                     false,
-                    Screen.AllScreens[_ScreenID].Bounds.Width / 2,
+                    ScreenList[_ScreenID].Width / 2,
                     -2,
                     Screenshot
                     ));
@@ -326,22 +333,22 @@ namespace ArduLEDNameSpace
 
             if (LeftSide.Enabled)
             {
-                MainFormClass.AmbiLightModeLeftBlockHeightNumericUpDown.Value = (decimal)((Screen.AllScreens[_ScreenID].Bounds.Height - LeftSide.YOffSet) / Math.Round((double)(Math.Abs(LeftSide.ToID - LeftSide.FromID) / LeftSide.LEDsPrBlock),0) - LeftSide.BlockSpacing);
+                MainFormClass.AmbiLightModeLeftBlockHeightNumericUpDown.Value = (decimal)((ScreenList[_ScreenID].Height - LeftSide.YOffSet) / Math.Round((double)(Math.Abs(LeftSide.ToID - LeftSide.FromID) / LeftSide.LEDsPrBlock),0) - LeftSide.BlockSpacing);
             }
 
             if (TopSide.Enabled)
             {
-                MainFormClass.AmbiLightModeTopBlockWidthNumericUpDown.Value = (decimal)((Screen.AllScreens[_ScreenID].Bounds.Width - TopSide.XOffSet) / Math.Round((double)(Math.Abs(TopSide.ToID - TopSide.FromID) / TopSide.LEDsPrBlock), 0) - TopSide.BlockSpacing);
+                MainFormClass.AmbiLightModeTopBlockWidthNumericUpDown.Value = (decimal)((ScreenList[_ScreenID].Width - TopSide.XOffSet) / Math.Round((double)(Math.Abs(TopSide.ToID - TopSide.FromID) / TopSide.LEDsPrBlock), 0) - TopSide.BlockSpacing);
             }
 
             if (RightSide.Enabled)
             {
-                MainFormClass.AmbiLightModeRightBlockHeightNumericUpDown.Value = (decimal)((Screen.AllScreens[_ScreenID].Bounds.Height - RightSide.YOffSet) / Math.Round((double)(Math.Abs(RightSide.ToID - RightSide.FromID) / RightSide.LEDsPrBlock), 0) - RightSide.BlockSpacing);
+                MainFormClass.AmbiLightModeRightBlockHeightNumericUpDown.Value = (decimal)((ScreenList[_ScreenID].Height - RightSide.YOffSet) / Math.Round((double)(Math.Abs(RightSide.ToID - RightSide.FromID) / RightSide.LEDsPrBlock), 0) - RightSide.BlockSpacing);
             }
 
             if (BottomSide.Enabled)
             {
-                MainFormClass.AmbiLightModeBottomBlockWidthNumericUpDown.Value = (decimal)((Screen.AllScreens[_ScreenID].Bounds.Width - BottomSide.XOffSet) / Math.Round((double)(Math.Abs(BottomSide.ToID - BottomSide.FromID) / BottomSide.LEDsPrBlock), 0) - BottomSide.BlockSpacing);
+                MainFormClass.AmbiLightModeBottomBlockWidthNumericUpDown.Value = (decimal)((ScreenList[_ScreenID].Width - BottomSide.XOffSet) / Math.Round((double)(Math.Abs(BottomSide.ToID - BottomSide.FromID) / BottomSide.LEDsPrBlock), 0) - BottomSide.BlockSpacing);
             }
 
             Application.DoEvents();
@@ -508,50 +515,50 @@ namespace ArduLEDNameSpace
 
             bool ProcessingDoneInnerFlip2 = true;
 
-            Bitmap ImageWindowLeft = new Bitmap(_LeftSide.Width, Screen.AllScreens[_ScreenID].Bounds.Height, PixelFormat.Format24bppRgb);
-            Bitmap ImageWindowTop = new Bitmap(Screen.AllScreens[_ScreenID].Bounds.Width, _TopSide.Height, PixelFormat.Format24bppRgb);
-            Bitmap ImageWindowRight = new Bitmap(_RightSide.Width, Screen.AllScreens[_ScreenID].Bounds.Height, PixelFormat.Format24bppRgb);
-            Bitmap ImageWindowBottom = new Bitmap(Screen.AllScreens[_ScreenID].Bounds.Width, _BottomSide.Height, PixelFormat.Format24bppRgb);
+            Bitmap ImageWindowLeft = new Bitmap(_LeftSide.Width, ScreenList[_ScreenID].Height, PixelFormat.Format24bppRgb);
+            Bitmap ImageWindowTop = new Bitmap(ScreenList[_ScreenID].Width, _TopSide.Height, PixelFormat.Format24bppRgb);
+            Bitmap ImageWindowRight = new Bitmap(_RightSide.Width, ScreenList[_ScreenID].Height, PixelFormat.Format24bppRgb);
+            Bitmap ImageWindowBottom = new Bitmap(ScreenList[_ScreenID].Width, _BottomSide.Height, PixelFormat.Format24bppRgb);
             Graphics GFXScreenshotLeft = Graphics.FromImage(ImageWindowLeft);
             Graphics GFXScreenshotTop = Graphics.FromImage(ImageWindowTop);
             Graphics GFXScreenshotRight = Graphics.FromImage(ImageWindowRight);
             Graphics GFXScreenshotBottom = Graphics.FromImage(ImageWindowBottom);
 
-            Bitmap ImageWindowLeft2 = new Bitmap(_LeftSide.Width, Screen.AllScreens[_ScreenID].Bounds.Height, PixelFormat.Format24bppRgb);
-            Bitmap ImageWindowTop2 = new Bitmap(Screen.AllScreens[_ScreenID].Bounds.Width, _TopSide.Height, PixelFormat.Format24bppRgb);
-            Bitmap ImageWindowRight2 = new Bitmap(_RightSide.Width, Screen.AllScreens[_ScreenID].Bounds.Height, PixelFormat.Format24bppRgb);
-            Bitmap ImageWindowBottom2 = new Bitmap(Screen.AllScreens[_ScreenID].Bounds.Width, _BottomSide.Height, PixelFormat.Format24bppRgb);
+            Bitmap ImageWindowLeft2 = new Bitmap(_LeftSide.Width, ScreenList[_ScreenID].Height, PixelFormat.Format24bppRgb);
+            Bitmap ImageWindowTop2 = new Bitmap(ScreenList[_ScreenID].Width, _TopSide.Height, PixelFormat.Format24bppRgb);
+            Bitmap ImageWindowRight2 = new Bitmap(_RightSide.Width, ScreenList[_ScreenID].Height, PixelFormat.Format24bppRgb);
+            Bitmap ImageWindowBottom2 = new Bitmap(ScreenList[_ScreenID].Width, _BottomSide.Height, PixelFormat.Format24bppRgb);
             Graphics GFXScreenshotLeft2 = Graphics.FromImage(ImageWindowLeft2);
             Graphics GFXScreenshotTop2 = Graphics.FromImage(ImageWindowTop2);
             Graphics GFXScreenshotRight2 = Graphics.FromImage(ImageWindowRight2);
             Graphics GFXScreenshotBottom2 = Graphics.FromImage(ImageWindowBottom2);
 
-            int LeftCaptureX = Screen.AllScreens[_ScreenID].Bounds.X + _LeftSide.XOffSet;
-            int LeftCaptureY = Screen.AllScreens[_ScreenID].Bounds.Y + _LeftSide.YOffSet;
+            int LeftCaptureX = ScreenList[_ScreenID].X + _LeftSide.XOffSet;
+            int LeftCaptureY = ScreenList[_ScreenID].Y + _LeftSide.YOffSet;
             int LeftCaptureWidth = _LeftSide.Width;
-            int LeftCaptureHeight = Screen.AllScreens[_ScreenID].Bounds.Height;
-            int LeftFromI = Screen.AllScreens[_ScreenID].Bounds.Height - _LeftSide.Height;
+            int LeftCaptureHeight = ScreenList[_ScreenID].Height;
+            int LeftFromI = ScreenList[_ScreenID].Height - _LeftSide.Height;
             int LeftAddIWith = _LeftSide.Height + _LeftSide.BlockSpacing;
 
-            int TopCaptureX = Screen.AllScreens[_ScreenID].Bounds.X + _TopSide.XOffSet;
-            int TopCaptureY = Screen.AllScreens[_ScreenID].Bounds.Y + _TopSide.YOffSet;
-            int TopCaptureWidth = Screen.AllScreens[_ScreenID].Bounds.Width;
+            int TopCaptureX = ScreenList[_ScreenID].X + _TopSide.XOffSet;
+            int TopCaptureY = ScreenList[_ScreenID].Y + _TopSide.YOffSet;
+            int TopCaptureWidth = ScreenList[_ScreenID].Width;
             int TopCaptureHeight = _TopSide.Height;
-            int TopUntilI = (Screen.AllScreens[_ScreenID].Bounds.Width - _TopSide.Width);
+            int TopUntilI = (ScreenList[_ScreenID].Width - _TopSide.Width);
             int TopAddIWith = _TopSide.Width + _TopSide.BlockSpacing;
 
-            int RightCaptureX = (Screen.AllScreens[_ScreenID].Bounds.X + Screen.AllScreens[_ScreenID].Bounds.Width - _RightSide.Width) + _RightSide.XOffSet;
-            int RightCaptureY = Screen.AllScreens[_ScreenID].Bounds.Y + _RightSide.YOffSet;
+            int RightCaptureX = (ScreenList[_ScreenID].X + ScreenList[_ScreenID].Width - _RightSide.Width) + _RightSide.XOffSet;
+            int RightCaptureY = ScreenList[_ScreenID].Y + _RightSide.YOffSet;
             int RightCaptureWidth = _RightSide.Width;
-            int RightCaptureHeight = Screen.AllScreens[_ScreenID].Bounds.Height;
-            int RightUntilI = Screen.AllScreens[_ScreenID].Bounds.Height - _RightSide.Height;
+            int RightCaptureHeight = ScreenList[_ScreenID].Height;
+            int RightUntilI = ScreenList[_ScreenID].Height - _RightSide.Height;
             int RightAddIWith = _RightSide.Height + _RightSide.BlockSpacing;
 
-            int BottomCaptureX = Screen.AllScreens[_ScreenID].Bounds.X + _BottomSide.XOffSet;
-            int BottomCaptureY = (Screen.AllScreens[_ScreenID].Bounds.Y + Screen.AllScreens[_ScreenID].Bounds.Height - _BottomSide.Height) + _BottomSide.YOffSet;
-            int BottomCaptureWidth = Screen.AllScreens[_ScreenID].Bounds.Width;
+            int BottomCaptureX = ScreenList[_ScreenID].X + _BottomSide.XOffSet;
+            int BottomCaptureY = (ScreenList[_ScreenID].Y + ScreenList[_ScreenID].Height - _BottomSide.Height) + _BottomSide.YOffSet;
+            int BottomCaptureWidth = ScreenList[_ScreenID].Width;
             int BottomCaptureHeight = _BottomSide.Height;
-            int BottomFromI = Screen.AllScreens[_ScreenID].Bounds.Width - _BottomSide.Width;
+            int BottomFromI = ScreenList[_ScreenID].Width - _BottomSide.Width;
             int BottomAddIWith = _BottomSide.Width + _BottomSide.BlockSpacing;
 
             int WaitTime = -1;
