@@ -1,6 +1,6 @@
-![Error Loading Image](https://0apetq.db.files.1drv.com/y4m6XD4Km6TCergU4jwpiIzx3m6tbE5BFe25eHyLf_hLCbKXqCfZlCS8aKucGG23JEL4dY5NuVNMtxb820mWAgJjQCEYtfOarZcaQVj1Tmc_gIql95YVL4RSBXXsFSmM-64xZnvvbnKtWhRpF7_cP5-xaV0RPduygApRX3ncA90FD8uhR6lTd7K2hKYwbg4mYypUFaO6B4Gkubf6CWQTCgYug/toplabel.gif?psid=1?width=150&height=85&cropmode=none)
+### This project is now closed, and no further work will be done on it, all development resources transfered over to the creation of [ArduLED 2.0](https://github.com/kris701/ArduLED-2.0)
 
-### This project is work in progress, expect errors and mistakes
+![Error Loading Image](https://0apetq.db.files.1drv.com/y4m6XD4Km6TCergU4jwpiIzx3m6tbE5BFe25eHyLf_hLCbKXqCfZlCS8aKucGG23JEL4dY5NuVNMtxb820mWAgJjQCEYtfOarZcaQVj1Tmc_gIql95YVL4RSBXXsFSmM-64xZnvvbnKtWhRpF7_cP5-xaV0RPduygApRX3ncA90FD8uhR6lTd7K2hKYwbg4mYypUFaO6B4Gkubf6CWQTCgYug/toplabel.gif?psid=1?width=150&height=85&cropmode=none)
 
 Welcome, to the ArduLED project. What is this? you may ask, this is a program, both one for an Arduino and one for a computer, together makes it possible to control Neopixels (ws2812b). It features easy-to-do setup, that does not require much work.
 
