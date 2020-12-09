@@ -1,4 +1,4 @@
-### This project is now closed, and no further work will be done on it, all development resources transfered over to the creation of [ArduLED 2.0](https://github.com/kris701/ArduLED-2.0)
+### This project is now closed!
 
 ![Error Loading Image](https://0apetq.db.files.1drv.com/y4m6XD4Km6TCergU4jwpiIzx3m6tbE5BFe25eHyLf_hLCbKXqCfZlCS8aKucGG23JEL4dY5NuVNMtxb820mWAgJjQCEYtfOarZcaQVj1Tmc_gIql95YVL4RSBXXsFSmM-64xZnvvbnKtWhRpF7_cP5-xaV0RPduygApRX3ncA90FD8uhR6lTd7K2hKYwbg4mYypUFaO6B4Gkubf6CWQTCgYug/toplabel.gif?psid=1?width=150&height=85&cropmode=none)
 
